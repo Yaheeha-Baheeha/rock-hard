@@ -1,44 +1,77 @@
 [gd_scene format=3 uid="uid://menu001"]
 
-[ext_resource type="Script" path="res://menu.gd" id="1"]
+[ext_resource type="Script" uid="uid://c48k3w3qjl6vi" path="res://menu.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://hhe1hpokv44d" path="res://menu_icons/menu_0.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://b7k5ma685y5vb" path="res://menu_icons/pressed_0.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bq0f4yhm2dk4b" path="res://menu_icons/hover_0.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://d1x0kk8om4f12" path="res://menu_icons/focused_0.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://knx3vjas077y" path="res://menu_icons/menu_1.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://b17eguryy7fp1" path="res://menu_icons/pressed_1.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://j5l8g0jyvfyq" path="res://menu_icons/hover_1.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://d1q7v3j46loto" path="res://menu_icons/focused_1.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://cuwju42ojbxr2" path="res://Title Card.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://dh6c8r5vth6bb" path="res://resources/just_cyan.tres" id="11_h1wq0"]
 
-[node name="Menu" type="Control"]
+[node name="Menu" type="Control" unique_id=842991710]
 layout_mode = 3
 anchors_preset = 15
-script = ExtResource("1")
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=201796142]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -40.0
-offset_right = 100.0
-offset_bottom = 40.0
+offset_left = -200.0
+offset_top = -180.0
+offset_right = 200.0
+offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 24
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="Title" type="TextureRect" parent="VBoxContainer" unique_id=75696721]
 layout_mode = 2
-text = "Rock Hard"
-horizontal_alignment = 1
-vertical_alignment = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("10")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="PlayButton" type="Button" parent="VBoxContainer"]
+[node name="PlayButton" type="TextureButton" parent="VBoxContainer" unique_id=1660456279]
 layout_mode = 2
-text = "Play"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("2")
+texture_pressed = ExtResource("3")
+texture_hover = ExtResource("4")
+texture_focused = ExtResource("5")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="QuitButton" type="TextureButton" parent="VBoxContainer" unique_id=520117774]
 layout_mode = 2
-text = "Quit"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("6")
+texture_pressed = ExtResource("7")
+texture_hover = ExtResource("8")
+texture_focused = ExtResource("9")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="JustCyan" type="Sprite2D" parent="." unique_id=1795728968]
+z_index = -2
+position = Vector2(576, 4)
+scale = Vector2(4.5, 643.99994)
+texture = ExtResource("11_h1wq0")
 
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_pressed"]

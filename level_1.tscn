@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://game001"]
+
+[ext_resource type="Texture2D" uid="uid://dxrixfpf5bfse" path="res://parallax_background/volcano behindest_bg_1.png" id="1_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://0nxmkcnswimp" path="res://parallax_background/light_bg_1.png" id="2_7jktm"]
+[ext_resource type="Texture2D" uid="uid://byxjekmyuppou" path="res://parallax_background/mountains behind_bg_1.png" id="3_ryrav"]
+[ext_resource type="Texture2D" uid="uid://bbpw8txwhqeu5" path="res://parallax_background/fore rocks_bg_1.png" id="4_eow3j"]
+[ext_resource type="Script" uid="uid://bwshlci7b4bor" path="res://camera_2d.gd" id="5_rka8t"]
+
+[node name="Game" type="Node2D" unique_id=984303330]
+
+[node name="volcane behindest" type="Parallax2D" parent="." unique_id=1121143562]
+scroll_scale = Vector2(0.1, 1)
+scroll_offset = Vector2(16, 0)
+repeat_size = Vector2(1156, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="volcane behindest" unique_id=1985539903]
+position = Vector2(0, -340)
+scale = Vector2(4.25, 4.25)
+texture = ExtResource("1_fc0e3")
+centered = false
+
+[node name="light" type="Parallax2D" parent="." unique_id=1164303022]
+scroll_scale = Vector2(-0.49, 1)
+scroll_offset = Vector2(16, 0)
+repeat_size = Vector2(1423.645, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="light" unique_id=1900868095]
+position = Vector2(0, -340)
+scale = Vector2(4.25, 4.25)
+texture = ExtResource("2_7jktm")
+centered = false
+
+[node name="mountains behind" type="Parallax2D" parent="." unique_id=127650861]
+scroll_scale = Vector2(0.3, 1)
+scroll_offset = Vector2(16, 0)
+repeat_size = Vector2(1156, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="mountains behind" unique_id=1339053716]
+position = Vector2(0, -340)
+scale = Vector2(4.25, 4.25)
+texture = ExtResource("3_ryrav")
+centered = false
+
+[node name="fore rocks" type="Parallax2D" parent="." unique_id=1684100589]
+scroll_scale = Vector2(0.5, 1)
+scroll_offset = Vector2(16, 0)
+repeat_size = Vector2(1156, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="fore rocks" unique_id=2137624861]
+position = Vector2(0, -340)
+scale = Vector2(4.25, 4.25)
+texture = ExtResource("4_eow3j")
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=938913300]
+position = Vector2(200, 16)
+zoom = Vector2(1.1, 1.1)
+limit_top = -340
+limit_bottom = 340
+position_smoothing_enabled = true
+script = ExtResource("5_rka8t")

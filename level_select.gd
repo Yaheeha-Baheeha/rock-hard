@@ -5,7 +5,7 @@ extends Control
 var unlocked_levels: int = 1
 
 @onready var grid: GridContainer = %LevelGrid
-@onready var back_button: Button = %BackButton
+@onready var back_button: TextureButton = %BackButton
 
 
 func _ready() -> void:
@@ -15,9 +15,18 @@ func _ready() -> void:
 
 func _populate_levels() -> void:
 	for i in range(1, 29):
-		var btn := Button.new()
-		btn.text = str(i)
+		var idx := i - 1
+		var btn := TextureButton.new()
+		btn.texture_normal = load("res://level_icons/normal/level_%d.png" % idx)
+		btn.texture_pressed = load("res://level_icons/pressed/pressed_%d.png" % idx)
+		btn.texture_hover = load("res://level_icons/overlayed/overlayed%d.png" % idx)
+		btn.texture_focused = load("res://level_icons/focused/focused_%d.png" % idx)
+		btn.texture_disabled = load("res://level_icons/disabled/disabled_%d.png" % idx)
+		btn.ignore_texture_size = true
+		btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 		btn.custom_minimum_size = Vector2(64, 64)
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		if i <= unlocked_levels:
 			btn.pressed.connect(_on_level_pressed.bind(i))
 		else:

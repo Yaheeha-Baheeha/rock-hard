@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://c5yx8e7y5odni"]
 
 [ext_resource type="Script" uid="uid://rmy483ktjx2h" path="res://level_select.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dh6c8r5vth6bb" path="res://resources/just_cyan.tres" id="2_vomi7"]
+[ext_resource type="Texture2D" uid="uid://c5mngqyl36atv" path="res://back_buttons/back.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://b22am1addpk17" path="res://back_buttons/back_pressed.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://j43vleayjlo2" path="res://back_buttons/back_hover.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://dkw25npyy4k1d" path="res://back_buttons/back_focused.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://d1jgta7s415gc" path="res://level label.png" id="7_1iyaf"]
 
 [node name="LevelSelect" type="Control" unique_id=305416736]
 layout_mode = 3
@@ -27,6 +33,9 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 theme_override_constants/separation = 20
 
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=813062633]
+layout_mode = 2
+
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1521870221]
 layout_mode = 2
 text = "Select Level"
@@ -41,9 +50,35 @@ theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 7
 
-[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=2092204384]
+[node name="BackButton" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=2092204384]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Back"
+texture_normal = ExtResource("3")
+texture_pressed = ExtResource("4")
+texture_hover = ExtResource("5")
+texture_focused = ExtResource("6")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="JustCyan" type="Sprite2D" parent="." unique_id=839014139]
+z_index = -2
+position = Vector2(576, 4)
+scale = Vector2(4.5, 643.99994)
+texture = ExtResource("2_vomi7")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=178824771]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -379.8333
+offset_top = -295.0
+offset_right = 379.99994
+offset_bottom = -198.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_1iyaf")
