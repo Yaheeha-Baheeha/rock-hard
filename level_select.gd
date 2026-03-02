@@ -28,7 +28,7 @@ func _populate_levels() -> void:
 func _on_level_pressed(level: int) -> void:
 	print("Loading level ", level)
 	# TODO: load the actual level scene, e.g.:
-	# get_tree().change_scene_to_file("res://levels/level_%d.tscn" % level)
+	#get_tree().change_scene_to_file("res://levels/level_{i}.tscn" % level)
 
 
 func _on_back_pressed() -> void:
