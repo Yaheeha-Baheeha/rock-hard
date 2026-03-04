@@ -1,10 +1,15 @@
 [gd_scene format=3 uid="uid://game001"]
 
 [ext_resource type="Texture2D" uid="uid://dxrixfpf5bfse" path="res://parallax_background/volcano behindest_bg_1.png" id="1_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://dp657gl4mvewy" path="res://parallax_background/volcano behindest_bg_1_normal.png" id="2_5hph3"]
 [ext_resource type="Texture2D" uid="uid://0nxmkcnswimp" path="res://parallax_background/light_bg_1.png" id="2_7jktm"]
 [ext_resource type="Texture2D" uid="uid://byxjekmyuppou" path="res://parallax_background/mountains behind_bg_1.png" id="3_ryrav"]
 [ext_resource type="Texture2D" uid="uid://bbpw8txwhqeu5" path="res://parallax_background/fore rocks_bg_1.png" id="4_eow3j"]
 [ext_resource type="Script" uid="uid://bwshlci7b4bor" path="res://camera_2d.gd" id="5_rka8t"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_j7kpp"]
+diffuse_texture = ExtResource("1_fc0e3")
+normal_texture = ExtResource("2_5hph3")
 
 [node name="Game" type="Node2D" unique_id=984303330]
 
@@ -17,7 +22,7 @@ repeat_times = 3
 [node name="Sprite2D" type="Sprite2D" parent="volcane behindest" unique_id=1985539903]
 position = Vector2(0, -340)
 scale = Vector2(4.25, 4.25)
-texture = ExtResource("1_fc0e3")
+texture = SubResource("CanvasTexture_j7kpp")
 centered = false
 
 [node name="light" type="Parallax2D" parent="." unique_id=1164303022]
