@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://dp657gl4mvewy" path="res://parallax_background/volcano behindest_bg_1_normal.png" id="2_5hph3"]
 [ext_resource type="Texture2D" uid="uid://0nxmkcnswimp" path="res://parallax_background/light_bg_1.png" id="2_7jktm"]
 [ext_resource type="Texture2D" uid="uid://byxjekmyuppou" path="res://parallax_background/mountains behind_bg_1.png" id="3_ryrav"]
+[ext_resource type="Texture2D" uid="uid://cmpc6lnnhm0r4" path="res://pointlight.png" id="4_5rr72"]
 [ext_resource type="Texture2D" uid="uid://bbpw8txwhqeu5" path="res://parallax_background/fore rocks_bg_1.png" id="4_eow3j"]
 [ext_resource type="Texture2D" uid="uid://cleoweijfbhv7" path="res://parallax_background/mountains behind_bg_1_normal.png" id="5_bjebc"]
 [ext_resource type="Script" uid="uid://bwshlci7b4bor" path="res://camera_2d.gd" id="5_rka8t"]
 [ext_resource type="Texture2D" uid="uid://dfpraidrpjbdx" path="res://parallax_background/fore rocks_bg_1_normal.png" id="7_5rr72"]
-[ext_resource type="Texture2D" uid="uid://cotusba05t6kv" path="res://parallax_background/fore rocks_bg_1_specular.png" id="8_5rr72"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_j7kpp"]
 diffuse_texture = ExtResource("1_fc0e3")
@@ -21,7 +21,6 @@ normal_texture = ExtResource("5_bjebc")
 [sub_resource type="CanvasTexture" id="CanvasTexture_1pe0h"]
 diffuse_texture = ExtResource("4_eow3j")
 normal_texture = ExtResource("7_5rr72")
-specular_texture = ExtResource("8_5rr72")
 specular_shininess = 0.46
 
 [node name="Game" type="Node2D" unique_id=984303330]
@@ -31,9 +30,10 @@ scroll_scale = Vector2(0.1, 1)
 scroll_offset = Vector2(16, 0)
 repeat_size = Vector2(1156, 0)
 repeat_times = 3
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="volcane behindest" unique_id=1985539903]
-position = Vector2(0, -340)
+position = Vector2(-0.35498047, -336)
 scale = Vector2(4.25, 4.25)
 texture = SubResource("CanvasTexture_j7kpp")
 centered = false
@@ -43,21 +43,120 @@ scroll_scale = Vector2(-0.49, 1)
 scroll_offset = Vector2(16, 0)
 repeat_size = Vector2(1423.645, 0)
 repeat_times = 3
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="light" unique_id=1900868095]
-position = Vector2(0, -340)
+light_mask = 2
+position = Vector2(-0.35498047, -336)
 scale = Vector2(4.25, 4.25)
 texture = ExtResource("2_7jktm")
 centered = false
+
+[node name="PointLight2D" type="PointLight2D" parent="light/Sprite2D" unique_id=852045088]
+position = Vector2(-124.31882, 57.411774)
+rotation = -0.38709798
+scale = Vector2(0.28308824, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
+
+[node name="PointLight2D2" type="PointLight2D" parent="light/Sprite2D" unique_id=1659759807]
+position = Vector2(-81.02469, 44.2353)
+rotation = -0.38709798
+scale = Vector2(0.34734997, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
+
+[node name="PointLight2D3" type="PointLight2D" parent="light/Sprite2D" unique_id=423863391]
+position = Vector2(39.445892, 36.705883)
+rotation = -0.38709795
+scale = Vector2(0.57077277, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
+
+[node name="PointLight2D4" type="PointLight2D" parent="light/Sprite2D" unique_id=709104751]
+position = Vector2(135.44589, 29.176464)
+rotation = -0.38709795
+scale = Vector2(0.7255952, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
+
+[node name="PointLight2D5" type="PointLight2D" parent="light/Sprite2D" unique_id=683145278]
+position = Vector2(210.45529, 57.411785)
+rotation = -0.38709798
+scale = Vector2(0.28308824, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
+
+[node name="PointLight2D6" type="PointLight2D" parent="light/Sprite2D" unique_id=772215636]
+position = Vector2(253.74945, 44.2353)
+rotation = -0.38709798
+scale = Vector2(0.34734997, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
+
+[node name="PointLight2D7" type="PointLight2D" parent="light/Sprite2D" unique_id=35795661]
+position = Vector2(374.22003, 36.705894)
+rotation = -0.38709795
+scale = Vector2(0.57077277, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
+
+[node name="PointLight2D8" type="PointLight2D" parent="light/Sprite2D" unique_id=1812629476]
+position = Vector2(470.22, 29.176476)
+rotation = -0.38709795
+scale = Vector2(0.7255952, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
+
+[node name="PointLight2D9" type="PointLight2D" parent="light/Sprite2D" unique_id=589253194]
+position = Vector2(547.3965, 57.411797)
+rotation = -0.38709798
+scale = Vector2(0.28308824, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
+
+[node name="PointLight2D10" type="PointLight2D" parent="light/Sprite2D" unique_id=1848051182]
+position = Vector2(590.6907, 44.2353)
+rotation = -0.38709798
+scale = Vector2(0.34734997, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
+
+[node name="PointLight2D11" type="PointLight2D" parent="light/Sprite2D" unique_id=1361540185]
+position = Vector2(711.16125, 36.705906)
+rotation = -0.38709795
+scale = Vector2(0.57077277, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
+
+[node name="PointLight2D12" type="PointLight2D" parent="light/Sprite2D" unique_id=399838665]
+position = Vector2(807.16113, 29.176487)
+rotation = -0.38709795
+scale = Vector2(0.7255952, 0.6271363)
+color = Color(0.93503183, 0.2881262, 5.7756904e-07, 1)
+energy = 2.82
+texture = ExtResource("4_5rr72")
 
 [node name="mountains behind" type="Parallax2D" parent="." unique_id=127650861]
 scroll_scale = Vector2(0.3, 1)
 scroll_offset = Vector2(16, 0)
 repeat_size = Vector2(1156, 0)
 repeat_times = 3
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="mountains behind" unique_id=1339053716]
-position = Vector2(0, -340)
+position = Vector2(-0.35498047, -336)
 scale = Vector2(4.25, 4.25)
 texture = SubResource("CanvasTexture_gyffv")
 centered = false
@@ -67,9 +166,10 @@ scroll_scale = Vector2(0.5, 1)
 scroll_offset = Vector2(16, 0)
 repeat_size = Vector2(1156, 0)
 repeat_times = 3
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="fore rocks" unique_id=2137624861]
-position = Vector2(0, -340)
+position = Vector2(-0.35498047, -336)
 scale = Vector2(4.25, 4.25)
 texture = SubResource("CanvasTexture_1pe0h")
 centered = false
@@ -81,3 +181,4 @@ limit_top = -340
 limit_bottom = 340
 position_smoothing_enabled = true
 script = ExtResource("5_rka8t")
+metadata/_edit_lock_ = true
