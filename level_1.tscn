@@ -5,11 +5,24 @@
 [ext_resource type="Texture2D" uid="uid://0nxmkcnswimp" path="res://parallax_background/light_bg_1.png" id="2_7jktm"]
 [ext_resource type="Texture2D" uid="uid://byxjekmyuppou" path="res://parallax_background/mountains behind_bg_1.png" id="3_ryrav"]
 [ext_resource type="Texture2D" uid="uid://bbpw8txwhqeu5" path="res://parallax_background/fore rocks_bg_1.png" id="4_eow3j"]
+[ext_resource type="Texture2D" uid="uid://cleoweijfbhv7" path="res://parallax_background/mountains behind_bg_1_normal.png" id="5_bjebc"]
 [ext_resource type="Script" uid="uid://bwshlci7b4bor" path="res://camera_2d.gd" id="5_rka8t"]
+[ext_resource type="Texture2D" uid="uid://dfpraidrpjbdx" path="res://parallax_background/fore rocks_bg_1_normal.png" id="7_5rr72"]
+[ext_resource type="Texture2D" uid="uid://cotusba05t6kv" path="res://parallax_background/fore rocks_bg_1_specular.png" id="8_5rr72"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_j7kpp"]
 diffuse_texture = ExtResource("1_fc0e3")
 normal_texture = ExtResource("2_5hph3")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_gyffv"]
+diffuse_texture = ExtResource("3_ryrav")
+normal_texture = ExtResource("5_bjebc")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_1pe0h"]
+diffuse_texture = ExtResource("4_eow3j")
+normal_texture = ExtResource("7_5rr72")
+specular_texture = ExtResource("8_5rr72")
+specular_shininess = 0.46
 
 [node name="Game" type="Node2D" unique_id=984303330]
 
@@ -46,7 +59,7 @@ repeat_times = 3
 [node name="Sprite2D" type="Sprite2D" parent="mountains behind" unique_id=1339053716]
 position = Vector2(0, -340)
 scale = Vector2(4.25, 4.25)
-texture = ExtResource("3_ryrav")
+texture = SubResource("CanvasTexture_gyffv")
 centered = false
 
 [node name="fore rocks" type="Parallax2D" parent="." unique_id=1684100589]
@@ -58,7 +71,7 @@ repeat_times = 3
 [node name="Sprite2D" type="Sprite2D" parent="fore rocks" unique_id=2137624861]
 position = Vector2(0, -340)
 scale = Vector2(4.25, 4.25)
-texture = ExtResource("4_eow3j")
+texture = SubResource("CanvasTexture_1pe0h")
 centered = false
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=938913300]
