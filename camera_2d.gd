@@ -1,8 +1,15 @@
 extends Camera2D
 
 @export var speed: float = 2000.0
+@export var target_path: NodePath
+
+@onready var target: Node2D = get_node_or_null(target_path)
 
 func _process(delta):
+	if target:
+		global_position = target.global_position
+		return
+
 	var direction := Vector2.ZERO
 	
 	if Input.is_action_pressed("jump") or Input.is_key_pressed(KEY_W):

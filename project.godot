@@ -48,6 +48,13 @@ right={
 ]
 }
 
+[display]
+
+window/size/viewport_width=1156
+window/size/viewport_height=672
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
