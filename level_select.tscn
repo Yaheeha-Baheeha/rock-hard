@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://rmy483ktjx2h" path="res://level_select.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dh6c8r5vth6bb" path="res://resources/just_cyan.tres" id="2_vomi7"]
-[ext_resource type="Texture2D" uid="uid://c5mngqyl36atv" path="res://back_buttons/back.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://b22am1addpk17" path="res://back_buttons/back_pressed.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://j43vleayjlo2" path="res://back_buttons/back_hover.png" id="5"]
-[ext_resource type="Texture2D" uid="uid://dkw25npyy4k1d" path="res://back_buttons/back_focused.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://c5mngqyl36atv" path="res://Textures/back_buttons/back.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://b22am1addpk17" path="res://Textures/back_buttons/back_pressed.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://j43vleayjlo2" path="res://Textures/back_buttons/back_hover.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://dkw25npyy4k1d" path="res://Textures/back_buttons/back_focused.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://d1jgta7s415gc" path="res://level label.png" id="7_1iyaf"]
 
 [node name="LevelSelect" type="Control" unique_id=305416736]
