@@ -682,6 +682,7 @@ metadata/_custom_type_script = "uid://kol6k5y6rb8a"
 [node name="Skeleton2D" type="Skeleton2D" parent="SoftBody2D" unique_id=1431163369]
 visible = false
 modification_stack = SubResource("SkeletonModificationStack2D_layrk")
+metadata/_edit_lock_ = true
 
 [node name="Bone-0" type="Bone2D" parent="SoftBody2D/Skeleton2D" unique_id=1830811522]
 position = Vector2(21.86625, 23.738571)
@@ -1122,7 +1123,8 @@ metadata/_local_pose_override_enabled_ = true
 
 [node name="Bone-33" type="Bone2D" parent="SoftBody2D/Skeleton2D" unique_id=1005027913]
 position = Vector2(65.92846, 82.50204)
-rotation = 1.5737423
+rotation = -1.0496318
+scale = Vector2(0.9999934, 0.9999934)
 rest = Transform2D(-0.0029459393, 0.99999565, -0.99999565, -0.0029459393, 65.92846, 82.50204)
 auto_calculate_length_and_angle = false
 length = 19.0
@@ -1418,6 +1420,7 @@ position = Vector2(21.86625, 23.738575)
 mass = 0.1
 metadata/idx = 0
 metadata/bone_name = &"Bone-0"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-0" unique_id=2062044644]
 visible = false
@@ -1458,6 +1461,7 @@ position = Vector2(19.30438, 39.509945)
 mass = 0.1
 metadata/idx = 1
 metadata/bone_name = &"Bone-1"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-1" unique_id=1856596860]
 visible = false
@@ -1514,6 +1518,7 @@ position = Vector2(8.846339, 48.84713)
 mass = 0.1
 metadata/idx = 2
 metadata/bone_name = &"Bone-2"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-2" unique_id=305501449]
 visible = false
@@ -1554,6 +1559,7 @@ position = Vector2(19.396328, 57.587833)
 mass = 0.1
 metadata/idx = 3
 metadata/bone_name = &"Bone-3"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-3" unique_id=790480930]
 visible = false
@@ -1618,6 +1624,7 @@ position = Vector2(8.484728, 66.52458)
 mass = 0.1
 metadata/idx = 4
 metadata/bone_name = &"Bone-4"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-4" unique_id=1178296776]
 visible = false
@@ -1666,6 +1673,7 @@ position = Vector2(19.407118, 75.46901)
 mass = 0.1
 metadata/idx = 5
 metadata/bone_name = &"Bone-5"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-5" unique_id=589775848]
 visible = false
@@ -1730,6 +1738,7 @@ position = Vector2(8.361541, 84.20265)
 mass = 0.1
 metadata/idx = 6
 metadata/bone_name = &"Bone-6"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-6" unique_id=98744934]
 visible = false
@@ -1770,6 +1779,7 @@ position = Vector2(19.072569, 93.5352)
 mass = 0.1
 metadata/idx = 7
 metadata/bone_name = &"Bone-7"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-7" unique_id=1312443854]
 visible = false
@@ -1826,6 +1836,7 @@ position = Vector2(21.391058, 109.68796)
 mass = 0.1
 metadata/idx = 8
 metadata/bone_name = &"Bone-8"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-8" unique_id=1890422273]
 visible = false
@@ -1866,6 +1877,7 @@ position = Vector2(51.540173, 7.658985)
 mass = 0.1
 metadata/idx = 9
 metadata/bone_name = &"Bone-9"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-9" unique_id=1779916391]
 visible = false
@@ -1906,6 +1918,7 @@ position = Vector2(35.95013, 14.591801)
 mass = 0.1
 metadata/idx = 10
 metadata/bone_name = &"Bone-10"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-10" unique_id=1840557676]
 visible = false
@@ -1954,6 +1967,7 @@ position = Vector2(50.372124, 21.825344)
 mass = 0.1
 metadata/idx = 11
 metadata/bone_name = &"Bone-11"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-11" unique_id=235561605]
 visible = false
@@ -2018,6 +2032,7 @@ position = Vector2(34.881275, 30.760534)
 mass = 0.1
 metadata/idx = 12
 metadata/bone_name = &"Bone-12"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-12" unique_id=1479045018]
 visible = false
@@ -2082,6 +2097,7 @@ position = Vector2(50.889645, 40.58277)
 mass = 0.1
 metadata/idx = 13
 metadata/bone_name = &"Bone-13"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-13" unique_id=314048829]
 visible = false
@@ -2146,6 +2162,7 @@ position = Vector2(35.503487, 49.00615)
 mass = 0.1
 metadata/idx = 14
 metadata/bone_name = &"Bone-14"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-14" unique_id=2067041595]
 visible = false
@@ -2210,6 +2227,7 @@ position = Vector2(51.95454, 58.512028)
 mass = 0.1
 metadata/idx = 15
 metadata/bone_name = &"Bone-15"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-15" unique_id=152887117]
 visible = false
@@ -2274,6 +2292,7 @@ position = Vector2(35.908638, 66.54465)
 mass = 0.1
 metadata/idx = 16
 metadata/bone_name = &"Bone-16"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-16" unique_id=1864967804]
 visible = false
@@ -2338,6 +2357,7 @@ position = Vector2(52.01943, 74.605095)
 mass = 0.1
 metadata/idx = 17
 metadata/bone_name = &"Bone-17"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-17" unique_id=990991980]
 visible = false
@@ -2402,6 +2422,7 @@ position = Vector2(35.536793, 84.05275)
 mass = 0.1
 metadata/idx = 18
 metadata/bone_name = &"Bone-18"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-18" unique_id=1439666207]
 visible = false
@@ -2466,6 +2487,7 @@ position = Vector2(50.92949, 92.44119)
 mass = 0.1
 metadata/idx = 19
 metadata/bone_name = &"Bone-19"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-19" unique_id=465909496]
 visible = false
@@ -2530,6 +2552,7 @@ position = Vector2(34.910625, 102.26541)
 mass = 0.1
 metadata/idx = 20
 metadata/bone_name = &"Bone-20"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-20" unique_id=1003912847]
 visible = false
@@ -2594,6 +2617,7 @@ position = Vector2(50.39109, 111.1815)
 mass = 0.1
 metadata/idx = 21
 metadata/bone_name = &"Bone-21"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-21" unique_id=1770154440]
 visible = false
@@ -2658,6 +2682,7 @@ position = Vector2(35.737263, 118.91904)
 mass = 0.1
 metadata/idx = 22
 metadata/bone_name = &"Bone-22"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-22" unique_id=611792681]
 visible = false
@@ -2706,6 +2731,7 @@ position = Vector2(51.269825, 125.845695)
 mass = 0.1
 metadata/idx = 23
 metadata/bone_name = &"Bone-23"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-23" unique_id=1521801029]
 visible = false
@@ -2746,6 +2772,7 @@ position = Vector2(80.43189, 7.6705585)
 mass = 0.1
 metadata/idx = 24
 metadata/bone_name = &"Bone-24"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-24" unique_id=826593659]
 visible = false
@@ -2786,6 +2813,7 @@ position = Vector2(65.853516, 12.499788)
 mass = 0.1
 metadata/idx = 25
 metadata/bone_name = &"Bone-25"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-25" unique_id=1752429100]
 visible = false
@@ -2842,6 +2870,7 @@ position = Vector2(81.33589, 21.850079)
 mass = 0.1
 metadata/idx = 26
 metadata/bone_name = &"Bone-26"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-26" unique_id=1169824008]
 visible = false
@@ -2906,6 +2935,7 @@ position = Vector2(65.87107, 31.499529)
 mass = 0.1
 metadata/idx = 27
 metadata/bone_name = &"Bone-27"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-27" unique_id=1896249480]
 visible = false
@@ -2970,6 +3000,7 @@ position = Vector2(80.83906, 40.635433)
 mass = 0.1
 metadata/idx = 28
 metadata/bone_name = &"Bone-28"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-28" unique_id=988962536]
 visible = false
@@ -3034,6 +3065,7 @@ position = Vector2(65.9228, 50.498165)
 mass = 0.1
 metadata/idx = 29
 metadata/bone_name = &"Bone-29"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-29" unique_id=1466593795]
 visible = false
@@ -3098,6 +3130,7 @@ position = Vector2(79.73874, 58.606396)
 mass = 0.1
 metadata/idx = 30
 metadata/bone_name = &"Bone-30"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-30" unique_id=99003272]
 visible = false
@@ -3162,6 +3195,7 @@ position = Vector2(66.5, 67)
 mass = 0.1
 metadata/idx = 31
 metadata/bone_name = &"Bone-31"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-31" unique_id=1894164815]
 visible = false
@@ -3226,6 +3260,7 @@ position = Vector2(79.66677, 74.513176)
 mass = 0.1
 metadata/idx = 32
 metadata/bone_name = &"Bone-32"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-32" unique_id=792488042]
 visible = false
@@ -3290,6 +3325,7 @@ position = Vector2(65.92846, 82.50204)
 mass = 0.1
 metadata/idx = 33
 metadata/bone_name = &"Bone-33"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-33" unique_id=1162797049]
 visible = false
@@ -3354,6 +3390,7 @@ position = Vector2(80.80003, 92.38617)
 mass = 0.1
 metadata/idx = 34
 metadata/bone_name = &"Bone-34"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-34" unique_id=278201811]
 visible = false
@@ -3418,6 +3455,7 @@ position = Vector2(65.87249, 101.500496)
 mass = 0.1
 metadata/idx = 35
 metadata/bone_name = &"Bone-35"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-35" unique_id=1462609119]
 visible = false
@@ -3482,6 +3520,7 @@ position = Vector2(81.31797, 111.155876)
 mass = 0.1
 metadata/idx = 36
 metadata/bone_name = &"Bone-36"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-36" unique_id=630724209]
 visible = false
@@ -3546,6 +3585,7 @@ position = Vector2(65.85383, 121.00021)
 mass = 0.1
 metadata/idx = 37
 metadata/bone_name = &"Bone-37"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-37" unique_id=1918687254]
 visible = false
@@ -3602,6 +3642,7 @@ position = Vector2(80.45879, 125.83104)
 mass = 0.1
 metadata/idx = 38
 metadata/bone_name = &"Bone-38"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-38" unique_id=1711330372]
 visible = false
@@ -3642,6 +3683,7 @@ position = Vector2(95.96752, 14.120575)
 mass = 0.1
 metadata/idx = 39
 metadata/bone_name = &"Bone-39"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-39" unique_id=2136275278]
 visible = false
@@ -3690,6 +3732,7 @@ position = Vector2(110.47633, 23.363087)
 mass = 0.1
 metadata/idx = 40
 metadata/bone_name = &"Bone-40"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-40" unique_id=440608351]
 visible = false
@@ -3730,6 +3773,7 @@ position = Vector2(96.80128, 30.80044)
 mass = 0.1
 metadata/idx = 41
 metadata/bone_name = &"Bone-41"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-41" unique_id=1889271611]
 visible = false
@@ -3794,6 +3838,7 @@ position = Vector2(113.02935, 39.247677)
 mass = 0.1
 metadata/idx = 42
 metadata/bone_name = &"Bone-42"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-42" unique_id=517589463]
 visible = false
@@ -3850,6 +3895,7 @@ position = Vector2(96.16019, 49.053074)
 mass = 0.1
 metadata/idx = 43
 metadata/bone_name = &"Bone-43"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-43" unique_id=1701515951]
 visible = false
@@ -3914,6 +3960,7 @@ position = Vector2(112.24274, 57.60365)
 mass = 0.1
 metadata/idx = 44
 metadata/bone_name = &"Bone-44"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-44" unique_id=465522273]
 visible = false
@@ -3978,6 +4025,7 @@ position = Vector2(95.72725, 66.54654)
 mass = 0.1
 metadata/idx = 45
 metadata/bone_name = &"Bone-45"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-45" unique_id=1199521370]
 visible = false
@@ -4042,6 +4090,7 @@ position = Vector2(112.23136, 75.45461)
 mass = 0.1
 metadata/idx = 46
 metadata/bone_name = &"Bone-46"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-46" unique_id=836882406]
 visible = false
@@ -4106,6 +4155,7 @@ position = Vector2(96.12511, 84.00643)
 mass = 0.1
 metadata/idx = 47
 metadata/bone_name = &"Bone-47"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-47" unique_id=1608876784]
 visible = false
@@ -4170,6 +4220,7 @@ position = Vector2(113.006355, 93.79154)
 mass = 0.1
 metadata/idx = 48
 metadata/bone_name = &"Bone-48"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-48" unique_id=957547595]
 visible = false
@@ -4226,6 +4277,7 @@ position = Vector2(96.771576, 102.224754)
 mass = 0.1
 metadata/idx = 49
 metadata/bone_name = &"Bone-49"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-49" unique_id=1523611448]
 visible = false
@@ -4290,6 +4342,7 @@ position = Vector2(110.46476, 110.14864)
 mass = 0.1
 metadata/idx = 50
 metadata/bone_name = &"Bone-50"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-50" unique_id=919942495]
 visible = false
@@ -4330,6 +4383,7 @@ position = Vector2(96.226654, 118.95442)
 mass = 0.1
 metadata/idx = 51
 metadata/bone_name = &"Bone-51"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-51" unique_id=838381014]
 visible = false
@@ -4378,6 +4432,7 @@ position = Vector2(123.97849, 48.422623)
 mass = 0.1
 metadata/idx = 52
 metadata/bone_name = &"Bone-52"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-52" unique_id=881470416]
 visible = false
@@ -4418,6 +4473,7 @@ position = Vector2(123.833206, 66.524864)
 mass = 0.1
 metadata/idx = 53
 metadata/bone_name = &"Bone-53"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-53" unique_id=1704894499]
 visible = false
@@ -4466,6 +4522,7 @@ position = Vector2(123.964905, 84.62052)
 mass = 0.1
 metadata/idx = 54
 metadata/bone_name = &"Bone-54"
+metadata/_edit_lock_ = true
 
 [node name="CircleShape2D" type="CollisionShape2D" parent="SoftBody2D/Bone-54" unique_id=515888942]
 visible = false
