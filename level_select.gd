@@ -17,11 +17,11 @@ func _populate_levels() -> void:
 	for i in range(1, 29):
 		var idx := i - 1
 		var btn := TextureButton.new()
-		btn.texture_normal = load("res://level_icons/normal/level_%d.png" % idx)
-		btn.texture_pressed = load("res://level_icons/pressed/pressed_%d.png" % idx)
-		btn.texture_hover = load("res://level_icons/overlayed/overlayed%d.png" % idx)
-		btn.texture_focused = load("res://level_icons/focused/focused_%d.png" % idx)
-		btn.texture_disabled = load("res://level_icons/disabled/disabled_%d.png" % idx)
+		btn.texture_normal = load("res://Textures/level_icons/normal/level_%d.png" % idx)
+		btn.texture_pressed = load("res://Textures/level_icons/pressed/pressed_%d.png" % idx)
+		btn.texture_hover = load("res://Textures/level_icons/overlayed/overlayed%d.png" % idx)
+		btn.texture_focused = load("res://Textures/level_icons/focused/focused_%d.png" % idx)
+		btn.texture_disabled = load("res://Textures/level_icons/disabled/disabled_%d.png" % idx)
 		btn.ignore_texture_size = true
 		btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 		btn.custom_minimum_size = Vector2(64, 64)
@@ -35,9 +35,11 @@ func _populate_levels() -> void:
 
 
 func _on_level_pressed(level: int) -> void:
-	print("Loading level ", level)
-	# TODO: load the actual level scene, e.g.:
-	#get_tree().change_scene_to_file("res://levels/level_{i}.tscn" % level)
+	var scene_path := "res://level_%d.tscn" % level
+	if ResourceLoader.exists(scene_path):
+		get_tree().change_scene_to_file(scene_path)
+	else:
+		push_warning("Level scene not found: %s" % scene_path)
 
 
 func _on_back_pressed() -> void:
