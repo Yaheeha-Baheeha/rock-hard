@@ -23,8 +23,7 @@ diffuse_texture = ExtResource("4_eow3j")
 normal_texture = ExtResource("7_5rr72")
 specular_shininess = 0.46
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sof0w"]
-size = Vector2(7924, 360)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5rr72"]
 
 [node name="Game" type="Node2D" unique_id=984303330]
 
@@ -185,7 +184,7 @@ centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=169856850]
 position = Vector2(382, 345)
-shape = SubResource("RectangleShape2D_sof0w")
+shape = SubResource("WorldBoundaryShape2D_5rr72")
 debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="Node2D" parent="." unique_id=438420809 instance=ExtResource("10_gyffv")]
