@@ -8,7 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bbpw8txwhqeu5" path="res://Textures/parallax_background/fore rocks_bg_1.png" id="4_eow3j"]
 [ext_resource type="Texture2D" uid="uid://cleoweijfbhv7" path="res://Textures/parallax_background/mountains behind_bg_1_normal.png" id="5_bjebc"]
 [ext_resource type="Texture2D" uid="uid://dfpraidrpjbdx" path="res://Textures/parallax_background/fore rocks_bg_1_normal.png" id="7_5rr72"]
-[ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="10_gyffv"]
+[ext_resource type="PackedScene" path="res://Player.tscn" id="10_gyffv"]
+[ext_resource type="PackedScene" path="res://lava_system.tscn" id="11_lava"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_j7kpp"]
 diffuse_texture = ExtResource("1_fc0e3")
@@ -190,3 +191,6 @@ debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="Node2D" parent="." unique_id=438420809 instance=ExtResource("10_gyffv")]
 position = Vector2(157, -69)
+
+[node name="LavaSystem" parent="." unique_id=2034058053 instance=ExtResource("11_lava")]
+position = Vector2(400, 350)
