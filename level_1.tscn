@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bbpw8txwhqeu5" path="res://Textures/parallax_background/fore rocks_bg_1.png" id="4_eow3j"]
 [ext_resource type="Texture2D" uid="uid://cleoweijfbhv7" path="res://Textures/parallax_background/mountains behind_bg_1_normal.png" id="5_bjebc"]
 [ext_resource type="Texture2D" uid="uid://dfpraidrpjbdx" path="res://Textures/parallax_background/fore rocks_bg_1_normal.png" id="7_5rr72"]
-[ext_resource type="PackedScene" path="res://Player.tscn" id="10_gyffv"]
-[ext_resource type="PackedScene" path="res://lava_system.tscn" id="11_lava"]
+[ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="10_gyffv"]
+[ext_resource type="PackedScene" uid="uid://kmnaaxib5xch" path="res://lava_system.tscn" id="11_lava"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_j7kpp"]
 diffuse_texture = ExtResource("1_fc0e3")
@@ -115,7 +115,7 @@ energy = 2.82
 texture = ExtResource("4_5rr72")
 
 [node name="PointLight2D8" type="PointLight2D" parent="light/Sprite2D" unique_id=1812629476]
-position = Vector2(470.22, 29.176476)
+position = Vector2(463.60196, 22.683004)
 rotation = -0.38709795
 scale = Vector2(0.7255952, 0.6271363)
 color = Color(1, 0.5990026, 0.47948796, 1)
@@ -131,7 +131,7 @@ energy = 2.82
 texture = ExtResource("4_5rr72")
 
 [node name="PointLight2D10" type="PointLight2D" parent="light/Sprite2D" unique_id=1848051182]
-position = Vector2(590.6907, 44.2353)
+position = Vector2(527.55786, 57.10857)
 rotation = -0.38709798
 scale = Vector2(0.34734997, 0.6271363)
 color = Color(1, 0.5990026, 0.47948796, 1)
@@ -183,6 +183,7 @@ texture = SubResource("CanvasTexture_1pe0h")
 centered = false
 
 [node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=662540377]
+collision_layer = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=169856850]
 position = Vector2(382, 345)
@@ -193,4 +194,4 @@ debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 position = Vector2(157, -69)
 
 [node name="LavaSystem" parent="." unique_id=2034058053 instance=ExtResource("11_lava")]
-position = Vector2(400, 350)
+position = Vector2(669, -388)
