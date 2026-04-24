@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dxkit0xecxafi"]
 
+[ext_resource type="PackedScene" path="res://Hammer.tscn" id="4_4ptq8"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="10_gyffv"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="11_13y8f"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="12_hazard"]
@@ -47,3 +48,6 @@ debug_color = Color(0.72944677, 0.4236925, 0.56939113, 0.41960785)
 
 [node name="RespawnPoint" type="Marker2D" parent="." unique_id=83837171]
 position = Vector2(133, -94)
+
+[node name="Hammer" parent="." unique_id=1137941089 instance=ExtResource("4_4ptq8")]
+position = Vector2(286, 72)
