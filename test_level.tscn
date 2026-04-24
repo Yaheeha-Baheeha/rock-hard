@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dxkit0xecxafi"]
+
+[ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="10_gyffv"]
+[ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="11_13y8f"]
+[ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="12_hazard"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5rr72"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
+size = Vector2(707, 333)
+
+[node name="Game" type="Node2D" unique_id=984303330]
+
+[node name="background" parent="." unique_id=932514271 instance=ExtResource("11_13y8f")]
+
+[node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=662540377]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=169856850]
+position = Vector2(-280, 345)
+shape = SubResource("WorldBoundaryShape2D_5rr72")
+debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
+
+[node name="Node2D" parent="." unique_id=438420809 instance=ExtResource("10_gyffv")]
+position = Vector2(157, -69)
+
+[node name="DeahConditionRigid" type="Area2D" parent="." unique_id=597379517]
+script = ExtResource("12_hazard")
+player_root_path = NodePath("../Node2D/SoftBody2D")
+softbody_path = NodePath("../Node2D/SoftBody2D")
+player_controller_path = NodePath("../Node2D/SoftBodyController")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeahConditionRigid" unique_id=1801026574]
+position = Vector2(1003, 112)
+shape = SubResource("RectangleShape2D_hbghi")
+
+[node name="DeahConditionStatic" type="Area2D" parent="." unique_id=2000996348]
+script = ExtResource("12_hazard")
+player_root_path = NodePath("../Node2D/SoftBody2D")
+softbody_path = NodePath("../Node2D/SoftBody2D")
+player_controller_path = NodePath("../Node2D/SoftBodyController")
+ceramic_type = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeahConditionStatic" unique_id=1440005751]
+position = Vector2(-714, 130)
+shape = SubResource("RectangleShape2D_hbghi")
+debug_color = Color(0.72944677, 0.4236925, 0.56939113, 0.41960785)
+
+[node name="RespawnPoint" type="Marker2D" parent="." unique_id=83837171]
+position = Vector2(133, -94)

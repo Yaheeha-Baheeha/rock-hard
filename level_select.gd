@@ -35,7 +35,7 @@ func _populate_levels() -> void:
 
 
 func _on_level_pressed(level: int) -> void:
-	var scene_path := "res://level_%d.tscn" % level
+	var scene_path := "res://test_level.tscn" if level == 1 else "res://level_%d.tscn" % level
 	if ResourceLoader.exists(scene_path):
 		get_tree().change_scene_to_file(scene_path)
 	else:
