@@ -22,23 +22,23 @@ diffuse_texture = ExtResource("4_eow3j")
 normal_texture = ExtResource("7_5rr72")
 specular_shininess = 0.46
 
-[node name="background" type="Node2D"]
+[node name="background" type="Node2D" unique_id=979663656]
 
-[node name="volcane behindest" type="Parallax2D" parent="."]
+[node name="volcane behindest" type="Parallax2D" parent="." unique_id=1263902971]
 scale = Vector2(1.49, 1.49)
 scroll_scale = Vector2(0.1, 1)
 scroll_offset = Vector2(16, 0)
-repeat_size = Vector2(1156, 0)
+repeat_size = Vector2(2176, 0)
 repeat_times = 3
 metadata/_edit_lock_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="volcane behindest"]
-position = Vector2(-0.35498047, -336)
-scale = Vector2(4.25, 4.25)
+[node name="Sprite2D" type="Sprite2D" parent="volcane behindest" unique_id=1083531343]
+position = Vector2(-0.355, -640)
+scale = Vector2(8, 8)
 texture = SubResource("CanvasTexture_j7kpp")
 centered = false
 
-[node name="light" type="Parallax2D" parent="."]
+[node name="light" type="Parallax2D" parent="." unique_id=1464786871]
 scale = Vector2(1.49, 1.49)
 scroll_scale = Vector2(-0.49, 1)
 scroll_offset = Vector2(16, 0)
@@ -46,14 +46,14 @@ repeat_size = Vector2(1423.645, 0)
 repeat_times = 3
 metadata/_edit_lock_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="light"]
+[node name="Sprite2D" type="Sprite2D" parent="light" unique_id=1468443370]
 light_mask = 2
 position = Vector2(-0.35498047, -336)
 scale = Vector2(4.25, 4.25)
 texture = ExtResource("2_7jktm")
 centered = false
 
-[node name="PointLight2D" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D" type="PointLight2D" parent="light/Sprite2D" unique_id=469905916]
 position = Vector2(-124.31882, 57.411774)
 rotation = -0.38709798
 scale = Vector2(0.28308824, 0.6271363)
@@ -61,7 +61,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="PointLight2D2" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D2" type="PointLight2D" parent="light/Sprite2D" unique_id=463497713]
 position = Vector2(-81.02469, 44.2353)
 rotation = -0.38709798
 scale = Vector2(0.34734997, 0.6271363)
@@ -69,7 +69,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="PointLight2D3" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D3" type="PointLight2D" parent="light/Sprite2D" unique_id=749558515]
 position = Vector2(39.445892, 36.705883)
 rotation = -0.38709795
 scale = Vector2(0.57077277, 0.6271363)
@@ -77,7 +77,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="PointLight2D4" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D4" type="PointLight2D" parent="light/Sprite2D" unique_id=512761438]
 position = Vector2(135.44589, 29.176464)
 rotation = -0.38709795
 scale = Vector2(0.7255952, 0.6271363)
@@ -85,7 +85,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="PointLight2D5" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D5" type="PointLight2D" parent="light/Sprite2D" unique_id=1580391570]
 position = Vector2(210.45529, 57.411785)
 rotation = -0.38709798
 scale = Vector2(0.28308824, 0.6271363)
@@ -93,7 +93,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="PointLight2D6" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D6" type="PointLight2D" parent="light/Sprite2D" unique_id=273767341]
 position = Vector2(253.74945, 44.2353)
 rotation = -0.38709798
 scale = Vector2(0.34734997, 0.6271363)
@@ -101,7 +101,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="PointLight2D7" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D7" type="PointLight2D" parent="light/Sprite2D" unique_id=1941489665]
 position = Vector2(374.22003, 36.705894)
 rotation = -0.38709795
 scale = Vector2(0.57077277, 0.6271363)
@@ -109,7 +109,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="PointLight2D8" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D8" type="PointLight2D" parent="light/Sprite2D" unique_id=1993584079]
 position = Vector2(470.22, 29.176476)
 rotation = -0.38709795
 scale = Vector2(0.7255952, 0.6271363)
@@ -117,7 +117,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="PointLight2D9" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D9" type="PointLight2D" parent="light/Sprite2D" unique_id=624134290]
 position = Vector2(547.3965, 57.411797)
 rotation = -0.38709798
 scale = Vector2(0.28308824, 0.6271363)
@@ -125,7 +125,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="PointLight2D10" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D10" type="PointLight2D" parent="light/Sprite2D" unique_id=367816219]
 position = Vector2(590.6907, 44.2353)
 rotation = -0.38709798
 scale = Vector2(0.34734997, 0.6271363)
@@ -133,7 +133,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="PointLight2D11" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D11" type="PointLight2D" parent="light/Sprite2D" unique_id=968962831]
 position = Vector2(711.16125, 36.705906)
 rotation = -0.38709795
 scale = Vector2(0.57077277, 0.6271363)
@@ -141,7 +141,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="PointLight2D12" type="PointLight2D" parent="light/Sprite2D"]
+[node name="PointLight2D12" type="PointLight2D" parent="light/Sprite2D" unique_id=1128195922]
 position = Vector2(807.16113, 29.176487)
 rotation = -0.38709795
 scale = Vector2(0.7255952, 0.6271363)
@@ -149,7 +149,7 @@ color = Color(1, 0.5990026, 0.47948796, 1)
 energy = 2.82
 texture = ExtResource("4_5rr72")
 
-[node name="mountains behind" type="Parallax2D" parent="."]
+[node name="mountains behind" type="Parallax2D" parent="." unique_id=104566461]
 scale = Vector2(1.49, 1.49)
 scroll_scale = Vector2(0.3, 1)
 scroll_offset = Vector2(16, 0)
@@ -157,13 +157,13 @@ repeat_size = Vector2(1156, 0)
 repeat_times = 3
 metadata/_edit_lock_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="mountains behind"]
+[node name="Sprite2D" type="Sprite2D" parent="mountains behind" unique_id=1674585073]
 position = Vector2(-0.35498047, -336)
 scale = Vector2(4.25, 4.25)
 texture = SubResource("CanvasTexture_gyffv")
 centered = false
 
-[node name="fore rocks" type="Parallax2D" parent="."]
+[node name="fore rocks" type="Parallax2D" parent="." unique_id=128172420]
 scale = Vector2(1.49, 1.49)
 scroll_scale = Vector2(0.5, 1)
 scroll_offset = Vector2(16, 0)
@@ -171,7 +171,7 @@ repeat_size = Vector2(1156, 0)
 repeat_times = 3
 metadata/_edit_lock_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="fore rocks"]
+[node name="Sprite2D" type="Sprite2D" parent="fore rocks" unique_id=530566722]
 position = Vector2(-0.35498047, -336)
 scale = Vector2(4.25, 4.25)
 texture = SubResource("CanvasTexture_1pe0h")
