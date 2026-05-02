@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="10_gyffv"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="11_13y8f"]
-[ext_resource type="PackedScene" path="res://lava_system.tscn" id="11_lava"]
+[ext_resource type="PackedScene" uid="uid://kmnaaxib5xch" path="res://lava_system.tscn" id="11_lava"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hbghi"]
 distance = 218.0

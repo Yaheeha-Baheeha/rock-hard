@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ddd4cmyu4jc4l" path="res://Textures/ClayBallmini_normal.png" id="3_tdg3f"]
 [ext_resource type="Script" uid="uid://kol6k5y6rb8a" path="res://addons/softbody2d/softbody2d.gd" id="4_dtqjt"]
 [ext_resource type="Script" uid="uid://bwshlci7b4bor" path="res://camera_2d.gd" id="5_cxr5p"]
+[ext_resource type="PackedScene" uid="uid://bincwktqauj61" path="res://death_screen.tscn" id="6_tdg3f"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5ncpa"]
 diffuse_texture = ExtResource("2_cxr5p")
@@ -465,7 +466,9 @@ radius = 9.0
 [node name="SoftBodyController" type="Node2D" parent="." unique_id=680081578]
 position = Vector2(-105, -96)
 script = ExtResource("1_e80uo")
+move_force_jump = 65.0
 move_force_crouch = 250.0
+ground_push_impulse = 80.0
 
 [node name="SoftBody2D" type="Polygon2D" parent="." unique_id=328627609]
 texture_filter = 1
@@ -479,6 +482,7 @@ internal_vertex_count = 627
 script = ExtResource("4_dtqjt")
 vertex_interval = 19
 texture_epsilon = 0
+break_distance_ratio = 1.4
 softness = 5.3
 radius = 18
 shape_type = "Circle"
@@ -675,8 +679,8 @@ metadata/_local_pose_override_enabled_ = true
 
 [node name="Bone-14" type="Bone2D" parent="SoftBody2D/Skeleton2D" unique_id=1812585552]
 position = Vector2(35.503487, 49.00615)
-rotation = 1.5476998
-scale = Vector2(0.99998677, 0.99998677)
+rotation = 1.5476993
+scale = Vector2(0.99998575, 0.99998575)
 rest = Transform2D(0.023094583, 0.99973327, -0.99973327, 0.023094583, 35.503487, 49.00615)
 auto_calculate_length_and_angle = false
 length = 19.0
@@ -702,8 +706,8 @@ metadata/_local_pose_override_enabled_ = true
 
 [node name="Bone-16" type="Bone2D" parent="SoftBody2D/Skeleton2D" unique_id=2043871495]
 position = Vector2(35.908638, 66.54465)
-rotation = 1.5920317
-scale = Vector2(0.9999893, 0.9999893)
+rotation = 1.5920312
+scale = Vector2(0.99998873, 0.99998873)
 rest = Transform2D(-0.021233914, 0.9997745, -0.9997745, -0.021233914, 35.908638, 66.54465)
 auto_calculate_length_and_angle = false
 length = 19.0
@@ -957,7 +961,7 @@ metadata/_local_pose_override_enabled_ = true
 [node name="Bone-35" type="Bone2D" parent="SoftBody2D/Skeleton2D" unique_id=2075850776]
 position = Vector2(65.87249, 101.500496)
 rotation = 1.5717533
-scale = Vector2(0.99998677, 0.99998677)
+scale = Vector2(0.99998575, 0.99998575)
 rest = Transform2D(-0.0009570557, 0.9999995, -0.9999995, -0.0009570557, 65.87249, 101.500496)
 auto_calculate_length_and_angle = false
 length = 19.0
@@ -984,7 +988,7 @@ metadata/_local_pose_override_enabled_ = true
 [node name="Bone-37" type="Bone2D" parent="SoftBody2D/Skeleton2D" unique_id=1958528149]
 position = Vector2(65.85383, 121.00021)
 rotation = -1.5698394
-scale = Vector2(0.99998677, 0.99998677)
+scale = Vector2(0.99998575, 0.99998575)
 rest = Transform2D(0.00095696835, -0.9999995, 0.9999995, 0.00095696835, 65.85383, 121.00021)
 auto_calculate_length_and_angle = false
 length = 19.0
@@ -4374,3 +4378,7 @@ limit_bottom = 344
 position_smoothing_enabled = true
 script = ExtResource("5_cxr5p")
 metadata/_edit_lock_ = true
+
+[node name="DeathScreen" parent="Camera2D" unique_id=1703249932 instance=ExtResource("6_tdg3f")]
+visible = false
+scale = Vector2(3.405, 3.405)

@@ -11,8 +11,13 @@ extends Node2D
 
 @onready var softbody: SoftBody2D = get_node_or_null(softbody_path)
 
+signal softbody_broken
+
+var is_softbody_broken: bool = false
+
 func _ready() -> void:
 	if softbody:
+		softbody.joint_removed.connect(_on_softbody_joint_removed)
 		global_position = softbody.get_bones_center_position()
 
 func _physics_process(_delta: float) -> void:
@@ -103,3 +108,9 @@ func _apply_downward_impulse_to_ground(ground_hit: Dictionary) -> void:
 	var collider = ground_hit.collider
 	if collider is RigidBody2D:
 		(collider as RigidBody2D).apply_central_impulse(Vector2.DOWN * ground_push_impulse)
+
+func _on_softbody_joint_removed(_rigid_body_a: SoftBody2D.SoftBodyChild, _rigid_body_b: SoftBody2D.SoftBodyChild) -> void:
+	if is_softbody_broken:
+		return
+	is_softbody_broken = true
+	softbody_broken.emit()
