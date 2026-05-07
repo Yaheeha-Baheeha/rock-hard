@@ -249,3 +249,5 @@ shape = SubResource("RectangleShape2D_sb12i")
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("5_gbhdq")]
 position = Vector2(158, -31)
+respawn_marker_path = NodePath("../RespawnPoint")
+move_force_crouch = 150.0
