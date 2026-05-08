@@ -45,10 +45,20 @@ func _smash_under_cursor() -> void:
 			break
 
 		var collider: Node = hit.get("collider")
-		var ceramic_root := _find_ceramic_scene_root(collider)
-		if ceramic_root:
-			_start_smash_animation(ceramic_root)
+		var smashable_target := _find_smashable_target(collider)
+		if smashable_target:
+			_start_smash_animation(smashable_target)
 			smash_count += 1
+
+
+func _find_smashable_target(start_node: Node) -> Node2D:
+	var current: Node = start_node
+	while current:
+		if current is Node2D and (current.is_in_group("hammer_smashable") or current.name == "DeathShapeBody"):
+			return current as Node2D
+		current = current.get_parent()
+
+	return _find_ceramic_scene_root(start_node)
 
 func _find_ceramic_scene_root(start_node: Node) -> Node2D:
 	var current: Node = start_node
@@ -69,13 +79,31 @@ func _start_smash_animation(target: Node2D) -> void:
 func _play_smash_animation(target: Node2D) -> void:
 	var animation_player := target.get_node_or_null("SmashAnimationPlayer") as AnimationPlayer
 	if not animation_player:
-		if is_instance_valid(target):
-			target.queue_free()
-		_destroying_targets.erase(target)
+		_play_tween_smash_animation(target)
 		return
 
 	animation_player.animation_finished.connect(_on_smash_animation_finished.bind(target), CONNECT_ONE_SHOT)
 	animation_player.play("smash")
+
+
+func _play_tween_smash_animation(target: Node2D) -> void:
+	if not is_instance_valid(target):
+		_destroying_targets.erase(target)
+		return
+
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(target, "rotation", target.rotation + TAU * spin_rotations, smash_duration)
+	tween.tween_property(target, "scale", Vector2.ONE * shrink_scale, smash_duration)
+	if target is CanvasItem:
+		tween.tween_property(target, "modulate:a", 0.0, smash_duration)
+	tween.finished.connect(_on_tween_smash_finished.bind(target), CONNECT_ONE_SHOT)
+
+
+func _on_tween_smash_finished(target: Node2D) -> void:
+	if is_instance_valid(target):
+		target.queue_free()
+	_destroying_targets.erase(target)
 
 func _on_smash_animation_finished(anim_name: StringName, target: Node2D) -> void:
 	if anim_name != &"smash":

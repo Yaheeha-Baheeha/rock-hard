@@ -193,7 +193,7 @@ terrain_set_0/terrain_4/color = Color(0.5999843, 0.80228055, 0.8778071, 1)
 sources/0 = SubResource("TileSetAtlasSource_gbhdq")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sb12i"]
-size = Vector2(39, 20)
+size = Vector2(60, 20)
 
 [node name="Game2" type="Node2D" unique_id=984303330]
 
@@ -242,12 +242,10 @@ tile_set = SubResource("TileSet_y646j")
 
 [node name="RigidBody2D2" type="RigidBody2D" parent="." unique_id=19070464]
 position = Vector2(126, -254)
-mass = 99.999
+mass = 1000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2" unique_id=1214443305]
 shape = SubResource("RectangleShape2D_sb12i")
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("5_gbhdq")]
 position = Vector2(158, -31)
-respawn_marker_path = NodePath("../RespawnPoint")
-move_force_crouch = 150.0
