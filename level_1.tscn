@@ -8,9 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="10_gyffv"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="11_13y8f"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hbghi"]
-distance = 218.0
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rka8t"]
 texture = ExtResource("4_ihfcg")
 1:1/0 = 0
@@ -194,9 +191,6 @@ sources/0 = SubResource("TileSetAtlasSource_rka8t")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hn12h"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bjebc"]
-size = Vector2(20, 1359.5)
-
 [sub_resource type="Animation" id="Animation_5hph3"]
 length = 0.001
 tracks/0/type = "value"
@@ -234,21 +228,19 @@ _data = {
 &"oscillate": SubResource("Animation_j7kpp")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bjebc"]
+size = Vector2(20, 1359.5)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5hph3"]
 size = Vector2(432.5, 140.5)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hbghi"]
+distance = 218.0
 
 [node name="Game" type="Node2D" unique_id=984303330]
 
 [node name="Hammer" parent="." unique_id=681332400 instance=ExtResource("5_5hph3")]
 position = Vector2(1125.75, 183)
-
-[node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=662540377]
-collision_layer = 129
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=169856850]
-position = Vector2(1079, 731)
-shape = SubResource("WorldBoundaryShape2D_hbghi")
-debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="RespawnPoint" type="Marker2D" parent="." unique_id=83837171]
 position = Vector2(133, -94)
@@ -271,12 +263,32 @@ shape = SubResource("RectangleShape2D_hn12h")
 target_position = Vector2(0, 1358)
 collide_with_areas = true
 
-[node name="DeahConditionStatic" type="Area2D" parent="." unique_id=593906030]
+[node name="Collectable" type="Sprite2D" parent="." unique_id=88941999]
+position = Vector2(1722, -136)
+texture = ExtResource("4_rka8t")
+
+[node name="Label" type="Label" parent="Collectable" unique_id=975420221]
+offset_left = -43.0
+offset_top = 39.0
+offset_right = 43.0
+offset_bottom = 62.0
+text = "Collectable"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Collectable" unique_id=724129925]
+root_node = NodePath("../Label")
+libraries/ = SubResource("AnimationLibrary_bjebc")
+autoplay = &"oscillate"
+
+[node name="Lava" type="Node2D" parent="." unique_id=939058580]
+
+[node name="DeahConditionStatic" type="Area2D" parent="Lava" unique_id=593906030]
 position = Vector2(839.75, 111)
 script = ExtResource("4_5hph3")
-player_root_path = NodePath("../Player/SoftBody2D")
-softbody_path = NodePath("../Player/SoftBody2D")
-player_controller_path = NodePath("../Player/SoftBodyController")
+player_root_path = NodePath("../../Player/SoftBody2D")
+softbody_path = NodePath("../../Player/SoftBody2D")
+player_controller_path = NodePath("../../Player/SoftBodyController")
+respawn_point_path = NodePath("../../RespawnPoint")
+spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("6_j7kpp")
@@ -284,37 +296,42 @@ shape_texture_region = Rect2(19.495, -4.875, -25.055, -25.795)
 shape_texture_repeat = true
 circle_approximation_segments = 35
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DeahConditionStatic" unique_id=1209302585]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeahConditionStatic" unique_id=1209302585]
 position = Vector2(588.25, -12.75)
 shape = SubResource("RectangleShape2D_bjebc")
 debug_color = Color(0.72944677, 0.4236925, 0.56939113, 0.41960785)
 
-[node name="Icon" type="Sprite2D" parent="." unique_id=88941999]
-position = Vector2(1722, -136)
-texture = ExtResource("4_rka8t")
-
-[node name="Label" type="Label" parent="Icon" unique_id=975420221]
-offset_left = -43.0
-offset_top = 39.0
-offset_right = 43.0
-offset_bottom = 62.0
-text = "Collectable"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Icon" unique_id=724129925]
-root_node = NodePath("../Label")
-libraries/ = SubResource("AnimationLibrary_bjebc")
-autoplay = &"oscillate"
-
-[node name="DeahConditionRigid" type="Area2D" parent="." unique_id=1863957217]
+[node name="DeahConditionRigid" type="Area2D" parent="Lava" unique_id=1863957217]
 script = ExtResource("4_5hph3")
-player_root_path = NodePath("../Player/SoftBody2D")
-softbody_path = NodePath("../Player/SoftBody2D")
-player_controller_path = NodePath("../Player/SoftBodyController")
+player_root_path = NodePath("../../Player/SoftBody2D")
+softbody_path = NodePath("../../Player/SoftBody2D")
+player_controller_path = NodePath("../../Player/SoftBodyController")
+respawn_point_path = NodePath("../../RespawnPoint")
+spawn_parent_path = NodePath("../..")
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("6_j7kpp")
 shape_texture_region = Rect2(15.59, -9.81, -24.25, -24.655)
+shape_texture_repeat = true
 circle_approximation_segments = 40
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DeahConditionRigid" unique_id=1359674654]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeahConditionRigid" unique_id=1359674654]
 position = Vector2(839.75, 122.25)
 shape = SubResource("RectangleShape2D_5hph3")
+
+[node name="RigidBody2D" type="Area2D" parent="Lava" unique_id=2070373685]
+collision_layer = 129
+script = ExtResource("4_5hph3")
+player_root_path = NodePath("../../Player/SoftBody2D")
+softbody_path = NodePath("../../Player/SoftBody2D")
+player_controller_path = NodePath("../../Player/SoftBodyController")
+respawn_point_path = NodePath("../../RespawnPoint")
+spawn_parent_path = NodePath("../..")
+shape_texture = ExtResource("6_j7kpp")
+shape_texture_region = Rect2(15, -9, -25, -25)
+shape_texture_repeat = true
+circle_approximation_segments = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/RigidBody2D" unique_id=169856850]
+position = Vector2(1079, 731)
+shape = SubResource("WorldBoundaryShape2D_hbghi")
+debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
