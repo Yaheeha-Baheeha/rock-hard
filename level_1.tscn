@@ -421,6 +421,80 @@ specular_texture = ExtResource("33_td8cy")
 specular_color = Color(0.50140655, 0.5014065, 0.5014065, 1)
 specular_shininess = 0.45
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_ett8d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_swvua")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ka01f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_notaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ett8d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_4p6gt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_td8cy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_84ct4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_i5xja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_mdra8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_w0qac")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_qa26o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_hu5wk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_mmag5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_3i87y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_qbpgg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_hlf5m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_wc02i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_jf2qc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_nfgh3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_cgue7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_0t3i3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_dltcj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
 [sub_resource type="LabelSettings" id="LabelSettings_5rr72"]
 font_size = 44
 font_color = Color(1, 1, 0, 1)
@@ -669,6 +743,303 @@ texture = SubResource("CanvasTexture_84ct4")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lava/Crevice/StaticBody2D" unique_id=117042961]
 polygon = PackedVector2Array(-2.5, -15.5, -2.5, -14.5, -10.5, -14.5, -10.5, -13.5, -12.5, -13.5, -12.5, -12.5, -13.5, -12.5, -13.5, -9.5, -14.5, -9.5, -14.5, -7.5, -15.5, -7.5, -15.5, -1.5, -14.5, -1.5, -14.5, 7.5, -12.5, 7.5, -12.5, 8.5, -7.5, 8.5, -7.5, 7.5, -4.5, 7.5, -4.5, 6.5, -3.5, 6.5, -3.5, 3.5, -2.5, 3.5, -2.5, 2.5, -0.5, 2.5, -0.5, 1.5, 1.5, 1.5, 1.5, 2.5, 3.5, 2.5, 3.5, 4.5, 4.5, 4.5, 4.5, 7.5, 6.5, 7.5, 6.5, 9.5, 12.5, 9.5, 12.5, 8.5, 13.5, 8.5, 13.5, 6.5, 14.5, 6.5, 14.5, 1.5, 13.5, 1.5, 13.5, -7.5, 12.5, -7.5, 12.5, -9.5, 11.5, -9.5, 11.5, -10.3, 9.5, -11.3, 9.5, -12.5, 7.5, -12.5, 7.5, -13.5, 5.5, -13.5, 5.5, -14.5, 4.5, -14.5, 4.5, -15.5)
+
+[node name="Valley" type="Node2D" parent="Lava" unique_id=1593311819]
+z_index = -1
+
+[node name="Lavafall1" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=949249303]
+position = Vector2(663, 83.00001)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall2" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1015565638]
+position = Vector2(936, 163)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall3" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1851402541]
+position = Vector2(743, 83)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall4" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=804831202]
+position = Vector2(655, 183)
+rotation = 7.853982
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall5" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1976766091]
+position = Vector2(823, 82.99999)
+rotation = 7.853982
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall6" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1465348018]
+position = Vector2(735, 183.00002)
+rotation = 7.853982
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall7" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=241477667]
+position = Vector2(903.00006, 83)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall8" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1324251434]
+position = Vector2(815, 183)
+rotation = 7.853982
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall9" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=360893231]
+position = Vector2(1062, 83.00001)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall10" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1124443856]
+position = Vector2(894, 183.00002)
+rotation = 10.995575
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall11" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1884909207]
+position = Vector2(982, 83)
+rotation = 7.853982
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall13" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=318475207]
+position = Vector2(820, 123.000015)
+rotation = 14.137167
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall15" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1572420272]
+position = Vector2(659.9999, 123.000015)
+rotation = 10.995575
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall16" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1481003452]
+position = Vector2(973.0001, 183.00002)
+rotation = 7.853982
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall17" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1392126349]
+position = Vector2(740.00006, 123.000015)
+rotation = 14.137167
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall18" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1798408730]
+position = Vector2(1053, 183.00002)
+rotation = 10.995575
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall19" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=2146723270]
+position = Vector2(900, 123)
+rotation = 10.995575
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall20" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=126587329]
+position = Vector2(616, 163)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall21" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1870819637]
+position = Vector2(623.99994, 102.99999)
+rotation = 7.853982
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall22" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=447137148]
+position = Vector2(696.00006, 163.00002)
+rotation = 10.995575
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall23" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=950268065]
+position = Vector2(703, 103.00001)
+rotation = 14.137167
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall24" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1206039443]
+position = Vector2(776.00006, 163.00002)
+rotation = 7.853982
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall25" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=248359465]
+position = Vector2(782.99994, 103)
+rotation = 7.853982
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall26" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1203075567]
+position = Vector2(856, 163)
+rotation = 7.853982
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall27" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=104409656]
+position = Vector2(863, 103.00001)
+rotation = 10.995575
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall28" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=872363085]
+position = Vector2(1015.99994, 163.00008)
+rotation = 7.853982
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall29" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=289457947]
+position = Vector2(942.99994, 102.99999)
+rotation = 10.995575
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall30" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=2101767036]
+position = Vector2(634.00006, 143.00002)
+rotation = 1.5707964
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall31" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=485761556]
+position = Vector2(1023, 103)
+rotation = 10.995575
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall32" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=428237203]
+position = Vector2(714.00006, 143)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall33" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1885619230]
+position = Vector2(616, 63)
+rotation = 1.5707964
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall34" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=955383551]
+position = Vector2(794.00006, 143)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall35" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1655450286]
+position = Vector2(696.00006, 63.000004)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall36" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=540806399]
+position = Vector2(874.00006, 143)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall37" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1395718894]
+position = Vector2(776, 63.000008)
+rotation = 1.5707964
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall38" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1412535772]
+position = Vector2(954.00006, 143.00002)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall39" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=669930274]
+position = Vector2(856.00006, 63)
+rotation = 4.712389
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall40" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=1680133653]
+position = Vector2(1033, 143)
+rotation = 1.5707964
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall41" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=154873543]
+position = Vector2(936, 63.000008)
+rotation = 1.5707964
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall42" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=73511244]
+position = Vector2(1060, 123.00001)
+rotation = -1.5707964
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall43" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=72676141]
+position = Vector2(1016.0001, 63.000008)
+rotation = 1.5707964
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
+
+[node name="Lavafall44" type="AnimatedSprite2D" parent="Lava/Valley" unique_id=835936871]
+position = Vector2(980.00006, 122.999985)
+rotation = -1.5707964
+scale = Vector2(3.3333263, 3.3333263)
+sprite_frames = SubResource("SpriteFrames_ett8d")
+autoplay = "default"
 
 [node name="Win" type="Sprite2D" parent="." unique_id=243099477]
 position = Vector2(-562, -831)

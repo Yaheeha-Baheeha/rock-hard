@@ -1,7 +1,14 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://cp6jiswud21r8"]
 
-[ext_resource type="Script" path="res://hammer.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://Textures/Hammer.png" id="2_texture"]
+[ext_resource type="Script" uid="uid://csy72gk1mn24d" path="res://hammer.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dpvd6xykb1xxe" path="res://Textures/Hammer.png" id="2_texture"]
+[ext_resource type="Texture2D" uid="uid://b87byvun4ijdl" path="res://Textures/Hammer_normal.png" id="3_nif7i"]
+[ext_resource type="Texture2D" uid="uid://dmh0u8xxe51ts" path="res://Textures/Hammer_specular.png" id="4_xqgrq"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_663uh"]
+diffuse_texture = ExtResource("2_texture")
+normal_texture = ExtResource("3_nif7i")
+specular_texture = ExtResource("4_xqgrq")
 
 [sub_resource type="Animation" id="Animation_swing"]
 resource_name = "swing"
@@ -24,13 +31,11 @@ _data = {
 &"swing": SubResource("Animation_swing")
 }
 
-[node name="Hammer" type="Node2D"]
+[node name="Hammer" type="Node2D" unique_id=1722124445]
 script = ExtResource("1_script")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_texture")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1645393508]
+texture = SubResource("CanvasTexture_663uh")
 
-[node name="SwingAnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_hammer")
-}
+[node name="SwingAnimationPlayer" type="AnimationPlayer" parent="." unique_id=141494857]
+libraries/ = SubResource("AnimationLibrary_hammer")
