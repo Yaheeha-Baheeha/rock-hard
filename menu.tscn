@@ -71,13 +71,13 @@ stretch_mode = 5
 [node name="JustCyan" type="Sprite2D" parent="." unique_id=1795728968]
 modulate = Color(1, 1, 1, 0.3882353)
 z_index = -2
-position = Vector2(576, 4)
-scale = Vector2(4.5, 643.99994)
+position = Vector2(577.99994, -7)
+scale = Vector2(4.5156245, 679.99994)
 texture = ExtResource("11_h1wq0")
 
 [node name="VolcanoBehindestBg1" type="Sprite2D" parent="." unique_id=654378718]
 z_index = -3
-position = Vector2(580.00006, 333)
+position = Vector2(578.00006, 333)
 scale = Vector2(4.25, 4.25)
 texture = ExtResource("12_dwrpx")
 
