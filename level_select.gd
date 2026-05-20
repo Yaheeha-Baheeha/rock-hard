@@ -1,9 +1,5 @@
 extends Control
 
-# Which levels are unlocked (by default only level 1).
-# Replace this later with a save-system lookup.
-var unlocked_levels: int = 1
-
 @onready var grid: GridContainer = %LevelGrid
 @onready var back_button: TextureButton = %BackButton
 
@@ -25,7 +21,7 @@ func _configure_level_buttons() -> void:
 		btn.custom_minimum_size = Vector2(64, 64)
 		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		btn.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		btn.disabled = level > unlocked_levels
+		btn.disabled = not GameManager.is_level_unlocked(level)
 		if not btn.disabled:
 			btn.pressed.connect(_on_level_pressed.bind(level))
 
