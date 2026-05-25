@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://b7o0k5m7mocv4"]
+
+[ext_resource type="Script" uid="uid://ecmxj5kslu2y" path="res://soft_body_sphere.gd" id="1_3xkec"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kyu3v"]
+
+[node name="player67" type="Node2D" unique_id=176438027]
+
+[node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437 node_paths=PackedStringArray("obstacle_markers")]
+position = Vector2(3, 232)
+script = ExtResource("1_3xkec")
+obstacle_markers = [NodePath("../collision/Marker2D"), NodePath("../collision/Marker2D2"), NodePath("../collision/Marker2D3"), NodePath("../collision/Marker2D4"), NodePath("../collision/Marker2D5")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1117187340]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1558120909]
+position = Vector2(16, 497)
+shape = SubResource("WorldBoundaryShape2D_kyu3v")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=280854876]
+position = Vector2(94, 335)
+zoom = Vector2(0.715, 0.715)
+
+[node name="collision" type="Node2D" parent="." unique_id=1352997216]
+
+[node name="Marker2D" type="Marker2D" parent="collision" unique_id=150226248]
+position = Vector2(606, 509)
+
+[node name="Marker2D2" type="Marker2D" parent="collision" unique_id=1668181095]
+position = Vector2(-198, 523)
+
+[node name="Marker2D3" type="Marker2D" parent="collision" unique_id=1792890813]
+position = Vector2(596, 641)
+
+[node name="Marker2D4" type="Marker2D" parent="collision" unique_id=1034878109]
+position = Vector2(-201, 651)
+
+[node name="Marker2D5" type="Marker2D" parent="collision" unique_id=1163548967]
+position = Vector2(-198, 523)
