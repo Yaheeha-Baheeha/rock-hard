@@ -6,12 +6,14 @@ extends Node2D
 
 class PointMass:
 	var position: Vector2
+	var prev_position: Vector2 
 	var velocity: Vector2
 	var mass: float = 1.0
 	var uv: Vector2 
 	
 	func _init(pos: Vector2, local_uv: Vector2):
 		position = pos
+		prev_position = pos
 		uv = local_uv
 
 class Spring:
@@ -41,7 +43,7 @@ class Spring:
 @export var global_drag: float = 0.99 
 
 @export_category("Engine Stability")
-@export var sub_steps: int = 4 # Divides the frame into 4 micro-frames
+@export var sub_steps: int = 4 # Divides the frame into micro-frames
 
 @export_category("Texture")
 @export var texture: Texture2D 
@@ -49,9 +51,9 @@ class Spring:
 
 @export_category("Controls Configuration")
 @export var move_force: float = 1200.0
-@export var max_speed: float = 600.0 # Prevents the jelly from accelerating to infinity
-@export var jump_strength: float = 550.0 # Additive physical impulse
-@export var crouch_strength: float = 1500.0 # Force pushing down
+@export var max_speed: float = 600.0 
+@export var jump_strength: float = 550.0 
+@export var crouch_strength: float = 1500.0 
 
 @export_category("Obstacles")
 @export var obstacle_markers: Array[Marker2D]
@@ -65,8 +67,6 @@ var points: Array[PointMass] = []
 var springs: Array[Spring] = []
 var show_debug: bool = false 
 var start_position: Vector2
-
-# NEW: The true physical ground state
 var is_grounded: bool = false 
 
 # ---------------------------------------------------------
@@ -83,12 +83,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	is_grounded = false 
 	
-	# Cut the frame time into tiny pieces for stability
+	# Save positions for smooth rendering interpolation
+	for p in points:
+		p.prev_position = p.position
+	
 	var sub_delta = delta / float(sub_steps)
-	# Adjust the drag so it applies smoothly across the smaller steps
 	var step_drag = pow(global_drag, 1.0 / float(sub_steps))
 	
-	# Run the physics engine multiple times per frame
 	for step in range(sub_steps):
 		_apply_gas_pressure(sub_delta)
 		_solve_springs(sub_delta)
@@ -101,7 +102,6 @@ func _physics_process(delta: float) -> void:
 			if obstacle_polygon.size() > 0 and _is_point_in_polygon(p.position, obstacle_polygon):
 				_resolve_collision(p)
 				
-	# Handle inputs exactly once per main frame
 	_handle_input_controls(delta)
 
 func _process(_delta: float) -> void:
@@ -119,25 +119,19 @@ func _unhandled_input(event: InputEvent) -> void:
 func _handle_input_controls(delta: float) -> void:
 	var horizontal_input = Input.get_axis("left", "right")
 	
-	# Left / Right Movement
 	if horizontal_input != 0.0:
 		for p in points:
 			p.velocity.x += horizontal_input * move_force * delta
-			# Cap the speed so it doesn't slide like a frictionless hockey puck forever
 			p.velocity.x = clamp(p.velocity.x, -max_speed, max_speed)
 
-	# Crouch Input (Adds downward force)
 	if Input.is_action_pressed("crouch"):
 		for p in points:
 			p.velocity.y += crouch_strength * delta
 
-	# Jump Input (Only works if a point is touching an upward-facing surface)
 	if Input.is_action_just_pressed("jump") and is_grounded:
 		for p in points:
-			# We use -= here to ADD an impulse to current velocity, like real physics
 			p.velocity.y -= jump_strength
 
-	# Reset Input
 	if Input.is_action_just_pressed("reset"):
 		_reset_softbody()
 
@@ -242,9 +236,6 @@ func _resolve_collision(point: PointMass) -> void:
 	if push_dir == Vector2.ZERO: 
 		push_dir = Vector2.UP
 
-	# NEW: TRUE GROUND DETECTION
-	# If the surface pushes the point upwards (y is negative in Godot), it's the ground!
-	# We use < -0.4 so it can still jump off slopes, but won't jump off perfectly vertical walls.
 	if push_dir.y < -0.4:
 		is_grounded = true
 
@@ -262,27 +253,47 @@ func _draw() -> void:
 	if points.size() < 3:
 		return
 		
-	var poly_points = PackedVector2Array()
-	var poly_uvs = PackedVector2Array()
-	var poly_colors = PackedColorArray()
+	var fraction = Engine.get_physics_interpolation_fraction()
+	
+	# 1. Generate fully interpolated rendering positions for the rim
+	var render_positions = PackedVector2Array()
+	var center_pos = Vector2.ZERO
 	
 	for p in points:
-		poly_points.append(p.position)
-		poly_uvs.append(p.uv)
-		poly_colors.append(texture_tint)
+		var r_pos = p.prev_position.lerp(p.position, fraction)
+		render_positions.append(r_pos)
+		center_pos += r_pos
 		
+	# The true mathematical center of the deformed shape
+	center_pos /= float(points.size())
+	var center_uv = Vector2(0.5, 0.5)
+	
+	# 2. Render Textures using a perfectly stable, manual triangle fan
 	if texture != null and not show_debug:
-		draw_polygon(poly_points, poly_colors, poly_uvs, texture)
+		for i in range(num_points):
+			var next_i = (i + 1) % num_points
+			
+			# Build a single perfect triangular slice of the pie
+			var tri_points = PackedVector2Array([center_pos, render_positions[i], render_positions[next_i]])
+			var tri_uvs = PackedVector2Array([center_uv, points[i].uv, points[next_i].uv])
+			var tri_colors = PackedColorArray([texture_tint, texture_tint, texture_tint])
+			
+			# Godot automatically batches these draw commands together since they share a texture
+			draw_polygon(tri_points, tri_colors, tri_uvs, texture)
 	else:
+		# Fallback debug solid fill
 		var fill_color = Color(0.2, 0.6, 1.0, 0.3) if show_debug else Color(0.2, 0.6, 1.0, 0.8)
-		draw_colored_polygon(poly_points, fill_color)
+		draw_colored_polygon(render_positions, fill_color)
 		
-	poly_points.append(points[0].position) 
-	draw_polyline(poly_points, Color.WHITE, 2.0, true)
+	# Draw outer crisp white outline
+	var outline_points = render_positions.duplicate()
+	outline_points.append(render_positions[0]) 
+	draw_polyline(outline_points, Color.WHITE, 2.0, true)
 	
 	if not show_debug:
 		return
 		
+	# Debug Overlay Lines
 	if obstacle_polygon.size() >= 3:
 		draw_colored_polygon(obstacle_polygon, Color(0.8, 0.2, 0.2, 0.3))
 		var obs_line = obstacle_polygon.duplicate()
@@ -290,16 +301,18 @@ func _draw() -> void:
 		draw_polyline(obs_line, Color(1.0, 0.2, 0.2, 0.8), 2.0, true)
 		
 	for spring in springs:
-		draw_line(spring.point_a.position, spring.point_b.position, Color(0.5, 1.0, 0.5, 0.4), 1.0)
+		var pos_a = spring.point_a.prev_position.lerp(spring.point_a.position, fraction)
+		var pos_b = spring.point_b.prev_position.lerp(spring.point_b.position, fraction)
+		draw_line(pos_a, pos_b, Color(0.5, 1.0, 0.5, 0.4), 1.0)
 		
 	for i in range(num_points):
-		var p1 = points[i].position
-		var p2 = points[(i + 1) % num_points].position
+		var p1 = render_positions[i]
+		var p2 = render_positions[(i + 1) % num_points]
 		var edge = p2 - p1
 		var normal = Vector2(edge.y, -edge.x).normalized()
 		var edge_center = p1 + (edge * 0.5)
 		draw_line(edge_center, edge_center + (normal * 25.0), Color.RED, 2.0)
 		draw_circle(edge_center + (normal * 25.0), 3.0, Color.RED)
 		
-	for p in points:
-		draw_circle(p.position, 3.0, Color.YELLOW)
+	for pos in render_positions:
+		draw_circle(pos, 3.0, Color.YELLOW)
