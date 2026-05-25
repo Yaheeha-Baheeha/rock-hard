@@ -5,9 +5,9 @@ enum CeramicType {
 	STATIC,
 }
 
-@export var player_root_path: NodePath = NodePath("../SoftBody2D")
-@export var softbody_path: NodePath = NodePath("../SoftBody2D")
-@export var player_controller_path: NodePath = NodePath("../SoftBodyController")
+@export var player_root_path: NodePath = NodePath("../Player")
+@export var softbody_path: NodePath = NodePath("../Player/SoftBodySphere")
+@export var player_controller_path: NodePath = NodePath("../Player")
 @export var respawn_point_path: NodePath = NodePath("../RespawnPoint")
 @export var spawn_parent_path: NodePath = NodePath("..")
 @export var ceramic_type: CeramicType = CeramicType.RIGID
@@ -33,6 +33,11 @@ func _on_body_entered(body: Node) -> void:
 		return
 	if not _is_player_body(body):
 		return
+		
+	# Check metadata to prevent multiple simultaneous death zones from duplicating shards
+	if body.has_meta("is_dying") and body.get_meta("is_dying"):
+		return
+	body.set_meta("is_dying", true)
 
 	_is_handling_trigger = true
 	_spawn_at_collision(body)
@@ -40,6 +45,8 @@ func _on_body_entered(body: Node) -> void:
 
 	if trigger_cooldown > 0.0:
 		await get_tree().create_timer(trigger_cooldown).timeout
+		
+	body.set_meta("is_dying", false)
 	_is_handling_trigger = false
 
 
@@ -71,7 +78,18 @@ func _spawn_shape_polygon(body: Node, parent: Node) -> void:
 	var polygon_points := _build_polygon_points_from_body(body, parent as Node2D)
 	if polygon_points.size() < 3:
 		return
+		
+	var centroid = Vector2.ZERO
+	for p in polygon_points:
+		centroid += p
+	centroid /= float(polygon_points.size())
+	
 	for i in polygon_points.size():
+		# Scale down slightly (e.g. 5%) to avoid spawning embedded perfectly flush against walls/floors
+		var diff = polygon_points[i] - centroid
+		polygon_points[i] = centroid + (diff * 0.95)
+		
+		polygon_points[i] -= centroid
 		polygon_points[i] += spawn_offset
 
 	var body_node: PhysicsBody2D
@@ -84,7 +102,7 @@ func _spawn_shape_polygon(body: Node, parent: Node) -> void:
 		body_node = rigid_body
 
 	body_node.name = "DeathShapeBody"
-	body_node.position = Vector2.ZERO
+	body_node.position = centroid
 	body_node.physics_material_override = shape_physics_material
 	body_node.add_to_group("hammer_smashable")
 
@@ -115,8 +133,21 @@ func _spawn_shape_polygon(body: Node, parent: Node) -> void:
 
 func _build_polygon_points_from_body(body: Node, target_parent: Node2D) -> PackedVector2Array:
 	var points := PackedVector2Array()
-	for shape_node in _get_collision_shape_nodes(body):
-		points.append_array(_shape_node_points_in_parent_space(shape_node, target_parent))
+
+	var player_root = get_node_or_null(player_root_path)
+	var root = body
+	if player_root and _is_descendant_of(body, player_root):
+		root = player_root
+
+	# Try getting points from the new SoftBodySphere
+	var softbody = get_node_or_null(softbody_path)
+	if softbody and softbody.has_method("get_current_polygon_global"):
+		var blob_points: PackedVector2Array = softbody.get_current_polygon_global()
+		for pt in blob_points:
+			points.append(target_parent.to_local(pt))
+	else:
+		for shape_node in _get_collision_shape_nodes(body):
+			points.append_array(_shape_node_points_in_parent_space(shape_node, target_parent))
 
 	if points.size() < 3:
 		return PackedVector2Array()
@@ -241,22 +272,13 @@ func _respawn_player() -> void:
 		return
 
 	var target_position := respawn_point.global_position
-	var softbody := get_node_or_null(softbody_path)
-	if softbody and softbody.has_method("get_bones_center_position") and softbody.has_method("get_rigid_bodies"):
-		# Move the whole softbody cluster by delta to preserve its shape.
-		var center: Vector2 = softbody.call("get_bones_center_position")
-		var delta := target_position - center
-		for body_data in softbody.call("get_rigid_bodies"):
-			var rigidbody := body_data.rigidbody as RigidBody2D
-			if not rigidbody:
-				continue
-			rigidbody.global_position += delta
-			rigidbody.linear_velocity = Vector2.ZERO
-			rigidbody.angular_velocity = 0.0
-			rigidbody.sleeping = false
-
-	if softbody is Node2D:
-		(softbody as Node2D).global_position = target_position
+	var player_root = get_node_or_null(player_root_path)
+	if player_root and player_root.has_method("respawn"):
+		player_root.respawn(target_position)
+	else:
+		var softbody := get_node_or_null(softbody_path)
+		if softbody and softbody.has_method("respawn"):
+			softbody.respawn(target_position)
 
 	var controller := get_node_or_null(player_controller_path) as Node2D
 	if controller:

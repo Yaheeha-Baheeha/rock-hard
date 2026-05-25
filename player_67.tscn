@@ -16,7 +16,7 @@ specular_shininess = 0.33
 [node name="player67" type="Node2D" unique_id=176438027]
 
 [node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437 node_paths=PackedStringArray("obstacle_markers")]
-position = Vector2(22, -4492)
+position = Vector2(107, 147)
 script = ExtResource("1_3xkec")
 target_pressure = 16000.0
 spring_stiffness = 40000.0

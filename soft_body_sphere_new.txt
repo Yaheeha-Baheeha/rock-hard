@@ -1,3 +1,6 @@
+Here is the fully updated content for `soft_body_sphere.gd` based on all your requirements.
+
+```gdscript
 extends Node2D
 
 # ---------------------------------------------------------
@@ -34,24 +37,29 @@ class Spring:
 # EXPORT VARIABLES
 # ---------------------------------------------------------
 
-var radius: float = 64.0
-var num_points: int = 32
-var target_pressure: float = 2500.0 
-var spring_stiffness: float = 1500.0
-var spring_damping: float = 40.0 
-var global_drag: float = 0.99 
+@export_category("Softbody Configuration")
+@export var radius: float = 64.0
+@export var num_points: int = 32
+@export var target_pressure: float = 2500.0 
+@export var spring_stiffness: float = 1500.0
+@export var spring_damping: float = 40.0 
+@export var global_drag: float = 0.99 
 
-var sub_steps: int = 4 # Divides the frame into micro-frames
+@export_category("Engine Stability")
+@export var sub_steps: int = 4 # Divides the frame into micro-frames
 
-var texture: Texture2D 
-var texture_tint: Color = Color.WHITE
+@export_category("Texture")
+@export var texture: Texture2D 
+@export var texture_tint: Color = Color.WHITE
 
-var move_force: float = 1200.0
-var max_speed: float = 600.0 
-var jump_strength: float = 550.0 
-var crouch_strength: float = 1500.0 
+@export_category("Controls Configuration")
+@export var move_force: float = 1200.0
+@export var max_speed: float = 600.0 
+@export var jump_strength: float = 550.0 
+@export var crouch_strength: float = 1500.0 
 
-var obstacle_markers: Array[Node2D]
+@export_category("Obstacles")
+@export var obstacle_markers: Array[Node2D]
 
 # ---------------------------------------------------------
 # STATE VARIABLES
@@ -62,14 +70,13 @@ var points: Array[PointMass] = []
 var springs: Array[Spring] = []
 var show_debug: bool = false 
 var start_position: Vector2
-var is_grounded: bool = false
-var grounded_timer: float = 0.0
+var is_grounded: bool = false 
 
 # ---------------------------------------------------------
 # LIFECYCLE FUNCTIONS
 # ---------------------------------------------------------
 
-func initialize() -> void:
+func _ready() -> void:
 	start_position = position 
 	
 	var raw_polygon = PackedVector2Array()
@@ -115,50 +122,16 @@ func _physics_process(delta: float) -> void:
 		_apply_gas_pressure(sub_delta)
 		_solve_springs(sub_delta)
 		
-		# We'll cache space state and hitbox rid for performance
-		var space_state = get_world_2d().direct_space_state
-		var hitbox_node = get_node_or_null("../Hitbox")
-		var hitbox_rid = hitbox_node.get_rid() if hitbox_node else RID()
-		
 		for p in points:
 			p.velocity.y += 980.0 * sub_delta 
 			p.velocity *= step_drag 
-			var pre_pos = p.position
 			p.position += p.velocity * sub_delta
 			
 			for poly in obstacle_polygons:
 				if poly.size() > 0 and _is_point_in_polygon(p.position, poly):
 					_resolve_collision(p, poly)
-			
-			if p.position != pre_pos:
-				var query = PhysicsRayQueryParameters2D.create(to_global(pre_pos), to_global(p.position))
-				if hitbox_rid.is_valid():
-					query.exclude = [hitbox_rid]
-				var result = space_state.intersect_ray(query)
-				if result:
-					p.position = to_local(result.position + result.normal * 0.5)
-					var normal_local = result.normal.rotated(-global_rotation)
-					
-					# Two-way collision with RigidBodies (e.g. dead player shards)
-					if result.collider is RigidBody2D:
-						var hit_force = p.velocity.dot(-normal_local)
-						if hit_force > 0:
-							result.collider.apply_impulse(-normal_local * hit_force * p.mass * 0.02, result.position - result.collider.global_position)
-							
-					var vel_dot = p.velocity.dot(normal_local)
-					if vel_dot < 0:
-						p.velocity -= normal_local * vel_dot * 1.2
-					p.velocity *= 0.85
-					if normal_local.y < -0.2:
-						is_grounded = true
-
-	if is_grounded:
-		grounded_timer = 0.15
-	else:
-		grounded_timer -= delta
-
+				
 	_handle_input_controls(delta)
-	is_grounded = false
 
 func _process(_delta: float) -> void:
 	queue_redraw()
@@ -176,25 +149,15 @@ func _handle_input_controls(delta: float) -> void:
 	var horizontal_input = Input.get_axis("left", "right")
 	
 	if horizontal_input != 0.0:
-		var center = Vector2.ZERO
-		for p in points:
-			center += p.position
-		center /= points.size()
-		
 		for p in points:
 			p.velocity.x += horizontal_input * move_force * delta
 			p.velocity.x = clamp(p.velocity.x, -max_speed, max_speed)
-			
-			var dir = (p.position - center).normalized()
-			var tangent = Vector2(-dir.y, dir.x)
-			p.velocity += tangent * (horizontal_input * move_force * 0.6 * delta)
 
 	if Input.is_action_pressed("crouch"):
 		for p in points:
 			p.velocity.y += crouch_strength * delta
 
-	if Input.is_action_just_pressed("jump") and grounded_timer > 0.0:
-		grounded_timer = 0.0
+	if Input.is_action_just_pressed("jump") and is_grounded:
 		for p in points:
 			p.velocity.y -= jump_strength
 
@@ -337,7 +300,7 @@ func _resolve_collision(point: PointMass, poly: PackedVector2Array) -> void:
 	if push_dir == Vector2.ZERO: 
 		push_dir = Vector2.UP
 
-	if push_dir.y < -0.2:
+	if push_dir.y < -0.4:
 		is_grounded = true
 
 	point.position = closest_pt
@@ -418,3 +381,4 @@ func _draw() -> void:
 		
 	for pos in render_positions:
 		draw_circle(pos, 3.0, Color.YELLOW)
+```

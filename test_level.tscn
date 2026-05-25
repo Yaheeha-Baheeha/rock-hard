@@ -208,9 +208,9 @@ debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="DeahConditionRigid" type="Area2D" parent="." unique_id=597379517]
 script = ExtResource("12_hazard")
-player_root_path = NodePath("../Player/SoftBody2D")
-softbody_path = NodePath("../Player/SoftBody2D")
-player_controller_path = NodePath("../Player/SoftBodyController")
+player_root_path = NodePath("../Player")
+softbody_path = NodePath("../Player/SoftBodySphere")
+player_controller_path = NodePath("../Player")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeahConditionRigid" unique_id=1801026574]
 position = Vector2(1003, 123)
@@ -218,9 +218,9 @@ shape = SubResource("RectangleShape2D_hbghi")
 
 [node name="DeahConditionStatic" type="Area2D" parent="." unique_id=2000996348]
 script = ExtResource("12_hazard")
-player_root_path = NodePath("../Player/SoftBody2D")
-softbody_path = NodePath("../Player/SoftBody2D")
-player_controller_path = NodePath("../Player/SoftBodyController")
+player_root_path = NodePath("../Player")
+softbody_path = NodePath("../Player/SoftBodySphere")
+player_controller_path = NodePath("../Player")
 ceramic_type = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeahConditionStatic" unique_id=1440005751]
