@@ -13,16 +13,10 @@ normal_texture = ExtResource("3_5imbr")
 specular_texture = ExtResource("4_8j43t")
 specular_shininess = 0.33
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hb"]
-radius = 48.0
-
 [node name="Player" type="Node2D" unique_id=438420809]
 script = ExtResource("1_root")
-target_pressure = 16000.0
-spring_stiffness = 40000.0
-spring_damping = 1000.0
-sub_steps = 32
 texture = SubResource("CanvasTexture_8v41o")
+max_speed = 1800.0
 
 [node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437]
 script = ExtResource("1_3xkec")
