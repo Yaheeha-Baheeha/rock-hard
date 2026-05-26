@@ -27,10 +27,7 @@ texture = SubResource("CanvasTexture_8v41o")
 [node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437]
 script = ExtResource("1_3xkec")
 
-[node name="Hitbox" type="CharacterBody2D" parent="." unique_id=123456789]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=987654321]
-shape = SubResource("CircleShape2D_hb")
+[node name="CenterTracker" type="Marker2D" parent="." unique_id=113426789]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=202288614]
 position = Vector2(200, 16)
@@ -40,4 +37,4 @@ limit_top = -1336
 limit_bottom = 1344
 position_smoothing_enabled = true
 script = ExtResource("5_cxr5p")
-target_path = NodePath("../Hitbox")
+target_path = NodePath("../CenterTracker")

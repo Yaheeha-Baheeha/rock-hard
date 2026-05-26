@@ -65,15 +65,50 @@ var start_position: Vector2
 var is_grounded: bool = false
 var grounded_timer: float = 0.0
 
+var hazard_polygons: Array[Dictionary] = []
+var collectible_polygons: Array[Dictionary] = []
+var win_polygons: Array[Dictionary] = []
+
 # ---------------------------------------------------------
 # LIFECYCLE FUNCTIONS
 # ---------------------------------------------------------
 
+func _extract_node_polygons(node: Node) -> Array[PackedVector2Array]:
+	var polys: Array[PackedVector2Array] = []
+	if node is TileMapLayer:
+		return _extract_tilemap_polygons(node)
+	elif node is Polygon2D:
+		var p = PackedVector2Array()
+		for pt in node.polygon:
+			p.append(to_local(node.to_global(pt)))
+		polys.append(p)
+	elif (node as CollisionShape2D) != null and (node as CollisionShape2D).shape is RectangleShape2D:
+		var shape = (node as CollisionShape2D).shape as RectangleShape2D
+		var ext = shape.size / 2.0
+		var p = PackedVector2Array()
+		var points = [Vector2(-ext.x, -ext.y), Vector2(ext.x, -ext.y), Vector2(ext.x, ext.y), Vector2(-ext.x, ext.y)]
+		for pt in points:
+			p.append(to_local((node as CollisionShape2D).to_global(pt)))
+		polys.append(p)
+	elif node is Sprite2D:
+		var ext = node.texture.get_size() / 2.0 * node.scale
+		var p = PackedVector2Array()
+		var points = [Vector2(-ext.x, -ext.y), Vector2(ext.x, -ext.y), Vector2(ext.x, ext.y), Vector2(-ext.x, ext.y)]
+		for pt in points:
+			p.append(to_local(node.to_global(pt)))
+		polys.append(p)
+	else:
+		# Just in case it has children like CollisionPolygon2D or Polygon2D
+		for child in node.get_children():
+			polys.append_array(_extract_node_polygons(child))
+	return polys
+
 func initialize() -> void:
 	start_position = position 
 	
-	var raw_polygon = PackedVector2Array()
+	call_deferred("_initialize_trigger_zones")
 	
+	var raw_polygon = PackedVector2Array()
 	for node in obstacle_markers:
 		if node != null:
 			if node is Marker2D:
@@ -101,24 +136,47 @@ func initialize() -> void:
 				
 	_build_sphere()
 
+func _initialize_trigger_zones() -> void:
+	hazard_polygons.clear()
+	collectible_polygons.clear()
+	win_polygons.clear()
+	
+	for node in get_tree().get_nodes_in_group("hazards"):
+		var polys = _extract_node_polygons(node)
+		for p in polys:
+			hazard_polygons.append({"poly": p, "node": node})
+			
+	for node in get_tree().get_nodes_in_group("collectibles"):
+		var polys = _extract_node_polygons(node)
+		for p in polys:
+			collectible_polygons.append({"poly": p, "node": node})
+			
+	for node in get_tree().get_nodes_in_group("win_zones"):
+		var polys = _extract_node_polygons(node)
+		for p in polys:
+			win_polygons.append({"poly": p, "node": node})
+
 func _physics_process(delta: float) -> void:
+	if not is_inside_tree(): return
+	var world = get_world_2d()
+	if not world: return
+	var space_state = world.direct_space_state
+
 	is_grounded = false 
 	
 	# Save positions for smooth rendering interpolation
 	for p in points:
 		p.prev_position = p.position
-	
+
 	var sub_delta = delta / float(sub_steps)
 	var step_drag = pow(global_drag, 1.0 / float(sub_steps))
-	
+
 	for step in range(sub_steps):
+		if not is_inside_tree():
+			break
+			
 		_apply_gas_pressure(sub_delta)
 		_solve_springs(sub_delta)
-		
-		# We'll cache space state and hitbox rid for performance
-		var space_state = get_world_2d().direct_space_state
-		var hitbox_node = get_node_or_null("../Hitbox")
-		var hitbox_rid = hitbox_node.get_rid() if hitbox_node else RID()
 		
 		for p in points:
 			p.velocity.y += 980.0 * sub_delta 
@@ -129,11 +187,31 @@ func _physics_process(delta: float) -> void:
 			for poly in obstacle_polygons:
 				if poly.size() > 0 and _is_point_in_polygon(p.position, poly):
 					_resolve_collision(p, poly)
+					
+			for win in win_polygons:
+				if win.poly.size() > 0 and _is_point_in_polygon(p.position, win.poly):
+					if is_instance_valid(win.node):
+						win.node.trigger_win()
+			
+			for i in range(collectible_polygons.size() - 1, -1, -1):
+				var coll = collectible_polygons[i]
+				if coll.poly.size() > 0 and _is_point_in_polygon(p.position, coll.poly):
+					if is_instance_valid(coll.node):
+						coll.node.trigger_collection()
+					collectible_polygons.remove_at(i)
+					
+			var is_dead = false
+			for hazard in hazard_polygons:
+				if hazard.poly.size() > 0 and _is_point_in_polygon(p.position, hazard.poly):
+					if is_instance_valid(hazard.node):
+						hazard.node.trigger_death(to_global(p.position))
+					is_dead = true
+					break
+			if is_dead:
+				break
 			
 			if p.position != pre_pos:
 				var query = PhysicsRayQueryParameters2D.create(to_global(pre_pos), to_global(p.position))
-				if hitbox_rid.is_valid():
-					query.exclude = [hitbox_rid]
 				var result = space_state.intersect_ray(query)
 				if result:
 					p.position = to_local(result.position + result.normal * 0.5)

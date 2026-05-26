@@ -25,7 +25,7 @@ extends Node2D
 @export var obstacle_markers: Array[Node2D]
 
 @onready var soft_body = $SoftBodySphere
-@onready var hitbox = $Hitbox
+@onready var center_tracker = $CenterTracker
 
 func _ready() -> void:
     if soft_body:
@@ -54,12 +54,12 @@ func _physics_process(delta: float) -> void:
             center /= soft_body.points.size()
         else:
             center = soft_body.position
-        
-        hitbox.position = center
+            
+        if center_tracker:
+            center_tracker.position = center
 
 func respawn(target_position: Vector2) -> void:
     global_position = target_position
     if soft_body:
         soft_body.respawn(Vector2.ZERO)
-        hitbox.position = Vector2.ZERO
 

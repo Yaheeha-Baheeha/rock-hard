@@ -24,58 +24,42 @@ var _is_handling_trigger: bool = false
 
 
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
-	add_to_group("hazard_respawn_areas")
+	add_to_group("hazards")
 
-
-func _on_body_entered(body: Node) -> void:
+func trigger_death(collision_position: Vector2) -> void:
 	if _is_handling_trigger:
 		return
-	if not _is_player_body(body):
-		return
 		
-	# Check metadata to prevent multiple simultaneous death zones from duplicating shards
-	if body.has_meta("is_dying") and body.get_meta("is_dying"):
-		return
-	body.set_meta("is_dying", true)
+	var player_root = get_node_or_null(player_root_path)
+	if player_root:
+		if player_root.has_meta("is_dying") and player_root.get_meta("is_dying"):
+			return
+		player_root.set_meta("is_dying", true)
 
 	_is_handling_trigger = true
-	_spawn_at_collision(body)
+	_spawn_at_collision()
 	_respawn_player()
 
 	if trigger_cooldown > 0.0:
 		await get_tree().create_timer(trigger_cooldown).timeout
 		
-	body.set_meta("is_dying", false)
+	if player_root:
+		player_root.set_meta("is_dying", false)
 	_is_handling_trigger = false
 
-
-func _is_player_body(body: Node) -> bool:
-	var player_root := get_node_or_null(player_root_path)
-	if not player_root:
-		return false
-
-	var current: Node = body
-	while current != null:
-		if current == player_root:
-			return true
-		current = current.get_parent()
-	return false
-
-
-func _spawn_at_collision(body: Node) -> void:
+func _spawn_at_collision() -> void:
 	var parent := get_node_or_null(spawn_parent_path)
 	if not parent:
 		return
 
-	_spawn_shape_polygon(body, parent)
+	_spawn_shape_polygon(parent)
 
 
-func _spawn_shape_polygon(body: Node, parent: Node) -> void:
+func _spawn_shape_polygon(parent: Node) -> void:
 	if not (parent is Node2D):
 		return
 
-	var polygon_points := _build_polygon_points_from_body(body, parent as Node2D)
+	var polygon_points := _build_polygon_points_from_body(parent as Node2D)
 	if polygon_points.size() < 3:
 		return
 		
@@ -131,13 +115,8 @@ func _spawn_shape_polygon(body: Node, parent: Node) -> void:
 	body_node.add_child(polygon_node)
 	(parent as Node2D).add_child(body_node)
 
-func _build_polygon_points_from_body(body: Node, target_parent: Node2D) -> PackedVector2Array:
+func _build_polygon_points_from_body(target_parent: Node2D) -> PackedVector2Array:
 	var points := PackedVector2Array()
-
-	var player_root = get_node_or_null(player_root_path)
-	var root = body
-	if player_root and _is_descendant_of(body, player_root):
-		root = player_root
 
 	# Try getting points from the new SoftBodySphere
 	var softbody = get_node_or_null(softbody_path)
@@ -145,9 +124,6 @@ func _build_polygon_points_from_body(body: Node, target_parent: Node2D) -> Packe
 		var blob_points: PackedVector2Array = softbody.get_current_polygon_global()
 		for pt in blob_points:
 			points.append(target_parent.to_local(pt))
-	else:
-		for shape_node in _get_collision_shape_nodes(body):
-			points.append_array(_shape_node_points_in_parent_space(shape_node, target_parent))
 
 	if points.size() < 3:
 		return PackedVector2Array()

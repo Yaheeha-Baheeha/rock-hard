@@ -290,8 +290,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ia5ws"]
 size = Vector2(2072, 111.25)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_be5co"]
-distance = 218.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swvua"]
+size = Vector2(217324, 1572)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hycyb"]
 font_size = 44
@@ -398,6 +398,7 @@ position = Vector2(133, -262)
 
 [node name="Player" parent="." unique_id=438420809 node_paths=PackedStringArray("obstacle_markers") instance=ExtResource("10_gyffv")]
 position = Vector2(133, -262)
+max_speed = 1800.0
 obstacle_markers = [NodePath("../Tilemap/TileMapLayer")]
 
 [node name="background" parent="." unique_id=979663656 instance=ExtResource("11_13y8f")]
@@ -1559,8 +1560,8 @@ shape_texture_repeat = true
 circle_approximation_segments = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/WorldBoundary" unique_id=1732588059]
-position = Vector2(1079, 731)
-shape = SubResource("WorldBoundaryShape2D_be5co")
+position = Vector2(-106, 1169)
+shape = SubResource("RectangleShape2D_swvua")
 debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="Win" type="Sprite2D" parent="." unique_id=131160660]
