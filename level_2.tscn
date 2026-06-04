@@ -916,6 +916,7 @@ shape = SubResource("RectangleShape2D_ddgyg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=296329056]
 light_mask = 2
+z_index = -1
 position = Vector2(-145, -246)
 scale = Vector2(0.52671754, 0.52671754)
 sprite_frames = SubResource("SpriteFrames_t25cq")
