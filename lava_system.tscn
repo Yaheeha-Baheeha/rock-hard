@@ -2,26 +2,5 @@
 
 [ext_resource type="Script" uid="uid://0l7c8ju3ky34" path="res://lava_system.gd" id="1_script"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_surface"]
-size = Vector2(300, 30)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_damage"]
-size = Vector2(400, 80)
-
 [node name="LavaSystem" type="Node2D" unique_id=1821490740]
 script = ExtResource("1_script")
-
-[node name="PhysicalParticles" type="Node2D" parent="." unique_id=888542298]
-
-[node name="LavaSurface" type="StaticBody2D" parent="." unique_id=1568718256]
-position = Vector2(0, 100)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LavaSurface" unique_id=44052192]
-shape = SubResource("RectangleShape2D_surface")
-
-[node name="DamageZone" type="Area2D" parent="." unique_id=1067104052]
-position = Vector2(0, 80)
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone" unique_id=476968782]
-shape = SubResource("RectangleShape2D_damage")
