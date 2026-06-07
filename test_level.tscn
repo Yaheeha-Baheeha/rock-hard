@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://dxkit0xecxafi"]
 
-[ext_resource type="PackedScene" path="res://Hammer.tscn" id="4_4ptq8"]
+[ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="4_4ptq8"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="5_gbhdq"]
 [ext_resource type="Texture2D" uid="uid://dbtl6gq7ck22h" path="res://Textures/tileset.png" id="5_sb12i"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="11_13y8f"]
@@ -208,9 +208,6 @@ debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="DeahConditionRigid" type="Area2D" parent="." unique_id=597379517]
 script = ExtResource("12_hazard")
-player_root_path = NodePath("../Player")
-softbody_path = NodePath("../Player/SoftBodySphere")
-player_controller_path = NodePath("../Player")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeahConditionRigid" unique_id=1801026574]
 position = Vector2(1003, 123)
@@ -218,9 +215,6 @@ shape = SubResource("RectangleShape2D_hbghi")
 
 [node name="DeahConditionStatic" type="Area2D" parent="." unique_id=2000996348]
 script = ExtResource("12_hazard")
-player_root_path = NodePath("../Player")
-softbody_path = NodePath("../Player/SoftBodySphere")
-player_controller_path = NodePath("../Player")
 ceramic_type = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeahConditionStatic" unique_id=1440005751]
@@ -247,5 +241,6 @@ mass = 1000.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2" unique_id=1214443305]
 shape = SubResource("RectangleShape2D_sb12i")
 
-[node name="Player" parent="." unique_id=438420809 instance=ExtResource("5_gbhdq")]
-position = Vector2(158, -31)
+[node name="Player" parent="." unique_id=438420809 node_paths=PackedStringArray("obstacle_markers") instance=ExtResource("5_gbhdq")]
+position = Vector2(133, -94)
+obstacle_markers = [NodePath("../Tilemap/TileMapLayer")]
