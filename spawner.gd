@@ -1,6 +1,6 @@
 extends Marker2D
 
-@export var water_drop_scene: PackedScene = preload("res://water_drop.tscn")
+@export var water_drop_scene: PackedScene = preload("res://lava_drop.tscn")
 
 @export_category("Spawner Settings")
 @export var spawn_rate: float = 0.05 ## Time in seconds between spawns
