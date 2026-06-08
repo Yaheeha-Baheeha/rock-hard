@@ -222,7 +222,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1904, -482)]
+"values": [Vector2(1200, -100)]
 }
 
 [sub_resource type="Animation" id="Animation_ka01f"]
@@ -238,7 +238,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1904, -482), Vector2(1904, -533)]
+"values": [Vector2(1200, -100), Vector2(1200, -170)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jvy75"]
@@ -259,7 +259,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(2042, -153)]
+"values": [Vector2(851, 315)]
 }
 
 [sub_resource type="Animation" id="Animation_4p6gt"]
@@ -276,7 +276,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(2042, -153), Vector2(2042, -127)]
+"values": [Vector2(851, 315), Vector2(851, 367)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g0tlw"]
@@ -319,10 +319,10 @@ shape = SubResource("RectangleShape2D_b60u5")
 position = Vector2(160, -115)
 
 [node name="Win" type="Sprite2D" parent="." unique_id=781473232]
-position = Vector2(1904, -482)
+position = Vector2(1200, -100)
 texture = ExtResource("6_7ds5r")
 script = ExtResource("7_liaj6")
-next_level_number = 3
+next_level_number = 4
 
 [node name="Label" type="Label" parent="Win" unique_id=83935749]
 z_index = 4096
@@ -358,10 +358,10 @@ libraries/ = SubResource("AnimationLibrary_jvy75")
 autoplay = &"oscillate"
 
 [node name="Collectable" type="Sprite2D" parent="." unique_id=1775888552]
-position = Vector2(2042, -153)
+position = Vector2(851, 315)
 texture = ExtResource("6_7ds5r")
 script = ExtResource("8_b60u5")
-level_number = 2
+level_number = 3
 
 [node name="Label" type="Label" parent="Collectable" unique_id=338635393]
 offset_left = -43.0
