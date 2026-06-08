@@ -1,5 +1,9 @@
 extends PinJoint2D
 
+signal turned_on
+signal turned_off
+
+
 func _physics_process(_delta: float) -> void:
 	# 1. Calculate the relative angle between Body A and Body B
 	var body_a = get_node_or_null(node_a) as Node2D
@@ -12,14 +16,12 @@ func _physics_process(_delta: float) -> void:
 		
 		# Keep the angle cleanly bounded between -180 and 180 degrees
 		var wrapped_angle = wrapf(relative_angle_deg, -180.0, 180.0)
-		print("Relative Joint Angle: ", wrapped_angle)
-		if wrapped_angle >= 60:
-			pass #off
-		elif wrapped_angle <= -60:
-			pass #on
+		#print("Relative Joint Angle: ", wrapped_angle)
+		if wrapped_angle <= -60:
+			print('on') #on
 			#maybe add signal to trigger lava
 		else:
-			pass
+			print("off") #off
 	else:
 		print("Assigned physics nodes not found.")
 		
