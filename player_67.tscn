@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://b7o0k5m7mocv4"]
+
+[ext_resource type="Script" uid="uid://ecmxj5kslu2y" path="res://soft_body_sphere.gd" id="1_3xkec"]
+[ext_resource type="Texture2D" uid="uid://dkrmhy3qvc8r4" path="res://Textures/ClayBallmini.png" id="2_mgb7i"]
+[ext_resource type="Texture2D" uid="uid://ddd4cmyu4jc4l" path="res://Textures/ClayBallmini_normal.png" id="3_5imbr"]
+[ext_resource type="Texture2D" uid="uid://bqtj82x21yemp" path="res://Textures/ClayBallmini_specular.png" id="4_8j43t"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8v41o"]
+diffuse_texture = ExtResource("2_mgb7i")
+normal_texture = ExtResource("3_5imbr")
+specular_texture = ExtResource("4_8j43t")
+specular_shininess = 0.33
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kyu3v"]
+
+[node name="player67" type="Node2D" unique_id=176438027]
+
+[node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437 node_paths=PackedStringArray("obstacle_markers")]
+position = Vector2(107, 147)
+script = ExtResource("1_3xkec")
+target_pressure = 16000.0
+spring_stiffness = 40000.0
+spring_damping = 1000.0
+sub_steps = 32
+texture = SubResource("CanvasTexture_8v41o")
+obstacle_markers = [NodePath("../collision/Marker2D2"), NodePath("../collision/Marker2D3"), NodePath("../collision/Marker2D4"), NodePath("../collision/Marker2D5")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1117187340]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1558120909]
+position = Vector2(16, 497)
+shape = SubResource("WorldBoundaryShape2D_kyu3v")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=280854876]
+position = Vector2(31, 408)
+zoom = Vector2(0.88, 0.88)
+
+[node name="collision" type="Node2D" parent="." unique_id=1352997216]
+
+[node name="Marker2D2" type="Marker2D" parent="collision" unique_id=1668181095]
+position = Vector2(-198, 523)
+
+[node name="Marker2D3" type="Marker2D" parent="collision" unique_id=1792890813]
+position = Vector2(-198, 659)
+
+[node name="Marker2D4" type="Marker2D" parent="collision" unique_id=1034878109]
+position = Vector2(599, 637)
+
+[node name="Marker2D5" type="Marker2D" parent="collision" unique_id=1163548967]
+position = Vector2(597, 523)

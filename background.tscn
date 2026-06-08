@@ -22,6 +22,20 @@ diffuse_texture = ExtResource("4_eow3j")
 normal_texture = ExtResource("7_5rr72")
 specular_shininess = 0.46
 
+[sub_resource type="Gradient" id="Gradient_vvxqx"]
+interpolation_mode = 2
+colors = PackedColorArray(0.7882353, 0.5058824, 0.22352941, 1, 0.7882353, 0.5058824, 0.22352941, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cdpnt"]
+gradient = SubResource("Gradient_vvxqx")
+
+[sub_resource type="Gradient" id="Gradient_8u6ia"]
+interpolation_mode = 2
+colors = PackedColorArray(0.6901961, 0.4392157, 0.1882353, 1, 0.6901961, 0.4392157, 0.1882353, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6i7po"]
+gradient = SubResource("Gradient_8u6ia")
+
 [node name="background" type="Node2D" unique_id=979663656]
 
 [node name="volcane behindest" type="Parallax2D" parent="." unique_id=1263902971]
@@ -176,3 +190,15 @@ position = Vector2(-0.35498047, -336)
 scale = Vector2(4.25, 4.25)
 texture = SubResource("CanvasTexture_1pe0h")
 centered = false
+
+[node name="topbg no debug" type="Sprite2D" parent="." unique_id=1947570789]
+z_index = -1000
+position = Vector2(0, -13400.671)
+scale = Vector2(-4719.7256, 428.0869)
+texture = SubResource("GradientTexture2D_cdpnt")
+
+[node name="bg no debug" type="Sprite2D" parent="." unique_id=641315926]
+z_index = -999
+position = Vector2(0, 8548.965)
+scale = Vector2(-4719.758, 258.74197)
+texture = SubResource("GradientTexture2D_6i7po")

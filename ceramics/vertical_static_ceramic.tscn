@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://c6fm1smtwb7q8"]
 
+[ext_resource type="PhysicsMaterial" uid="uid://bgmbgj1iw4xo3" path="res://resources/ceramic_material.tres" id="1_ba3bl"]
 [ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="1_bb1al"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ba3bl"]
@@ -51,6 +52,7 @@ _data = {
 }
 
 [node name="VerticalStaticCeramic" type="StaticBody2D" unique_id=1031466669]
+physics_material_override = ExtResource("1_ba3bl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=857893798]
 position = Vector2(-38, -29)
@@ -61,7 +63,5 @@ position = Vector2(-38, -29.5)
 scale = Vector2(0.524, 1.055)
 texture = ExtResource("1_bb1al")
 
-[node name="SmashAnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_smash")
-}
+[node name="SmashAnimationPlayer" type="AnimationPlayer" parent="." unique_id=10195059]
+libraries/ = SubResource("AnimationLibrary_smash")

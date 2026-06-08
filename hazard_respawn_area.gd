@@ -5,74 +5,241 @@ enum CeramicType {
 	STATIC,
 }
 
-@export var player_root_path: NodePath = NodePath("../SoftBody2D")
-@export var softbody_path: NodePath = NodePath("../SoftBody2D")
-@export var player_controller_path: NodePath = NodePath("../SoftBodyController")
+@export var player_root_path: NodePath = NodePath("../Player")
+@export var softbody_path: NodePath = NodePath("../Player/SoftBodySphere")
+@export var player_controller_path: NodePath = NodePath("../Player")
 @export var respawn_point_path: NodePath = NodePath("../RespawnPoint")
 @export var spawn_parent_path: NodePath = NodePath("..")
 @export var ceramic_type: CeramicType = CeramicType.RIGID
-@export var rigid_spawn_scene: PackedScene = preload("res://ceramics/normal_rigid_ceramic.tscn")
-@export var static_spawn_scene: PackedScene = preload("res://ceramics/normal_static_ceramic.tscn")
 @export var spawn_offset: Vector2 = Vector2.ZERO
 @export var trigger_cooldown: float = 0.15
+@export var shape_polygon_color: Color = Color(0.88, 0.33, 0.22, 0.65)
+@export var shape_physics_material: PhysicsMaterial = preload("res://resources/ceramic_material.tres")
+@export var shape_texture: Texture
+@export var shape_texture_region: Rect2 = Rect2(0, 0, 0, 0)
+@export var shape_texture_repeat: bool = false
+@export_range(8, 64, 1) var circle_approximation_segments: int = 20
 
 var _is_handling_trigger: bool = false
 
 
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
+	add_to_group("hazards")
 
-
-func _on_body_entered(body: Node) -> void:
+func trigger_death(collision_position: Vector2) -> void:
 	if _is_handling_trigger:
 		return
-	if not _is_player_body(body):
-		return
+		
+	var player_root = get_node_or_null(player_root_path)
+	if player_root:
+		if player_root.has_meta("is_dying") and player_root.get_meta("is_dying"):
+			return
+		player_root.set_meta("is_dying", true)
 
 	_is_handling_trigger = true
-	_spawn_at_collision(body)
+	_spawn_at_collision()
 	_respawn_player()
 
 	if trigger_cooldown > 0.0:
 		await get_tree().create_timer(trigger_cooldown).timeout
+		
+	if player_root:
+		player_root.set_meta("is_dying", false)
 	_is_handling_trigger = false
 
-
-func _is_player_body(body: Node) -> bool:
-	var player_root := get_node_or_null(player_root_path)
-	if not player_root:
-		return false
-
-	var current: Node = body
-	while current != null:
-		if current == player_root:
-			return true
-		current = current.get_parent()
-	return false
-
-
-func _spawn_at_collision(body: Node) -> void:
-	var scene_to_spawn := _get_spawn_scene()
-	if not scene_to_spawn:
-		return
-
+func _spawn_at_collision() -> void:
 	var parent := get_node_or_null(spawn_parent_path)
 	if not parent:
 		return
 
-	var instance := scene_to_spawn.instantiate()
-	if instance is Node2D:
-		var spawn_position := global_position
-		if body is Node2D:
-			spawn_position = (body as Node2D).global_position
-		(instance as Node2D).global_position = spawn_position + spawn_offset
-	parent.add_child(instance)
+	_spawn_shape_polygon(parent)
 
 
-func _get_spawn_scene() -> PackedScene:
+func _spawn_shape_polygon(parent: Node) -> void:
+	if not (parent is Node2D):
+		return
+
+	var polygon_points := _build_polygon_points_from_body(parent as Node2D)
+	if polygon_points.size() < 3:
+		return
+		
+	var centroid = Vector2.ZERO
+	for p in polygon_points:
+		centroid += p
+	centroid /= float(polygon_points.size())
+	
+	for i in polygon_points.size():
+		# Scale down slightly (e.g. 5%) to avoid spawning embedded perfectly flush against walls/floors
+		var diff = polygon_points[i] - centroid
+		polygon_points[i] = centroid + (diff * 0.95)
+		
+		polygon_points[i] -= centroid
+		polygon_points[i] += spawn_offset
+
+	var body_node: PhysicsBody2D
 	if ceramic_type == CeramicType.STATIC:
-		return static_spawn_scene
-	return rigid_spawn_scene
+		body_node = StaticBody2D.new()
+	else:
+		var rigid_body := RigidBody2D.new()
+		rigid_body.lock_rotation = true
+		rigid_body.mass = 1.0
+		body_node = rigid_body
+
+	body_node.name = "DeathShapeBody"
+	body_node.position = centroid
+	body_node.physics_material_override = shape_physics_material
+	body_node.add_to_group("hammer_smashable")
+
+	var collision_polygon := CollisionPolygon2D.new()
+	collision_polygon.polygon = polygon_points
+	body_node.add_child(collision_polygon)
+
+	var polygon_node := Polygon2D.new()
+	polygon_node.name = "DeathShapePolygon"
+	# If a texture is assigned, prefer it (optionally using a preset region)
+	if shape_texture:
+		var tex_to_use := shape_texture
+		# If a region was provided (non-zero size) create an AtlasTexture to use only that portion
+		if shape_texture_region.size != Vector2.ZERO:
+			var atlas := AtlasTexture.new()
+			atlas.atlas = shape_texture
+			atlas.region = shape_texture_region
+			tex_to_use = atlas
+		polygon_node.texture = tex_to_use
+		polygon_node.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED if shape_texture_repeat else CanvasItem.TEXTURE_REPEAT_DISABLED
+		# Keep color as a modulate so user can tint the texture if desired
+		polygon_node.color = shape_polygon_color
+	else:
+		polygon_node.color = shape_polygon_color
+	polygon_node.polygon = polygon_points
+	body_node.add_child(polygon_node)
+	(parent as Node2D).add_child(body_node)
+
+func _build_polygon_points_from_body(target_parent: Node2D) -> PackedVector2Array:
+	var points := PackedVector2Array()
+
+	# Try getting points from the new SoftBodySphere
+	var softbody = get_node_or_null(softbody_path)
+	if softbody and softbody.has_method("get_current_polygon_global"):
+		var blob_points: PackedVector2Array = softbody.get_current_polygon_global()
+		for pt in blob_points:
+			points.append(target_parent.to_local(pt))
+
+	if points.size() < 3:
+		return PackedVector2Array()
+
+	var hull := Geometry2D.convex_hull(points)
+	if hull.size() > 1 and hull[0].is_equal_approx(hull[hull.size() - 1]):
+		hull.resize(hull.size() - 1)
+	return hull
+
+
+func _get_collision_shape_nodes(body: Node) -> Array[Node]:
+	var root := body
+	var player_root := get_node_or_null(player_root_path)
+	if player_root and _is_descendant_of(body, player_root):
+		root = player_root
+
+	var shape_nodes: Array[Node] = []
+	_collect_shape_nodes_recursive(root, shape_nodes)
+	return shape_nodes
+
+
+func _collect_shape_nodes_recursive(current: Node, out_nodes: Array[Node]) -> void:
+	if current is CollisionShape2D or current is CollisionPolygon2D:
+		out_nodes.append(current)
+
+	for child in current.get_children():
+		if child is Node:
+			_collect_shape_nodes_recursive(child, out_nodes)
+
+
+func _shape_node_points_in_parent_space(shape_node: Node, target_parent: Node2D) -> PackedVector2Array:
+	var local_points := PackedVector2Array()
+
+	if shape_node is CollisionPolygon2D:
+		local_points = (shape_node as CollisionPolygon2D).polygon
+	elif shape_node is CollisionShape2D:
+		var collision_shape := shape_node as CollisionShape2D
+		if collision_shape.shape:
+			local_points = _shape_to_local_points(collision_shape.shape)
+
+	if local_points.is_empty():
+		return PackedVector2Array()
+
+	var result := PackedVector2Array()
+	var shape_node_2d := shape_node as Node2D
+	for point in local_points:
+		var global_point := shape_node_2d.to_global(point)
+		result.append(target_parent.to_local(global_point))
+	return result
+
+
+func _shape_to_local_points(shape: Shape2D) -> PackedVector2Array:
+	if shape is RectangleShape2D:
+		var size := (shape as RectangleShape2D).size * 0.5
+		return PackedVector2Array([
+			Vector2(-size.x, -size.y),
+			Vector2(size.x, -size.y),
+			Vector2(size.x, size.y),
+			Vector2(-size.x, size.y),
+		])
+
+	if shape is CircleShape2D:
+		var radius := (shape as CircleShape2D).radius
+		return _build_circle_points(radius)
+
+	if shape is CapsuleShape2D:
+		var capsule := shape as CapsuleShape2D
+		return _build_capsule_points(capsule.radius, capsule.height)
+
+	if shape is ConvexPolygonShape2D:
+		return (shape as ConvexPolygonShape2D).points
+
+	if shape is ConcavePolygonShape2D:
+		var concave := shape as ConcavePolygonShape2D
+		var points := PackedVector2Array()
+		for segment_point in concave.segments:
+			points.append(segment_point)
+		return points
+
+	return PackedVector2Array()
+
+
+func _build_circle_points(radius: float) -> PackedVector2Array:
+	var points := PackedVector2Array()
+	var segments := maxi(circle_approximation_segments, 8)
+	for i in segments:
+		var angle := TAU * float(i) / float(segments)
+		points.append(Vector2(cos(angle), sin(angle)) * radius)
+	return points
+
+
+func _build_capsule_points(radius: float, height: float) -> PackedVector2Array:
+	var points := PackedVector2Array()
+	var half_segment := maxf(0.0, height * 0.5 - radius)
+	var arc_steps := maxi(circle_approximation_segments / 2, 4)
+
+	for i in arc_steps + 1:
+		var t := float(i) / float(arc_steps)
+		var angle := PI + PI * t
+		points.append(Vector2(cos(angle), sin(angle)) * radius + Vector2(0, -half_segment))
+
+	for i in arc_steps + 1:
+		var t := float(i) / float(arc_steps)
+		var angle := PI * t
+		points.append(Vector2(cos(angle), sin(angle)) * radius + Vector2(0, half_segment))
+
+	return points
+
+
+func _is_descendant_of(node: Node, possible_ancestor: Node) -> bool:
+	var current := node
+	while current != null:
+		if current == possible_ancestor:
+			return true
+		current = current.get_parent()
+	return false
 
 
 func _respawn_player() -> void:
@@ -81,23 +248,19 @@ func _respawn_player() -> void:
 		return
 
 	var target_position := respawn_point.global_position
-	var softbody := get_node_or_null(softbody_path)
-	if softbody and softbody.has_method("get_bones_center_position") and softbody.has_method("get_rigid_bodies"):
-		# Move the whole softbody cluster by delta to preserve its shape.
-		var center: Vector2 = softbody.call("get_bones_center_position")
-		var delta := target_position - center
-		for body_data in softbody.call("get_rigid_bodies"):
-			var rigidbody := body_data.rigidbody as RigidBody2D
-			if not rigidbody:
-				continue
-			rigidbody.global_position += delta
-			rigidbody.linear_velocity = Vector2.ZERO
-			rigidbody.angular_velocity = 0.0
-			rigidbody.sleeping = false
-
-	if softbody is Node2D:
-		(softbody as Node2D).global_position = target_position
+	var player_root = get_node_or_null(player_root_path)
+	if player_root and player_root.has_method("respawn"):
+		player_root.respawn(target_position)
+	else:
+		var softbody := get_node_or_null(softbody_path)
+		if softbody and softbody.has_method("respawn"):
+			softbody.respawn(target_position)
 
 	var controller := get_node_or_null(player_controller_path) as Node2D
 	if controller:
 		controller.global_position = target_position
+
+
+func respawn_player() -> void:
+	# Public wrapper so other scripts can trigger the same respawn logic
+	_respawn_player()

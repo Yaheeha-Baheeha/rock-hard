@@ -1,3 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+Exports/exe/Rock Hard.console.exe
+Exports/exe/Rock Hard.exe

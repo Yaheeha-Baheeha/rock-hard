@@ -11,13 +11,27 @@ extends Node2D
 
 @onready var softbody: SoftBody2D = get_node_or_null(softbody_path)
 
+@export var reset_action: String = "reset"
+
+signal softbody_broken
+
+var is_softbody_broken: bool = false
+
 func _ready() -> void:
 	if softbody:
+		softbody.joint_removed.connect(_on_softbody_joint_removed)
 		global_position = softbody.get_bones_center_position()
 
 func _physics_process(_delta: float) -> void:
 	if not softbody:
 		return
+
+	# Reset / respawn key: find a hazard respawn area and trigger its respawn
+	if Input.is_action_just_pressed(reset_action):
+		var areas := get_tree().get_nodes_in_group("hazard_respawn_areas")
+		if areas.size() > 0:
+			areas[0].call("respawn_player")
+
 
 	var center_position := softbody.get_bones_center_position()
 
@@ -103,3 +117,9 @@ func _apply_downward_impulse_to_ground(ground_hit: Dictionary) -> void:
 	var collider = ground_hit.collider
 	if collider is RigidBody2D:
 		(collider as RigidBody2D).apply_central_impulse(Vector2.DOWN * ground_push_impulse)
+
+func _on_softbody_joint_removed(_rigid_body_a: SoftBody2D.SoftBodyChild, _rigid_body_b: SoftBody2D.SoftBodyChild) -> void:
+	if is_softbody_broken:
+		return
+	is_softbody_broken = true
+	softbody_broken.emit()
