@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dp2yvv1x5o1jn"]
 
 [ext_resource type="Script" uid="uid://brw8lbyuhcqf2" path="res://pin_joint_2d.gd" id="1_0ohsc"]
+[ext_resource type="Script" uid="uid://dnlirwemwksvb" path="res://lever.gd" id="1_1kj1s"]
 [ext_resource type="Texture2D" uid="uid://br8nfbb3u0hk6" path="res://Textures/Lava/Crevice.png" id="1_soi7j"]
 [ext_resource type="Texture2D" uid="uid://c38t60kffxy4" path="res://Textures/Lava/CreviceNormal.png" id="2_1kj1s"]
 [ext_resource type="Texture2D" uid="uid://chpf22sm0cbuo" path="res://Textures/Lava/CreviceSpecular.png" id="3_gk4f0"]
@@ -22,21 +23,31 @@ size = Vector2(200, 44)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0ohsc"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_1kj1s"]
+font_color = Color(0.29411766, 1, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gk4f0"]
+font_color = Color(1, 0.23529412, 0.03529412, 1)
+
 [node name="Lever" type="Node2D" unique_id=603365385]
+script = ExtResource("1_1kj1s")
 
 [node name="RigidBody2D3" type="RigidBody2D" parent="." unique_id=1317640711]
 position = Vector2(1, 76)
-rotation = 0.47163546
+rotation = 0.7853982
 collision_mask = 32
+mass = 0.461
+gravity_scale = 0.103
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D3" unique_id=1657275478]
 position = Vector2(-1.5, -73)
 shape = SubResource("RectangleShape2D_ic0j1")
 
 [node name="Polygon2D" type="Polygon2D" parent="RigidBody2D3" unique_id=106397126]
-position = Vector2(15, -124)
+position = Vector2(15, -118.68155)
+scale = Vector2(1, 1.1772816)
 color = Color(0.61339027, 0.61339027, 0.61339027, 1)
-polygon = PackedVector2Array(0, -30, -30, -30, -30, 130, 0, 130)
+polygon = PackedVector2Array(0, -30, -30, -30, -30, 130, -15.731659, 129.99998, 0, 130)
 uv = PackedVector2Array(-4, -5, -142, -37, -127, 132, 6, 132)
 
 [node name="Crevice" type="Node2D" parent="RigidBody2D3" unique_id=922715711]
@@ -87,3 +98,22 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2" unique_id=1083651571]
 position = Vector2(94, 62)
 shape = SubResource("CircleShape2D_0ohsc")
+
+[node name="Label" type="Label" parent="." unique_id=946342534]
+offset_left = 69.0
+offset_top = 86.0
+offset_right = 109.0
+offset_bottom = 109.0
+text = "On"
+label_settings = SubResource("LabelSettings_1kj1s")
+
+[node name="Label2" type="Label" parent="." unique_id=1407000983]
+offset_left = -95.0
+offset_top = 86.0
+offset_right = -55.0
+offset_bottom = 109.0
+text = "Off"
+label_settings = SubResource("LabelSettings_gk4f0")
+
+[connection signal="turned_off" from="PinJoint2D" to="." method="_on_pin_joint_2d_turned_off"]
+[connection signal="turned_on" from="PinJoint2D" to="." method="_on_pin_joint_2d_turned_on"]
