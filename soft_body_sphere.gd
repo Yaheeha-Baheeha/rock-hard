@@ -33,7 +33,7 @@ class Spring:
 # ---------------------------------------------------------
 # EXPORT VARIABLES
 # ---------------------------------------------------------
-
+@export var fluid_layer: int = 3
 var radius: float = 64.0
 var num_points: int = 32
 var target_pressure: float = 2500.0 
@@ -183,7 +183,26 @@ func _physics_process(delta: float) -> void:
 			p.velocity *= step_drag 
 			var pre_pos = p.position
 			p.position += p.velocity * sub_delta
-			
+			if fluid_layer != 0:
+				var fluid_query = PhysicsPointQueryParameters2D.new()
+				fluid_query.position = to_global(p.position)
+				fluid_query.collision_mask = fluid_layer
+				fluid_query.collide_with_bodies = true
+				
+				var fluid_hits = space_state.intersect_point(fluid_query)
+				for hit in fluid_hits:
+					var fluid_drop = hit.collider as RigidBody2D
+					if fluid_drop:
+						# 1. Viscosity (Drag): Pull the point's velocity toward the slow lava
+						p.velocity = p.velocity.lerp(fluid_drop.linear_velocity, 0.15)
+						
+						# 2. Buoyancy: Push the point aggressively upward
+						p.velocity.y -= 3500.0 * sub_delta
+						
+						# 3. Displacement: Push the lava droplet out of the way
+						var push_dir = (fluid_drop.global_position - to_global(p.position)).normalized()
+						if push_dir == Vector2.ZERO: push_dir = Vector2.UP
+						fluid_drop.apply_central_impulse(push_dir * p.velocity.length() * p.mass * 0.03)
 			for poly in obstacle_polygons:
 				if poly.size() > 0 and _is_point_in_polygon(p.position, poly):
 					_resolve_collision(p, poly)
