@@ -298,6 +298,7 @@ position = Vector2(133, -262)
 
 [node name="Player" parent="." unique_id=438420809 node_paths=PackedStringArray("obstacle_markers") instance=ExtResource("2_1jdk1")]
 position = Vector2(133, -262)
+num_points = 48
 obstacle_markers = [null]
 
 [node name="background" parent="." unique_id=979663656 instance=ExtResource("3_6p2dc")]
@@ -316,7 +317,7 @@ position = Vector2(582, 3)
 shape = SubResource("RectangleShape2D_b60u5")
 
 [node name="Lever" parent="." unique_id=603365385 instance=ExtResource("5_1jdk1")]
-position = Vector2(160, -115)
+position = Vector2(178, -115)
 
 [node name="Win" type="Sprite2D" parent="." unique_id=781473232]
 position = Vector2(1200, -100)

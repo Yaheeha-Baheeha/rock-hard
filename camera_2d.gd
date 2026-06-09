@@ -15,9 +15,9 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+		if Input.is_action_pressed("zoom in"):
 			_set_zoom_scale(zoom.x + zoom_step)
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		elif Input.is_action_pressed("zoom out"):
 			_set_zoom_scale(zoom.x - zoom_step)
 
 
