@@ -264,3 +264,14 @@ func _respawn_player() -> void:
 func respawn_player() -> void:
 	# Public wrapper so other scripts can trigger the same respawn logic
 	_respawn_player()
+	
+	
+func turn_of():
+	self.monitoring = false
+	self.monitorable = false
+	print("sdsds")
+	
+func turn_on():
+	self.monitorable = true
+	self.monitoring = true
+	print('on')
