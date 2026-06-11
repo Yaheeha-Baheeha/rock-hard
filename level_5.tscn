@@ -341,7 +341,7 @@ position = Vector2(1125, 173)
 position = Vector2(-3916, -136)
 texture = ExtResource("5_qhsfq")
 script = ExtResource("6_kcwpe")
-next_level_number = 5
+next_level_number = 6
 
 [node name="Label" type="Label" parent="Node2D/Win" unique_id=501696271]
 z_index = 4096
@@ -380,7 +380,7 @@ autoplay = &"oscillate"
 position = Vector2(2642, 168)
 texture = ExtResource("5_qhsfq")
 script = ExtResource("7_j6qfn")
-level_number = 4
+level_number = 5
 
 [node name="Label" type="Label" parent="Node2D/Collectable" unique_id=1290290727]
 offset_left = -43.0
