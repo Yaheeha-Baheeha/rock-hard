@@ -24,10 +24,28 @@ extends Node2D
 @export_category("Obstacles")
 @export var obstacle_markers: Array[Node2D]
 
+# --- NEW: DAMAGE CONFIGURATION ---
+@export_category("Damage System")
+@export var max_health: float = 100.0
+@export var lava_damage_rate: float = 40.0 ## Health lost per second while touching lava
+@export var cooling_rate: float = 20.0 ## Health regained per second when safe
+@export var damage_color: Color = Color(1.0, 0.0, 0.0, 1.0) ## Pure red
+
 @onready var soft_body = $SoftBodySphere
 @onready var center_tracker = $CenterTracker
 
+# --- NEW: LAVA DETECTOR REFERENCE ---
+# Make sure to add an Area2D named "LavaDetector" as a child of CenterTracker!
+@onready var lava_detector = $CenterTracker/LavaDetector 
+
+var current_health: float
+var base_color: Color
+
 func _ready() -> void:
+	# Initialize health and save the original safe color
+	current_health = max_health
+	base_color = texture_tint
+	
 	if soft_body:
 		soft_body.radius = radius
 		soft_body.num_points = num_points
@@ -57,6 +75,52 @@ func _physics_process(delta: float) -> void:
 			
 		if center_tracker:
 			center_tracker.position = center
+			
+		# --- NEW: RUN DAMAGE LOGIC ---
+		_process_lava_damage(delta)
+
+# --- NEW: DAMAGE LOGIC FUNCTION ---
+func _process_lava_damage(delta: float) -> void:
+	if not lava_detector: 
+		return
+		
+	var is_touching_lava = false
+	var highest_damage_taken = 0.0
+	
+	# Check all overlapping bodies to find the most dangerous droplet we are touching
+	for body in lava_detector.get_overlapping_bodies():
+		if body is LavaDroplet:
+			is_touching_lava = true
+			# If we are touching multiple drops, take damage from the deadliest one
+			if body.damage_rate > highest_damage_taken:
+				highest_damage_taken = body.damage_rate
+			
+	# Apply damage or healing
+	if is_touching_lava:
+		current_health -= highest_damage_taken * delta
+	else:
+		current_health += cooling_rate * delta
+		
+	# Keep health locked between 0 and Max
+	current_health = clamp(current_health, 0.0, max_health)
+	
+	# Calculate a percentage from 0.0 (full health) to 1.0 (dead)
+	var damage_percent = 1.0 - (current_health / max_health)
+	
+	# Smoothly transition the tint towards red based on damage percentage
+	soft_body.texture_tint = base_color.lerp(damage_color, damage_percent)
+	
+	# Check for death
+	if current_health <= 0.0:
+		_die()
+
+func _die() -> void:
+	# Reset health, reset color, and fire your respawn logic
+	current_health = max_health
+	soft_body.texture_tint = base_color
+	
+	# Note: Replace Vector2.ZERO with your actual spawn point variable
+	respawn(Vector2.ZERO) 
 
 func respawn(target_position: Vector2) -> void:
 	global_position = target_position

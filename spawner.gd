@@ -1,17 +1,25 @@
-extends Marker2D
+extends Area2D
 
 @export var water_drop_scene: PackedScene = preload("res://lava_drop.tscn")
 
 @export_category("Spawner Settings")
+@export var fluid_type: LavaDroplet.FluidType = LavaDroplet.FluidType.HOT ## Choose the fluid type!
 @export var spawn_rate: float = 0.05 ## Time in seconds between spawns
-@export var base_velocity: Vector2 = Vector2.ZERO ## The default directional push applied to the drop
-@export var velocity_variance: Vector2 = Vector2(20.0, 0.0) ## How much random spread to add to the velocity
 
-@onready var water_fluid_group = $"../WaterFluid"
+@export_category("Direction & Speed")
+@export_range(0, 360) var spawn_angle: float = 90.0 ## Direction in degrees (90 is straight down)
+@export var angle_variance: float = 15.0 ## +/- spread of the angle
+@export var spawn_speed: float = 300.0 ## How fast the droplet shoots out
+@export var speed_variance: float = 50.0 ## +/- randomization of the speed
+
+@onready var spawn_shape = $CollisionShape2D ## Grabs the collision shape to determine the region area
+@onready var hot_fluid_group = $"../HotFluid"
+@onready var medium_fluid_group = $"../MediumFluid"
+@onready var cold_fluid_group = $"../ColdFluid"
 
 var spawn_timer: float = 0.0
 
-func _process(delta):
+func _process(delta: float) -> void:
 	# Keep the internal clock ticking
 	spawn_timer += delta
 	
@@ -22,16 +30,36 @@ func _process(delta):
 			spawn_timer = 0.0 # Reset the clock
 			spawn_drop()
 
-func spawn_drop():
-	var drop = water_drop_scene.instantiate()
+func spawn_drop() -> void:
+	# Instantiate and cast to our custom class
+	var drop = water_drop_scene.instantiate() as LavaDroplet
 	
-	# Add the drop as a child of CanvasGroup so the shader acts on it
-	water_fluid_group.add_child(drop)
-	drop.global_position = global_position
+	# 1. Set the fluid type chosen in the Inspector
+	if drop != null:
+		drop.type = fluid_type
+	# Route the droplet to the correct CanvasGroup based on its type!
+	match drop.type:
+		LavaDroplet.FluidType.HOT:
+			hot_fluid_group.add_child(drop)
+		LavaDroplet.FluidType.MEDIUM:
+			medium_fluid_group.add_child(drop)
+		LavaDroplet.FluidType.COLD:
+			cold_fluid_group.add_child(drop)
 	
-	# Calculate random variation on both X and Y axes
-	var random_x = randf_range(-velocity_variance.x, velocity_variance.x)
-	var random_y = randf_range(-velocity_variance.y, velocity_variance.y)
+	# 2. Calculate random position inside the Area2D's RectangleShape2D
+	var random_pos = global_position
+	if spawn_shape and spawn_shape.shape is RectangleShape2D:
+		var extents = spawn_shape.shape.size / 2.0
+		var rand_x = randf_range(-extents.x, extents.x)
+		var rand_y = randf_range(-extents.y, extents.y)
+		random_pos += Vector2(rand_x, rand_y)
+		
+	drop.global_position = random_pos
 	
-	# Combine base velocity with the random variance
-	drop.linear_velocity = base_velocity + Vector2(random_x, random_y)
+	# 3. Calculate Velocity from Angle and Speed
+	var final_angle = spawn_angle + randf_range(-angle_variance, angle_variance)
+	var final_speed = spawn_speed + randf_range(-speed_variance, speed_variance)
+	
+	# Convert the angle to radians, rotate a baseline "RIGHT" vector, and multiply by speed
+	var velocity_dir = Vector2.RIGHT.rotated(deg_to_rad(final_angle))
+	drop.linear_velocity = velocity_dir * final_speed

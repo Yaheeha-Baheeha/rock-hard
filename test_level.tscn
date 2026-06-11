@@ -7,6 +7,24 @@
 [ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="6_y646j"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="11_13y8f"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbhdq"]
+shader = ExtResource("1_gbhdq")
+shader_parameter/core_color = Color(1, 0, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y646j"]
+shader = ExtResource("1_gbhdq")
+shader_parameter/core_color = Color(1, 0.6166667, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lnbra"]
 shader = ExtResource("1_gbhdq")
 shader_parameter/core_color = Color(1, 0.9, 0.2, 1)
@@ -199,9 +217,17 @@ terrain_set_0/terrain_4/name = "to left steep slope"
 terrain_set_0/terrain_4/color = Color(0.5999843, 0.80228055, 0.8778071, 1)
 sources/0 = SubResource("TileSetAtlasSource_gbhdq")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbhdq"]
+
 [node name="Game2" type="Node2D" unique_id=984303330]
 
-[node name="WaterFluid" type="CanvasGroup" parent="." unique_id=507034607]
+[node name="HotFluid" type="CanvasGroup" parent="." unique_id=507034607]
+material = SubResource("ShaderMaterial_gbhdq")
+
+[node name="MediumFluid" type="CanvasGroup" parent="." unique_id=988532767]
+material = SubResource("ShaderMaterial_y646j")
+
+[node name="ColdFluid" type="CanvasGroup" parent="." unique_id=876471203]
 material = SubResource("ShaderMaterial_lnbra")
 
 [node name="background" parent="." unique_id=932514271 instance=ExtResource("11_13y8f")]
@@ -228,8 +254,14 @@ tile_set = SubResource("TileSet_y646j")
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("5_gbhdq")]
 position = Vector2(133, -94)
-texture_tint = Color(1, 0.80784315, 0.69803923, 1)
 
-[node name="Spawner" type="Marker2D" parent="." unique_id=515885802]
+[node name="Spawner" type="Area2D" parent="." unique_id=595634446]
 position = Vector2(195, -196)
 script = ExtResource("6_y646j")
+fluid_type = 2
+spawn_rate = 0.005
+spawn_angle = 270.0
+spawn_speed = 2000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner" unique_id=1853591851]
+shape = SubResource("RectangleShape2D_gbhdq")
