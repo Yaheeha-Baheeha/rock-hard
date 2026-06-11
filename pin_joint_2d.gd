@@ -19,11 +19,11 @@ func _physics_process(_delta: float) -> void:
 		#print("Relative Joint Angle: ", wrapped_angle)
 		if wrapped_angle <= -60:
 			turned_on.emit()
-			print('on') #on
+			#print('on') #on
 			#maybe add signal to trigger lava
 		else:
 			turned_off.emit()
-			print("off") #off
+			#print("off") #off
 	else:
 		print("Assigned physics nodes not found.")
 		

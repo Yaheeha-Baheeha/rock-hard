@@ -194,6 +194,9 @@ sources/0 = SubResource("TileSetAtlasSource_kcwpe")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_br4so"]
 size = Vector2(769, 130)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j6qfn"]
+size = Vector2(1102.5, 130)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ons7"]
 size = Vector2(158, 20)
 
@@ -309,9 +312,8 @@ position = Vector2(1125.75, 183)
 [node name="RespawnPoint" type="Marker2D" parent="." unique_id=365243614]
 position = Vector2(-1498, -832)
 
-[node name="Player" parent="." unique_id=438420809 node_paths=PackedStringArray("obstacle_markers") instance=ExtResource("3_tac4s")]
+[node name="Player" parent="." unique_id=438420809 instance=ExtResource("3_tac4s")]
 position = Vector2(-1498, -832)
-obstacle_markers = [null]
 
 [node name="background" parent="." unique_id=979663656 instance=ExtResource("4_qhsfq")]
 z_index = -100
@@ -325,8 +327,8 @@ shape = SubResource("RectangleShape2D_br4so")
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1980503651]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=822657539]
-position = Vector2(-639, -1842)
-shape = SubResource("RectangleShape2D_br4so")
+position = Vector2(-472.25, -1842)
+shape = SubResource("RectangleShape2D_j6qfn")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=1893381532]
 
