@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://dij4cjoaktblo"]
 
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="4_5hph3"]
-[ext_resource type="Texture2D" uid="uid://dbtl6gq7ck22h" path="res://Textures/tileset.png" id="4_ihfcg"]
 [ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="4_rka8t"]
+[ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="4_swvua"]
 [ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="5_5hph3"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="6_5rr72"]
 [ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="6_j7kpp"]
@@ -33,7 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://ckjbx66vas5mv" path="res://Textures/Lava/fall/lavafall_22.png" id="30_dltcj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ihfcg"]
-texture = ExtResource("4_ihfcg")
+texture = ExtResource("4_swvua")
 1:1/0 = 0
 1:1/0/terrain_set = 0
 1:1/0/terrain = 0

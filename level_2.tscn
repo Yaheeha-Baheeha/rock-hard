@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="1_e6ygx"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="2_xlxjt"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="3_aocai"]
-[ext_resource type="Texture2D" uid="uid://dbtl6gq7ck22h" path="res://Textures/tileset.png" id="4_xwl8u"]
+[ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="4_dyw3t"]
 [ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="5_3pas5"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="6_u1jey"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="7_51w4t"]
@@ -67,7 +67,7 @@
 [ext_resource type="Texture2D" uid="uid://chpf22sm0cbuo" path="res://Textures/Lava/CreviceSpecular.png" id="65_omxaf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_41lt0"]
-texture = ExtResource("4_xwl8u")
+texture = ExtResource("4_dyw3t")
 1:1/0 = 0
 1:1/0/terrain_set = 0
 1:1/0/terrain = 0

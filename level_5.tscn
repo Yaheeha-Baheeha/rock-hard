@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cnc7y8ql6ejc"]
 
-[ext_resource type="Texture2D" uid="uid://dbtl6gq7ck22h" path="res://Textures/tileset.png" id="1_br4so"]
+[ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="1_j6qfn"]
 [ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="2_8ons7"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="3_tac4s"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="4_qhsfq"]
@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="9_2etst"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kcwpe"]
-texture = ExtResource("1_br4so")
+texture = ExtResource("1_j6qfn")
 1:1/0 = 0
 1:1/0/terrain_set = 0
 1:1/0/terrain = 0

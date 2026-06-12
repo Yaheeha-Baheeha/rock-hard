@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="1_j8bo8"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="2_1jdk1"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="3_6p2dc"]
-[ext_resource type="Texture2D" uid="uid://dbtl6gq7ck22h" path="res://Textures/tileset.png" id="4_fmu3g"]
+[ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="4_3uls0"]
 [ext_resource type="PackedScene" uid="uid://dp2yvv1x5o1jn" path="res://lever.tscn" id="5_1jdk1"]
 [ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="6_7ds5r"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="7_liaj6"]
@@ -34,7 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://ckjbx66vas5mv" path="res://Textures/Lava/fall/lavafall_22.png" id="32_f08ys"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ds5r"]
-texture = ExtResource("4_fmu3g")
+texture = ExtResource("4_3uls0")
 1:1/0 = 0
 1:1/0/terrain_set = 0
 1:1/0/terrain = 0

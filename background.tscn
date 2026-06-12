@@ -37,6 +37,7 @@ colors = PackedColorArray(0.6901961, 0.4392157, 0.1882353, 1, 0.6901961, 0.43921
 gradient = SubResource("Gradient_8u6ia")
 
 [node name="background" type="Node2D" unique_id=979663656]
+position = Vector2(0, 104)
 
 [node name="volcane behindest" type="Parallax2D" parent="." unique_id=1263902971]
 scale = Vector2(1.49, 1.49)
@@ -166,10 +167,8 @@ texture = ExtResource("4_5rr72")
 [node name="mountains behind" type="Parallax2D" parent="." unique_id=104566461]
 scale = Vector2(1.49, 1.49)
 scroll_scale = Vector2(0.3, 1)
-scroll_offset = Vector2(16, 0)
 repeat_size = Vector2(1156, 0)
 repeat_times = 3
-metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="mountains behind" unique_id=1674585073]
 position = Vector2(-0.35498047, -336)
@@ -199,6 +198,6 @@ texture = SubResource("GradientTexture2D_cdpnt")
 
 [node name="bg no debug" type="Sprite2D" parent="." unique_id=641315926]
 z_index = -999
-position = Vector2(0, 8548.965)
-scale = Vector2(-4719.758, 258.74197)
+position = Vector2(0, 36644.96)
+scale = Vector2(-4719.758, 1136.7418)
 texture = SubResource("GradientTexture2D_6i7po")
