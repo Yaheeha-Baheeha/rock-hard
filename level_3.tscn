@@ -416,7 +416,7 @@ monitorable = false
 script = ExtResource("9_liaj6")
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("10_b60u5")
-shape_texture_region = Rect2(15, -9, -24, -24)
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 
@@ -493,7 +493,7 @@ shape = SubResource("RectangleShape2D_keufu")
 script = ExtResource("9_liaj6")
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("10_b60u5")
-shape_texture_region = Rect2(15, -9, 24, 24)
+shape_texture_region = Rect2(0, 0, 100, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="worldboudary" unique_id=1665080069]
 position = Vector2(585, 1299)

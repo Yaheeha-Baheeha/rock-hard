@@ -96,21 +96,26 @@ func _spawn_shape_polygon(parent: Node) -> void:
 
 	var polygon_node := Polygon2D.new()
 	polygon_node.name = "DeathShapePolygon"
-	# If a texture is assigned, prefer it (optionally using a preset region)
+	
 	if shape_texture:
 		var tex_to_use := shape_texture
-		# If a region was provided (non-zero size) create an AtlasTexture to use only that portion
 		if shape_texture_region.size != Vector2.ZERO:
 			var atlas := AtlasTexture.new()
 			atlas.atlas = shape_texture
 			atlas.region = shape_texture_region
 			tex_to_use = atlas
+		
 		polygon_node.texture = tex_to_use
 		polygon_node.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED if shape_texture_repeat else CanvasItem.TEXTURE_REPEAT_DISABLED
-		# Keep color as a modulate so user can tint the texture if desired
+		
+		# --- ANCHOR AND POSITIONING CODE HERE ---
+		# Center the texture asset onto the dynamic centroid
+		polygon_node.texture_offset = tex_to_use.get_size() / 2.0
+		
 		polygon_node.color = shape_polygon_color
 	else:
 		polygon_node.color = shape_polygon_color
+		
 	polygon_node.polygon = polygon_points
 	body_node.add_child(polygon_node)
 	(parent as Node2D).add_child(body_node)

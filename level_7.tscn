@@ -350,7 +350,7 @@ script = ExtResource("6_12rt6")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("7_w0fgk")
-shape_texture_region = Rect2(5, 9, 24, 24)
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 
@@ -363,7 +363,7 @@ script = ExtResource("6_12rt6")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("7_w0fgk")
-shape_texture_region = Rect2(5, 9, 24, 24)
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 
@@ -376,7 +376,7 @@ script = ExtResource("6_12rt6")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("7_w0fgk")
-shape_texture_region = Rect2(5, 9, 24, 24)
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 
@@ -405,7 +405,7 @@ script = ExtResource("6_12rt6")
 spawn_parent_path = NodePath("../templabelsforraymond/Label7")
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("7_w0fgk")
-shape_texture_region = Rect2(15, -9, 24, 24)
+shape_texture_region = Rect2(0, 0, 100, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="worldboudary" unique_id=317059358]
 position = Vector2(585, 1299)

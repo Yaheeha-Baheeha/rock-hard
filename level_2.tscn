@@ -649,7 +649,7 @@ spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("8_ddgyg")
-shape_texture_region = Rect2(15.59, -9.81, -24.25, -24.655)
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 
@@ -668,7 +668,7 @@ spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("8_ddgyg")
-shape_texture_region = Rect2(15.59, -9.81, -24.25, -24.655)
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 
@@ -688,7 +688,7 @@ spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("8_ddgyg")
-shape_texture_region = Rect2(15.59, -9.81, -24.25, -24.655)
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 
@@ -708,7 +708,7 @@ spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("8_ddgyg")
-shape_texture_region = Rect2(15.59, -9.81, -24.25, -24.655)
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 
@@ -728,7 +728,7 @@ spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("8_ddgyg")
-shape_texture_region = Rect2(15.59, -9.81, -24.25, -24.655)
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 
@@ -747,7 +747,7 @@ player_controller_path = NodePath("../../Player")
 respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
 shape_texture = ExtResource("8_ddgyg")
-shape_texture_region = Rect2(15, -9, -25, -25)
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 

@@ -406,7 +406,7 @@ position = Vector2(0, -390)
 script = ExtResource("8_j6qfn")
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("9_2etst")
-shape_texture_region = Rect2(15, -9, 24, 24)
+shape_texture_region = Rect2(0, 0, 100, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="worldboudary" unique_id=1164269277]
 position = Vector2(585, 1299)

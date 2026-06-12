@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="4_80qnk"]
 [ext_resource type="Texture2D" uid="uid://dbtl6gq7ck22h" path="res://Textures/tileset.png" id="4_aqy51"]
 [ext_resource type="PackedScene" uid="uid://b5p7l64gpe84h" path="res://ceramics/vertical_rigid_ceramic.tscn" id="5_l45re"]
+[ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="9_80qnk"]
+[ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="10_cicwn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_48hld"]
 texture = ExtResource("4_aqy51")
@@ -288,6 +290,12 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_45t7y"]
 size = Vector2(128, 128)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rrs1j"]
+size = Vector2(28652, 176)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80qnk"]
+size = Vector2(614, 100)
+
 [node name="Game" type="Node2D" unique_id=422010239]
 
 [node name="Hammer" parent="." unique_id=1722124445 instance=ExtResource("1_48hld")]
@@ -311,15 +319,19 @@ tile_set = SubResource("TileSet_66w8i")
 
 [node name="VerticalRigidCeramic" parent="." unique_id=286125667 instance=ExtResource("5_l45re")]
 position = Vector2(1654, 45)
+mass = 0.892
 
 [node name="VerticalRigidCeramic2" parent="." unique_id=339781960 instance=ExtResource("5_l45re")]
 position = Vector2(1654, -371)
+mass = 0.892
 
 [node name="VerticalRigidCeramic3" parent="." unique_id=2007752925 instance=ExtResource("5_l45re")]
 position = Vector2(1654, -232)
+mass = 0.892
 
 [node name="VerticalRigidCeramic4" parent="." unique_id=408819283 instance=ExtResource("5_l45re")]
 position = Vector2(1654, -93)
+mass = 0.892
 
 [node name="Label" type="Label" parent="." unique_id=439072941]
 offset_left = -290.0
@@ -395,3 +407,23 @@ autoplay = &"oscillate"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Collectable/Area2D" unique_id=1477631434]
 shape = SubResource("RectangleShape2D_45t7y")
+
+[node name="worldboudary" type="Area2D" parent="." unique_id=269658977]
+script = ExtResource("9_80qnk")
+shape_polygon_color = Color(1, 1, 1, 1)
+shape_texture = ExtResource("10_cicwn")
+shape_texture_region = Rect2(0, 0, 100, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="worldboudary" unique_id=1658922225]
+position = Vector2(585, 1299)
+shape = SubResource("RectangleShape2D_rrs1j")
+
+[node name="lave" type="Area2D" parent="." unique_id=363871865]
+script = ExtResource("9_80qnk")
+shape_polygon_color = Color(1, 1, 1, 1)
+shape_texture = ExtResource("10_cicwn")
+shape_texture_region = Rect2(0, 0, 100, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lave" unique_id=1469990700]
+position = Vector2(3876, 81)
+shape = SubResource("RectangleShape2D_80qnk")
