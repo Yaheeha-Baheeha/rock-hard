@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="3_aocai"]
 [ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="4_dyw3t"]
 [ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="5_3pas5"]
+[ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="6_dyw3t"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="6_u1jey"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="7_51w4t"]
-[ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="8_ddgyg"]
 [ext_resource type="Texture2D" uid="uid://c3xbw3br0vgbx" path="res://Textures/Lava/fall/lavafall_01.png" id="9_qh630"]
 [ext_resource type="Texture2D" uid="uid://ck17f1nsxh1ky" path="res://Textures/Lava/fall/lavafall_02.png" id="10_uv8er"]
 [ext_resource type="Texture2D" uid="uid://behvj1hoqfltx" path="res://Textures/Lava/fall/lavafall_03.png" id="11_653n8"]
@@ -648,7 +648,7 @@ respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("8_ddgyg")
+shape_texture = ExtResource("6_dyw3t")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
@@ -667,7 +667,7 @@ respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("8_ddgyg")
+shape_texture = ExtResource("6_dyw3t")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
@@ -687,7 +687,7 @@ respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("8_ddgyg")
+shape_texture = ExtResource("6_dyw3t")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
@@ -707,7 +707,7 @@ respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("8_ddgyg")
+shape_texture = ExtResource("6_dyw3t")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
@@ -727,7 +727,7 @@ respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("8_ddgyg")
+shape_texture = ExtResource("6_dyw3t")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
@@ -746,7 +746,8 @@ softbody_path = NodePath("../../Player/SoftBodySphere")
 player_controller_path = NodePath("../../Player")
 respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
-shape_texture = ExtResource("8_ddgyg")
+shape_polygon_color = Color(1, 1, 1, 1)
+shape_texture = ExtResource("6_dyw3t")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40

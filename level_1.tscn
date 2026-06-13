@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="4_swvua"]
 [ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="5_5hph3"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="6_5rr72"]
-[ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="6_j7kpp"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="8_bjebc"]
 [ext_resource type="Texture2D" uid="uid://c3xbw3br0vgbx" path="res://Textures/Lava/fall/lavafall_01.png" id="9_swvua"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="10_gyffv"]
@@ -29,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://d15gl3itxl3r6" path="res://Textures/Lava/fall/lavafall_18.png" id="26_jf2qc"]
 [ext_resource type="Texture2D" uid="uid://nciwufhi7qm4" path="res://Textures/Lava/fall/lavafall_19.png" id="27_nfgh3"]
 [ext_resource type="Texture2D" uid="uid://bohkefj5xpqkj" path="res://Textures/Lava/fall/lavafall_20.png" id="28_cgue7"]
+[ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="28_swvua"]
 [ext_resource type="Texture2D" uid="uid://doawjefj2ha2p" path="res://Textures/Lava/fall/lavafall_21.png" id="29_0t3i3"]
 [ext_resource type="Texture2D" uid="uid://ckjbx66vas5mv" path="res://Textures/Lava/fall/lavafall_22.png" id="30_dltcj"]
 
@@ -1536,7 +1536,7 @@ player_controller_path = NodePath("../../Player")
 respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("6_j7kpp")
+shape_texture = ExtResource("28_swvua")
 shape_texture_region = Rect2(0, 0, 100, 100)
 circle_approximation_segments = 40
 
@@ -1552,7 +1552,7 @@ softbody_path = NodePath("../../Player/SoftBodySphere")
 player_controller_path = NodePath("../../Player")
 respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
-shape_texture = ExtResource("6_j7kpp")
+shape_texture = ExtResource("28_swvua")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40

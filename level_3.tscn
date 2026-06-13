@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="3_6p2dc"]
 [ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="4_3uls0"]
 [ext_resource type="PackedScene" uid="uid://dp2yvv1x5o1jn" path="res://lever.tscn" id="5_1jdk1"]
+[ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="6_3uls0"]
 [ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="6_7ds5r"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="7_liaj6"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="8_b60u5"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="9_liaj6"]
-[ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="10_b60u5"]
 [ext_resource type="Texture2D" uid="uid://c3xbw3br0vgbx" path="res://Textures/Lava/fall/lavafall_01.png" id="11_3uls0"]
 [ext_resource type="Texture2D" uid="uid://ck17f1nsxh1ky" path="res://Textures/Lava/fall/lavafall_02.png" id="12_oojxo"]
 [ext_resource type="Texture2D" uid="uid://behvj1hoqfltx" path="res://Textures/Lava/fall/lavafall_03.png" id="13_m2val"]
@@ -415,7 +415,7 @@ monitoring = false
 monitorable = false
 script = ExtResource("9_liaj6")
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("10_b60u5")
+shape_texture = ExtResource("6_3uls0")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
@@ -492,7 +492,7 @@ shape = SubResource("RectangleShape2D_keufu")
 [node name="worldboudary" type="Area2D" parent="." unique_id=1336105521]
 script = ExtResource("9_liaj6")
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("10_b60u5")
+shape_texture = ExtResource("6_3uls0")
 shape_texture_region = Rect2(0, 0, 100, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="worldboudary" unique_id=1665080069]

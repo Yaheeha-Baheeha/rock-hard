@@ -1,0 +1,10 @@
+[gd_resource type="CanvasTexture" format=3 uid="uid://bk0uckdjboiyh"]
+
+[ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="1_vffby"]
+[ext_resource type="Texture2D" uid="uid://na3cr8pc0xrf" path="res://Textures/ceramic_normal.png" id="2_0b5qo"]
+[ext_resource type="Texture2D" uid="uid://cgeys1wei1id3" path="res://Textures/ceramic_specular.png" id="3_rhoo0"]
+
+[resource]
+diffuse_texture = ExtResource("1_vffby")
+normal_texture = ExtResource("2_0b5qo")
+specular_texture = ExtResource("3_rhoo0")

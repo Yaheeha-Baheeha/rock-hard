@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="5_ufocd"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="6_8qw4p"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="7_ret08"]
-[ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="8_at5bj"]
+[ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="8_0ntib"]
 [ext_resource type="Texture2D" uid="uid://c3xbw3br0vgbx" path="res://Textures/Lava/fall/lavafall_01.png" id="9_8jwrf"]
 [ext_resource type="Texture2D" uid="uid://ck17f1nsxh1ky" path="res://Textures/Lava/fall/lavafall_02.png" id="10_b7jeh"]
 [ext_resource type="Texture2D" uid="uid://behvj1hoqfltx" path="res://Textures/Lava/fall/lavafall_03.png" id="11_ae3x6"]
@@ -602,8 +602,8 @@ respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("8_at5bj")
-shape_texture_region = Rect2(19.495, -4.875, -25.055, -25.795)
+shape_texture = ExtResource("8_0ntib")
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 35
 
@@ -620,9 +620,8 @@ player_controller_path = NodePath("../../Player")
 respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("8_at5bj")
-shape_texture_region = Rect2(15.59, -9.81, -24.25, -24.655)
-shape_texture_repeat = true
+shape_texture = ExtResource("8_0ntib")
+shape_texture_region = Rect2(0, 0, 100, 100)
 circle_approximation_segments = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeahConditionRigid" unique_id=1359674654]
@@ -1032,9 +1031,8 @@ softbody_path = NodePath("../../Player/SoftBodySphere")
 player_controller_path = NodePath("../../Player")
 respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
-shape_texture = ExtResource("8_at5bj")
-shape_texture_region = Rect2(15, -9, -25, -25)
-shape_texture_repeat = true
+shape_texture = ExtResource("8_0ntib")
+shape_texture_region = Rect2(0, 0, 100, 100)
 circle_approximation_segments = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/WorldBoundary" unique_id=260226787]

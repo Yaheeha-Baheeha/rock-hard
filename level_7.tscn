@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dp2yvv1x5o1jn" path="res://lever.tscn" id="5_4ryn0"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="5_axb3o"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="6_12rt6"]
-[ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="7_w0fgk"]
+[ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="7_axb3o"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="9_w12s5"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="10_p07bb"]
 
@@ -349,7 +349,7 @@ position = Vector2(-913, 349)
 script = ExtResource("6_12rt6")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("7_w0fgk")
+shape_texture = ExtResource("7_axb3o")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
@@ -362,7 +362,7 @@ shape = SubResource("RectangleShape2D_w0fgk")
 script = ExtResource("6_12rt6")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("7_w0fgk")
+shape_texture = ExtResource("7_axb3o")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
@@ -375,7 +375,7 @@ shape = SubResource("RectangleShape2D_0wqyy")
 script = ExtResource("6_12rt6")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("7_w0fgk")
+shape_texture = ExtResource("7_axb3o")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
@@ -404,7 +404,7 @@ position = Vector2(2960, -211)
 script = ExtResource("6_12rt6")
 spawn_parent_path = NodePath("../templabelsforraymond/Label7")
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("7_w0fgk")
+shape_texture = ExtResource("7_axb3o")
 shape_texture_region = Rect2(0, 0, 100, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="worldboudary" unique_id=317059358]

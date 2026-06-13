@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="7_soim0"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="8_vp58d"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="9_vp58d"]
-[ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="10_3eqwd"]
+[ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="10_vp58d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_brkdw"]
 texture = ExtResource("1_vp58d")
@@ -314,7 +314,7 @@ shape = SubResource("RectangleShape2D_yh5ew")
 [node name="worldboudary" type="Area2D" parent="." unique_id=856787237]
 script = ExtResource("9_vp58d")
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("10_3eqwd")
+shape_texture = ExtResource("10_vp58d")
 shape_texture_region = Rect2(0, 0, 100, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="worldboudary" unique_id=610000842]
