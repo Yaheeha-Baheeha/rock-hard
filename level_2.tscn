@@ -30,7 +30,9 @@
 [ext_resource type="Texture2D" uid="uid://bohkefj5xpqkj" path="res://Textures/Lava/fall/lavafall_20.png" id="28_uqf8q"]
 [ext_resource type="Texture2D" uid="uid://doawjefj2ha2p" path="res://Textures/Lava/fall/lavafall_21.png" id="29_puam4"]
 [ext_resource type="Texture2D" uid="uid://ckjbx66vas5mv" path="res://Textures/Lava/fall/lavafall_22.png" id="30_eay7t"]
+[ext_resource type="Texture2D" uid="uid://j4qxeg26fom0" path="res://resources/empty_gradient_collectible.tres" id="31_omxaf"]
 [ext_resource type="Texture2D" uid="uid://cmcivhovxwbnq" path="res://Textures/Tutorial/Level_2/ezgif-frame-001.png" id="32_puam4"]
+[ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="33_bwt5l"]
 [ext_resource type="Texture2D" uid="uid://hlj6q8ybt8v4" path="res://Textures/Tutorial/Level_2/ezgif-frame-002.png" id="33_eay7t"]
 [ext_resource type="Texture2D" uid="uid://b73gpu83hvjnm" path="res://Textures/Tutorial/Level_2/ezgif-frame-003.png" id="34_bid37"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="34_omxaf"]
@@ -903,7 +905,7 @@ autoplay = &"oscillate"
 
 [node name="Collectable" type="Sprite2D" parent="." unique_id=488867800]
 position = Vector2(2042, -153)
-texture = ExtResource("5_3pas5")
+texture = ExtResource("31_omxaf")
 script = ExtResource("6_u1jey")
 level_number = 2
 
@@ -923,6 +925,19 @@ autoplay = &"oscillate"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collectable/Area2D" unique_id=820881563]
 shape = SubResource("RectangleShape2D_ddgyg")
+
+[node name="TextureRect" type="TextureRect" parent="Collectable" unique_id=964813739]
+z_index = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("33_bwt5l")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=296329056]
 light_mask = 2

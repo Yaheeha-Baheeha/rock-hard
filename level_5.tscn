@@ -7,8 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="5_qhsfq"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="6_kcwpe"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="7_j6qfn"]
+[ext_resource type="Texture2D" uid="uid://j4qxeg26fom0" path="res://resources/empty_gradient_collectible.tres" id="7_vw43l"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="8_j6qfn"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="9_j6qfn"]
+[ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="9_jiqp1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kcwpe"]
 texture = ExtResource("1_j6qfn")
@@ -380,7 +382,7 @@ autoplay = &"oscillate"
 
 [node name="Collectable" type="Sprite2D" parent="Node2D" unique_id=134334385]
 position = Vector2(2642, 168)
-texture = ExtResource("5_qhsfq")
+texture = ExtResource("7_vw43l")
 script = ExtResource("7_j6qfn")
 level_number = 5
 
@@ -400,6 +402,19 @@ autoplay = &"oscillate"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Collectable/Area2D" unique_id=418491033]
 shape = SubResource("RectangleShape2D_o1mlc")
+
+[node name="TextureRect" type="TextureRect" parent="Node2D/Collectable" unique_id=1679457688]
+z_index = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_jiqp1")
 
 [node name="worldboudary" type="Area2D" parent="." unique_id=1821224670]
 position = Vector2(0, -390)

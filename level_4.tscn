@@ -8,8 +8,10 @@
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="4_80qnk"]
 [ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="4_cicwn"]
 [ext_resource type="PackedScene" uid="uid://b5p7l64gpe84h" path="res://ceramics/vertical_rigid_ceramic.tscn" id="5_l45re"]
+[ext_resource type="Texture2D" uid="uid://j4qxeg26fom0" path="res://resources/empty_gradient_collectible.tres" id="8_lj1an"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="9_80qnk"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="10_80qnk"]
+[ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="10_rrs1j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_48hld"]
 texture = ExtResource("4_cicwn")
@@ -387,7 +389,7 @@ autoplay = &"oscillate"
 
 [node name="Collectable" type="Sprite2D" parent="Node2D" unique_id=1781889375]
 position = Vector2(808.25, 168)
-texture = ExtResource("2_s24i2")
+texture = ExtResource("8_lj1an")
 script = ExtResource("4_80qnk")
 level_number = 4
 
@@ -407,6 +409,19 @@ autoplay = &"oscillate"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Collectable/Area2D" unique_id=1477631434]
 shape = SubResource("RectangleShape2D_45t7y")
+
+[node name="TextureRect" type="TextureRect" parent="Node2D/Collectable" unique_id=1624207397]
+z_index = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_rrs1j")
 
 [node name="worldboudary" type="Area2D" parent="." unique_id=269658977]
 script = ExtResource("9_80qnk")
