@@ -52,6 +52,7 @@ _data = {
 }
 
 [node name="VerticalRigidCeramic" type="RigidBody2D" unique_id=286125667]
+mass = 0.139
 physics_material_override = ExtResource("1_lengr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=857893798]

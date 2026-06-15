@@ -1,42 +1,44 @@
 [gd_scene format=4 uid="uid://cecsuvheyww6x"]
 
-[ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="1_0ntib"]
-[ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="2_f7flh"]
-[ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="3_3yvij"]
-[ext_resource type="Texture2D" uid="uid://dbtl6gq7ck22h" path="res://Textures/tileset.png" id="4_cibhb"]
-[ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="5_ufocd"]
-[ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="6_8qw4p"]
-[ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="7_ret08"]
-[ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="8_at5bj"]
-[ext_resource type="Texture2D" uid="uid://c3xbw3br0vgbx" path="res://Textures/Lava/fall/lavafall_01.png" id="9_8jwrf"]
-[ext_resource type="Texture2D" uid="uid://ck17f1nsxh1ky" path="res://Textures/Lava/fall/lavafall_02.png" id="10_b7jeh"]
-[ext_resource type="Texture2D" uid="uid://behvj1hoqfltx" path="res://Textures/Lava/fall/lavafall_03.png" id="11_ae3x6"]
-[ext_resource type="Texture2D" uid="uid://bdkcjseguhm4f" path="res://Textures/Lava/fall/lavafall_04.png" id="12_i3kci"]
-[ext_resource type="Texture2D" uid="uid://cmlca78ed0cx3" path="res://Textures/Lava/fall/lavafall_05.png" id="13_0t7sk"]
-[ext_resource type="Texture2D" uid="uid://dk675tosd0t7d" path="res://Textures/Lava/fall/lavafall_06.png" id="14_65u8l"]
-[ext_resource type="Texture2D" uid="uid://bpcbwmkkojyf6" path="res://Textures/Lava/fall/lavafall_07.png" id="15_ox1ug"]
-[ext_resource type="Texture2D" uid="uid://cr6f7xvl0b6th" path="res://Textures/Lava/fall/lavafall_08.png" id="16_j22sb"]
-[ext_resource type="Texture2D" uid="uid://m6ctbhw6gk7v" path="res://Textures/Lava/fall/lavafall_09.png" id="17_xoj08"]
-[ext_resource type="Texture2D" uid="uid://bfhuixtcdd5ll" path="res://Textures/Lava/fall/lavafall_10.png" id="18_lfwkv"]
-[ext_resource type="Texture2D" uid="uid://dfgn1mf3unsbe" path="res://Textures/Lava/fall/lavafall_11.png" id="19_ff8k4"]
-[ext_resource type="Texture2D" uid="uid://bbsl3farhvqxt" path="res://Textures/Lava/fall/lavafall_12.png" id="20_7vlhr"]
-[ext_resource type="Texture2D" uid="uid://bpy7ahsxwffao" path="res://Textures/Lava/fall/lavafall_13.png" id="21_56qt6"]
-[ext_resource type="Texture2D" uid="uid://delashgxe7oj1" path="res://Textures/Lava/fall/lavafall_14.png" id="22_tdc0c"]
-[ext_resource type="Texture2D" uid="uid://dqw1cxp2aqfn8" path="res://Textures/Lava/fall/lavafall_15.png" id="23_w48iu"]
-[ext_resource type="Texture2D" uid="uid://bfcryp0k75yth" path="res://Textures/Lava/fall/lavafall_16.png" id="24_ybn58"]
-[ext_resource type="Texture2D" uid="uid://dhavihj8ttwxx" path="res://Textures/Lava/fall/lavafall_17.png" id="25_fqj1m"]
-[ext_resource type="Texture2D" uid="uid://d15gl3itxl3r6" path="res://Textures/Lava/fall/lavafall_18.png" id="26_hyi0i"]
-[ext_resource type="Texture2D" uid="uid://nciwufhi7qm4" path="res://Textures/Lava/fall/lavafall_19.png" id="27_ha7pf"]
-[ext_resource type="Texture2D" uid="uid://bohkefj5xpqkj" path="res://Textures/Lava/fall/lavafall_20.png" id="28_04qdd"]
-[ext_resource type="Texture2D" uid="uid://doawjefj2ha2p" path="res://Textures/Lava/fall/lavafall_21.png" id="29_ptqrq"]
-[ext_resource type="Texture2D" uid="uid://ckjbx66vas5mv" path="res://Textures/Lava/fall/lavafall_22.png" id="30_q3l23"]
-[ext_resource type="Texture2D" uid="uid://br8nfbb3u0hk6" path="res://Textures/Lava/Crevice.png" id="31_r14g3"]
-[ext_resource type="Texture2D" uid="uid://c38t60kffxy4" path="res://Textures/Lava/CreviceNormal.png" id="32_f0aut"]
-[ext_resource type="Texture2D" uid="uid://chpf22sm0cbuo" path="res://Textures/Lava/CreviceSpecular.png" id="33_1u6qe"]
-[ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="34_yyjiu"]
+[ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="1_iq1si"]
+[ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="2_thifg"]
+[ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="3_xbesp"]
+[ext_resource type="Texture2D" uid="uid://dbtl6gq7ck22h" path="res://Textures/tileset.png" id="4_v3odb"]
+[ext_resource type="Texture2D" uid="uid://j4qxeg26fom0" path="res://resources/empty_gradient_collectible.tres" id="5_caiox"]
+[ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="6_e3etx"]
+[ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="7_oxvag"]
+[ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="8_i2ukg"]
+[ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="9_a5kc6"]
+[ext_resource type="Texture2D" uid="uid://c3xbw3br0vgbx" path="res://Textures/Lava/fall/lavafall_01.png" id="10_b1wdy"]
+[ext_resource type="Texture2D" uid="uid://ck17f1nsxh1ky" path="res://Textures/Lava/fall/lavafall_02.png" id="11_jrcil"]
+[ext_resource type="Texture2D" uid="uid://behvj1hoqfltx" path="res://Textures/Lava/fall/lavafall_03.png" id="12_bjg5l"]
+[ext_resource type="Texture2D" uid="uid://bdkcjseguhm4f" path="res://Textures/Lava/fall/lavafall_04.png" id="13_ibm1a"]
+[ext_resource type="Texture2D" uid="uid://cmlca78ed0cx3" path="res://Textures/Lava/fall/lavafall_05.png" id="14_yxntu"]
+[ext_resource type="Texture2D" uid="uid://dk675tosd0t7d" path="res://Textures/Lava/fall/lavafall_06.png" id="15_ijosd"]
+[ext_resource type="Texture2D" uid="uid://bpcbwmkkojyf6" path="res://Textures/Lava/fall/lavafall_07.png" id="16_r6euk"]
+[ext_resource type="Texture2D" uid="uid://cr6f7xvl0b6th" path="res://Textures/Lava/fall/lavafall_08.png" id="17_2q1qm"]
+[ext_resource type="Texture2D" uid="uid://m6ctbhw6gk7v" path="res://Textures/Lava/fall/lavafall_09.png" id="18_iheug"]
+[ext_resource type="Texture2D" uid="uid://bfhuixtcdd5ll" path="res://Textures/Lava/fall/lavafall_10.png" id="19_vew4v"]
+[ext_resource type="Texture2D" uid="uid://dfgn1mf3unsbe" path="res://Textures/Lava/fall/lavafall_11.png" id="20_ivfvh"]
+[ext_resource type="Texture2D" uid="uid://bbsl3farhvqxt" path="res://Textures/Lava/fall/lavafall_12.png" id="21_05whr"]
+[ext_resource type="Texture2D" uid="uid://bpy7ahsxwffao" path="res://Textures/Lava/fall/lavafall_13.png" id="22_g7f3v"]
+[ext_resource type="Texture2D" uid="uid://delashgxe7oj1" path="res://Textures/Lava/fall/lavafall_14.png" id="23_ypc0v"]
+[ext_resource type="Texture2D" uid="uid://dqw1cxp2aqfn8" path="res://Textures/Lava/fall/lavafall_15.png" id="24_h85o1"]
+[ext_resource type="Texture2D" uid="uid://bfcryp0k75yth" path="res://Textures/Lava/fall/lavafall_16.png" id="25_p564p"]
+[ext_resource type="Texture2D" uid="uid://dhavihj8ttwxx" path="res://Textures/Lava/fall/lavafall_17.png" id="26_obq6u"]
+[ext_resource type="Texture2D" uid="uid://d15gl3itxl3r6" path="res://Textures/Lava/fall/lavafall_18.png" id="27_ek7p1"]
+[ext_resource type="Texture2D" uid="uid://nciwufhi7qm4" path="res://Textures/Lava/fall/lavafall_19.png" id="28_ln5ef"]
+[ext_resource type="Texture2D" uid="uid://bohkefj5xpqkj" path="res://Textures/Lava/fall/lavafall_20.png" id="29_4tyll"]
+[ext_resource type="Texture2D" uid="uid://doawjefj2ha2p" path="res://Textures/Lava/fall/lavafall_21.png" id="30_2uf4a"]
+[ext_resource type="Texture2D" uid="uid://ckjbx66vas5mv" path="res://Textures/Lava/fall/lavafall_22.png" id="31_u3yhf"]
+[ext_resource type="Texture2D" uid="uid://br8nfbb3u0hk6" path="res://Textures/Lava/Crevice.png" id="32_jb6rc"]
+[ext_resource type="Texture2D" uid="uid://c38t60kffxy4" path="res://Textures/Lava/CreviceNormal.png" id="33_81ssl"]
+[ext_resource type="Texture2D" uid="uid://chpf22sm0cbuo" path="res://Textures/Lava/CreviceSpecular.png" id="34_g6luu"]
+[ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="35_s3d58"]
+[ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="36_vhepx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e6ygx"]
-texture = ExtResource("4_cibhb")
+texture = ExtResource("4_v3odb")
 1:1/0 = 0
 1:1/0/terrain_set = 0
 1:1/0/terrain = 0
@@ -267,70 +269,70 @@ size = Vector2(432.5, 140.5)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("9_8jwrf")
+"texture": ExtResource("10_b1wdy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_b7jeh")
+"texture": ExtResource("11_jrcil")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_ae3x6")
+"texture": ExtResource("12_bjg5l")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_i3kci")
+"texture": ExtResource("13_ibm1a")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_0t7sk")
+"texture": ExtResource("14_yxntu")
 }, {
 "duration": 1.0,
-"texture": ExtResource("14_65u8l")
+"texture": ExtResource("15_ijosd")
 }, {
 "duration": 1.0,
-"texture": ExtResource("15_ox1ug")
+"texture": ExtResource("16_r6euk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("16_j22sb")
+"texture": ExtResource("17_2q1qm")
 }, {
 "duration": 1.0,
-"texture": ExtResource("17_xoj08")
+"texture": ExtResource("18_iheug")
 }, {
 "duration": 1.0,
-"texture": ExtResource("18_lfwkv")
+"texture": ExtResource("19_vew4v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("19_ff8k4")
+"texture": ExtResource("20_ivfvh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("20_7vlhr")
+"texture": ExtResource("21_05whr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("21_56qt6")
+"texture": ExtResource("22_g7f3v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("22_tdc0c")
+"texture": ExtResource("23_ypc0v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("23_w48iu")
+"texture": ExtResource("24_h85o1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("24_ybn58")
+"texture": ExtResource("25_p564p")
 }, {
 "duration": 1.0,
-"texture": ExtResource("25_fqj1m")
+"texture": ExtResource("26_obq6u")
 }, {
 "duration": 1.0,
-"texture": ExtResource("26_hyi0i")
+"texture": ExtResource("27_ek7p1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("27_ha7pf")
+"texture": ExtResource("28_ln5ef")
 }, {
 "duration": 1.0,
-"texture": ExtResource("28_04qdd")
+"texture": ExtResource("29_4tyll")
 }, {
 "duration": 1.0,
-"texture": ExtResource("29_ptqrq")
+"texture": ExtResource("30_2uf4a")
 }, {
 "duration": 1.0,
-"texture": ExtResource("30_q3l23")
+"texture": ExtResource("31_u3yhf")
 }],
 "loop": true,
 "name": &"default",
@@ -341,70 +343,70 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("30_q3l23")
+"texture": ExtResource("31_u3yhf")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_8jwrf")
+"texture": ExtResource("10_b1wdy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_b7jeh")
+"texture": ExtResource("11_jrcil")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_ae3x6")
+"texture": ExtResource("12_bjg5l")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_i3kci")
+"texture": ExtResource("13_ibm1a")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_0t7sk")
+"texture": ExtResource("14_yxntu")
 }, {
 "duration": 1.0,
-"texture": ExtResource("14_65u8l")
+"texture": ExtResource("15_ijosd")
 }, {
 "duration": 1.0,
-"texture": ExtResource("15_ox1ug")
+"texture": ExtResource("16_r6euk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("16_j22sb")
+"texture": ExtResource("17_2q1qm")
 }, {
 "duration": 1.0,
-"texture": ExtResource("17_xoj08")
+"texture": ExtResource("18_iheug")
 }, {
 "duration": 1.0,
-"texture": ExtResource("18_lfwkv")
+"texture": ExtResource("19_vew4v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("19_ff8k4")
+"texture": ExtResource("20_ivfvh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("20_7vlhr")
+"texture": ExtResource("21_05whr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("21_56qt6")
+"texture": ExtResource("22_g7f3v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("22_tdc0c")
+"texture": ExtResource("23_ypc0v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("23_w48iu")
+"texture": ExtResource("24_h85o1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("24_ybn58")
+"texture": ExtResource("25_p564p")
 }, {
 "duration": 1.0,
-"texture": ExtResource("25_fqj1m")
+"texture": ExtResource("26_obq6u")
 }, {
 "duration": 1.0,
-"texture": ExtResource("26_hyi0i")
+"texture": ExtResource("27_ek7p1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("27_ha7pf")
+"texture": ExtResource("28_ln5ef")
 }, {
 "duration": 1.0,
-"texture": ExtResource("28_04qdd")
+"texture": ExtResource("29_4tyll")
 }, {
 "duration": 1.0,
-"texture": ExtResource("29_ptqrq")
+"texture": ExtResource("30_2uf4a")
 }],
 "loop": true,
 "name": &"default",
@@ -412,9 +414,9 @@ animations = [{
 }]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_84ct4"]
-diffuse_texture = ExtResource("31_r14g3")
-normal_texture = ExtResource("32_f0aut")
-specular_texture = ExtResource("33_1u6qe")
+diffuse_texture = ExtResource("32_jb6rc")
+normal_texture = ExtResource("33_81ssl")
+specular_texture = ExtResource("34_g6luu")
 specular_color = Color(0.50140655, 0.5014065, 0.5014065, 1)
 specular_shininess = 0.45
 
@@ -422,70 +424,70 @@ specular_shininess = 0.45
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("9_8jwrf")
+"texture": ExtResource("10_b1wdy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_b7jeh")
+"texture": ExtResource("11_jrcil")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_ae3x6")
+"texture": ExtResource("12_bjg5l")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_i3kci")
+"texture": ExtResource("13_ibm1a")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_0t7sk")
+"texture": ExtResource("14_yxntu")
 }, {
 "duration": 1.0,
-"texture": ExtResource("14_65u8l")
+"texture": ExtResource("15_ijosd")
 }, {
 "duration": 1.0,
-"texture": ExtResource("15_ox1ug")
+"texture": ExtResource("16_r6euk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("16_j22sb")
+"texture": ExtResource("17_2q1qm")
 }, {
 "duration": 1.0,
-"texture": ExtResource("17_xoj08")
+"texture": ExtResource("18_iheug")
 }, {
 "duration": 1.0,
-"texture": ExtResource("18_lfwkv")
+"texture": ExtResource("19_vew4v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("19_ff8k4")
+"texture": ExtResource("20_ivfvh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("20_7vlhr")
+"texture": ExtResource("21_05whr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("21_56qt6")
+"texture": ExtResource("22_g7f3v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("22_tdc0c")
+"texture": ExtResource("23_ypc0v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("23_w48iu")
+"texture": ExtResource("24_h85o1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("24_ybn58")
+"texture": ExtResource("25_p564p")
 }, {
 "duration": 1.0,
-"texture": ExtResource("25_fqj1m")
+"texture": ExtResource("26_obq6u")
 }, {
 "duration": 1.0,
-"texture": ExtResource("26_hyi0i")
+"texture": ExtResource("27_ek7p1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("27_ha7pf")
+"texture": ExtResource("28_ln5ef")
 }, {
 "duration": 1.0,
-"texture": ExtResource("28_04qdd")
+"texture": ExtResource("29_4tyll")
 }, {
 "duration": 1.0,
-"texture": ExtResource("29_ptqrq")
+"texture": ExtResource("30_2uf4a")
 }, {
 "duration": 1.0,
-"texture": ExtResource("30_q3l23")
+"texture": ExtResource("31_u3yhf")
 }],
 "loop": true,
 "name": &"default",
@@ -548,16 +550,16 @@ gradient = SubResource("Gradient_e6ygx")
 
 [node name="Game" type="Node2D" unique_id=984303330]
 
-[node name="Hammer" parent="." unique_id=681332400 instance=ExtResource("1_0ntib")]
+[node name="Hammer" parent="." unique_id=681332400 instance=ExtResource("1_iq1si")]
 position = Vector2(1125.75, 183)
 
 [node name="RespawnPoint" type="Marker2D" parent="." unique_id=83837171]
 position = Vector2(133, -94)
 
-[node name="Player" parent="." unique_id=438420809 instance=ExtResource("2_f7flh")]
+[node name="Player" parent="." unique_id=438420809 instance=ExtResource("2_thifg")]
 position = Vector2(133, -94)
 
-[node name="background" parent="." unique_id=1396150072 instance=ExtResource("3_3yvij")]
+[node name="background" parent="." unique_id=1396150072 instance=ExtResource("3_xbesp")]
 z_index = -100
 
 [node name="Tilemap" type="Node2D" parent="." unique_id=1491718641]
@@ -568,9 +570,9 @@ tile_set = SubResource("TileSet_5hph3")
 
 [node name="Collectable" type="Sprite2D" parent="." unique_id=88941999]
 position = Vector2(1722, -136)
-texture = ExtResource("5_ufocd")
-script = ExtResource("6_8qw4p")
-level_number = 24
+texture = ExtResource("5_caiox")
+script = ExtResource("6_e3etx")
+level_number = 8
 
 [node name="Label" type="Label" parent="Collectable" unique_id=975420221]
 offset_left = -43.0
@@ -590,11 +592,24 @@ autoplay = &"oscillate"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collectable/Area2D" unique_id=1465131874]
 shape = SubResource("RectangleShape2D_27bay")
 
+[node name="TextureRect" type="TextureRect" parent="Collectable" unique_id=319605321]
+z_index = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_oxvag")
+
 [node name="Lava" type="Node2D" parent="." unique_id=939058580]
 
 [node name="DeahConditionStatic" type="Area2D" parent="Lava" unique_id=593906030]
 position = Vector2(839.75, 111)
-script = ExtResource("7_ret08")
+script = ExtResource("8_i2ukg")
 player_root_path = NodePath("../../Player")
 softbody_path = NodePath("../../Player/SoftBodySphere")
 player_controller_path = NodePath("../../Player")
@@ -602,8 +617,8 @@ respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
 ceramic_type = 1
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("8_at5bj")
-shape_texture_region = Rect2(19.495, -4.875, -25.055, -25.795)
+shape_texture = ExtResource("9_a5kc6")
+shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 35
 
@@ -613,16 +628,15 @@ shape = SubResource("RectangleShape2D_bjebc")
 debug_color = Color(0.72944677, 0.4236925, 0.56939113, 0.41960785)
 
 [node name="DeahConditionRigid" type="Area2D" parent="Lava" unique_id=1863957217]
-script = ExtResource("7_ret08")
+script = ExtResource("8_i2ukg")
 player_root_path = NodePath("../../Player")
 softbody_path = NodePath("../../Player/SoftBodySphere")
 player_controller_path = NodePath("../../Player")
 respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
 shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("8_at5bj")
-shape_texture_region = Rect2(15.59, -9.81, -24.25, -24.655)
-shape_texture_repeat = true
+shape_texture = ExtResource("9_a5kc6")
+shape_texture_region = Rect2(0, 0, 100, 100)
 circle_approximation_segments = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeahConditionRigid" unique_id=1359674654]
@@ -1026,15 +1040,14 @@ autoplay = "default"
 
 [node name="WorldBoundary" type="Area2D" parent="Lava" unique_id=308996644]
 collision_layer = 129
-script = ExtResource("7_ret08")
+script = ExtResource("8_i2ukg")
 player_root_path = NodePath("../../Player")
 softbody_path = NodePath("../../Player/SoftBodySphere")
 player_controller_path = NodePath("../../Player")
 respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
-shape_texture = ExtResource("8_at5bj")
-shape_texture_region = Rect2(15, -9, -25, -25)
-shape_texture_repeat = true
+shape_texture = ExtResource("9_a5kc6")
+shape_texture_region = Rect2(0, 0, 100, 100)
 circle_approximation_segments = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/WorldBoundary" unique_id=260226787]
@@ -1044,9 +1057,9 @@ debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="Win" type="Sprite2D" parent="." unique_id=243099477]
 position = Vector2(-562, -831)
-texture = ExtResource("5_ufocd")
-script = ExtResource("34_yyjiu")
-next_level_number = 25
+texture = ExtResource("35_s3d58")
+script = ExtResource("36_vhepx")
+next_level_number = 9
 
 [node name="Label" type="Label" parent="Win" unique_id=519313994]
 z_index = 4096
