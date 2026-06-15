@@ -2,26 +2,18 @@
 
 [ext_resource type="Script" uid="uid://brw8lbyuhcqf2" path="res://pin_joint_2d.gd" id="1_0ohsc"]
 [ext_resource type="Script" uid="uid://dnlirwemwksvb" path="res://lever.gd" id="1_1kj1s"]
-[ext_resource type="Texture2D" uid="uid://br8nfbb3u0hk6" path="res://Textures/Lava/Crevice.png" id="1_soi7j"]
-[ext_resource type="Texture2D" uid="uid://c38t60kffxy4" path="res://Textures/Lava/CreviceNormal.png" id="2_1kj1s"]
-[ext_resource type="Texture2D" uid="uid://chpf22sm0cbuo" path="res://Textures/Lava/CreviceSpecular.png" id="3_gk4f0"]
+[ext_resource type="Texture2D" uid="uid://bjl66707y8vkg" path="res://Textures/lever_stick.png" id="2_7uavd"]
+[ext_resource type="Texture2D" uid="uid://b00ajptm15jh0" path="res://Textures/green-light.png" id="4_1kj1s"]
+[ext_resource type="Texture2D" uid="uid://dgjbb61okcysk" path="res://Textures/red-light.png" id="5_gk4f0"]
+[ext_resource type="Texture2D" uid="uid://g4heiugg3lfn" path="res://Textures/leverbase.png" id="6_gk4f0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ic0j1"]
-size = Vector2(31, 162)
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_h01c4"]
-diffuse_texture = ExtResource("1_soi7j")
-normal_texture = ExtResource("2_1kj1s")
-specular_texture = ExtResource("3_gk4f0")
-specular_color = Color(0.50140655, 0.5014065, 0.5014065, 1)
-specular_shininess = 0.45
+size = Vector2(31, 157.19954)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ohsc"]
 size = Vector2(200, 44)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ic0j1"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_0ohsc"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gk4f0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1kj1s"]
 font_color = Color(0.29411766, 1, 0, 1)
@@ -29,7 +21,18 @@ font_color = Color(0.29411766, 1, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_gk4f0"]
 font_color = Color(1, 0.23529412, 0.03529412, 1)
 
+[sub_resource type="Gradient" id="Gradient_soi7j"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1kj1s"]
+gradient = SubResource("Gradient_soi7j")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.16239317, 0.26923078)
+metadata/_snap_enabled = true
+
 [node name="Lever" type="Node2D" unique_id=603365385]
+z_index = -1
 script = ExtResource("1_1kj1s")
 
 [node name="RigidBody2D3" type="RigidBody2D" parent="." unique_id=1317640711]
@@ -40,27 +43,22 @@ mass = 0.461
 gravity_scale = 0.103
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D3" unique_id=1657275478]
-position = Vector2(-1.5, -73)
+z_index = 1
+position = Vector2(-1.5, -70.59977)
 shape = SubResource("RectangleShape2D_ic0j1")
 
 [node name="Polygon2D" type="Polygon2D" parent="RigidBody2D3" unique_id=106397126]
+visible = false
 position = Vector2(15, -118.68155)
 scale = Vector2(1, 1.1772816)
 color = Color(0.61339027, 0.61339027, 0.61339027, 1)
 polygon = PackedVector2Array(0, -30, -30, -30, -30, 130, -15.731659, 129.99998, 0, 130)
 uv = PackedVector2Array(-4, -5, -142, -37, -127, 132, 6, 132)
 
-[node name="Crevice" type="Node2D" parent="RigidBody2D3" unique_id=922715711]
-position = Vector2(1429, -580)
-scale = Vector2(3.5625, 3.5625)
-
-[node name="Crevice" type="Sprite2D" parent="RigidBody2D3/Crevice" unique_id=161427885]
-texture = SubResource("CanvasTexture_h01c4")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="RigidBody2D3/Crevice" unique_id=1749783375]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D3/Crevice/StaticBody2D" unique_id=1032562450]
-polygon = PackedVector2Array(-2.5, -15.5, -2.5, -14.5, -10.5, -14.5, -10.5, -13.5, -12.5, -13.5, -12.5, -12.5, -13.5, -12.5, -13.5, -9.5, -14.5, -9.5, -14.5, -7.5, -15.5, -7.5, -15.5, -1.5, -14.5, -1.5, -14.5, 7.5, -12.5, 7.5, -12.5, 8.5, -7.5, 8.5, -7.5, 7.5, -4.5, 7.5, -4.5, 6.5, -3.5, 6.5, -3.5, 3.5, -2.5, 3.5, -2.5, 2.5, -0.5, 2.5, -0.5, 1.5, 1.5, 1.5, 1.5, 2.5, 3.5, 2.5, 3.5, 4.5, 4.5, 4.5, 4.5, 7.5, 6.5, 7.5, 6.5, 9.5, 12.5, 9.5, 12.5, 8.5, 13.5, 8.5, 13.5, 6.5, 14.5, 6.5, 14.5, 1.5, 13.5, 1.5, 13.5, -7.5, 12.5, -7.5, 12.5, -9.5, 11.5, -9.5, 11.5, -10.3, 9.5, -11.3, 9.5, -12.5, 7.5, -12.5, 7.5, -13.5, 5.5, -13.5, 5.5, -14.5, 4.5, -14.5, 4.5, -15.5)
+[node name="LeverStick" type="Sprite2D" parent="RigidBody2D3" unique_id=1748377057]
+position = Vector2(0, -48.083267)
+scale = Vector2(3.7626655, 3.7626655)
+texture = ExtResource("2_7uavd")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=1300057020]
 position = Vector2(1, 76)
@@ -87,17 +85,17 @@ shape = SubResource("RectangleShape2D_0ohsc")
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=921998608]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D" unique_id=1230470207]
 position = Vector2(-89, 61)
-shape = SubResource("CircleShape2D_ic0j1")
+shape = SubResource("RectangleShape2D_gk4f0")
 
 [node name="RigidBody2D2" type="StaticBody2D" parent="." unique_id=160406193]
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2" unique_id=1083651571]
-position = Vector2(94, 62)
-shape = SubResource("CircleShape2D_0ohsc")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D2" unique_id=1975521468]
+position = Vector2(92, 61)
+shape = SubResource("RectangleShape2D_gk4f0")
 
 [node name="Label" type="Label" parent="." unique_id=946342534]
 offset_left = 69.0
@@ -114,6 +112,35 @@ offset_right = -55.0
 offset_bottom = 109.0
 text = "Off"
 label_settings = SubResource("LabelSettings_gk4f0")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=276061129]
+position = Vector2(94, 62)
+color = Color(0, 1, 0, 1)
+energy = 1.09
+texture = SubResource("GradientTexture2D_1kj1s")
+
+[node name="PointLight2D2" type="PointLight2D" parent="." unique_id=368520800]
+position = Vector2(-89, 61)
+scale = Vector2(1.375, 1.375)
+color = Color(1, 0, 0, 1)
+energy = 1.09
+texture = SubResource("GradientTexture2D_1kj1s")
+
+[node name="GreenLight" type="Sprite2D" parent="." unique_id=347093356]
+z_index = -1
+position = Vector2(94, 62.000004)
+scale = Vector2(0.875, 0.875)
+texture = ExtResource("4_1kj1s")
+
+[node name="RedLight" type="Sprite2D" parent="." unique_id=1446703281]
+position = Vector2(-89, 61.5)
+scale = Vector2(0.875, 0.875)
+texture = ExtResource("5_gk4f0")
+
+[node name="Leverbase" type="Sprite2D" parent="." unique_id=754364708]
+position = Vector2(2, 95.99999)
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("6_gk4f0")
 
 [connection signal="turned_off" from="PinJoint2D" to="." method="_on_pin_joint_2d_turned_off"]
 [connection signal="turned_on" from="PinJoint2D" to="." method="_on_pin_joint_2d_turned_on"]

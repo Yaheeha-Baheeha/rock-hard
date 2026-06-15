@@ -3,12 +3,14 @@ extends Node2D
 signal on
 signal off
 
-# Called when the node enters the scene tree for the first time.
+# Grab the PinJoint2D node based on your scene tree hierarchy
+@onready var pin_joint = $PinJoint2D
+
 func _ready() -> void:
-	pass # Replace with function body.
+	# Connect the joint's signals to this script's functions
+	$PinJoint2D.turned_on.connect(_on_pin_joint_2d_turned_on)
+	$PinJoint2D.turned_off.connect(_on_pin_joint_2d_turned_off)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
