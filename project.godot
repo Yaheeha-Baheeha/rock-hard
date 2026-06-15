@@ -29,6 +29,10 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/softbody2d/plugin.cfg")
 
+[global_group]
+
+can_interact_with_static_water=""
+
 [input]
 
 jump={

@@ -25,6 +25,7 @@ var fill_polygon: Polygon2D
 
 @export_tool_button("Update Water") var update_water_button: Callable = func():
 	_ready()
+	update_visuals()
 
 func _ready() -> void:
 	for i in get_children():
@@ -57,6 +58,7 @@ func _initiate_water() -> void:
 	var new_area: Area2D = Area2D.new()
 	new_area.body_entered.connect(_on_body_entered)
 	new_area.body_exited.connect(_on_body_exited)
+	new_area.visible = false
 	add_child(new_area)
 	
 	var new_collisionshape: CollisionShape2D = CollisionShape2D.new()
@@ -68,6 +70,7 @@ func _initiate_water() -> void:
 
 func _process(delta: float) -> void:
 	update_physics(delta)
+	update_visuals()
 
 func update_physics(delta: float) -> void:
 	for i in range(segment_count):
@@ -133,8 +136,18 @@ func update_visuals() -> void:
 	final_points.append(Vector2(0, bottom_y))
 	fill_polygon.polygon = final_points
 
+func splash(splash_pos: Vector2, splash_velocity:float) -> void:
+	var local_x_pos : float = to_local(splash_pos).x
+	var segment_width : float = water_size.x / (segment_count - 1)
+	var index : int = int(clamp(local_x_pos / segment_width, 0, segment_count - 1))
+	segment_data[index]["velocity"] = splash_velocity
+	recently_splashed = true
+	set_process(true)
+
 func _on_body_entered(body: Node2D) -> void:
-	pass
+	if body.is_in_group("can_interact_with_static_water"):
+		splash(body.global_position, -body.velocity.y * player_splash_multiplier)
 
 func _on_body_exited(body: Node2D) -> void:
-	pass
+	if body.is_in_group("can_interact_with_static_water"):
+		splash(body.global_position, body.velocity.y * player_splash_multiplier)
