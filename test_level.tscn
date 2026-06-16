@@ -256,11 +256,9 @@ tile_set = SubResource("TileSet_y646j")
 position = Vector2(133, -94)
 
 [node name="Spawner" type="Area2D" parent="." unique_id=595634446]
-position = Vector2(195, -196)
+position = Vector2(219, -980)
 script = ExtResource("6_y646j")
-fluid_type = 2
 spawn_rate = 0.005
-spawn_angle = 270.0
 spawn_speed = 2000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner" unique_id=1853591851]
