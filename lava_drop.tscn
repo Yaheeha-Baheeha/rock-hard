@@ -28,6 +28,7 @@ smoothing_radius = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=342936192]
 shape = SubResource("CircleShape2D_5byaw")
+debug_color = Color(0, 0.5950001, 0.7, 0)
 
 [node name="NeighborDetector" type="Area2D" parent="." unique_id=447674208]
 collision_layer = 4
@@ -35,6 +36,7 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NeighborDetector" unique_id=559876829 groups=["water"]]
 shape = SubResource("CircleShape2D_4fj2l")
+debug_color = Color(0, 0.5950001, 0.7, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=225218298]
 texture = SubResource("GradientTexture2D_1iw18")

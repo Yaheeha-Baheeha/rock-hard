@@ -16,7 +16,7 @@ var damage_rate: float = 0.0
 var repulsion_strength: float = 800.0
 var viscosity: float = 0.45 
 var cohesion_strength: float = 30.0 
-var max_speed: float = 600.0 
+var max_speed: float = 6000000.0 
 
 @onready var neighbor_detector = $NeighborDetector
 @onready var sprite = $Sprite2D
@@ -30,9 +30,9 @@ func _ready() -> void:
 			
 			# Physics: Acts like boiling water. Fast, low cohesion, flows everywhere.
 			repulsion_strength = 4000.0
-			viscosity = 0.1 
-			cohesion_strength = 10.0
-			max_speed = 800.0
+			viscosity = 0.05 
+			cohesion_strength = 5.0
+			max_speed = 8000000000000000.0
 			
 		FluidType.MEDIUM:
 			modulate = Color(1.0, 0.6, 0.0) # Orange

@@ -34,7 +34,6 @@ extends Node2D
 @onready var soft_body = $SoftBodySphere
 @onready var center_tracker = $CenterTracker
 
-# --- NEW: LAVA DETECTOR REFERENCE ---
 # Make sure to add an Area2D named "LavaDetector" as a child of CenterTracker!
 @onready var lava_detector = $CenterTracker/LavaDetector 
 
@@ -115,12 +114,56 @@ func _process_lava_damage(delta: float) -> void:
 		_die()
 
 func _die() -> void:
-	# Reset health, reset color, and fire your respawn logic
+	# 1. Spawn the corpse right before we reset the player's softbody
+	_spawn_corpse()
+	
+	# 2. Reset health, reset color, and fire your respawn logic
 	current_health = max_health
 	soft_body.texture_tint = base_color
 	
 	# Note: Replace Vector2.ZERO with your actual spawn point variable
 	respawn(Vector2.ZERO) 
+
+# --- NEW: CORPSE SPAWNING LOGIC ---
+func _spawn_corpse() -> void:
+	if not soft_body or soft_body.points.size() < 3:
+		return
+		
+	# 1. Get the exact shape of the blob right as it dies
+	var global_poly = soft_body.get_current_polygon_global()
+	
+	# 2. Find the mathematical center (Centroid) so the RigidBody's physics aren't offset
+	var centroid = Vector2.ZERO
+	for pt in global_poly:
+		centroid += pt
+	centroid /= global_poly.size()
+	
+	# 3. Convert the global points to local points around that centroid
+	var local_poly = PackedVector2Array()
+	for pt in global_poly:
+		local_poly.append(pt - centroid)
+		
+	# 4. Create the RigidBody2D container
+	var corpse = RigidBody2D.new()
+	corpse.global_position = centroid
+	corpse.mass = 5.0 # Make it a bit heavy so it sinks nicely
+	
+	# 5. Create the physical collision shape
+	var coll_shape = CollisionPolygon2D.new()
+	coll_shape.polygon = local_poly
+	corpse.add_child(coll_shape)
+	
+	# 6. Create the visual representation
+	var visual = Polygon2D.new()
+	visual.polygon = local_poly
+	visual.texture = texture
+	visual.color = damage_color # Tint it red so the player knows it's dead
+	corpse.add_child(visual)
+	
+	# 7. Add it to the world
+	# We MUST use call_deferred because we are trying to add a physical body 
+	# to the game while inside the _physics_process loop, which Godot hates.
+	get_parent().call_deferred("add_child", corpse)
 
 func respawn(target_position: Vector2) -> void:
 	global_position = target_position
