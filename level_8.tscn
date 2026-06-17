@@ -34,7 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://br8nfbb3u0hk6" path="res://Textures/Lava/Crevice.png" id="32_jb6rc"]
 [ext_resource type="Texture2D" uid="uid://c38t60kffxy4" path="res://Textures/Lava/CreviceNormal.png" id="33_81ssl"]
 [ext_resource type="Texture2D" uid="uid://chpf22sm0cbuo" path="res://Textures/Lava/CreviceSpecular.png" id="34_g6luu"]
-[ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="35_s3d58"]
+[ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="36_iq1si"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="36_vhepx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e6ygx"]
@@ -538,15 +538,15 @@ _data = {
 &"oscillate": SubResource("Animation_gyffv")
 }
 
-[sub_resource type="Gradient" id="Gradient_e6ygx"]
+[sub_resource type="Gradient" id="Gradient_thifg"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.13333334, 0.4, 0.53333336, 0.8666667)
 colors = PackedColorArray(0.98986965, 0.352621, 0, 1, 0.87075186, 0.36363935, 3.85046e-07, 1, 0.9816409, 0.49941778, 0, 1, 0.5647059, 0.4117647, 0.11764706, 1)
 metadata/_snap_count = 15
 metadata/_snap_enabled = true
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_gyffv"]
-gradient = SubResource("Gradient_e6ygx")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xbesp"]
+gradient = SubResource("Gradient_thifg")
 
 [node name="Game" type="Node2D" unique_id=984303330]
 
@@ -1057,7 +1057,7 @@ debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="Win" type="Sprite2D" parent="." unique_id=243099477]
 position = Vector2(-562, -831)
-texture = ExtResource("35_s3d58")
+texture = ExtResource("5_caiox")
 script = ExtResource("36_vhepx")
 next_level_number = 9
 
@@ -1086,10 +1086,23 @@ autoplay = &"oscillate"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Win/Area2D" unique_id=1036144793]
 shape = SubResource("RectangleShape2D_27bay")
 
-[node name="gold" type="Sprite2D" parent="Win" unique_id=1008846181]
-modulate = Color(1, 1, 1, 0.7058824)
+[node name="gold" type="Sprite2D" parent="Win" unique_id=630922448]
+modulate = Color(1, 1, 1, 0.24705882)
 self_modulate = Color(1, 1, 0.4509804, 0.76862746)
+show_behind_parent = true
 z_index = 3
 position = Vector2(-0.49993896, -64.25018)
 scale = Vector2(0.5039065, 128.08667)
-texture = SubResource("GradientTexture1D_gyffv")
+texture = SubResource("GradientTexture1D_xbesp")
+
+[node name="TextureRect" type="TextureRect" parent="Win" unique_id=1398540385]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("36_iq1si")
