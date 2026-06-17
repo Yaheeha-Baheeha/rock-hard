@@ -20,6 +20,7 @@ extends Node2D
 @export var max_speed: float = 600.0 
 @export var jump_strength: float = 550.0 
 @export var crouch_strength: float = 1500.0 
+@export var allow_respawn: bool = true
 
 @export_category("Obstacles")
 @export var obstacle_markers: Array[Node2D]

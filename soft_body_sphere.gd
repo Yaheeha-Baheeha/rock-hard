@@ -295,7 +295,7 @@ func _handle_input_controls(delta: float) -> void:
 		for p in points:
 			p.velocity.y -= jump_strength
 
-	if Input.is_action_just_pressed("reset"):
+	if Input.is_action_just_pressed("reset") and $"..".allow_respawn:
 		_reset_softbody()
 
 func _reset_softbody() -> void:

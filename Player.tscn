@@ -34,7 +34,6 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CenterTracker/LavaDetector" unique_id=1537673698]
 shape = SubResource("CircleShape2D_tdg3f")
-disabled = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=202288614]
 position = Vector2(200, 16)
