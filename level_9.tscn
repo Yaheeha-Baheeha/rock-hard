@@ -306,16 +306,16 @@ metadata/_snap_enabled = true
 gradient = SubResource("Gradient_thifg")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3b7f"]
-size = Vector2(112, 1832.5)
+size = Vector2(112, 2487.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aie2w"]
-size = Vector2(32, 887.5)
+size = Vector2(32, 1543.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lv1pg"]
-size = Vector2(32, 886)
+size = Vector2(32, 1544)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wgld"]
-size = Vector2(32, 886)
+size = Vector2(32, 1546)
 
 [sub_resource type="LabelSettings" id="LabelSettings_pn8mn"]
 font_size = 108
@@ -452,7 +452,7 @@ shape_texture_region = Rect2(0, 0, 100, 100)
 circle_approximation_segments = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1405599819]
-position = Vector2(-744, 189.25)
+position = Vector2(-744, -138.25)
 shape = SubResource("RectangleShape2D_e3b7f")
 
 [node name="Area2D2" type="Area2D" parent="." unique_id=753916491]
@@ -463,7 +463,7 @@ shape_texture_region = Rect2(0, 0, 100, 100)
 circle_approximation_segments = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=100336332]
-position = Vector2(-239, -282.25)
+position = Vector2(-239, -610.25)
 shape = SubResource("RectangleShape2D_aie2w")
 
 [node name="Area2D3" type="Area2D" parent="." unique_id=1343019505]
@@ -474,7 +474,7 @@ shape_texture_region = Rect2(0, 0, 100, 100)
 circle_approximation_segments = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3" unique_id=90359958]
-position = Vector2(288, -283)
+position = Vector2(288, -612)
 shape = SubResource("RectangleShape2D_lv1pg")
 
 [node name="Area2D4" type="Area2D" parent="." unique_id=913204031]
@@ -485,10 +485,11 @@ shape_texture_region = Rect2(0, 0, 100, 100)
 circle_approximation_segments = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D4" unique_id=654178727]
-position = Vector2(784, -283)
+position = Vector2(784, -613)
 shape = SubResource("RectangleShape2D_1wgld")
 
 [node name="Screenshot20260617203749" type="Sprite2D" parent="." unique_id=1281291707]
+z_index = -1
 position = Vector2(-1088, -1317)
 texture = ExtResource("13_1wgld")
 
