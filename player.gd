@@ -29,7 +29,7 @@ extends Node2D
 @export var max_health: float = 100.0
 @export var lava_damage_rate: float = 40.0 ## Health lost per second while touching lava
 @export var cooling_rate: float = 20.0 ## Health regained per second when safe
-@export var damage_color: Color = Color(1.0, 0.0, 0.0, 1.0) ## Pure red
+@export var damage_color: Color = Color(0.0, 1.0, 0.0, 1.0) ## Pure red
 
 @onready var soft_body = $SoftBodySphere
 @onready var center_tracker = $CenterTracker
@@ -122,50 +122,79 @@ func _die() -> void:
 	soft_body.texture_tint = base_color
 	
 	# Note: Replace Vector2.ZERO with your actual spawn point variable
-	respawn(Vector2.ZERO) 
+	respawn(Vector2.ZERO)
 
-# --- NEW: CORPSE SPAWNING LOGIC ---
+# --- POLYGON SMOOTHING (CHAIKIN'S ALGORITHM) ---
+func _smooth_polygon(poly: PackedVector2Array, iterations: int = 1) -> PackedVector2Array:
+	var current_poly = poly
+	
+	for i in range(iterations):
+		var smoothed = PackedVector2Array()
+		var count = current_poly.size()
+		
+		for j in range(count):
+			var p1 = current_poly[j]
+			var p2 = current_poly[(j + 1) % count] 
+			
+			var q = p1.lerp(p2, 0.25)
+			var r = p1.lerp(p2, 0.75)
+			
+			smoothed.append(q)
+			smoothed.append(r)
+			
+		current_poly = smoothed
+		
+	return current_poly
+
+# --- SPAWN CORPSE ---
 func _spawn_corpse() -> void:
 	if not soft_body or soft_body.points.size() < 3:
 		return
 		
 	# 1. Get the exact shape of the blob right as it dies
-	var global_poly = soft_body.get_current_polygon_global()
+	var raw_global_poly = soft_body.get_current_polygon_global()
 	
-	# 2. Find the mathematical center (Centroid) so the RigidBody's physics aren't offset
+	# 2. Smooth out the jagged physics spikes 
+	# (Change '2' to '1' if it looks too round, or '3' if it's still spiky)
+	var global_poly = _smooth_polygon(raw_global_poly, 2)
+	
+	# 3. Find the mathematical center (Centroid) so it rotates properly
 	var centroid = Vector2.ZERO
 	for pt in global_poly:
 		centroid += pt
 	centroid /= global_poly.size()
 	
-	# 3. Convert the global points to local points around that centroid
+	# 4. Convert the global points to local points around that centroid
 	var local_poly = PackedVector2Array()
 	for pt in global_poly:
 		local_poly.append(pt - centroid)
 		
-	# 4. Create the RigidBody2D container
+	# 5. Create the RigidBody2D container
 	var corpse = RigidBody2D.new()
-	corpse.global_position = centroid
-	corpse.mass = 5.0 # Make it a bit heavy so it sinks nicely
+	corpse.add_to_group("corpse")
 	
-	# 5. Create the physical collision shape
+	# Detach the corpse completely from the player's movement
+	corpse.top_level = true 
+	
+	corpse.global_position = centroid
+	corpse.mass = 5.0 # Give it some weight to settle on the ground
+	
+	# 6. Create the physical collision shape
 	var coll_shape = CollisionPolygon2D.new()
 	coll_shape.polygon = local_poly
 	corpse.add_child(coll_shape)
 	
-	# 6. Create the visual representation
+	# 7. Create the visual representation
 	var visual = Polygon2D.new()
 	visual.polygon = local_poly
-	visual.texture = texture
-	visual.color = damage_color # Tint it red so the player knows it's dead
+	visual.color = damage_color # Tint it red (or whatever your color variable is)
 	corpse.add_child(visual)
 	
-	# 7. Add it to the world
-	# We MUST use call_deferred because we are trying to add a physical body 
-	# to the game while inside the _physics_process loop, which Godot hates.
-	get_parent().call_deferred("add_child", corpse)
+	# 8. Safely drop it into the absolute root of the level, ignoring the player tree
+	get_tree().current_scene.call_deferred("add_child", corpse)
 
 func respawn(target_position: Vector2) -> void:
 	global_position = target_position
+	
 	if soft_body:
 		soft_body.respawn(Vector2.ZERO)

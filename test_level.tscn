@@ -260,7 +260,7 @@ position = Vector2(1469, 150)
 script = ExtResource("6_y646j")
 spawn_rate = 0.01
 spawn_angle = 270.0
-angle_variance = 0.0
+angle_variance = 1.0
 spawn_speed = 2000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner" unique_id=1853591851]
