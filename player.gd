@@ -120,9 +120,9 @@ func _die() -> void:
 	# 2. Reset health, reset color, and fire your respawn logic
 	current_health = max_health
 	soft_body.texture_tint = base_color
-	
+
 	# Note: Replace Vector2.ZERO with your actual spawn point variable
-	respawn(Vector2.ZERO)
+	respawn($"../RespawnPoint".position)
 
 # --- POLYGON SMOOTHING (CHAIKIN'S ALGORITHM) ---
 func _smooth_polygon(poly: PackedVector2Array, iterations: int = 1) -> PackedVector2Array:
