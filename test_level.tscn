@@ -254,10 +254,12 @@ tile_set = SubResource("TileSet_y646j")
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("5_gbhdq")]
 position = Vector2(133, -94)
+sub_steps = 22
 
 [node name="Spawner" type="Area2D" parent="." unique_id=595634446]
 position = Vector2(1469, 150)
 script = ExtResource("6_y646j")
+despawn_rule = 2
 spawn_rate = 0.01
 spawn_angle = 270.0
 angle_variance = 1.0

@@ -18,7 +18,7 @@ radius = 53.037724
 
 [node name="Player" type="Node2D" unique_id=438420809]
 script = ExtResource("1_root")
-sub_steps = 18
+sub_steps = 22
 texture = SubResource("CanvasTexture_8v41o")
 max_speed = 1800.0
 jump_strength = 420.0

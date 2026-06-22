@@ -33,8 +33,7 @@ class Spring:
 # ---------------------------------------------------------
 # EXPORT VARIABLES
 # ---------------------------------------------------------
-@export_flags_2d_physics var fluid_layer: int = 0 ## Select your Lava layer here
-
+@export var fluid_layer: int = 3
 var radius: float = 64.0
 var num_points: int = 32
 var target_pressure: float = 2500.0 
@@ -70,11 +69,6 @@ var hazard_polygons: Array[Dictionary] = []
 var collectible_polygons: Array[Dictionary] = []
 var win_polygons: Array[Dictionary] = []
 
-# --- NEW: COLLISION BRIDGE VARIABLES ---
-var dynamic_collider: AnimatableBody2D
-var dynamic_poly: CollisionPolygon2D
-# ---------------------------------------
-
 # ---------------------------------------------------------
 # LIFECYCLE FUNCTIONS
 # ---------------------------------------------------------
@@ -92,15 +86,15 @@ func _extract_node_polygons(node: Node) -> Array[PackedVector2Array]:
 		var shape = (node as CollisionShape2D).shape as RectangleShape2D
 		var ext = shape.size / 2.0
 		var p = PackedVector2Array()
-		var points_arr = [Vector2(-ext.x, -ext.y), Vector2(ext.x, -ext.y), Vector2(ext.x, ext.y), Vector2(-ext.x, ext.y)]
-		for pt in points_arr:
+		var points = [Vector2(-ext.x, -ext.y), Vector2(ext.x, -ext.y), Vector2(ext.x, ext.y), Vector2(-ext.x, ext.y)]
+		for pt in points:
 			p.append(to_local((node as CollisionShape2D).to_global(pt)))
 		polys.append(p)
 	elif node is Sprite2D:
 		var ext = node.texture.get_size() / 2.0 * node.scale
 		var p = PackedVector2Array()
-		var points_arr = [Vector2(-ext.x, -ext.y), Vector2(ext.x, -ext.y), Vector2(ext.x, ext.y), Vector2(-ext.x, ext.y)]
-		for pt in points_arr:
+		var points = [Vector2(-ext.x, -ext.y), Vector2(ext.x, -ext.y), Vector2(ext.x, ext.y), Vector2(-ext.x, ext.y)]
+		for pt in points:
 			p.append(to_local(node.to_global(pt)))
 		polys.append(p)
 	else:
@@ -111,13 +105,6 @@ func _extract_node_polygons(node: Node) -> Array[PackedVector2Array]:
 
 func initialize() -> void:
 	start_position = position 
-	
-	# --- NEW: COLLISION BRIDGE SETUP ---
-	dynamic_collider = AnimatableBody2D.new()
-	dynamic_poly = CollisionPolygon2D.new()
-	dynamic_collider.add_child(dynamic_poly)
-	add_child(dynamic_collider)
-	# -----------------------------------
 	
 	call_deferred("_initialize_trigger_zones")
 	
@@ -191,20 +178,11 @@ func _physics_process(delta: float) -> void:
 		_apply_gas_pressure(sub_delta)
 		_solve_springs(sub_delta)
 		
-		# --- NEW: UPDATE BRIDGE SHAPE ---
-		if step == 0 and points.size() > 0:
-			var current_shape = PackedVector2Array()
-			for p in points:
-				current_shape.append(p.position)
-			dynamic_poly.polygon = current_shape
-		# --------------------------------
-		
 		for p in points:
 			p.velocity.y += 980.0 * sub_delta 
 			p.velocity *= step_drag 
 			var pre_pos = p.position
 			p.position += p.velocity * sub_delta
-			
 			if fluid_layer != 0:
 				var fluid_query = PhysicsPointQueryParameters2D.new()
 				fluid_query.position = to_global(p.position)
@@ -215,15 +193,16 @@ func _physics_process(delta: float) -> void:
 				for hit in fluid_hits:
 					var fluid_drop = hit.collider as RigidBody2D
 					if fluid_drop:
-						# 1. Viscosity (Drag)
+						# 1. Viscosity (Drag): Pull the point's velocity toward the slow lava
 						p.velocity = p.velocity.lerp(fluid_drop.linear_velocity, 0.15)
-						# 2. Buoyancy
+						
+						# 2. Buoyancy: Push the point aggressively upward
 						p.velocity.y -= 3500.0 * sub_delta
-						# 3. Displacement
+						
+						# 3. Displacement: Push the lava droplet out of the way
 						var push_dir = (fluid_drop.global_position - to_global(p.position)).normalized()
 						if push_dir == Vector2.ZERO: push_dir = Vector2.UP
 						fluid_drop.apply_central_impulse(push_dir * p.velocity.length() * p.mass * 0.03)
-						
 			for poly in obstacle_polygons:
 				if poly.size() > 0 and _is_point_in_polygon(p.position, poly):
 					_resolve_collision(p, poly)
@@ -252,18 +231,12 @@ func _physics_process(delta: float) -> void:
 			
 			if p.position != pre_pos:
 				var query = PhysicsRayQueryParameters2D.create(to_global(pre_pos), to_global(p.position))
-				
-				# --- NEW: IGNORE OUR OWN BRIDGE ---
-				if dynamic_collider != null and is_instance_valid(dynamic_collider):
-					query.exclude = [dynamic_collider.get_rid()]
-				# ----------------------------------
-				
 				var result = space_state.intersect_ray(query)
 				if result:
 					p.position = to_local(result.position + result.normal * 0.5)
 					var normal_local = result.normal.rotated(-global_rotation)
 					
-					# Two-way collision with RigidBodies
+					# Two-way collision with RigidBodies (e.g. dead player shards)
 					if result.collider is RigidBody2D:
 						var hit_force = p.velocity.dot(-normal_local)
 						if hit_force > 0:
