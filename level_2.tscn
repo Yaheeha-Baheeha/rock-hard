@@ -67,6 +67,7 @@
 [ext_resource type="Texture2D" uid="uid://br8nfbb3u0hk6" path="res://Textures/Lava/Crevice.png" id="63_dyw3t"]
 [ext_resource type="Texture2D" uid="uid://c38t60kffxy4" path="res://Textures/Lava/CreviceNormal.png" id="64_mpame"]
 [ext_resource type="Texture2D" uid="uid://chpf22sm0cbuo" path="res://Textures/Lava/CreviceSpecular.png" id="65_omxaf"]
+[ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="68_bwt5l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_41lt0"]
 texture = ExtResource("4_dyw3t")
@@ -327,7 +328,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("30_eay7t")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 60.0
 }]
@@ -401,7 +402,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("29_puam4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 60.0
 }]
@@ -597,7 +598,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("62_ee483")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -618,6 +619,9 @@ normal_texture = ExtResource("64_mpame")
 specular_texture = ExtResource("65_omxaf")
 specular_color = Color(0.50140655, 0.5014065, 0.5014065, 1)
 specular_shininess = 0.45
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_um4ky"]
+size = Vector2(217324, 1572)
 
 [node name="Game" type="Node2D" unique_id=1118129422]
 
@@ -1000,3 +1004,10 @@ texture = SubResource("CanvasTexture_bwt5l")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AnimatedSprite2D/Crevice/StaticBody2D" unique_id=1554315225]
 polygon = PackedVector2Array(-2.5, -15.5, -2.5, -14.5, -10.5, -14.5, -10.5, -13.5, -12.5, -13.5, -12.5, -12.5, -13.5, -12.5, -13.5, -9.5, -14.5, -9.5, -14.5, -7.5, -15.5, -7.5, -15.5, -1.5, -14.5, -1.5, -14.5, 7.5, -12.5, 7.5, -12.5, 8.5, -7.5, 8.5, -7.5, 7.5, -4.5, 7.5, -4.5, 6.5, -3.5, 6.5, -3.5, 3.5, -2.5, 3.5, -2.5, 2.5, -0.5, 2.5, -0.5, 1.5, 1.5, 1.5, 1.5, 2.5, 3.5, 2.5, 3.5, 4.5, 4.5, 4.5, 4.5, 7.5, 6.5, 7.5, 6.5, 9.5, 12.5, 9.5, 12.5, 8.5, 13.5, 8.5, 13.5, 6.5, 14.5, 6.5, 14.5, 1.5, 13.5, 1.5, 13.5, -7.5, 12.5, -7.5, 12.5, -9.5, 11.5, -9.5, 11.5, -10.3, 9.5, -11.3, 9.5, -12.5, 7.5, -12.5, 7.5, -13.5, 5.5, -13.5, 5.5, -14.5, 4.5, -14.5, 4.5, -15.5)
+
+[node name="killall" type="Area2D" parent="." unique_id=149050621]
+script = ExtResource("68_bwt5l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=1557723034]
+position = Vector2(0, 3236)
+shape = SubResource("RectangleShape2D_um4ky")

@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="11_lv1pg"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="12_1wgld"]
 [ext_resource type="Texture2D" uid="uid://bk0rqjt5mlyqn" path="res://Textures/Tutorial/Screenshot 2026-06-17 203749.png" id="13_1wgld"]
+[ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="14_pn8mn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7amt0"]
 texture = ExtResource("4_a721k")
@@ -323,6 +324,12 @@ font_size = 108
 [sub_resource type="LabelSettings" id="LabelSettings_1wgld"]
 font_size = 169
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_25nx4"]
+size = Vector2(217324, 1572)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pn8mn"]
+size = Vector2(217324, 1572)
+
 [node name="Game" type="Node2D" unique_id=2099316307]
 
 [node name="Hammer" parent="." unique_id=1722124445 instance=ExtResource("1_4y126")]
@@ -511,3 +518,25 @@ offset_bottom = 904.0
 text = "also ts can be activated
 by a dead body"
 label_settings = SubResource("LabelSettings_1wgld")
+
+[node name="killall" type="Area2D" parent="." unique_id=672157557]
+script = ExtResource("14_pn8mn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=951252359]
+position = Vector2(0, 3236)
+shape = SubResource("RectangleShape2D_25nx4")
+
+[node name="WorldBoundary" type="Area2D" parent="." unique_id=1435841600]
+position = Vector2(0, 1324)
+collision_layer = 129
+script = ExtResource("11_lv1pg")
+shape_polygon_color = Color(1, 1, 1, 1)
+shape_texture = ExtResource("12_1wgld")
+shape_texture_region = Rect2(0, 0, 100, 100)
+shape_texture_repeat = true
+circle_approximation_segments = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary" unique_id=957024844]
+position = Vector2(-106, 1169)
+shape = SubResource("RectangleShape2D_pn8mn")
+debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)

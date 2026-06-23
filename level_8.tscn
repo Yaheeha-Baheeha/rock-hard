@@ -36,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://chpf22sm0cbuo" path="res://Textures/Lava/CreviceSpecular.png" id="34_g6luu"]
 [ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="36_iq1si"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="36_vhepx"]
+[ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="37_thifg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e6ygx"]
 texture = ExtResource("4_v3odb")
@@ -334,7 +335,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("31_u3yhf")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 60.0
 }]
@@ -408,7 +409,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("30_2uf4a")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 60.0
 }]
@@ -489,7 +490,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("31_u3yhf")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 12.0
 }]
@@ -547,6 +548,9 @@ metadata/_snap_enabled = true
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_xbesp"]
 gradient = SubResource("Gradient_thifg")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbesp"]
+size = Vector2(217324, 1572)
 
 [node name="Game" type="Node2D" unique_id=984303330]
 
@@ -1106,3 +1110,10 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("36_iq1si")
+
+[node name="killall" type="Area2D" parent="." unique_id=2014566347]
+script = ExtResource("37_thifg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=1000381701]
+position = Vector2(0, 3236)
+shape = SubResource("RectangleShape2D_xbesp")

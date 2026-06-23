@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="31_ett8d"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="31_ka01f"]
 [ext_resource type="Texture2D" uid="uid://j4qxeg26fom0" path="res://resources/empty_gradient_collectible.tres" id="31_notaq"]
+[ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="34_ett8d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ihfcg"]
 texture = ExtResource("4_swvua")
@@ -284,7 +285,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("30_dltcj")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 12.0
 }]
@@ -1551,6 +1552,7 @@ softbody_path = NodePath("../../Player/SoftBodySphere")
 player_controller_path = NodePath("../../Player")
 respawn_point_path = NodePath("../../RespawnPoint")
 spawn_parent_path = NodePath("../..")
+shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("28_swvua")
 shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
@@ -1642,3 +1644,10 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("31_ka01f")
+
+[node name="killall" type="Area2D" parent="." unique_id=136301170]
+script = ExtResource("34_ett8d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=1481637699]
+position = Vector2(0, 3236)
+shape = SubResource("RectangleShape2D_swvua")

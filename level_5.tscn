@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="8_j6qfn"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="9_j6qfn"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="9_jiqp1"]
+[ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="12_jiqp1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kcwpe"]
 texture = ExtResource("1_j6qfn")
@@ -300,6 +301,9 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jiqp1"]
 size = Vector2(28652, 176)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uws32"]
+size = Vector2(217324, 1572)
+
 [node name="Game" type="Node2D" unique_id=962200809]
 
 [node name="Tilemap" type="Node2D" parent="." unique_id=1661541917]
@@ -439,3 +443,10 @@ shape_texture_region = Rect2(0, 0, 100, 100)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="worldboudary" unique_id=1164269277]
 position = Vector2(585, 1299)
 shape = SubResource("RectangleShape2D_jiqp1")
+
+[node name="killall" type="Area2D" parent="." unique_id=1749058484]
+script = ExtResource("12_jiqp1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=1806402924]
+position = Vector2(0, 3236)
+shape = SubResource("RectangleShape2D_uws32")

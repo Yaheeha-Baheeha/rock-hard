@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="10_p07bb"]
 [ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="10_pfhdb"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="11_pfhdb"]
+[ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="13_pfhdb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n5k06"]
 texture = ExtResource("1_axb3o")
@@ -310,6 +311,9 @@ font_size = 75
 [sub_resource type="LabelSettings" id="LabelSettings_w0fgk"]
 font_size = 95
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8t08o"]
+size = Vector2(217324, 1572)
+
 [node name="Game" type="Node2D" unique_id=722697156]
 
 [node name="Tilemap" type="Node2D" parent="." unique_id=1281905000]
@@ -571,3 +575,10 @@ currently translucent cave to be
 solid until the player goes in where
 it disappears or smth."
 label_settings = SubResource("LabelSettings_w0fgk")
+
+[node name="killall" type="Area2D" parent="." unique_id=2126093805]
+script = ExtResource("13_pfhdb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=1936558323]
+position = Vector2(0, 3236)
+shape = SubResource("RectangleShape2D_8t08o")

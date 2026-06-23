@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://bohkefj5xpqkj" path="res://Textures/Lava/fall/lavafall_20.png" id="30_dff1k"]
 [ext_resource type="Texture2D" uid="uid://doawjefj2ha2p" path="res://Textures/Lava/fall/lavafall_21.png" id="31_iyds7"]
 [ext_resource type="Texture2D" uid="uid://ckjbx66vas5mv" path="res://Textures/Lava/fall/lavafall_22.png" id="32_f08ys"]
+[ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="35_euuhh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ds5r"]
 texture = ExtResource("4_3uls0")
@@ -383,10 +384,13 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("32_f08ys")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 60.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8t0u"]
+size = Vector2(217324, 1572)
 
 [node name="Game" type="Node2D" unique_id=694492559]
 
@@ -515,3 +519,10 @@ position = Vector2(582, -2.4999847)
 scale = Vector2(31.999996, 100.958336)
 sprite_frames = SubResource("SpriteFrames_nxjh1")
 autoplay = "default"
+
+[node name="killall" type="Area2D" parent="." unique_id=1401793803]
+script = ExtResource("35_euuhh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=1634517720]
+position = Vector2(0, 3236)
+shape = SubResource("RectangleShape2D_x8t0u")
