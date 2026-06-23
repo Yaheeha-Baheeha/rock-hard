@@ -34,7 +34,7 @@ func _ready() -> void:
 	match type:
 		FluidType.HOT:
 			modulate = Color(1.0, 0.2, 0.0) # Bright Red
-			damage_rate = 240.0 # Kills very fast
+			damage_rate = 1000.0 # Kills very fast
 			repulsion_strength = 4000.0
 			viscosity = 0.05 
 			cohesion_strength = 5.0
@@ -42,15 +42,15 @@ func _ready() -> void:
 			
 		FluidType.MEDIUM:
 			modulate = Color(1.0, 0.6, 0.0) # Orange
-			damage_rate = 120.0 # Standard kill time
+			damage_rate = 360.0 # Standard kill time
 			repulsion_strength = 2000.0
 			viscosity = 0.2
-			cohesion_strength = 30.0
-			max_speed = 500.0
+			cohesion_strength = 2.0
+			max_speed = 300.0
 			
 		FluidType.COLD:
 			modulate = Color(0.4, 0.4, 0.4) # Dark Grey Crust
-			damage_rate = 60.0 # Kills slowly
+			damage_rate = 180.0 # Kills slowly
 			repulsion_strength = 1000.0
 			viscosity = 0.15 
 			cohesion_strength = 50.0
@@ -148,5 +148,5 @@ func _start_despawn_animation() -> void:
 	# Smoothly shrink the VISUAL SPRITE ONLY! 
 	# Leaving the RigidBody2D untouched lets the physics keep flowing perfectly.
 	var tween = create_tween()
-	tween.tween_property(sprite, "scale", Vector2.ZERO, 1.5).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(sprite, "scale", Vector2.ZERO, 0.3).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_callback(queue_free) 
