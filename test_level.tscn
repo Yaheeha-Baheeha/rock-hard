@@ -252,9 +252,9 @@ position = Vector2(-782, -315)
 [node name="Spawner" type="Area2D" parent="." unique_id=595634446]
 position = Vector2(713, -1121)
 script = ExtResource("6_y646j")
-fluid_type = 1
+fluid_type = 2
 despawn_rule = 3
-spawn_rate = 0.005
+spawn_rate = 0.0
 spawn_angle = 180.0
 angle_variance = 0.0
 spawn_speed = 0.0
@@ -286,3 +286,18 @@ offset_top = -19.0
 offset_right = 196.0
 offset_bottom = 87.65
 color = Color(1, 0, 0, 1)
+
+[node name="Spawner2" type="Area2D" parent="." unique_id=1577070858]
+position = Vector2(713, -1121)
+script = ExtResource("6_y646j")
+fluid_type = 2
+despawn_rule = 3
+spawn_rate = 0.0
+spawn_angle = 180.0
+angle_variance = 0.0
+spawn_speed = 0.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=1057319635]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_gbhdq")

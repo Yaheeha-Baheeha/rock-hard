@@ -44,17 +44,17 @@ func _ready() -> void:
 			modulate = Color(1.0, 0.6, 0.0) # Orange
 			damage_rate = 360.0 # Standard kill time
 			repulsion_strength = 2000.0
-			viscosity = 0.2
-			cohesion_strength = 2.0
-			max_speed = 300.0
+			viscosity = 0.5
+			cohesion_strength = 50.0
+			max_speed = 900.0
 			
 		FluidType.COLD:
 			modulate = Color(0.4, 0.4, 0.4) # Dark Grey Crust
-			damage_rate = 180.0 # Kills slowly
+			damage_rate = 90.0 # Kills slowly
 			repulsion_strength = 1000.0
 			viscosity = 0.15 
 			cohesion_strength = 50.0
-			max_speed = 150.0
+			max_speed = 300.0
 
 func _physics_process(delta: float) -> void:
 	# 1. Only check for despawn rules if we aren't already shrinking
