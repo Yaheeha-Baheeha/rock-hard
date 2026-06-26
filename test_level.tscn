@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="4_4ptq8"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="5_gbhdq"]
 [ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="6_y646j"]
+[ext_resource type="PackedScene" uid="uid://dp2yvv1x5o1jn" path="res://lever.tscn" id="7_lnbra"]
 [ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="7_y646j"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="11_13y8f"]
 
@@ -290,6 +291,8 @@ color = Color(1, 0, 0, 1)
 [node name="Spawner2" type="Area2D" parent="." unique_id=1577070858]
 position = Vector2(713, -1121)
 script = ExtResource("6_y646j")
+spawn_mode = 1
+is_active = true
 fluid_type = 2
 despawn_rule = 3
 spawn_rate = 0.0
@@ -301,3 +304,6 @@ speed_variance = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=1057319635]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_gbhdq")
+
+[node name="Lever" parent="." unique_id=603365385 instance=ExtResource("7_lnbra")]
+position = Vector2(-737, -127)

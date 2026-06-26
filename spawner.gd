@@ -2,7 +2,12 @@ extends Area2D
 
 @export var water_drop_scene: PackedScene = preload("res://lava_drop.tscn")
 
+# --- NEW: SPAWNER BEHAVIOR ---
+enum SpawnMode { ALWAYS, TOGGLED }
+
 @export_category("Spawner Settings")
+@export var spawn_mode: SpawnMode = SpawnMode.ALWAYS ## Choose if it's always on or needs a lever!
+@export var is_active: bool = false ## If set to TOGGLED, is it currently spraying?
 @export var fluid_type: LavaDroplet.FluidType = LavaDroplet.FluidType.HOT ## Choose the fluid type!
 @export var despawn_rule: LavaDroplet.DespawnRule = LavaDroplet.DespawnRule.NEVER ## Choose how it despawns!
 @export var spawn_rate: float = 0.05 ## Time in seconds between spawns
@@ -13,7 +18,7 @@ extends Area2D
 @export var spawn_speed: float = 300.0 ## How fast the droplet shoots out
 @export var speed_variance: float = 50.0 ## +/- randomization of the speed
 
-@onready var spawn_shape = $CollisionShape2D ## Grabs the collision shape to determine the region area
+@onready var spawn_shape = $CollisionShape2D 
 @onready var hot_fluid_group = $"../HotFluid"
 @onready var medium_fluid_group = $"../MediumFluid"
 @onready var cold_fluid_group = $"../ColdFluid"
@@ -21,26 +26,31 @@ extends Area2D
 var spawn_timer: float = 0.0
 
 func _process(delta: float) -> void:
-	# Keep the internal clock ticking
-	spawn_timer += delta
+	# 1. Check if we are allowed to spawn based on our mode
+	var can_spawn: bool = false
 	
-	# Hold down Spacebar/Enter to emit water
-	if Input.is_action_pressed("ui_accept"):
-		# Only trigger the spawn if the cooldown time has been reached
+	if spawn_mode == SpawnMode.ALWAYS:
+		can_spawn = true
+	elif spawn_mode == SpawnMode.TOGGLED and is_active:
+		can_spawn = true
+		
+	# 2. If allowed, run the timer and spawn
+	if can_spawn:
+		spawn_timer += delta
 		if spawn_timer >= spawn_rate:
-			spawn_timer = 0.0 # Reset the clock
+			spawn_timer = 0.0 
 			spawn_drop()
+	else:
+		# Reset timer when turned off so it spawns instantly when turned back on
+		spawn_timer = spawn_rate 
 
 func spawn_drop() -> void:
-	# Instantiate and cast to our custom class
 	var drop = water_drop_scene.instantiate() as LavaDroplet
 	
 	if drop != null:
-		# 1. Pass the exact settings chosen in the Inspector to the droplet
 		drop.type = fluid_type
 		drop.despawn_rule = despawn_rule
 		
-		# Route the droplet to the correct CanvasGroup based on its type!
 		match drop.type:
 			LavaDroplet.FluidType.HOT:
 				hot_fluid_group.add_child(drop)
@@ -49,7 +59,6 @@ func spawn_drop() -> void:
 			LavaDroplet.FluidType.COLD:
 				cold_fluid_group.add_child(drop)
 		
-		# 2. Calculate random position inside the Area2D's RectangleShape2D
 		var random_pos = global_position
 		if spawn_shape and spawn_shape.shape is RectangleShape2D:
 			var extents = spawn_shape.shape.size / 2.0
@@ -59,10 +68,19 @@ func spawn_drop() -> void:
 			
 		drop.global_position = random_pos
 		
-		# 3. Calculate Velocity from Angle and Speed
 		var final_angle = spawn_angle + randf_range(-angle_variance, angle_variance)
 		var final_speed = spawn_speed + randf_range(-speed_variance, speed_variance)
 		
-		# Convert the angle to radians, rotate a baseline "RIGHT" vector, and multiply by speed
 		var velocity_dir = Vector2.RIGHT.rotated(deg_to_rad(final_angle))
 		drop.linear_velocity = velocity_dir * final_speed
+
+# --- NEW: LEVER FUNCTIONS ---
+# Your lever node can call these functions when it gets flipped!
+
+## Toggles the spawner on and off
+func toggle_spawner() -> void:
+	is_active = !is_active
+
+## Explicitly turns the spawner on or off (great for one-way switches)
+func set_spawner_active(state: bool) -> void:
+	is_active = state
