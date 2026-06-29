@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dp2yvv1x5o1jn"]
 
+[ext_resource type="Script" uid="uid://dnlirwemwksvb" path="res://lever.gd" id="1_1kj1s"]
 [ext_resource type="Texture2D" uid="uid://bjl66707y8vkg" path="res://Textures/lever_stick.png" id="2_7uavd"]
 [ext_resource type="Texture2D" uid="uid://b00ajptm15jh0" path="res://Textures/green-light.png" id="4_1kj1s"]
 [ext_resource type="Texture2D" uid="uid://dgjbb61okcysk" path="res://Textures/red-light.png" id="5_gk4f0"]
@@ -25,6 +26,9 @@ metadata/_snap_enabled = true
 
 [node name="Lever" type="Node2D" unique_id=603365385]
 z_index = -1
+script = ExtResource("1_1kj1s")
+activation_angle = 45.0
+lever_friction = 5.0
 
 [node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=1300057020]
 position = Vector2(1, 76)
@@ -37,9 +41,10 @@ angular_limit_upper = -1.0471976
 position = Vector2(1, 76)
 rotation = 0.7853982
 scale = Vector2(0.99999994, 0.99999994)
+collision_layer = 33
 collision_mask = 32
-mass = 0.461
-gravity_scale = 0.103
+mass = 10.0
+gravity_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Switch" unique_id=1657275478]
 z_index = 1
@@ -64,40 +69,44 @@ position = Vector2(41, 234)
 scale = Vector2(6.25, 6.25)
 texture = ExtResource("6_gk4f0")
 
-[node name="Lights" type="Node2D" parent="." unique_id=850160986]
+[node name="GreenLight" type="StaticBody2D" parent="." unique_id=796918626]
+collision_layer = 32
+collision_mask = 32
 
-[node name="GreenLight" type="StaticBody2D" parent="Lights" unique_id=796918626]
-
-[node name="PointLight2D" type="PointLight2D" parent="Lights/GreenLight" unique_id=276061129]
+[node name="PointLight2D" type="PointLight2D" parent="GreenLight" unique_id=276061129]
 position = Vector2(94, 62)
+enabled = false
 color = Color(0, 1, 0, 1)
-energy = 1.09
+energy = 10.0
 texture = SubResource("GradientTexture2D_1kj1s")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Lights/GreenLight" unique_id=1975521468]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="GreenLight" unique_id=1975521468]
 position = Vector2(92, 61)
 shape = SubResource("RectangleShape2D_gk4f0")
 
-[node name="GreenLight" type="Sprite2D" parent="Lights/GreenLight" unique_id=347093356]
+[node name="GreenLight" type="Sprite2D" parent="GreenLight" unique_id=347093356]
 z_index = -1
 position = Vector2(94, 62.000004)
 scale = Vector2(0.875, 0.875)
 texture = ExtResource("4_1kj1s")
 
-[node name="Red Light" type="StaticBody2D" parent="Lights" unique_id=659738905]
+[node name="RedLight" type="StaticBody2D" parent="." unique_id=659738905]
+collision_layer = 32
+collision_mask = 32
 
-[node name="RedLight" type="Sprite2D" parent="Lights/Red Light" unique_id=1446703281]
+[node name="RedLight" type="Sprite2D" parent="RedLight" unique_id=1446703281]
 position = Vector2(-89, 61.5)
 scale = Vector2(0.875, 0.875)
 texture = ExtResource("5_gk4f0")
 
-[node name="PointLight2D2" type="PointLight2D" parent="Lights/Red Light" unique_id=368520800]
+[node name="PointLight2D" type="PointLight2D" parent="RedLight" unique_id=368520800]
 position = Vector2(-89, 61)
 scale = Vector2(1.375, 1.375)
+enabled = false
 color = Color(1, 0, 0, 1)
-energy = 1.09
+energy = 10.0
 texture = SubResource("GradientTexture2D_1kj1s")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Lights/Red Light" unique_id=1230470207]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RedLight" unique_id=1230470207]
 position = Vector2(-89, 61)
 shape = SubResource("RectangleShape2D_gk4f0")

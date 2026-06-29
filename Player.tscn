@@ -25,6 +25,7 @@ jump_strength = 420.0
 
 [node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437]
 script = ExtResource("1_3xkec")
+collision_mask = 5
 
 [node name="CenterTracker" type="Marker2D" parent="." unique_id=113426789]
 

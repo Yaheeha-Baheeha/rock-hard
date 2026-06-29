@@ -7,6 +7,7 @@ enum SpawnMode { ALWAYS, TOGGLED }
 
 @export_category("Spawner Settings")
 @export var spawn_mode: SpawnMode = SpawnMode.ALWAYS ## Choose if it's always on or needs a lever!
+@export var target_lever: Node2D ## Easily drag and drop your Lever node here!
 @export var is_active: bool = false ## If set to TOGGLED, is it currently spraying?
 @export var fluid_type: LavaDroplet.FluidType = LavaDroplet.FluidType.HOT ## Choose the fluid type!
 @export var despawn_rule: LavaDroplet.DespawnRule = LavaDroplet.DespawnRule.NEVER ## Choose how it despawns!
@@ -24,6 +25,11 @@ enum SpawnMode { ALWAYS, TOGGLED }
 @onready var cold_fluid_group = $"../ColdFluid"
 
 var spawn_timer: float = 0.0
+
+func _ready() -> void:
+	# If a lever is assigned in the Inspector, connect its signal automatically
+	if target_lever != null and target_lever.has_signal("toggled"):
+		target_lever.toggled.connect(set_spawner_active)
 
 func _process(delta: float) -> void:
 	# 1. Check if we are allowed to spawn based on our mode

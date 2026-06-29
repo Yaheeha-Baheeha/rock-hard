@@ -33,7 +33,10 @@ class Spring:
 # ---------------------------------------------------------
 # EXPORT VARIABLES
 # ---------------------------------------------------------
+
+@export_flags_2d_physics var collision_mask: int = 1 ## Choose which layers the soft body collides with
 @export var fluid_layer: int = 3
+
 var radius: float = 64.0
 var num_points: int = 32
 var target_pressure: float = 2500.0 
@@ -231,6 +234,10 @@ func _physics_process(delta: float) -> void:
 			
 			if p.position != pre_pos:
 				var query = PhysicsRayQueryParameters2D.create(to_global(pre_pos), to_global(p.position))
+				
+				# --- NEW: APPLY COLLISION MASK ---
+				query.collision_mask = collision_mask
+				
 				var result = space_state.intersect_ray(query)
 				if result:
 					p.position = to_local(result.position + result.normal * 0.5)
