@@ -5,13 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="2_yxwl1"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="3_mix47"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="4_ixf42"]
-[ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="6_brkdw"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="7_soim0"]
+[ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="8_ejlf8"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="8_vp58d"]
 [ext_resource type="Texture2D" uid="uid://j4qxeg26fom0" path="res://resources/empty_gradient_collectible.tres" id="8_xo623"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="9_vp58d"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="10_ejlf8"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="10_vp58d"]
+[ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="13_ejlf8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_brkdw"]
 texture = ExtResource("1_vp58d")
@@ -204,21 +205,24 @@ font_color = Color(1, 1, 0, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xo623"]
 size = Vector2(128, 128)
 
-[sub_resource type="Gradient" id="Gradient_5rr72"]
+[sub_resource type="Gradient" id="Gradient_yh5ew"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.13333334, 0.4, 0.53333336, 0.8666667)
 colors = PackedColorArray(0.98986965, 0.352621, 0, 1, 0.87075186, 0.36363935, 3.85046e-07, 1, 0.9816409, 0.49941778, 0, 1, 0.5647059, 0.4117647, 0.11764706, 1)
 metadata/_snap_count = 15
 metadata/_snap_enabled = true
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejlf8"]
-gradient = SubResource("Gradient_5rr72")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dxhc4"]
+gradient = SubResource("Gradient_yh5ew")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yh5ew"]
 size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejlf8"]
 size = Vector2(28652, 176)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxhc4"]
+size = Vector2(217324, 1572)
 
 [node name="Game" type="Node2D" unique_id=916055091]
 
@@ -250,22 +254,22 @@ offset_right = 404.0
 offset_bottom = 84.0
 text = "hi raymond, add lava flowing once player goes down"
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1179329790]
+[node name="DetectPlayer" type="Area2D" parent="." unique_id=1179329790]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1991729858]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectPlayer" unique_id=1991729858]
 position = Vector2(345, 231)
 shape = SubResource("RectangleShape2D_ixf42")
 
-[node name="Node2D" type="Node2D" parent="." unique_id=353730710]
+[node name="Floatives" type="Node2D" parent="." unique_id=353730710]
 position = Vector2(1125, 173)
 
-[node name="Win" type="Sprite2D" parent="Node2D" unique_id=2023374592]
+[node name="Win" type="Sprite2D" parent="Floatives" unique_id=2023374592]
 position = Vector2(1690, 215)
-texture = ExtResource("6_brkdw")
+texture = ExtResource("8_xo623")
 script = ExtResource("7_soim0")
 next_level_number = 7
 
-[node name="Label" type="Label" parent="Node2D/Win" unique_id=560137466]
+[node name="Label" type="Label" parent="Floatives/Win" unique_id=560137466]
 z_index = 4096
 anchors_preset = -1
 anchor_left = -0.1640625
@@ -281,26 +285,39 @@ label_settings = SubResource("LabelSettings_3eqwd")
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Area2D" type="Area2D" parent="Node2D/Win" unique_id=415634489]
+[node name="Area2D" type="Area2D" parent="Floatives/Win" unique_id=415634489]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Win/Area2D" unique_id=1862562193]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floatives/Win/Area2D" unique_id=1862562193]
 shape = SubResource("RectangleShape2D_xo623")
 
-[node name="gold" type="Sprite2D" parent="Node2D/Win" unique_id=1482990191]
-modulate = Color(1, 1, 1, 0.7058824)
+[node name="gold" type="Sprite2D" parent="Floatives/Win" unique_id=1946686378]
+modulate = Color(1, 1, 1, 0.24705882)
 self_modulate = Color(1, 1, 0.4509804, 0.76862746)
+show_behind_parent = true
 z_index = 3
 position = Vector2(-0.49993896, -64.25018)
 scale = Vector2(0.5039065, 128.08667)
-texture = SubResource("GradientTexture1D_ejlf8")
+texture = SubResource("GradientTexture1D_dxhc4")
 
-[node name="Collectable" type="Sprite2D" parent="Node2D" unique_id=1293454657]
+[node name="TextureRect" type="TextureRect" parent="Floatives/Win" unique_id=649589067]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_ejlf8")
+
+[node name="Collectable" type="Sprite2D" parent="Floatives" unique_id=1293454657]
 position = Vector2(404, 346)
 texture = ExtResource("8_xo623")
 script = ExtResource("8_vp58d")
 level_number = 6
 
-[node name="Label" type="Label" parent="Node2D/Collectable" unique_id=609951521]
+[node name="Label" type="Label" parent="Floatives/Collectable" unique_id=609951521]
 offset_left = -43.0
 offset_top = 39.0
 offset_right = 43.0
@@ -308,12 +325,12 @@ offset_bottom = 62.0
 text = "Collectable"
 metadata/_edit_use_anchors_ = true
 
-[node name="Area2D" type="Area2D" parent="Node2D/Collectable" unique_id=1549513499]
+[node name="Area2D" type="Area2D" parent="Floatives/Collectable" unique_id=1549513499]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Collectable/Area2D" unique_id=369211769]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floatives/Collectable/Area2D" unique_id=369211769]
 shape = SubResource("RectangleShape2D_yh5ew")
 
-[node name="TextureRect" type="TextureRect" parent="Node2D/Collectable" unique_id=1785712703]
+[node name="TextureRect" type="TextureRect" parent="Floatives/Collectable" unique_id=1785712703]
 z_index = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -336,7 +353,14 @@ shape_texture_region = Rect2(0, 0, 100, 100)
 position = Vector2(585, 1299)
 shape = SubResource("RectangleShape2D_ejlf8")
 
-[connection signal="area_entered" from="Area2D" to="Tilemap/TileMapLayer2" method="player_in"]
-[connection signal="area_shape_entered" from="Area2D" to="Tilemap/TileMapLayer2" method="player_in"]
-[connection signal="body_entered" from="Area2D" to="Tilemap/TileMapLayer2" method="player_in"]
-[connection signal="body_shape_entered" from="Area2D" to="Tilemap/TileMapLayer2" method="player_in"]
+[node name="killall" type="Area2D" parent="." unique_id=1522351385]
+script = ExtResource("13_ejlf8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=327640061]
+position = Vector2(0, 3236)
+shape = SubResource("RectangleShape2D_dxhc4")
+
+[connection signal="area_entered" from="DetectPlayer" to="Tilemap/TileMapLayer2" method="player_in"]
+[connection signal="area_shape_entered" from="DetectPlayer" to="Tilemap/TileMapLayer2" method="player_in"]
+[connection signal="body_entered" from="DetectPlayer" to="Tilemap/TileMapLayer2" method="player_in"]
+[connection signal="body_shape_entered" from="DetectPlayer" to="Tilemap/TileMapLayer2" method="player_in"]

@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="2_xlxjt"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="3_aocai"]
 [ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="4_dyw3t"]
-[ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="5_3pas5"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="6_dyw3t"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="6_u1jey"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="7_51w4t"]
@@ -30,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://bohkefj5xpqkj" path="res://Textures/Lava/fall/lavafall_20.png" id="28_uqf8q"]
 [ext_resource type="Texture2D" uid="uid://doawjefj2ha2p" path="res://Textures/Lava/fall/lavafall_21.png" id="29_puam4"]
 [ext_resource type="Texture2D" uid="uid://ckjbx66vas5mv" path="res://Textures/Lava/fall/lavafall_22.png" id="30_eay7t"]
+[ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="31_bwt5l"]
 [ext_resource type="Texture2D" uid="uid://j4qxeg26fom0" path="res://resources/empty_gradient_collectible.tres" id="31_omxaf"]
 [ext_resource type="Texture2D" uid="uid://cmcivhovxwbnq" path="res://Textures/Tutorial/Level_2/ezgif-frame-001.png" id="32_puam4"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="33_bwt5l"]
@@ -67,6 +67,7 @@
 [ext_resource type="Texture2D" uid="uid://br8nfbb3u0hk6" path="res://Textures/Lava/Crevice.png" id="63_dyw3t"]
 [ext_resource type="Texture2D" uid="uid://c38t60kffxy4" path="res://Textures/Lava/CreviceNormal.png" id="64_mpame"]
 [ext_resource type="Texture2D" uid="uid://chpf22sm0cbuo" path="res://Textures/Lava/CreviceSpecular.png" id="65_omxaf"]
+[ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="68_bwt5l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_41lt0"]
 texture = ExtResource("4_dyw3t")
@@ -249,11 +250,11 @@ terrain_set_0/terrain_4/name = "to left steep slope"
 terrain_set_0/terrain_4/color = Color(0.5999843, 0.80228055, 0.8778071, 1)
 sources/0 = SubResource("TileSetAtlasSource_41lt0")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6ygx"]
-size = Vector2(34.5, 474.78906)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41lt0"]
 size = Vector2(80.64807, 20.950928)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6ygx"]
+size = Vector2(34.5, 474.78906)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xlxjt"]
 size = Vector2(217324, 1572)
@@ -327,7 +328,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("30_eay7t")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 60.0
 }]
@@ -401,105 +402,10 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("29_puam4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 60.0
 }]
-
-[sub_resource type="LabelSettings" id="LabelSettings_aocai"]
-font_size = 44
-font_color = Color(1, 1, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwl8u"]
-size = Vector2(128, 128)
-
-[sub_resource type="Gradient" id="Gradient_5rr72"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0.13333334, 0.4, 0.53333336, 0.8666667)
-colors = PackedColorArray(0.98986965, 0.352621, 0, 1, 0.87075186, 0.36363935, 3.85046e-07, 1, 0.9816409, 0.49941778, 0, 1, 0.5647059, 0.4117647, 0.11764706, 1)
-metadata/_snap_count = 15
-metadata/_snap_enabled = true
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_3pas5"]
-gradient = SubResource("Gradient_5rr72")
-
-[sub_resource type="Animation" id="Animation_swvua"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1904, -482)]
-}
-
-[sub_resource type="Animation" id="Animation_ka01f"]
-resource_name = "oscillate"
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1904, -482), Vector2(1904, -533)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_u1jey"]
-_data = {
-&"RESET": SubResource("Animation_swvua"),
-&"oscillate": SubResource("Animation_ka01f")
-}
-
-[sub_resource type="Animation" id="Animation_ett8d"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(2042, -153)]
-}
-
-[sub_resource type="Animation" id="Animation_4p6gt"]
-resource_name = "oscillate"
-length = 2.0
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(2042, -153), Vector2(2042, -127)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_51w4t"]
-_data = {
-&"RESET": SubResource("Animation_ett8d"),
-&"oscillate": SubResource("Animation_4p6gt")
-}
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ddgyg"]
-size = Vector2(128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t25cq"]
 animations = [{
@@ -597,7 +503,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("62_ee483")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -618,6 +524,104 @@ normal_texture = ExtResource("64_mpame")
 specular_texture = ExtResource("65_omxaf")
 specular_color = Color(0.50140655, 0.5014065, 0.5014065, 1)
 specular_shininess = 0.45
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_um4ky"]
+size = Vector2(217324, 1572)
+
+[sub_resource type="LabelSettings" id="LabelSettings_aocai"]
+font_size = 44
+font_color = Color(1, 1, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwl8u"]
+size = Vector2(128, 128)
+
+[sub_resource type="Animation" id="Animation_swvua"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1904, -482)]
+}
+
+[sub_resource type="Animation" id="Animation_ka01f"]
+resource_name = "oscillate"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1904, -482), Vector2(1904, -533)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u1jey"]
+_data = {
+&"RESET": SubResource("Animation_swvua"),
+&"oscillate": SubResource("Animation_ka01f")
+}
+
+[sub_resource type="Gradient" id="Gradient_5rr72"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.13333334, 0.4, 0.53333336, 0.8666667)
+colors = PackedColorArray(0.98986965, 0.352621, 0, 1, 0.87075186, 0.36363935, 3.85046e-07, 1, 0.9816409, 0.49941778, 0, 1, 0.5647059, 0.4117647, 0.11764706, 1)
+metadata/_snap_count = 15
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_um4ky"]
+gradient = SubResource("Gradient_5rr72")
+
+[sub_resource type="Animation" id="Animation_ett8d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2042, -153)]
+}
+
+[sub_resource type="Animation" id="Animation_4p6gt"]
+resource_name = "oscillate"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2042, -153), Vector2(2042, -127)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_51w4t"]
+_data = {
+&"RESET": SubResource("Animation_ett8d"),
+&"oscillate": SubResource("Animation_4p6gt")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ddgyg"]
+size = Vector2(128, 128)
 
 [node name="Game" type="Node2D" unique_id=1118129422]
 
@@ -641,7 +645,7 @@ tile_set = SubResource("TileSet_t8cg7")
 
 [node name="Lava" type="Node2D" parent="." unique_id=1880621221]
 
-[node name="DeahConditionRigid" type="Area2D" parent="Lava" unique_id=1782401527]
+[node name="DeathConditionStatic" type="Area2D" parent="Lava" unique_id=1782401527]
 script = ExtResource("7_51w4t")
 player_root_path = NodePath("../../Player")
 softbody_path = NodePath("../../Player/SoftBodySphere")
@@ -655,89 +659,33 @@ shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeahConditionRigid" unique_id=2015337579]
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Lava/DeathConditionStatic" unique_id=1051528578]
+top_level = true
+position = Vector2(1250.0001, -517.00006)
+rotation = 1.0471976
+shape = SubResource("RectangleShape2D_41lt0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeathConditionStatic" unique_id=2015337579]
 top_level = true
 position = Vector2(1280, -247.84375)
 shape = SubResource("RectangleShape2D_e6ygx")
 
-[node name="DeahConditionRigid2" type="Area2D" parent="Lava" unique_id=700588769]
-script = ExtResource("7_51w4t")
-player_root_path = NodePath("../../Player")
-softbody_path = NodePath("../../Player/SoftBodySphere")
-player_controller_path = NodePath("../../Player")
-respawn_point_path = NodePath("../../RespawnPoint")
-spawn_parent_path = NodePath("../..")
-ceramic_type = 1
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("6_dyw3t")
-shape_texture_region = Rect2(0, 0, 100, 100)
-shape_texture_repeat = true
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeahConditionRigid2" unique_id=1205715341]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Lava/DeathConditionStatic" unique_id=1205715341]
 top_level = true
 position = Vector2(1209.5, -528.5)
 rotation = -0.5235988
 shape = SubResource("RectangleShape2D_41lt0")
 
-[node name="DeahConditionRigid3" type="Area2D" parent="Lava" unique_id=1082701295]
-script = ExtResource("7_51w4t")
-player_root_path = NodePath("../../Player")
-softbody_path = NodePath("../../Player/SoftBodySphere")
-player_controller_path = NodePath("../../Player")
-respawn_point_path = NodePath("../../RespawnPoint")
-spawn_parent_path = NodePath("../..")
-ceramic_type = 1
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("6_dyw3t")
-shape_texture_region = Rect2(0, 0, 100, 100)
-shape_texture_repeat = true
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeahConditionRigid3" unique_id=692608672]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Lava/DeathConditionStatic" unique_id=692608672]
 top_level = true
 position = Vector2(1350, -527)
 rotation = 0.5235988
 shape = SubResource("RectangleShape2D_41lt0")
 
-[node name="DeahConditionRigid4" type="Area2D" parent="Lava" unique_id=1251668256]
-script = ExtResource("7_51w4t")
-player_root_path = NodePath("../../Player")
-softbody_path = NodePath("../../Player/SoftBodySphere")
-player_controller_path = NodePath("../../Player")
-respawn_point_path = NodePath("../../RespawnPoint")
-spawn_parent_path = NodePath("../..")
-ceramic_type = 1
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("6_dyw3t")
-shape_texture_region = Rect2(0, 0, 100, 100)
-shape_texture_repeat = true
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeahConditionRigid4" unique_id=874564963]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Lava/DeathConditionStatic" unique_id=874564963]
 top_level = true
 position = Vector2(1308.0001, -516)
 rotation = 2.0943952
-shape = SubResource("RectangleShape2D_41lt0")
-
-[node name="DeahConditionRigid5" type="Area2D" parent="Lava" unique_id=1338787472]
-script = ExtResource("7_51w4t")
-player_root_path = NodePath("../../Player")
-softbody_path = NodePath("../../Player/SoftBodySphere")
-player_controller_path = NodePath("../../Player")
-respawn_point_path = NodePath("../../RespawnPoint")
-spawn_parent_path = NodePath("../..")
-ceramic_type = 1
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("6_dyw3t")
-shape_texture_region = Rect2(0, 0, 100, 100)
-shape_texture_repeat = true
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeahConditionRigid5" unique_id=1051528578]
-top_level = true
-position = Vector2(1250.0001, -517.00006)
-rotation = 1.0471976
 shape = SubResource("RectangleShape2D_41lt0")
 
 [node name="WorldBoundary" type="Area2D" parent="Lava" unique_id=437902437]
@@ -864,13 +812,71 @@ scale = Vector2(3.3333263, 3.3333263)
 sprite_frames = SubResource("SpriteFrames_t8cg7")
 autoplay = "default"
 
-[node name="Win" type="Sprite2D" parent="." unique_id=1956405569]
+[node name="Tutorial" type="AnimatedSprite2D" parent="." unique_id=296329056]
+light_mask = 2
+z_index = -1
+position = Vector2(-145, -246)
+scale = Vector2(0.52671754, 0.52671754)
+sprite_frames = SubResource("SpriteFrames_t25cq")
+autoplay = "default"
+frame_progress = 0.87168926
+
+[node name="ColorRect" type="ColorRect" parent="Tutorial" unique_id=1045237032]
+z_index = -1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -201.24637
+offset_top = -377.81158
+offset_right = -56.956512
+offset_bottom = -200.81158
+color = Color(0.57254905, 0.8352941, 0.56078434, 0.5921569)
+
+[node name="Label" type="Label" parent="Tutorial" unique_id=17423990]
+anchors_preset = -1
+anchor_left = -0.16700001
+anchor_top = -0.298
+anchor_right = 1.2260001
+anchor_bottom = -0.003
+offset_left = -130.91269
+offset_top = -239.1647
+offset_right = -130.8787
+offset_bottom = -239.1747
+text = "Jump up and go down,
+ use the momentum to
+ slam jump higher"
+label_settings = SubResource("LabelSettings_eay7t")
+
+[node name="Crevice" type="Node2D" parent="Tutorial" unique_id=228194651]
+z_index = 2
+position = Vector2(2705.4348, 453.75357)
+rotation = -3.1415927
+scale = Vector2(3.5625, 3.5625)
+
+[node name="Crevice" type="Sprite2D" parent="Tutorial/Crevice" unique_id=1854922722]
+texture = SubResource("CanvasTexture_bwt5l")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Tutorial/Crevice" unique_id=434908946]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tutorial/Crevice/StaticBody2D" unique_id=1554315225]
+polygon = PackedVector2Array(-2.5, -15.5, -2.5, -14.5, -10.5, -14.5, -10.5, -13.5, -12.5, -13.5, -12.5, -12.5, -13.5, -12.5, -13.5, -9.5, -14.5, -9.5, -14.5, -7.5, -15.5, -7.5, -15.5, -1.5, -14.5, -1.5, -14.5, 7.5, -12.5, 7.5, -12.5, 8.5, -7.5, 8.5, -7.5, 7.5, -4.5, 7.5, -4.5, 6.5, -3.5, 6.5, -3.5, 3.5, -2.5, 3.5, -2.5, 2.5, -0.5, 2.5, -0.5, 1.5, 1.5, 1.5, 1.5, 2.5, 3.5, 2.5, 3.5, 4.5, 4.5, 4.5, 4.5, 7.5, 6.5, 7.5, 6.5, 9.5, 12.5, 9.5, 12.5, 8.5, 13.5, 8.5, 13.5, 6.5, 14.5, 6.5, 14.5, 1.5, 13.5, 1.5, 13.5, -7.5, 12.5, -7.5, 12.5, -9.5, 11.5, -9.5, 11.5, -10.3, 9.5, -11.3, 9.5, -12.5, 7.5, -12.5, 7.5, -13.5, 5.5, -13.5, 5.5, -14.5, 4.5, -14.5, 4.5, -15.5)
+
+[node name="killall" type="Area2D" parent="." unique_id=149050621]
+script = ExtResource("68_bwt5l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=1557723034]
+position = Vector2(0, 3236)
+shape = SubResource("RectangleShape2D_um4ky")
+
+[node name="Floatives" type="Node2D" parent="." unique_id=997146498]
+
+[node name="Win" type="Sprite2D" parent="Floatives" unique_id=1956405569]
 position = Vector2(1904, -482)
-texture = ExtResource("5_3pas5")
+texture = ExtResource("31_omxaf")
 script = ExtResource("34_omxaf")
 next_level_number = 3
 
-[node name="Label" type="Label" parent="Win" unique_id=904126261]
+[node name="Label" type="Label" parent="Floatives/Win" unique_id=904126261]
 z_index = 4096
 anchors_preset = -1
 anchor_left = -0.1640625
@@ -886,30 +892,43 @@ label_settings = SubResource("LabelSettings_aocai")
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Area2D" type="Area2D" parent="Win" unique_id=839284171]
+[node name="Area2D" type="Area2D" parent="Floatives/Win" unique_id=839284171]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Win/Area2D" unique_id=679739152]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floatives/Win/Area2D" unique_id=679739152]
 shape = SubResource("RectangleShape2D_xwl8u")
 
-[node name="gold" type="Sprite2D" parent="Win" unique_id=11849796]
-modulate = Color(1, 1, 1, 0.7058824)
-self_modulate = Color(1, 1, 0.4509804, 0.76862746)
-z_index = 3
-position = Vector2(-0.49993896, -64.25018)
-scale = Vector2(0.5039065, 128.08667)
-texture = SubResource("GradientTexture1D_3pas5")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Win" unique_id=1858768804]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Floatives/Win" unique_id=1858768804]
 libraries/ = SubResource("AnimationLibrary_u1jey")
 autoplay = &"oscillate"
 
-[node name="Collectable" type="Sprite2D" parent="." unique_id=488867800]
+[node name="gold" type="Sprite2D" parent="Floatives/Win" unique_id=1206617319]
+modulate = Color(1, 1, 1, 0.24705882)
+self_modulate = Color(1, 1, 0.4509804, 0.76862746)
+show_behind_parent = true
+z_index = 3
+position = Vector2(-0.49993896, -64.25018)
+scale = Vector2(0.5039065, 128.08667)
+texture = SubResource("GradientTexture1D_um4ky")
+
+[node name="TextureRect" type="TextureRect" parent="Floatives/Win" unique_id=1112493419]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("31_bwt5l")
+
+[node name="Collectable" type="Sprite2D" parent="Floatives" unique_id=488867800]
 position = Vector2(2042, -153)
 texture = ExtResource("31_omxaf")
 script = ExtResource("6_u1jey")
 level_number = 2
 
-[node name="Label" type="Label" parent="Collectable" unique_id=1876991422]
+[node name="Label" type="Label" parent="Floatives/Collectable" unique_id=1876991422]
 offset_left = -43.0
 offset_top = 39.0
 offset_right = 43.0
@@ -917,16 +936,16 @@ offset_bottom = 62.0
 text = "Collectable"
 metadata/_edit_use_anchors_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Collectable" unique_id=56206357]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Floatives/Collectable" unique_id=56206357]
 libraries/ = SubResource("AnimationLibrary_51w4t")
 autoplay = &"oscillate"
 
-[node name="Area2D" type="Area2D" parent="Collectable" unique_id=2037792926]
+[node name="Area2D" type="Area2D" parent="Floatives/Collectable" unique_id=2037792926]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectable/Area2D" unique_id=820881563]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floatives/Collectable/Area2D" unique_id=820881563]
 shape = SubResource("RectangleShape2D_ddgyg")
 
-[node name="TextureRect" type="TextureRect" parent="Collectable" unique_id=964813739]
+[node name="TextureRect" type="TextureRect" parent="Floatives/Collectable" unique_id=964813739]
 z_index = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -938,52 +957,3 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("33_bwt5l")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=296329056]
-light_mask = 2
-z_index = -1
-position = Vector2(-145, -246)
-scale = Vector2(0.52671754, 0.52671754)
-sprite_frames = SubResource("SpriteFrames_t25cq")
-autoplay = "default"
-frame_progress = 0.87168926
-
-[node name="ColorRect" type="ColorRect" parent="AnimatedSprite2D" unique_id=1045237032]
-z_index = -1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -201.24637
-offset_top = -377.81158
-offset_right = -56.956512
-offset_bottom = -200.81158
-color = Color(0.57254905, 0.8352941, 0.56078434, 0.5921569)
-
-[node name="Label" type="Label" parent="AnimatedSprite2D" unique_id=17423990]
-anchors_preset = -1
-anchor_left = -0.16700001
-anchor_top = -0.298
-anchor_right = 1.2260001
-anchor_bottom = -0.003
-offset_left = -130.91269
-offset_top = -239.1647
-offset_right = -130.8787
-offset_bottom = -239.1747
-text = "Jump up and go down,
- use the momentum to
- slam jump higher"
-label_settings = SubResource("LabelSettings_eay7t")
-
-[node name="Crevice" type="Node2D" parent="AnimatedSprite2D" unique_id=228194651]
-z_index = 2
-position = Vector2(2705.4348, 453.75357)
-rotation = -3.1415927
-scale = Vector2(3.5625, 3.5625)
-
-[node name="Crevice" type="Sprite2D" parent="AnimatedSprite2D/Crevice" unique_id=1854922722]
-texture = SubResource("CanvasTexture_bwt5l")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="AnimatedSprite2D/Crevice" unique_id=434908946]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AnimatedSprite2D/Crevice/StaticBody2D" unique_id=1554315225]
-polygon = PackedVector2Array(-2.5, -15.5, -2.5, -14.5, -10.5, -14.5, -10.5, -13.5, -12.5, -13.5, -12.5, -12.5, -13.5, -12.5, -13.5, -9.5, -14.5, -9.5, -14.5, -7.5, -15.5, -7.5, -15.5, -1.5, -14.5, -1.5, -14.5, 7.5, -12.5, 7.5, -12.5, 8.5, -7.5, 8.5, -7.5, 7.5, -4.5, 7.5, -4.5, 6.5, -3.5, 6.5, -3.5, 3.5, -2.5, 3.5, -2.5, 2.5, -0.5, 2.5, -0.5, 1.5, 1.5, 1.5, 1.5, 2.5, 3.5, 2.5, 3.5, 4.5, 4.5, 4.5, 4.5, 7.5, 6.5, 7.5, 6.5, 9.5, 12.5, 9.5, 12.5, 8.5, 13.5, 8.5, 13.5, 6.5, 14.5, 6.5, 14.5, 1.5, 13.5, 1.5, 13.5, -7.5, 12.5, -7.5, 12.5, -9.5, 11.5, -9.5, 11.5, -10.3, 9.5, -11.3, 9.5, -12.5, 7.5, -12.5, 7.5, -13.5, 5.5, -13.5, 5.5, -14.5, 4.5, -14.5, 4.5, -15.5)
