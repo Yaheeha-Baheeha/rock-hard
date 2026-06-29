@@ -324,34 +324,30 @@ position = Vector2(-1498, -832)
 [node name="background" parent="." unique_id=979663656 instance=ExtResource("4_qhsfq")]
 z_index = -100
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2091524612]
+[node name="InvisibleFloor" type="StaticBody2D" parent="." unique_id=2091524612]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2118214197]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleFloor" unique_id=2118214197]
 position = Vector2(-1450, -1249)
 shape = SubResource("RectangleShape2D_br4so")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1980503651]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=822657539]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="InvisibleFloor" unique_id=822657539]
 position = Vector2(-472.25, -1842)
 shape = SubResource("RectangleShape2D_j6qfn")
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=1893381532]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=1506347267]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="InvisibleFloor" unique_id=1506347267]
 position = Vector2(-2221, -954)
 shape = SubResource("RectangleShape2D_8ons7")
 
-[node name="Node2D" type="Node2D" parent="." unique_id=315898560]
+[node name="Floatives" type="Node2D" parent="." unique_id=315898560]
 position = Vector2(1125, 173)
 
-[node name="Win" type="Sprite2D" parent="Node2D" unique_id=1988015282]
+[node name="Win" type="Sprite2D" parent="Floatives" unique_id=1988015282]
 position = Vector2(-3916, -136)
 texture = ExtResource("7_vw43l")
 script = ExtResource("6_kcwpe")
 next_level_number = 6
 
-[node name="Label" type="Label" parent="Node2D/Win" unique_id=501696271]
+[node name="Label" type="Label" parent="Floatives/Win" unique_id=501696271]
 z_index = 4096
 anchors_preset = -1
 anchor_left = -0.1640625
@@ -367,16 +363,16 @@ label_settings = SubResource("LabelSettings_2etst")
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Area2D" type="Area2D" parent="Node2D/Win" unique_id=2005313107]
+[node name="Area2D" type="Area2D" parent="Floatives/Win" unique_id=2005313107]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Win/Area2D" unique_id=793464635]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floatives/Win/Area2D" unique_id=793464635]
 shape = SubResource("RectangleShape2D_vw43l")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Win" unique_id=1475162102]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Floatives/Win" unique_id=1475162102]
 libraries/ = SubResource("AnimationLibrary_uws32")
 autoplay = &"oscillate"
 
-[node name="gold" type="Sprite2D" parent="Node2D/Win" unique_id=1589843249]
+[node name="gold" type="Sprite2D" parent="Floatives/Win" unique_id=1589843249]
 modulate = Color(1, 1, 1, 0.24705882)
 self_modulate = Color(1, 1, 0.4509804, 0.76862746)
 show_behind_parent = true
@@ -385,7 +381,7 @@ position = Vector2(-0.49993896, -64.25018)
 scale = Vector2(0.5039065, 128.08667)
 texture = SubResource("GradientTexture1D_vcgqq")
 
-[node name="TextureRect" type="TextureRect" parent="Node2D/Win" unique_id=1272156874]
+[node name="TextureRect" type="TextureRect" parent="Floatives/Win" unique_id=1272156874]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -397,13 +393,13 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_jiqp1")
 
-[node name="Collectable" type="Sprite2D" parent="Node2D" unique_id=134334385]
+[node name="Collectable" type="Sprite2D" parent="Floatives" unique_id=134334385]
 position = Vector2(2642, 168)
 texture = ExtResource("7_vw43l")
 script = ExtResource("7_j6qfn")
 level_number = 5
 
-[node name="Label" type="Label" parent="Node2D/Collectable" unique_id=1290290727]
+[node name="Label" type="Label" parent="Floatives/Collectable" unique_id=1290290727]
 offset_left = -43.0
 offset_top = 39.0
 offset_right = 43.0
@@ -411,16 +407,16 @@ offset_bottom = 62.0
 text = "Collectable"
 metadata/_edit_use_anchors_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Collectable" unique_id=82192577]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Floatives/Collectable" unique_id=82192577]
 libraries/ = SubResource("AnimationLibrary_vcgqq")
 autoplay = &"oscillate"
 
-[node name="Area2D" type="Area2D" parent="Node2D/Collectable" unique_id=1511047038]
+[node name="Area2D" type="Area2D" parent="Floatives/Collectable" unique_id=1511047038]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Collectable/Area2D" unique_id=418491033]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floatives/Collectable/Area2D" unique_id=418491033]
 shape = SubResource("RectangleShape2D_o1mlc")
 
-[node name="TextureRect" type="TextureRect" parent="Node2D/Collectable" unique_id=1679457688]
+[node name="TextureRect" type="TextureRect" parent="Floatives/Collectable" unique_id=1679457688]
 z_index = 3
 anchors_preset = 15
 anchor_right = 1.0

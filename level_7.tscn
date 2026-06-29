@@ -195,21 +195,6 @@ terrain_set_0/terrain_4/name = "to left steep slope"
 terrain_set_0/terrain_4/color = Color(0.5999843, 0.80228055, 0.8778071, 1)
 sources/0 = SubResource("TileSetAtlasSource_n5k06")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0fgk"]
-size = Vector2(297, 1717)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wqyy"]
-size = Vector2(252, 1124)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_axb3o"]
-size = Vector2(206.5, 710.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_12rt6"]
-size = Vector2(1619.5, 76)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5k06"]
-size = Vector2(28652, 176)
-
 [sub_resource type="LabelSettings" id="LabelSettings_pfhdb"]
 font_size = 44
 font_color = Color(1, 1, 0, 1)
@@ -314,6 +299,18 @@ font_size = 95
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8t08o"]
 size = Vector2(217324, 1572)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0fgk"]
+size = Vector2(297, 1717)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wqyy"]
+size = Vector2(252, 1124)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axb3o"]
+size = Vector2(206.5, 710.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5k06"]
+size = Vector2(28652, 176)
+
 [node name="Game" type="Node2D" unique_id=722697156]
 
 [node name="Tilemap" type="Node2D" parent="." unique_id=1281905000]
@@ -343,85 +340,16 @@ crouch_strength = 3500.0
 [node name="background" parent="." unique_id=979663656 instance=ExtResource("5_axb3o")]
 z_index = -100
 
-[node name="Lever" parent="." unique_id=603365385 instance=ExtResource("5_4ryn0")]
-position = Vector2(-913, 349)
-
-[node name="LavaGeyser" type="Area2D" parent="." unique_id=2082521981]
-script = ExtResource("6_12rt6")
-ceramic_type = 1
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("7_axb3o")
-shape_texture_region = Rect2(0, 0, 100, 100)
-shape_texture_repeat = true
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LavaGeyser" unique_id=1676236719]
-position = Vector2(3488.5, -226.5)
-shape = SubResource("RectangleShape2D_w0fgk")
-
-[node name="LavaGeyser2" type="Area2D" parent="." unique_id=1488259335]
-script = ExtResource("6_12rt6")
-ceramic_type = 1
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("7_axb3o")
-shape_texture_region = Rect2(0, 0, 100, 100)
-shape_texture_repeat = true
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LavaGeyser2" unique_id=311536260]
-position = Vector2(2998, 74)
-shape = SubResource("RectangleShape2D_0wqyy")
-
-[node name="LavaGeyser3" type="Area2D" parent="." unique_id=1589420797]
-script = ExtResource("6_12rt6")
-ceramic_type = 1
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("7_axb3o")
-shape_texture_region = Rect2(0, 0, 100, 100)
-shape_texture_repeat = true
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LavaGeyser3" unique_id=1175998531]
-position = Vector2(2606.75, 280.75)
-shape = SubResource("RectangleShape2D_axb3o")
-
-[node name="Killingexcesslava" type="Area2D" parent="." unique_id=1269910066]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killingexcesslava" unique_id=1073584247]
-position = Vector2(3133.25, 700)
-shape = SubResource("RectangleShape2D_12rt6")
-
-[node name="Lever2" parent="." unique_id=970204715 instance=ExtResource("5_4ryn0")]
-position = Vector2(160, -1011)
-
-[node name="Lever3" parent="." unique_id=768505939 instance=ExtResource("5_4ryn0")]
-position = Vector2(870, -1427)
-
-[node name="Lever4" parent="." unique_id=1269916276 instance=ExtResource("5_4ryn0")]
-position = Vector2(1508, -1123)
-
-[node name="worldboudary" type="Area2D" parent="." unique_id=723492218]
-position = Vector2(2960, -211)
-script = ExtResource("6_12rt6")
-spawn_parent_path = NodePath("../templabelsforraymond/Label7")
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("7_axb3o")
-shape_texture_region = Rect2(0, 0, 100, 100)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="worldboudary" unique_id=317059358]
-position = Vector2(585, 1299)
-shape = SubResource("RectangleShape2D_n5k06")
-
-[node name="Node2D" type="Node2D" parent="." unique_id=1647640613]
+[node name="Floatives" type="Node2D" parent="." unique_id=1647640613]
 position = Vector2(1125, 173)
 
-[node name="Win" type="Sprite2D" parent="Node2D" unique_id=383194008]
+[node name="Win" type="Sprite2D" parent="Floatives" unique_id=383194008]
 position = Vector2(3185, -1663)
 texture = ExtResource("9_p07bb")
 script = ExtResource("9_w12s5")
 next_level_number = 8
 
-[node name="Label" type="Label" parent="Node2D/Win" unique_id=1795055882]
+[node name="Label" type="Label" parent="Floatives/Win" unique_id=1795055882]
 z_index = 4096
 anchors_preset = -1
 anchor_left = -0.1640625
@@ -437,16 +365,16 @@ label_settings = SubResource("LabelSettings_pfhdb")
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Area2D" type="Area2D" parent="Node2D/Win" unique_id=394444319]
+[node name="Area2D" type="Area2D" parent="Floatives/Win" unique_id=394444319]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Win/Area2D" unique_id=475003391]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floatives/Win/Area2D" unique_id=475003391]
 shape = SubResource("RectangleShape2D_cvd2s")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Win" unique_id=1281342342]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Floatives/Win" unique_id=1281342342]
 libraries/ = SubResource("AnimationLibrary_gjgpw")
 autoplay = &"oscillate"
 
-[node name="gold" type="Sprite2D" parent="Node2D/Win" unique_id=1894060550]
+[node name="gold" type="Sprite2D" parent="Floatives/Win" unique_id=1894060550]
 modulate = Color(1, 1, 1, 0.24705882)
 self_modulate = Color(1, 1, 0.4509804, 0.76862746)
 show_behind_parent = true
@@ -455,7 +383,7 @@ position = Vector2(-0.49993896, -64.25018)
 scale = Vector2(0.5039065, 128.08667)
 texture = SubResource("GradientTexture1D_8t08o")
 
-[node name="TextureRect" type="TextureRect" parent="Node2D/Win" unique_id=1785708019]
+[node name="TextureRect" type="TextureRect" parent="Floatives/Win" unique_id=1785708019]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -467,13 +395,13 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_pfhdb")
 
-[node name="Collectable" type="Sprite2D" parent="Node2D" unique_id=149140767]
+[node name="Collectable" type="Sprite2D" parent="Floatives" unique_id=149140767]
 position = Vector2(-2358, -1613)
 texture = ExtResource("9_p07bb")
 script = ExtResource("10_p07bb")
 level_number = 6
 
-[node name="Label" type="Label" parent="Node2D/Collectable" unique_id=206378362]
+[node name="Label" type="Label" parent="Floatives/Collectable" unique_id=206378362]
 offset_left = -43.0
 offset_top = 39.0
 offset_right = 43.0
@@ -481,16 +409,16 @@ offset_bottom = 62.0
 text = "Collectable"
 metadata/_edit_use_anchors_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Collectable" unique_id=1919946864]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Floatives/Collectable" unique_id=1919946864]
 libraries/ = SubResource("AnimationLibrary_anmol")
 autoplay = &"oscillate"
 
-[node name="Area2D" type="Area2D" parent="Node2D/Collectable" unique_id=1109104677]
+[node name="Area2D" type="Area2D" parent="Floatives/Collectable" unique_id=1109104677]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Collectable/Area2D" unique_id=1471248475]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floatives/Collectable/Area2D" unique_id=1471248475]
 shape = SubResource("RectangleShape2D_hvfyj")
 
-[node name="TextureRect" type="TextureRect" parent="Node2D/Collectable" unique_id=1123920791]
+[node name="TextureRect" type="TextureRect" parent="Floatives/Collectable" unique_id=1123920791]
 z_index = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -582,3 +510,61 @@ script = ExtResource("13_pfhdb")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=1936558323]
 position = Vector2(0, 3236)
 shape = SubResource("RectangleShape2D_8t08o")
+
+[node name="Lava" type="Node2D" parent="." unique_id=474986992]
+
+[node name="LavaGeyser" type="Area2D" parent="Lava" unique_id=2082521981]
+script = ExtResource("6_12rt6")
+player_root_path = NodePath("../../Player")
+softbody_path = NodePath("../../Player/SoftBodySphere")
+player_controller_path = NodePath("../../Player")
+respawn_point_path = NodePath("../../RespawnPoint")
+spawn_parent_path = NodePath("../..")
+ceramic_type = 1
+shape_polygon_color = Color(1, 1, 1, 1)
+shape_texture = ExtResource("7_axb3o")
+shape_texture_region = Rect2(0, 0, 100, 100)
+shape_texture_repeat = true
+circle_approximation_segments = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/LavaGeyser" unique_id=1676236719]
+position = Vector2(3488.5, -226.5)
+shape = SubResource("RectangleShape2D_w0fgk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Lava/LavaGeyser" unique_id=311536260]
+position = Vector2(2998, 74)
+shape = SubResource("RectangleShape2D_0wqyy")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Lava/LavaGeyser" unique_id=1175998531]
+position = Vector2(2606.75, 280.75)
+shape = SubResource("RectangleShape2D_axb3o")
+
+[node name="worldboudary" type="Area2D" parent="Lava" unique_id=723492218]
+position = Vector2(2960, -211)
+script = ExtResource("6_12rt6")
+player_root_path = NodePath("../../Player")
+softbody_path = NodePath("../../Player/SoftBodySphere")
+player_controller_path = NodePath("../../Player")
+respawn_point_path = NodePath("../../RespawnPoint")
+spawn_parent_path = NodePath("../../templabelsforraymond/Label7")
+shape_polygon_color = Color(1, 1, 1, 1)
+shape_texture = ExtResource("7_axb3o")
+shape_texture_region = Rect2(0, 0, 100, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/worldboudary" unique_id=317059358]
+position = Vector2(585, 1299)
+shape = SubResource("RectangleShape2D_n5k06")
+
+[node name="Levers" type="Node2D" parent="." unique_id=1924409659]
+
+[node name="Lever" parent="Levers" unique_id=603365385 instance=ExtResource("5_4ryn0")]
+position = Vector2(-913, 349)
+
+[node name="Lever2" parent="Levers" unique_id=970204715 instance=ExtResource("5_4ryn0")]
+position = Vector2(160, -1011)
+
+[node name="Lever3" parent="Levers" unique_id=768505939 instance=ExtResource("5_4ryn0")]
+position = Vector2(870, -1427)
+
+[node name="Lever4" parent="Levers" unique_id=1269916276 instance=ExtResource("5_4ryn0")]
+position = Vector2(1508, -1123)

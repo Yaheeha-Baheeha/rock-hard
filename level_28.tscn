@@ -13,9 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://b7r5b0a21wc5f" path="res://Textures/ceramic.jpg" id="10_v2103"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="11_0kwh6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pkkpg"]
-size = Vector2(217324, 1572)
-
 [sub_resource type="Animation" id="Animation_6t5o3"]
 length = 0.001
 tracks/0/type = "value"
@@ -259,6 +256,12 @@ terrain_set_0/terrain_4/name = "to left steep slope"
 terrain_set_0/terrain_4/color = Color(0.5999843, 0.80228055, 0.8778071, 1)
 sources/0 = SubResource("TileSetAtlasSource_riv3k")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_riv3k"]
+size = Vector2(217324, 1572)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pkkpg"]
+size = Vector2(217324, 1572)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0eqxv"]
 size = Vector2(358, 73)
 
@@ -271,25 +274,7 @@ size = Vector2(304, 74)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0kwh6"]
 size = Vector2(2081, 121)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_riv3k"]
-size = Vector2(217324, 1572)
-
 [node name="Game" type="Node2D" unique_id=281431897]
-
-[node name="WorldBoundary" type="Area2D" parent="." unique_id=2067683071]
-position = Vector2(0, 1324)
-collision_layer = 129
-script = ExtResource("9_8dm2a")
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("2_riv3k")
-shape_texture_region = Rect2(0, 0, 100, 100)
-shape_texture_repeat = true
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary" unique_id=1127963569]
-position = Vector2(-106, 1169)
-shape = SubResource("RectangleShape2D_pkkpg")
-debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="Shrine" type="Node2D" parent="." unique_id=1026288991]
 z_index = 4
@@ -341,53 +326,59 @@ position = Vector2(-1498, -832)
 [node name="background" parent="." unique_id=979663656 instance=ExtResource("8_0kwh6")]
 z_index = -100
 
-[node name="Area2D" type="Area2D" parent="." unique_id=347898907]
-script = ExtResource("9_8dm2a")
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("10_v2103")
-shape_texture_region = Rect2(0, 0, 100, 100)
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1923964936]
-position = Vector2(-1840, 510.5)
-shape = SubResource("RectangleShape2D_0eqxv")
-
-[node name="Area2D2" type="Area2D" parent="." unique_id=138397425]
-script = ExtResource("9_8dm2a")
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("10_v2103")
-shape_texture_region = Rect2(0, 0, 100, 100)
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=1063497475]
-position = Vector2(-1464.5, 379)
-shape = SubResource("RectangleShape2D_8dm2a")
-
-[node name="Area2D3" type="Area2D" parent="." unique_id=673377334]
-script = ExtResource("9_8dm2a")
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("10_v2103")
-shape_texture_region = Rect2(0, 0, 100, 100)
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3" unique_id=2039759062]
-position = Vector2(-1081, 380)
-shape = SubResource("RectangleShape2D_v2103")
-
-[node name="Area2D4" type="Area2D" parent="." unique_id=1414833682]
-script = ExtResource("9_8dm2a")
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("10_v2103")
-shape_texture_region = Rect2(0, 0, 100, 100)
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D4" unique_id=982714061]
-position = Vector2(353.5, 487.5)
-shape = SubResource("RectangleShape2D_0kwh6")
-
 [node name="killall" type="Area2D" parent="." unique_id=1862063095]
 script = ExtResource("11_0kwh6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=1995947520]
 position = Vector2(0, 3236)
 shape = SubResource("RectangleShape2D_riv3k")
+
+[node name="Lava" type="Node2D" parent="." unique_id=127113151]
+
+[node name="WorldBoundary" type="Area2D" parent="Lava" unique_id=2067683071]
+position = Vector2(0, 1324)
+collision_layer = 129
+script = ExtResource("9_8dm2a")
+player_root_path = NodePath("../../Player")
+softbody_path = NodePath("../../Player/SoftBodySphere")
+player_controller_path = NodePath("../../Player")
+respawn_point_path = NodePath("../../RespawnPoint")
+spawn_parent_path = NodePath("../..")
+shape_polygon_color = Color(1, 1, 1, 1)
+shape_texture = ExtResource("2_riv3k")
+shape_texture_region = Rect2(0, 0, 100, 100)
+shape_texture_repeat = true
+circle_approximation_segments = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/WorldBoundary" unique_id=1127963569]
+position = Vector2(-106, 1169)
+shape = SubResource("RectangleShape2D_pkkpg")
+debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
+
+[node name="DeathConditionRigid" type="Area2D" parent="Lava" unique_id=347898907]
+script = ExtResource("9_8dm2a")
+player_root_path = NodePath("../../Player")
+softbody_path = NodePath("../../Player/SoftBodySphere")
+player_controller_path = NodePath("../../Player")
+respawn_point_path = NodePath("../../RespawnPoint")
+spawn_parent_path = NodePath("../..")
+shape_polygon_color = Color(1, 1, 1, 1)
+shape_texture = ExtResource("10_v2103")
+shape_texture_region = Rect2(0, 0, 100, 100)
+circle_approximation_segments = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeathConditionRigid" unique_id=1923964936]
+position = Vector2(-1840, 510.5)
+shape = SubResource("RectangleShape2D_0eqxv")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Lava/DeathConditionRigid" unique_id=1063497475]
+position = Vector2(-1464.5, 379)
+shape = SubResource("RectangleShape2D_8dm2a")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Lava/DeathConditionRigid" unique_id=2039759062]
+position = Vector2(-1081, 380)
+shape = SubResource("RectangleShape2D_v2103")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Lava/DeathConditionRigid" unique_id=982714061]
+position = Vector2(353.5, 487.5)
+shape = SubResource("RectangleShape2D_0kwh6")
