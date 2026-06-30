@@ -29,11 +29,9 @@
 [ext_resource type="Texture2D" uid="uid://d15gl3itxl3r6" path="res://Textures/Lava/fall/lavafall_18.png" id="27_ek7p1"]
 [ext_resource type="Texture2D" uid="uid://nciwufhi7qm4" path="res://Textures/Lava/fall/lavafall_19.png" id="28_ln5ef"]
 [ext_resource type="Texture2D" uid="uid://bohkefj5xpqkj" path="res://Textures/Lava/fall/lavafall_20.png" id="29_4tyll"]
+[ext_resource type="PackedScene" uid="uid://dorgw30vrvmok" path="res://crevice.tscn" id="29_u8pr6"]
 [ext_resource type="Texture2D" uid="uid://doawjefj2ha2p" path="res://Textures/Lava/fall/lavafall_21.png" id="30_2uf4a"]
 [ext_resource type="Texture2D" uid="uid://ckjbx66vas5mv" path="res://Textures/Lava/fall/lavafall_22.png" id="31_u3yhf"]
-[ext_resource type="Texture2D" uid="uid://br8nfbb3u0hk6" path="res://Textures/Lava/Crevice.png" id="32_jb6rc"]
-[ext_resource type="Texture2D" uid="uid://c38t60kffxy4" path="res://Textures/Lava/CreviceNormal.png" id="33_81ssl"]
-[ext_resource type="Texture2D" uid="uid://chpf22sm0cbuo" path="res://Textures/Lava/CreviceSpecular.png" id="34_g6luu"]
 [ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="36_iq1si"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="36_vhepx"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="37_thifg"]
@@ -373,13 +371,6 @@ animations = [{
 "speed": 60.0
 }]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_84ct4"]
-diffuse_texture = ExtResource("32_jb6rc")
-normal_texture = ExtResource("33_81ssl")
-specular_texture = ExtResource("34_g6luu")
-specular_color = Color(0.50140655, 0.5014065, 0.5014065, 1)
-specular_shininess = 0.45
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_ett8d"]
 animations = [{
 "frames": [{
@@ -696,17 +687,8 @@ scale = Vector2(3.3333263, 3.3333263)
 sprite_frames = SubResource("SpriteFrames_swvua")
 autoplay = "default"
 
-[node name="Crevice" type="Node2D" parent="Lava" unique_id=1616371310]
+[node name="Crevice" parent="Lava" unique_id=1955571131 instance=ExtResource("29_u8pr6")]
 position = Vector2(1429, -580)
-scale = Vector2(3.5625, 3.5625)
-
-[node name="Crevice" type="Sprite2D" parent="Lava/Crevice" unique_id=95347319]
-texture = SubResource("CanvasTexture_84ct4")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Lava/Crevice" unique_id=450746535]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lava/Crevice/StaticBody2D" unique_id=117042961]
-polygon = PackedVector2Array(-2.5, -15.5, -2.5, -14.5, -10.5, -14.5, -10.5, -13.5, -12.5, -13.5, -12.5, -12.5, -13.5, -12.5, -13.5, -9.5, -14.5, -9.5, -14.5, -7.5, -15.5, -7.5, -15.5, -1.5, -14.5, -1.5, -14.5, 7.5, -12.5, 7.5, -12.5, 8.5, -7.5, 8.5, -7.5, 7.5, -4.5, 7.5, -4.5, 6.5, -3.5, 6.5, -3.5, 3.5, -2.5, 3.5, -2.5, 2.5, -0.5, 2.5, -0.5, 1.5, 1.5, 1.5, 1.5, 2.5, 3.5, 2.5, 3.5, 4.5, 4.5, 4.5, 4.5, 7.5, 6.5, 7.5, 6.5, 9.5, 12.5, 9.5, 12.5, 8.5, 13.5, 8.5, 13.5, 6.5, 14.5, 6.5, 14.5, 1.5, 13.5, 1.5, 13.5, -7.5, 12.5, -7.5, 12.5, -9.5, 11.5, -9.5, 11.5, -10.3, 9.5, -11.3, 9.5, -12.5, 7.5, -12.5, 7.5, -13.5, 5.5, -13.5, 5.5, -14.5, 4.5, -14.5, 4.5, -15.5)
 
 [node name="Valley" type="Node2D" parent="Lava" unique_id=1593311819]
 z_index = -1

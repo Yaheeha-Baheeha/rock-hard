@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="10_2x6s0"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="11_huh58"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="12_x3x8n"]
+[ext_resource type="Texture2D" uid="uid://c7dhm5qfsnd5t" path="res://Textures/Lava/templava.png" id="14_348an"]
+[ext_resource type="PackedScene" uid="uid://dorgw30vrvmok" path="res://crevice.tscn" id="15_1jiv0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jwury"]
 texture = ExtResource("4_1jiv0")
@@ -474,6 +476,18 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_86mg2"]
 size = Vector2(1689, 96)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx6au"]
+size = Vector2(197, 1731.625)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ttyk8"]
+size = Vector2(1307.7246, 199)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_348an"]
+size = Vector2(1664.4409, 199)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1jiv0"]
+size = Vector2(1307.8008, 159.20996)
+
 [node name="Game" type="Node2D" unique_id=2131157696]
 
 [node name="Hammer" parent="." unique_id=1722124445 instance=ExtResource("1_iqnen")]
@@ -484,7 +498,7 @@ position = Vector2(0, -262)
 
 [node name="Player" parent="." unique_id=438420809 node_paths=PackedStringArray("obstacle_markers") instance=ExtResource("2_bx6au")]
 position = Vector2(0, -262)
-obstacle_markers = [NodePath("")]
+obstacle_markers = [null]
 
 [node name="background" parent="." unique_id=979663656 instance=ExtResource("3_348an")]
 z_index = -100
@@ -594,15 +608,15 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_x3x8n")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=509782889]
+[node name="InvisibleGround" type="StaticBody2D" parent="." unique_id=509782889]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1923318648]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleGround" unique_id=1923318648]
 position = Vector2(1435.5, -496)
 shape = SubResource("RectangleShape2D_86mg2")
 
-[node name="Node2D" type="Node2D" parent="." unique_id=1714553925]
+[node name="Lave" type="Node2D" parent="." unique_id=1714553925]
 
-[node name="WorldBoundary" type="Area2D" parent="Node2D" unique_id=698883110]
+[node name="WorldBoundary" type="Area2D" parent="Lave" unique_id=698883110]
 collision_layer = 129
 script = ExtResource("5_it1pm")
 player_root_path = NodePath("../../Player")
@@ -616,7 +630,49 @@ shape_texture_region = Rect2(0, 0, 100, 100)
 shape_texture_repeat = true
 circle_approximation_segments = 40
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/WorldBoundary" unique_id=1099376440]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lave/WorldBoundary" unique_id=1099376440]
 position = Vector2(-106, 1169)
 shape = SubResource("RectangleShape2D_eut6j")
 debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
+
+[node name="DeathConditionRigid" type="Area2D" parent="Lave" unique_id=497140809]
+script = ExtResource("5_it1pm")
+player_root_path = NodePath("../../Player")
+softbody_path = NodePath("../../Player/SoftBodySphere")
+player_controller_path = NodePath("../../Player")
+respawn_point_path = NodePath("../../RespawnPoint")
+spawn_parent_path = NodePath("../..")
+shape_polygon_color = Color(1, 1, 1, 1)
+shape_texture = ExtResource("6_o1gv2")
+shape_texture_region = Rect2(0, 0, 100, 100)
+circle_approximation_segments = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lave/DeathConditionRigid" unique_id=1602247769]
+position = Vector2(-1149.5, -403.8125)
+rotation = 0.3847461
+shape = SubResource("RectangleShape2D_bx6au")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Lave/DeathConditionRigid" unique_id=1255808928]
+position = Vector2(-284.23425, -1411.22)
+rotation = -0.4393609
+shape = SubResource("RectangleShape2D_ttyk8")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Lave/DeathConditionRigid" unique_id=1104841826]
+position = Vector2(1057.5072, -1510.1372)
+rotation = 0.20817883
+shape = SubResource("RectangleShape2D_348an")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Lave/DeathConditionRigid" unique_id=51543945]
+position = Vector2(2175.7737, -842.6985)
+rotation = 1.0049493
+shape = SubResource("RectangleShape2D_1jiv0")
+
+[node name="Templava" type="Sprite2D" parent="Lave" unique_id=997824996]
+position = Vector2(383.00012, -709.1592)
+scale = Vector2(12.316668, 12.318408)
+texture = ExtResource("14_348an")
+
+[node name="Crevice" parent="Lave" unique_id=1955571131 instance=ExtResource("15_1jiv0")]
+position = Vector2(-1430.0001, 366.99997)
+rotation = -2.9035015
+scale = Vector2(12.203, 12.203)
