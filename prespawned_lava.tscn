@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ckyrgykq87qiw"]
+
+[ext_resource type="Script" uid="uid://bn8j3scmhttfe" path="res://prespawnlava.gd" id="1_0p71p"]
+
+[node name="Prespawned Lava" type="Area2D" unique_id=2110358411]
+script = ExtResource("1_0p71p")
