@@ -37,6 +37,7 @@ colors = PackedColorArray(0.6901961, 0.4392157, 0.1882353, 1, 0.6901961, 0.43921
 gradient = SubResource("Gradient_8u6ia")
 
 [node name="background" type="Node2D" unique_id=979663656]
+z_index = -9
 position = Vector2(0, 104)
 
 [node name="volcane behindest" type="Parallax2D" parent="." unique_id=1263902971]
