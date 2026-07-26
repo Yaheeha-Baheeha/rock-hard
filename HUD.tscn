@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://dirvwgnrogbvj"]
+
+[ext_resource type="Texture2D" uid="uid://c6b207phbluw1" path="res://Textures/Bar/l0_bar-01.png" id="1_x6is5"]
+[ext_resource type="Texture2D" uid="uid://dvptb3ipb876l" path="res://Textures/Bar/l1_bar-01.png" id="2_d5xqv"]
+[ext_resource type="Texture2D" uid="uid://uawnxlex4uwf" path="res://Textures/Bar/l1_bar-02.png" id="3_41shd"]
+[ext_resource type="Texture2D" uid="uid://hly7wg7wqkmt" path="res://Textures/Bar/l1_bar-03.png" id="4_cb8im"]
+[ext_resource type="Texture2D" uid="uid://t1ytrtwi7b8y" path="res://Textures/Bar/l1_bar-04.png" id="5_ptsyy"]
+[ext_resource type="Texture2D" uid="uid://cl7xnwxwod1bm" path="res://Textures/Bar/l1_bar-05.png" id="6_hq1op"]
+[ext_resource type="Texture2D" uid="uid://1likp4lae7ct" path="res://Textures/Bar/l1_bar-06.png" id="7_kxho0"]
+[ext_resource type="Texture2D" uid="uid://cfrslnmmt0two" path="res://Textures/Bar/l1_bar-07.png" id="8_fsk4d"]
+[ext_resource type="Texture2D" uid="uid://buifsabajrp16" path="res://Textures/Bar/l1_bar-08.png" id="9_shyf5"]
+[ext_resource type="Texture2D" uid="uid://dki0aeh3kq0sf" path="res://Textures/Bar/l1_bar-09.png" id="10_5ure7"]
+[ext_resource type="Texture2D" uid="uid://bpcwnh1kc46mf" path="res://Textures/Bar/l1_bar-10.png" id="11_ihb6d"]
+[ext_resource type="Texture2D" uid="uid://d3syjpqq54xyb" path="res://Textures/Bar/l1_bar-11.png" id="12_sp3je"]
+[ext_resource type="Texture2D" uid="uid://robaec37s5ut" path="res://Textures/Bar/l1_bar-12.png" id="13_6nhf2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2u0tw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_d5xqv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_41shd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_cb8im")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ptsyy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_hq1op")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_kxho0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fsk4d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_shyf5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_5ure7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ihb6d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_sp3je")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_6nhf2")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=753683486]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=2018740342]
+offset_right = 96.0
+offset_bottom = 32.0
+texture_under = ExtResource("1_x6is5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2105919058]
+position = Vector2(48, 16)
+sprite_frames = SubResource("SpriteFrames_2u0tw")
+frame_progress = 0.1213259
