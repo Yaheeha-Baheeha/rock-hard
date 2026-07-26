@@ -232,7 +232,6 @@ material = SubResource("ShaderMaterial_y646j")
 material = SubResource("ShaderMaterial_lnbra")
 
 [node name="background" parent="." unique_id=932514271 instance=ExtResource("11_13y8f")]
-visible = false
 
 [node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=662540377 groups=["ground"]]
 
@@ -249,13 +248,16 @@ position = Vector2(286, 72)
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("5_gbhdq")]
 position = Vector2(-782, -315)
+enable_pressure_system = false
+shape_match_stiffness = 1000.0
+sub_steps = 32
 
 [node name="Spawner" type="Area2D" parent="." unique_id=595634446 node_paths=PackedStringArray("target_lever")]
 position = Vector2(713, -1121)
 script = ExtResource("6_y646j")
 spawn_mode = 1
 target_lever = NodePath("../Lever")
-fluid_type = 2
+fluid_type = 1
 despawn_rule = 3
 spawn_rate = 0.0
 spawn_angle = 180.0
@@ -296,8 +298,8 @@ script = ExtResource("6_y646j")
 spawn_mode = 1
 target_lever = NodePath("../Lever")
 is_active = true
-fluid_type = 2
-despawn_rule = 1
+fluid_type = 1
+despawn_rule = 3
 spawn_rate = 0.0
 spawn_angle = 180.0
 angle_variance = 0.0

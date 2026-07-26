@@ -1,8 +1,7 @@
 extends Node2D
 
-# ---------------------------------------------------------
-# CUSTOM CLASSES
-# ---------------------------------------------------------
+enum ShapeType { CIRCLE, RECTANGLE, PENTAGON, HEXAGON }
+var current_shape: ShapeType = ShapeType.CIRCLE
 
 class PointMass:
 	var position: Vector2
@@ -10,11 +9,13 @@ class PointMass:
 	var velocity: Vector2
 	var mass: float = 1.0
 	var uv: Vector2 
+	var base_rest_offset: Vector2
 	
-	func _init(pos: Vector2, local_uv: Vector2):
+	func _init(pos: Vector2, local_uv: Vector2, rest_off: Vector2):
 		position = pos
 		prev_position = pos
 		uv = local_uv
+		base_rest_offset = rest_off
 
 class Spring:
 	var point_a: PointMass
@@ -30,11 +31,7 @@ class Spring:
 		stiffness = k
 		damping = d
 
-# ---------------------------------------------------------
-# EXPORT VARIABLES
-# ---------------------------------------------------------
-
-@export_flags_2d_physics var collision_mask: int = 1 ## Choose which layers the soft body collides with
+@export_flags_2d_physics var collision_mask: int = 1 
 @export var fluid_layer: int = 3
 
 var radius: float = 64.0
@@ -44,7 +41,12 @@ var spring_stiffness: float = 1500.0
 var spring_damping: float = 40.0 
 var global_drag: float = 0.99 
 
-var sub_steps: int = 4 # Divides the frame into micro-frames
+var enable_pressure_system: bool = true
+var enable_shape_matching: bool = true
+var shape_match_stiffness: float = 10.0
+var shape_match_damping: float = 3.0
+
+var sub_steps: int = 4 
 
 var texture: Texture2D 
 var texture_tint: Color = Color.WHITE
@@ -55,10 +57,6 @@ var jump_strength: float = 550.0
 var crouch_strength: float = 1500.0 
 
 var obstacle_markers: Array[Node2D]
-
-# ---------------------------------------------------------
-# STATE VARIABLES
-# ---------------------------------------------------------
 
 var obstacle_polygons: Array[PackedVector2Array] = []
 var points: Array[PointMass] = []
@@ -71,10 +69,6 @@ var grounded_timer: float = 0.0
 var hazard_polygons: Array[Dictionary] = []
 var collectible_polygons: Array[Dictionary] = []
 var win_polygons: Array[Dictionary] = []
-
-# ---------------------------------------------------------
-# LIFECYCLE FUNCTIONS
-# ---------------------------------------------------------
 
 func _extract_node_polygons(node: Node) -> Array[PackedVector2Array]:
 	var polys: Array[PackedVector2Array] = []
@@ -89,26 +83,24 @@ func _extract_node_polygons(node: Node) -> Array[PackedVector2Array]:
 		var shape = (node as CollisionShape2D).shape as RectangleShape2D
 		var ext = shape.size / 2.0
 		var p = PackedVector2Array()
-		var points = [Vector2(-ext.x, -ext.y), Vector2(ext.x, -ext.y), Vector2(ext.x, ext.y), Vector2(-ext.x, ext.y)]
-		for pt in points:
+		var pts = [Vector2(-ext.x, -ext.y), Vector2(ext.x, -ext.y), Vector2(ext.x, ext.y), Vector2(-ext.x, ext.y)]
+		for pt in pts:
 			p.append(to_local((node as CollisionShape2D).to_global(pt)))
 		polys.append(p)
 	elif node is Sprite2D:
 		var ext = node.texture.get_size() / 2.0 * node.scale
 		var p = PackedVector2Array()
-		var points = [Vector2(-ext.x, -ext.y), Vector2(ext.x, -ext.y), Vector2(ext.x, ext.y), Vector2(-ext.x, ext.y)]
-		for pt in points:
+		var pts = [Vector2(-ext.x, -ext.y), Vector2(ext.x, -ext.y), Vector2(ext.x, ext.y), Vector2(-ext.x, ext.y)]
+		for pt in pts:
 			p.append(to_local(node.to_global(pt)))
 		polys.append(p)
 	else:
-		# Just in case it has children like CollisionPolygon2D or Polygon2D
 		for child in node.get_children():
 			polys.append_array(_extract_node_polygons(child))
 	return polys
 
 func initialize() -> void:
 	start_position = position 
-	
 	call_deferred("_initialize_trigger_zones")
 	
 	var raw_polygon = PackedVector2Array()
@@ -137,7 +129,7 @@ func initialize() -> void:
 			if merged:
 				break
 				
-	_build_sphere()
+	_build_shape(current_shape)
 
 func _initialize_trigger_zones() -> void:
 	hazard_polygons.clear()
@@ -167,7 +159,6 @@ func _physics_process(delta: float) -> void:
 
 	is_grounded = false 
 	
-	# Save positions for smooth rendering interpolation
 	for p in points:
 		p.prev_position = p.position
 
@@ -178,7 +169,12 @@ func _physics_process(delta: float) -> void:
 		if not is_inside_tree():
 			break
 			
-		_apply_gas_pressure(sub_delta)
+		if enable_pressure_system:
+			_apply_gas_pressure(sub_delta)
+			
+		if enable_shape_matching:
+			_apply_shape_matching(sub_delta)
+			
 		_solve_springs(sub_delta)
 		
 		for p in points:
@@ -196,13 +192,8 @@ func _physics_process(delta: float) -> void:
 				for hit in fluid_hits:
 					var fluid_drop = hit.collider as RigidBody2D
 					if fluid_drop:
-						# 1. Viscosity (Drag): Pull the point's velocity toward the slow lava
 						p.velocity = p.velocity.lerp(fluid_drop.linear_velocity, 0.15)
-						
-						# 2. Buoyancy: Push the point aggressively upward
 						p.velocity.y -= 3500.0 * sub_delta
-						
-						# 3. Displacement: Push the lava droplet out of the way
 						var push_dir = (fluid_drop.global_position - to_global(p.position)).normalized()
 						if push_dir == Vector2.ZERO: push_dir = Vector2.UP
 						fluid_drop.apply_central_impulse(push_dir * p.velocity.length() * p.mass * 0.03)
@@ -234,8 +225,6 @@ func _physics_process(delta: float) -> void:
 			
 			if p.position != pre_pos:
 				var query = PhysicsRayQueryParameters2D.create(to_global(pre_pos), to_global(p.position))
-				
-				# --- NEW: APPLY COLLISION MASK ---
 				query.collision_mask = collision_mask
 				
 				var result = space_state.intersect_ray(query)
@@ -243,7 +232,6 @@ func _physics_process(delta: float) -> void:
 					p.position = to_local(result.position + result.normal * 0.5)
 					var normal_local = result.normal.rotated(-global_rotation)
 					
-					# Two-way collision with RigidBodies (e.g. dead player shards)
 					if result.collider is RigidBody2D:
 						var hit_force = p.velocity.dot(-normal_local)
 						if hit_force > 0:
@@ -271,10 +259,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_V:
 			show_debug = !show_debug
-
-# ---------------------------------------------------------
-# INPUT HANDLING
-# ---------------------------------------------------------
 
 func _handle_input_controls(delta: float) -> void:
 	var horizontal_input = Input.get_axis("left", "right")
@@ -304,33 +288,46 @@ func _handle_input_controls(delta: float) -> void:
 
 	if Input.is_action_just_pressed("reset"):
 		_reset_softbody()
+		
+	if Input.is_action_just_pressed("test"):
+		cycle_shape()
+
+func cycle_shape() -> void:
+	var center = Vector2.ZERO
+	var avg_vel = Vector2.ZERO
+	if points.size() > 0:
+		for p in points:
+			center += p.position
+			avg_vel += p.velocity
+		center /= float(points.size())
+		avg_vel /= float(points.size())
+	else:
+		center = position
+		
+	current_shape = (current_shape + 1) % ShapeType.size() as ShapeType
+	
+	points.clear()
+	springs.clear()
+	_build_shape(current_shape, center, avg_vel)
 
 func _reset_softbody() -> void:
 	points.clear()
 	springs.clear()
 	position = start_position
-	_build_sphere()
-
-# ---------------------------------------------------------
-# EXTERNAL CALLS
-# ---------------------------------------------------------
+	_build_shape(current_shape)
 
 func respawn(target_position: Vector2) -> void:
 	position = target_position
 	start_position = target_position
 	points.clear()
 	springs.clear()
-	_build_sphere()
+	_build_shape(current_shape, target_position)
 
 func get_current_polygon_global() -> PackedVector2Array:
 	var poly = PackedVector2Array()
 	for p in points:
 		poly.append(to_global(p.position))
 	return poly
-
-# ---------------------------------------------------------
-# SETUP & LOGIC
-# ---------------------------------------------------------
 
 func _extract_tilemap_polygons(tilemap: TileMapLayer) -> Array[PackedVector2Array]:
 	var polys: Array[PackedVector2Array] = []
@@ -350,15 +347,75 @@ func _extract_tilemap_polygons(tilemap: TileMapLayer) -> Array[PackedVector2Arra
 			polys.append(p)
 	return polys
 
-func _build_sphere() -> void:
-	for i in range(num_points):
-		var angle = i * PI * 2.0 / num_points
-		var cos_a = cos(angle)
-		var sin_a = sin(angle)
-		var pos = position + Vector2(cos_a, sin_a) * radius
-		var uv = Vector2(cos_a * 0.5 + 0.5, sin_a * 0.5 + 0.5) 
-		points.append(PointMass.new(pos, uv))
+func _build_shape(shape_type: ShapeType, spawn_center: Vector2 = position, initial_vel: Vector2 = Vector2.ZERO) -> void:
+	var rest_offsets: Array[Vector2] = []
+	
+	match shape_type:
+		ShapeType.CIRCLE:
+			for i in range(num_points):
+				var angle = i * PI * 2.0 / num_points
+				rest_offsets.append(Vector2(cos(angle), sin(angle)) * radius)
+				
+		ShapeType.RECTANGLE:
+			var w = radius * 1.4
+			var h = radius * 0.7
+			var corners = PackedVector2Array([Vector2(-w, -h), Vector2(w, -h), Vector2(w, h), Vector2(-w, h)])
+			rest_offsets = _sample_polygon_perimeter(corners, num_points)
+			
+		ShapeType.PENTAGON:
+			var corners = PackedVector2Array()
+			for i in range(5):
+				var angle = i * (PI * 2.0 / 5.0) - (PI / 2.0)
+				corners.append(Vector2(cos(angle), sin(angle)) * radius)
+			rest_offsets = _sample_polygon_perimeter(corners, num_points)
+			
+		ShapeType.HEXAGON:
+			var corners = PackedVector2Array()
+			for i in range(6):
+				var angle = i * (PI * 2.0 / 6.0)
+				corners.append(Vector2(cos(angle), sin(angle)) * radius)
+			rest_offsets = _sample_polygon_perimeter(corners, num_points)
+
+	for offset in rest_offsets:
+		var pos = spawn_center + offset
+		var uv = Vector2(offset.x / (radius * 2.0) + 0.5, offset.y / (radius * 2.0) + 0.5)
+		var point = PointMass.new(pos, uv, offset)
+		point.velocity = initial_vel
+		points.append(point)
 		
+	_build_springs()
+
+func _sample_polygon_perimeter(corners: PackedVector2Array, count: int) -> Array[Vector2]:
+	var total_len = 0.0
+	var edge_lengths: Array[float] = []
+	
+	for i in range(corners.size()):
+		var len = corners[i].distance_to(corners[(i + 1) % corners.size()])
+		edge_lengths.append(len)
+		total_len += len
+		
+	var step = total_len / float(count)
+	var result: Array[Vector2] = []
+	
+	for i in range(count):
+		var target_dist = i * step
+		var accum = 0.0
+		for e in range(corners.size()):
+			if accum + edge_lengths[e] >= target_dist or e == corners.size() - 1:
+				var remainder = target_dist - accum
+				var t = 0.0
+				if edge_lengths[e] > 0.0:
+					t = remainder / edge_lengths[e]
+				t = clamp(t, 0.0, 1.0)
+				var p1 = corners[e]
+				var p2 = corners[(e + 1) % corners.size()]
+				result.append(p1.lerp(p2, t))
+				break
+			accum += edge_lengths[e]
+			
+	return result
+
+func _build_springs() -> void:
 	for i in range(num_points):
 		var n1 = (i + 1) % num_points
 		var n2 = (i + 2) % num_points 
@@ -386,6 +443,38 @@ func _apply_gas_pressure(delta: float) -> void:
 		p1.velocity += (force * 0.5) / p1.mass * delta
 		p2.velocity += (force * 0.5) / p2.mass * delta
 
+func _apply_shape_matching(delta: float) -> void:
+	if points.size() == 0: return
+	
+	var center = Vector2.ZERO
+	var avg_vel = Vector2.ZERO
+	for p in points:
+		center += p.position
+		avg_vel += p.velocity
+	center /= float(points.size())
+	avg_vel /= float(points.size())
+	
+	var sin_sum = 0.0
+	var cos_sum = 0.0
+	
+	for p in points:
+		var current_offset = p.position - center
+		sin_sum += p.base_rest_offset.x * current_offset.y - p.base_rest_offset.y * current_offset.x
+		cos_sum += p.base_rest_offset.x * current_offset.x + p.base_rest_offset.y * current_offset.y
+		
+	var current_angle = atan2(sin_sum, cos_sum)
+	
+	for p in points:
+		var target_pos = center + p.base_rest_offset.rotated(current_angle)
+		var offset = target_pos - p.position
+		
+		var spring_force = offset * shape_match_stiffness
+		var relative_vel = p.velocity - avg_vel
+		var damping_force = -relative_vel * shape_match_damping
+		
+		var total_force = spring_force + damping_force
+		p.velocity += (total_force / p.mass) * delta
+
 func _solve_springs(delta: float) -> void:
 	for spring in springs:
 		var dist = spring.point_a.position.distance_to(spring.point_b.position)
@@ -399,10 +488,6 @@ func _solve_springs(delta: float) -> void:
 		
 		spring.point_a.velocity += (total_force / spring.point_a.mass) * delta
 		spring.point_b.velocity -= (total_force / spring.point_b.mass) * delta
-
-# ---------------------------------------------------------
-# COLLISION LOGIC
-# ---------------------------------------------------------
 
 func _is_point_in_polygon(test_point: Vector2, poly: PackedVector2Array) -> bool:
 	var is_inside = false
@@ -450,17 +535,12 @@ func _resolve_collision(point: PointMass, poly: PackedVector2Array) -> void:
 		point.velocity -= push_dir * vel_dot * 1.2
 	point.velocity *= 0.85
 
-# ---------------------------------------------------------
-# VISUAL RENDERING
-# ---------------------------------------------------------
-
 func _draw() -> void:
 	if points.size() < 3:
 		return
 		
 	var fraction = Engine.get_physics_interpolation_fraction()
 	
-	# 1. Generate fully interpolated rendering positions for the rim
 	var render_positions = PackedVector2Array()
 	var center_pos = Vector2.ZERO
 	
@@ -469,28 +549,20 @@ func _draw() -> void:
 		render_positions.append(r_pos)
 		center_pos += r_pos
 		
-	# The true mathematical center of the deformed shape
 	center_pos /= float(points.size())
 	var center_uv = Vector2(0.5, 0.5)
 	
-	# 2. Render Textures using a perfectly stable, manual triangle fan
 	if texture != null and not show_debug:
 		for i in range(num_points):
 			var next_i = (i + 1) % num_points
-			
-			# Build a single perfect triangular slice of the pie
 			var tri_points = PackedVector2Array([center_pos, render_positions[i], render_positions[next_i]])
 			var tri_uvs = PackedVector2Array([center_uv, points[i].uv, points[next_i].uv])
 			var tri_colors = PackedColorArray([texture_tint, texture_tint, texture_tint])
-			
-			# Godot automatically batches these draw commands together since they share a texture
 			draw_polygon(tri_points, tri_colors, tri_uvs, texture)
 	else:
-		# Fallback debug solid fill
 		var fill_color = Color(0.2, 0.6, 1.0, 0.3) if show_debug else Color(0.2, 0.6, 1.0, 0.8)
 		draw_colored_polygon(render_positions, fill_color)
 		
-	# Draw outer crisp white outline
 	var outline_points = render_positions.duplicate()
 	outline_points.append(render_positions[0]) 
 	draw_polyline(outline_points, Color.WHITE, 2.0, true)
@@ -498,7 +570,21 @@ func _draw() -> void:
 	if not show_debug:
 		return
 		
-	# Debug Overlay Lines
+	if enable_shape_matching:
+		var sin_sum = 0.0
+		var cos_sum = 0.0
+		for p in points:
+			var current_offset = p.position - center_pos
+			sin_sum += p.base_rest_offset.x * current_offset.y - p.base_rest_offset.y * current_offset.x
+			cos_sum += p.base_rest_offset.x * current_offset.x + p.base_rest_offset.y * current_offset.y
+		var current_angle = atan2(sin_sum, cos_sum)
+		
+		var target_poly = PackedVector2Array()
+		for p in points:
+			target_poly.append(center_pos + p.base_rest_offset.rotated(current_angle))
+		target_poly.append(target_poly[0])
+		draw_polyline(target_poly, Color(0.0, 1.0, 1.0, 0.5), 2.0)
+		
 	for poly in obstacle_polygons:
 		if poly.size() >= 3:
 			draw_colored_polygon(poly, Color(0.8, 0.2, 0.2, 0.3))

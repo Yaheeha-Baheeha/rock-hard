@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cb1ej8snlcj05"]
+
+[ext_resource type="Script" uid="uid://bg8acbolxkis7" path="res://staticlavalake.gd" id="1_8hhmv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jkt8"]
+size = Vector2(812, 175)
+
+[node name="StaticLavaLake" type="Area2D" unique_id=279774509]
+script = ExtResource("1_8hhmv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1802445628]
+position = Vector2(396, 77.5)
+shape = SubResource("RectangleShape2D_2jkt8")
