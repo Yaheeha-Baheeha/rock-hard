@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bpcwnh1kc46mf" path="res://Textures/Bar/l1_bar-10.png" id="11_ihb6d"]
 [ext_resource type="Texture2D" uid="uid://d3syjpqq54xyb" path="res://Textures/Bar/l1_bar-11.png" id="12_sp3je"]
 [ext_resource type="Texture2D" uid="uid://robaec37s5ut" path="res://Textures/Bar/l1_bar-12.png" id="13_6nhf2"]
+[ext_resource type="Script" uid="uid://bfww25oi7unxd" path="res://HardnessBar.gd" id="14_d5xqv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2u0tw"]
 animations = [{
@@ -59,13 +60,22 @@ animations = [{
 }]
 
 [node name="Node2D" type="Node2D" unique_id=753683486]
+script = ExtResource("14_d5xqv")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=2018740342]
-offset_right = 96.0
-offset_bottom = 32.0
-texture_under = ExtResource("1_x6is5")
+[node name="TextureProgressBar" type="Control" parent="." unique_id=633521974]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 23.0
+offset_top = 21.0
+offset_right = 145.0
+offset_bottom = 53.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2105919058]
-position = Vector2(48, 16)
+[node name="L0Bar01" type="Sprite2D" parent="TextureProgressBar" unique_id=1970451918]
+position = Vector2(58, 16)
+texture = ExtResource("1_x6is5")
+
+[node name="Progress" type="AnimatedSprite2D" parent="TextureProgressBar" unique_id=659806905]
+position = Vector2(64, 16)
 sprite_frames = SubResource("SpriteFrames_2u0tw")
-frame_progress = 0.1213259
+autoplay = "default"
