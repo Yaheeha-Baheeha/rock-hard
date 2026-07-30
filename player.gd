@@ -32,10 +32,11 @@ extends Node2D
 @export var obstacle_markers: Array[Node2D]
 
 @export_category("Damage System")
-@export var max_health: float = 100.0
-@export var lava_damage_rate: float = 40.0 
+@export var max_health: float = 17.0
+@export var lava_damage_rate: float = 1.0 
 @export var cooling_rate: float = 20.0 
 @export var damage_color: Color = Color(0.0, 1.0, 0.0, 1.0) 
+@export var spawn_invincibility_time: float = 0.09 # Added: Duration of spawn invincibility
 
 @onready var soft_body = $SoftBodySphere
 @onready var center_tracker = $CenterTracker
@@ -44,11 +45,13 @@ extends Node2D
 var current_health: float
 var base_color: Color
 var start_position: Vector2
+var invincibility_timer: float = 0.0 # Added: Tracks remaining safe time
 
 func _ready() -> void:
 	current_health = max_health
 	base_color = texture_tint
 	start_position = global_position
+	invincibility_timer = spawn_invincibility_time # Trigger invincibility on first spawn
 	
 	if soft_body:
 		soft_body.radius = radius
@@ -74,6 +77,10 @@ func _ready() -> void:
 		soft_body.initialize()
 
 func _physics_process(delta: float) -> void:
+	# Tick down the invincibility timer
+	if invincibility_timer > 0.0:
+		invincibility_timer -= delta
+		
 	if soft_body:
 		soft_body.enable_pressure_system = enable_pressure_system
 		soft_body.enable_shape_matching = enable_shape_matching
@@ -110,15 +117,24 @@ func _process_lava_damage(delta: float) -> void:
 			if lava_damage_rate > highest_damage_taken:
 				highest_damage_taken = lava_damage_rate
 			
-	if is_touching_lava:
+	# Only apply damage if NOT invincible
+	if is_touching_lava and invincibility_timer <= 0.0:
 		current_health -= highest_damage_taken * delta
 	else:
+		# Player cools down if not in lava, or if they are in lava but invincible
 		current_health += cooling_rate * delta
 		
 	current_health = clamp(current_health, 0.0, max_health)
 	
-	var damage_percent = 1.0 - (current_health / max_health)
-	soft_body.texture_tint = base_color.lerp(damage_color, damage_percent)
+	# Visual updates based on invincibility state
+	if invincibility_timer > 0.0:
+		# Create a blinking effect (alternates every 0.1 seconds)
+		var is_blinking = int(invincibility_timer * 10) % 2 == 0
+		soft_body.texture_tint = Color.WHITE if is_blinking else base_color
+	else:
+		# Normal damage coloring
+		var damage_percent = 1.0 - (current_health / max_health)
+		soft_body.texture_tint = base_color.lerp(damage_color, damage_percent)
 	
 	if current_health <= 0.0:
 		_die()
@@ -163,11 +179,10 @@ func _spawn_corpse() -> void:
 	for pt in global_poly:
 		local_poly.append(pt - centroid)
 		
-	var corpse = RigidBody2D.new()
+	var corpse = StaticBody2D.new()
 	corpse.add_to_group("corpse")
 	corpse.top_level = true 
 	corpse.global_position = centroid
-	corpse.mass = 5.0
 	
 	var coll_shape = CollisionPolygon2D.new()
 	coll_shape.polygon = local_poly
@@ -182,5 +197,7 @@ func _spawn_corpse() -> void:
 
 func respawn(target_position: Vector2) -> void:
 	global_position = target_position
+	invincibility_timer = spawn_invincibility_time # Reset invincibility when respawning
+	
 	if soft_body:
 		soft_body.respawn(Vector2.ZERO)

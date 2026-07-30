@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c8y32dgnvsm4p"]
+
+[ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="1_qaj71"]
+[ext_resource type="Script" uid="uid://cj6kaonwof2r2" path="res://win.gd" id="1_skywf"]
+[ext_resource type="Texture2D" uid="uid://d1jtb5xo1he0l" path="res://Textures/New Piskel-1.png.png" id="2_skywf"]
+
+[node name="Node2D" type="Node2D" unique_id=602561463]
+scale = Vector2(10.34, 10.34)
+script = ExtResource("1_skywf")
+
+[node name="Label" type="Label" parent="." unique_id=145461577]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "YOU WIN!"
+
+[node name="Coooookie" type="Sprite2D" parent="." unique_id=19998945]
+z_index = -15
+position = Vector2(36.0735, 23.694391)
+texture = ExtResource("1_qaj71")
+
+[node name="NewPiskel1_png" type="Sprite2D" parent="." unique_id=324083326]
+z_index = -82
+position = Vector2(54.9323, 34.139267)
+scale = Vector2(0.32301742, 0.32301742)
+texture = ExtResource("2_skywf")

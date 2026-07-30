@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://uvq6rn36gb72"]
+
+[ext_resource type="Script" uid="uid://cy226uf1ibyc2" path="res://speedrun_timer.gd" id="1_ubcmd"]
+
+[node name="SpeedrunTimer" type="CanvasLayer" unique_id=431332619]
+script = ExtResource("1_ubcmd")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1163798838]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TimeLabel" type="Label" parent="MarginContainer" unique_id=1490826724]
+layout_mode = 2

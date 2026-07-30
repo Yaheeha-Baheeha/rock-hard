@@ -22,7 +22,7 @@ shape_match_stiffness = 0.0
 sub_steps = 22
 texture = SubResource("CanvasTexture_8v41o")
 max_speed = 1800.0
-jump_strength = 420.0
+jump_strength = 720.0
 
 [node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437]
 script = ExtResource("1_3xkec")
