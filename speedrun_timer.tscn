@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://cy226uf1ibyc2" path="res://speedrun_timer.gd" id="1_ubcmd"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_tdg3f"]
+font_size = 49
+font_color = Color(0, 1, 0, 1)
+outline_size = 5
+outline_color = Color(0, 1, 0, 1)
+
 [node name="SpeedrunTimer" type="CanvasLayer" unique_id=431332619]
 script = ExtResource("1_ubcmd")
 
@@ -11,3 +17,4 @@ offset_bottom = 40.0
 
 [node name="TimeLabel" type="Label" parent="MarginContainer" unique_id=1490826724]
 layout_mode = 2
+label_settings = SubResource("LabelSettings_tdg3f")

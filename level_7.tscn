@@ -110,9 +110,6 @@ _data = {
 &"oscillate": SubResource("Animation_4p6gt")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bojsc"]
-size = Vector2(197, 1731.625)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bllrj"]
 shader = ExtResource("13_5lvst")
 shader_parameter/core_color = Color(1, 0, 0, 1)
@@ -275,23 +272,6 @@ circle_approximation_segments = 40
 position = Vector2(-106, 1169)
 shape = SubResource("RectangleShape2D_avllr")
 debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
-
-[node name="DeathConditionRigid" type="Area2D" parent="Lave" unique_id=386897863]
-script = ExtResource("11_v4li2")
-player_root_path = NodePath("../../Player")
-softbody_path = NodePath("../../Player/SoftBodySphere")
-player_controller_path = NodePath("../../Player")
-respawn_point_path = NodePath("../../RespawnPoint")
-spawn_parent_path = NodePath("../..")
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("12_lsrmt")
-shape_texture_region = Rect2(0, 0, 100, 100)
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lave/DeathConditionRigid" unique_id=183522235]
-position = Vector2(-628, -414)
-rotation = -0.0973111
-shape = SubResource("RectangleShape2D_bojsc")
 
 [node name="HotFluid" type="CanvasGroup" parent="." unique_id=965081711]
 material = SubResource("ShaderMaterial_bllrj")

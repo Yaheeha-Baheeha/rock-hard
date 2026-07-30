@@ -22,7 +22,7 @@ shape_match_stiffness = 0.0
 sub_steps = 22
 texture = SubResource("CanvasTexture_8v41o")
 max_speed = 1800.0
-jump_strength = 720.0
+jump_strength = 800.0
 
 [node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437]
 script = ExtResource("1_3xkec")
@@ -39,7 +39,7 @@ shape = SubResource("CircleShape2D_tdg3f")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=202288614]
 position = Vector2(200, 16)
-zoom = Vector2(0.67, 0.67)
+zoom = Vector2(0.56, 0.56)
 process_callback = 0
 limit_top = -2865
 limit_bottom = 1344
