@@ -50,7 +50,7 @@ func _ready() -> void:
 			
 		FluidType.COLD:
 			modulate = Color(0.4, 0.4, 0.4) # Dark Grey Crust
-			damage_rate = 90.0 # Kills slowly
+			damage_rate = 1000.0 # Kills slowly
 			repulsion_strength = 1000.0
 			viscosity = 0.15 
 			cohesion_strength = 50.0

@@ -12,6 +12,7 @@ specular_color = Color(0.50140655, 0.5014065, 0.5014065, 1)
 specular_shininess = 0.45
 
 [node name="Crevice" type="Node2D" unique_id=1955571131]
+z_index = 14
 scale = Vector2(3.5625, 3.5625)
 
 [node name="Crevice" type="Sprite2D" parent="." unique_id=1571765826]
