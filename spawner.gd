@@ -27,12 +27,10 @@ enum SpawnMode { ALWAYS, TOGGLED }
 var spawn_timer: float = 0.0
 
 func _ready() -> void:
-	# If a lever is assigned in the Inspector, connect its signal automatically
 	if target_lever != null and target_lever.has_signal("toggled"):
 		target_lever.toggled.connect(set_spawner_active)
 
 func _process(delta: float) -> void:
-	# 1. Check if we are allowed to spawn based on our mode
 	var can_spawn: bool = false
 	
 	if spawn_mode == SpawnMode.ALWAYS:
@@ -40,14 +38,12 @@ func _process(delta: float) -> void:
 	elif spawn_mode == SpawnMode.TOGGLED and is_active:
 		can_spawn = true
 		
-	# 2. If allowed, run the timer and spawn
 	if can_spawn:
 		spawn_timer += delta
 		if spawn_timer >= spawn_rate:
 			spawn_timer = 0.0 
 			spawn_drop()
 	else:
-		# Reset timer when turned off so it spawns instantly when turned back on
 		spawn_timer = spawn_rate 
 
 func spawn_drop() -> void:
@@ -80,13 +76,8 @@ func spawn_drop() -> void:
 		var velocity_dir = Vector2.RIGHT.rotated(deg_to_rad(final_angle))
 		drop.linear_velocity = velocity_dir * final_speed
 
-# --- NEW: LEVER FUNCTIONS ---
-# Your lever node can call these functions when it gets flipped!
-
-## Toggles the spawner on and off
 func toggle_spawner() -> void:
 	is_active = !is_active
 
-## Explicitly turns the spawner on or off (great for one-way switches)
 func set_spawner_active(state: bool) -> void:
 	is_active = state

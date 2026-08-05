@@ -234,6 +234,8 @@ material = SubResource("ShaderMaterial_lnbra")
 [node name="background" parent="." unique_id=932514271 instance=ExtResource("11_13y8f")]
 
 [node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=662540377 groups=["ground"]]
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=169856850]
 position = Vector2(-188, 616)

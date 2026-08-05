@@ -244,6 +244,9 @@ shader_parameter/core_start = 0.8
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_thifg"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2u0tw"]
+size = Vector2(38, 953)
+
 [node name="Game" type="Node2D" unique_id=984303330]
 
 [node name="Hammer" parent="." unique_id=681332400 instance=ExtResource("1_iq1si")]
@@ -713,7 +716,7 @@ script = ExtResource("37_xbesp")
 is_active = true
 despawn_rule = 1
 angle_variance = 0.0
-spawn_speed = 1000.0
+spawn_speed = 1200.0
 speed_variance = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=1743463438]
@@ -721,10 +724,18 @@ position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_oxvag")
 
 [node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=685939278 groups=["ground"]]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=793454137]
 position = Vector2(-188, 616)
 shape = SubResource("WorldBoundaryShape2D_thifg")
 debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D" unique_id=1240198482]
+position = Vector2(1345, -77.5)
+shape = SubResource("RectangleShape2D_2u0tw")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="RigidBody2D" unique_id=2054955383]
+position = Vector2(1508, -77.5)
+shape = SubResource("RectangleShape2D_2u0tw")

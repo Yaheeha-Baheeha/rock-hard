@@ -124,7 +124,10 @@ func _process_lava_damage(delta: float) -> void:
 		_die()
 
 func _die() -> void:
-	_spawn_corpse()
+	# Check if the player is holding the "static" key at the moment of death
+	var is_holding_static = Input.is_action_pressed("static")
+	_spawn_corpse(is_holding_static)
+	
 	current_health = max_health
 	soft_body.texture_tint = base_color
 	
@@ -147,7 +150,7 @@ func _smooth_polygon(poly: PackedVector2Array, iterations: int = 1) -> PackedVec
 		current_poly = smoothed
 	return current_poly
 
-func _spawn_corpse() -> void:
+func _spawn_corpse(is_static: bool = false) -> void:
 	if not soft_body or soft_body.points.size() < 3:
 		return
 		
@@ -163,11 +166,17 @@ func _spawn_corpse() -> void:
 	for pt in global_poly:
 		local_poly.append(pt - centroid)
 		
-	var corpse = RigidBody2D.new()
+	# Choose the body type based on the input check
+	var corpse: PhysicsBody2D
+	if is_static:
+		corpse = StaticBody2D.new()
+	else:
+		corpse = RigidBody2D.new()
+		corpse.mass = 5.0
+		
 	corpse.add_to_group("corpse")
 	corpse.top_level = true 
 	corpse.global_position = centroid
-	corpse.mass = 5.0
 	
 	var coll_shape = CollisionPolygon2D.new()
 	coll_shape.polygon = local_poly
