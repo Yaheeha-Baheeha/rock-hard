@@ -1,5 +1,7 @@
 extends Node
 
+signal collectable_added(item_name: String)
+
 var unlocked_levels = {
 1: true,
 2: false,
@@ -47,3 +49,10 @@ func add_collectable(item_name):
 	if not item_name in collected_items:
 		collected_items.append(item_name)
 		print("Collected: " + item_name)
+		collectable_added.emit(item_name)
+
+func has_collectable(item_name: String) -> bool:
+	return item_name in collected_items
+
+func has_any_collectable() -> bool:
+	return collected_items.size() > 0

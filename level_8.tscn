@@ -256,7 +256,6 @@ position = Vector2(1125.75, 183)
 position = Vector2(133, -94)
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("2_thifg")]
-z_index = 2
 position = Vector2(133, -94)
 
 [node name="background" parent="." unique_id=1396150072 instance=ExtResource("3_xbesp")]

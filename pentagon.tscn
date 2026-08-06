@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://collectable.gd" id="1"]
+[ext_resource type="Texture2D" path="res://resources/pentagon_placeholder.tres" id="2"]
+
+[sub_resource type="Gradient" id="Gradient_1"]
+colors = PackedColorArray(0.9607843, 0.78039217, 0.27058825, 1, 0.73333335, 0.28627452, 0.101960786, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(70, 70)
+
+[node name="Pentagon" type="Node2D"]
+script = ExtResource("1")
+collectible_key = "pentagon"
+
+[node name="Shape" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, -34, 32, -10, 20, 28, -20, 28, -32, -10)
+color = Color(0.972549, 0.69803923, 0.21960784, 0.9)
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+modulate = Color(1, 1, 1, 0.55)
+scale = Vector2(0.82, 0.82)
+
+[node name="Hitbox" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_1")

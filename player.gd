@@ -36,6 +36,7 @@ extends Node2D
 @export var lava_damage_rate: float = 40.0 
 @export var cooling_rate: float = 20.0 
 @export var damage_color: Color = Color(0.0, 1.0, 0.0, 1.0) 
+@export var lava_stiffness_multiplier: float = 4.0
 
 @export_category("Corpse Settings")
 @export var corpse_texture: Texture2D ## Optional texture for the corpse!
@@ -48,10 +49,13 @@ extends Node2D
 @onready var lava_detector = $CenterTracker/LavaDetector 
 
 var current_health: float
+var current_stiffness_percent: float = 0.0
+var current_stiffness_value: float = 0.0
 var base_color: Color
 var start_position: Vector2
 
 func _ready() -> void:
+	add_to_group("player")
 	current_health = max_health
 	base_color = texture_tint
 	start_position = global_position
@@ -122,6 +126,9 @@ func _process_lava_damage(delta: float) -> void:
 		current_health += cooling_rate * delta
 		
 	current_health = clamp(current_health, 0.0, max_health)
+	current_stiffness_percent = 1.0 - (current_health / max_health)
+	current_stiffness_value = shape_match_stiffness * (1.0 + (current_stiffness_percent * lava_stiffness_multiplier))
+	soft_body.shape_match_stiffness = current_stiffness_value
 	
 	var damage_percent = 1.0 - (current_health / max_health)
 	soft_body.texture_tint = base_color.lerp(damage_color, damage_percent)
@@ -134,6 +141,10 @@ func _die() -> void:
 	_spawn_corpse(is_holding_static)
 	
 	current_health = max_health
+	current_stiffness_percent = 0.0
+	current_stiffness_value = shape_match_stiffness
+	if soft_body:
+		soft_body.shape_match_stiffness = shape_match_stiffness
 	soft_body.texture_tint = base_color
 	
 	var respawn_node = get_node_or_null("../RespawnPoint")

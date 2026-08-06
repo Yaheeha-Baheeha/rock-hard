@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://y45uos01wsg5"]
+
+[ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://o57bhbmxho1j" path="res://resources/hexagon_placeholder.tres" id="2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(74, 68)
+
+[node name="Hexagon" type="Node2D" unique_id=2101249166]
+script = ExtResource("1")
+collectible_key = "hexagon"
+
+[node name="Shape" type="Polygon2D" parent="." unique_id=879665483]
+color = Color(0.14117648, 0.58431375, 0.64705884, 0.9)
+polygon = PackedVector2Array(0, -34, 29, -17, 29, 17, 0, 34, -29, 17, -29, -17)
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1621747242]
+modulate = Color(1, 1, 1, 0.55)
+scale = Vector2(0.82, 0.82)
+texture = ExtResource("2")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2004473379]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=825353692]
+visible = false
+shape = SubResource("RectangleShape2D_1")
