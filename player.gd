@@ -37,6 +37,10 @@ extends Node2D
 @export var cooling_rate: float = 20.0 
 @export var damage_color: Color = Color(0.0, 1.0, 0.0, 1.0) 
 
+@export_category("Corpse Settings")
+@export var corpse_texture: Texture2D ## Optional texture for the corpse!
+@export var corpse_texture_region: Rect2 = Rect2(0, 0, 0, 0) ## Set W and H > 0 to use a specific region of the texture
+
 @onready var soft_body = $SoftBodySphere
 @onready var center_tracker = $CenterTracker
 @onready var lava_detector = $CenterTracker/LavaDetector 
@@ -124,7 +128,6 @@ func _process_lava_damage(delta: float) -> void:
 		_die()
 
 func _die() -> void:
-	# Check if the player is holding the "static" key at the moment of death
 	var is_holding_static = Input.is_action_pressed("static")
 	_spawn_corpse(is_holding_static)
 	
@@ -166,7 +169,6 @@ func _spawn_corpse(is_static: bool = false) -> void:
 	for pt in global_poly:
 		local_poly.append(pt - centroid)
 		
-	# Choose the body type based on the input check
 	var corpse: PhysicsBody2D
 	if is_static:
 		corpse = StaticBody2D.new()
@@ -184,7 +186,27 @@ func _spawn_corpse(is_static: bool = false) -> void:
 	
 	var visual = Polygon2D.new()
 	visual.polygon = local_poly
-	visual.color = damage_color
+	
+	# --- CORRECTED: PIXEL-BASED UV MAPPING ---
+	if corpse_texture != null:
+		visual.texture = corpse_texture
+		var uvs = PackedVector2Array()
+		
+		if corpse_texture_region.has_area():
+			# Map to the specific region in pixel space
+			var region_center = corpse_texture_region.position + (corpse_texture_region.size / 2.0)
+			for pt in local_poly:
+				uvs.append(pt + region_center)
+		else:
+			# Map to the center of the entire texture in pixel space
+			var tex_center = corpse_texture.get_size() / 2.0
+			for pt in local_poly:
+				uvs.append(pt + tex_center)
+			
+		visual.uv = uvs
+	else:
+		visual.color = damage_color 
+		
 	corpse.add_child(visual)
 	
 	get_tree().current_scene.call_deferred("add_child", corpse)

@@ -257,6 +257,8 @@ position = Vector2(133, -94)
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("2_thifg")]
 position = Vector2(133, -94)
+corpse_texture = ExtResource("9_a5kc6")
+corpse_texture_region = Rect2(100, 10, 0, 0)
 
 [node name="background" parent="." unique_id=1396150072 instance=ExtResource("3_xbesp")]
 z_index = -100
