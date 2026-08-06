@@ -38,6 +38,7 @@ var collected_items = []
 func unlock_level(level_number):
 	if unlocked_levels.has(level_number):
 		unlocked_levels[level_number] = true
+		unlocked_levels[level_number-1] = true
 		print("Unlocked level " + str(level_number))
 
 func is_level_unlocked(level_number):
@@ -56,3 +57,6 @@ func has_collectable(item_name: String) -> bool:
 
 func has_any_collectable() -> bool:
 	return collected_items.size() > 0
+
+func has_level_collectable(level_number: int) -> bool:
+	return has_collectable("collectable in level_%d" % level_number)

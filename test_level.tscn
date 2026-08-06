@@ -237,8 +237,7 @@ material = SubResource("ShaderMaterial_lnbra")
 [node name="background" parent="." unique_id=932514271 instance=ExtResource("11_13y8f")]
 
 [node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=662540377 groups=["ground"]]
-collision_layer = 0
-collision_mask = 0
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=169856850]
 position = Vector2(-188, 616)
@@ -254,7 +253,6 @@ position = Vector2(286, 72)
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("5_gbhdq")]
 position = Vector2(-782, -315)
 enable_pressure_system = false
-shape_match_stiffness = 1000.0
 sub_steps = 32
 
 [node name="Spawner" type="Area2D" parent="." unique_id=595634446 node_paths=PackedStringArray("target_lever")]
@@ -303,7 +301,7 @@ target_lever = NodePath("../Lever")
 is_active = true
 fluid_type = 1
 despawn_rule = 3
-spawn_rate = 0.0
+spawn_rate = 0.01
 spawn_angle = 180.0
 angle_variance = 0.0
 spawn_speed = 0.0
@@ -317,10 +315,10 @@ shape = SubResource("RectangleShape2D_gbhdq")
 position = Vector2(-737, -127)
 
 [node name="Rectangle" parent="." unique_id=1176716040 instance=ExtResource("8_lowby")]
-position = Vector2(-428, -244)
+position = Vector2(-357, -510)
 
 [node name="Hexagon" parent="." unique_id=1005684736 instance=ExtResource("9_58smv")]
-position = Vector2(-536, -105)
+position = Vector2(-465, -371)
 
 [node name="Pentagon" parent="." unique_id=1202018710 instance=ExtResource("10_a25ih")]
-position = Vector2(-568, -286)
+position = Vector2(-497, -552)

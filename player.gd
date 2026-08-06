@@ -36,7 +36,7 @@ extends Node2D
 @export var lava_damage_rate: float = 40.0 
 @export var cooling_rate: float = 20.0 
 @export var damage_color: Color = Color(0.0, 1.0, 0.0, 1.0) 
-@export var lava_stiffness_multiplier: float = 4.0
+@export var max_lava_stiffness: float = 1500.0
 
 @export_category("Corpse Settings")
 @export var corpse_texture: Texture2D ## Optional texture for the corpse!
@@ -76,7 +76,7 @@ func _ready() -> void:
 		soft_body.crouch_strength = crouch_strength
 		soft_body.obstacle_markers = obstacle_markers
 		
-		soft_body.enable_pressure_system = enable_pressure_system
+		soft_body.enable_pressure_system = soft_body.should_enable_pressure_system()
 		soft_body.enable_shape_matching = enable_shape_matching
 		soft_body.shape_match_stiffness = shape_match_stiffness
 		soft_body.shape_match_damping = shape_match_damping
@@ -85,7 +85,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if soft_body:
-		soft_body.enable_pressure_system = enable_pressure_system
+		soft_body.enable_pressure_system = soft_body.should_enable_pressure_system()
 		soft_body.enable_shape_matching = enable_shape_matching
 		soft_body.shape_match_stiffness = shape_match_stiffness
 		soft_body.shape_match_damping = shape_match_damping
@@ -127,7 +127,7 @@ func _process_lava_damage(delta: float) -> void:
 		
 	current_health = clamp(current_health, 0.0, max_health)
 	current_stiffness_percent = 1.0 - (current_health / max_health)
-	current_stiffness_value = shape_match_stiffness * (1.0 + (current_stiffness_percent * lava_stiffness_multiplier))
+	current_stiffness_value = lerp(shape_match_stiffness, max_lava_stiffness, current_stiffness_percent)
 	soft_body.shape_match_stiffness = current_stiffness_value
 	
 	var damage_percent = 1.0 - (current_health / max_health)

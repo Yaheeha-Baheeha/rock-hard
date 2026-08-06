@@ -27,8 +27,10 @@ func _ready() -> void:
 	
 	_refresh_collectible_slots()
 	_update_selected_slot(0)
+	_sync_scene_visibility()
 
 func _process(_delta: float) -> void:
+	_sync_scene_visibility()
 	_sync_stiffness_meter()
 	_refresh_collectible_slots()
 
@@ -46,6 +48,15 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_collectable_added(_item_name: String) -> void:
 	_refresh_collectible_slots()
 
+func _sync_scene_visibility() -> void:
+	var current_scene := get_tree().current_scene
+	if current_scene == null:
+		visible = false
+		return
+
+	var scene_path := current_scene.scene_file_path
+	visible = not (scene_path.ends_with("menu.tscn") or scene_path.ends_with("level_select.tscn"))
+
 func _refresh_collectible_slots() -> void:
 	if not has_node("/root/GameManager"):
 		return
@@ -54,7 +65,7 @@ func _refresh_collectible_slots() -> void:
 	pentagon_slot.visible = game_manager.has_collectable("pentagon")
 	hexagon_slot.visible = game_manager.has_collectable("hexagon")
 	rectangle_slot.visible = game_manager.has_collectable("rectangle")
-	circle_slot.visible = game_manager.has_any_collectable()
+	circle_slot.visible = pentagon_slot.visible or hexagon_slot.visible or rectangle_slot.visible
 
 	if pentagon_slot.visible or hexagon_slot.visible or rectangle_slot.visible or circle_slot.visible:
 		if not _is_slot_visible(selected_slot_index):
