@@ -40,6 +40,8 @@ extends Node2D
 @export_category("Corpse Settings")
 @export var corpse_texture: Texture2D ## Optional texture for the corpse!
 @export var corpse_texture_region: Rect2 = Rect2(0, 0, 0, 0) ## Set W and H > 0 to use a specific region of the texture
+@export var corpse_texture_repeat: bool = false
+@export var corpse_polygon_color: Color = Color.WHITE
 
 @onready var soft_body = $SoftBodySphere
 @onready var center_tracker = $CenterTracker
@@ -177,6 +179,7 @@ func _spawn_corpse(is_static: bool = false) -> void:
 		corpse.mass = 5.0
 		
 	corpse.add_to_group("corpse")
+	corpse.add_to_group("hammer_smashable")
 	corpse.top_level = true 
 	corpse.global_position = centroid
 	
@@ -186,26 +189,31 @@ func _spawn_corpse(is_static: bool = false) -> void:
 	
 	var visual = Polygon2D.new()
 	visual.polygon = local_poly
+	visual.color = corpse_polygon_color
 	
-	# --- CORRECTED: PIXEL-BASED UV MAPPING ---
-	if corpse_texture != null:
-		visual.texture = corpse_texture
-		var uvs = PackedVector2Array()
-		
-		if corpse_texture_region.has_area():
-			# Map to the specific region in pixel space
-			var region_center = corpse_texture_region.position + (corpse_texture_region.size / 2.0)
-			for pt in local_poly:
-				uvs.append(pt + region_center)
+	if corpse_texture:
+		var tex_to_use := corpse_texture
+		var region_center := Vector2.ZERO
+		# If a region was provided (non-zero size) create an AtlasTexture to use only that portion
+		if corpse_texture_region.size != Vector2.ZERO:
+			var atlas := AtlasTexture.new()
+			atlas.atlas = corpse_texture
+			atlas.region = corpse_texture_region
+			tex_to_use = atlas
+			region_center = corpse_texture_region.position + (corpse_texture_region.size / 2.0)
 		else:
-			# Map to the center of the entire texture in pixel space
-			var tex_center = corpse_texture.get_size() / 2.0
-			for pt in local_poly:
-				uvs.append(pt + tex_center)
-			
+			region_center = corpse_texture.get_size() / 2.0
+		visual.texture = tex_to_use
+		visual.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED if corpse_texture_repeat else CanvasItem.TEXTURE_REPEAT_DISABLED
+		# Keep color as a modulate so user can tint the texture if desired
+		visual.color = corpse_polygon_color
+		# Center the texture on the polygon by offsetting UVs by the texture/region center
+		var uvs := PackedVector2Array()
+		for pt in local_poly:
+			uvs.append(pt + region_center)
 		visual.uv = uvs
 	else:
-		visual.color = damage_color 
+		visual.color = damage_color
 		
 	corpse.add_child(visual)
 	

@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="12_1wgld"]
 [ext_resource type="Texture2D" uid="uid://bk0rqjt5mlyqn" path="res://Textures/Tutorial/Screenshot 2026-06-17 203749.png" id="13_1wgld"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="14_pn8mn"]
+[ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="16_t0qt0"]
+[ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="17_tyqkn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7amt0"]
 texture = ExtResource("4_a721k")
@@ -206,18 +208,6 @@ font_size = 108
 [sub_resource type="LabelSettings" id="LabelSettings_1wgld"]
 font_size = 169
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e3b7f"]
-size = Vector2(112, 2487.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aie2w"]
-size = Vector2(32, 1543.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lv1pg"]
-size = Vector2(32, 1544)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1wgld"]
-size = Vector2(32, 1546)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pn8mn"]
 size = Vector2(217324, 1572)
 
@@ -331,6 +321,35 @@ metadata/_snap_enabled = true
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_kcu1q"]
 gradient = SubResource("Gradient_thifg")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kcu1q"]
+shader = ExtResource("16_t0qt0")
+shader_parameter/core_color = Color(1, 0, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rsg4q"]
+shader = ExtResource("16_t0qt0")
+shader_parameter/core_color = Color(1, 0.6166667, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cmf4p"]
+shader = ExtResource("16_t0qt0")
+shader_parameter/core_color = Color(1, 0.9, 0.2, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aejf8"]
+
 [node name="Game" type="Node2D" unique_id=2099316307]
 
 [node name="Crevice" parent="." unique_id=1955571131 instance=ExtResource("5_25nx4")]
@@ -399,35 +418,6 @@ label_settings = SubResource("LabelSettings_1wgld")
 
 [node name="Lava" type="Node2D" parent="." unique_id=744338625]
 position = Vector2(-1088, -1317)
-
-[node name="Lava" type="Area2D" parent="Lava" unique_id=1753989702]
-position = Vector2(1088, 1317)
-script = ExtResource("11_lv1pg")
-player_root_path = NodePath("../../Player")
-softbody_path = NodePath("../../Player/SoftBodySphere")
-player_controller_path = NodePath("../../Player")
-respawn_point_path = NodePath("../../RespawnPoint")
-spawn_parent_path = NodePath("../..")
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("12_1wgld")
-shape_texture_region = Rect2(0, 0, 100, 100)
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/Lava" unique_id=1405599819]
-position = Vector2(-744, -138.25)
-shape = SubResource("RectangleShape2D_e3b7f")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Lava/Lava" unique_id=100336332]
-position = Vector2(-239, -610.25)
-shape = SubResource("RectangleShape2D_aie2w")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Lava/Lava" unique_id=90359958]
-position = Vector2(288, -612)
-shape = SubResource("RectangleShape2D_lv1pg")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Lava/Lava" unique_id=654178727]
-position = Vector2(784, -613)
-shape = SubResource("RectangleShape2D_1wgld")
 
 [node name="WorldBoundary" type="Area2D" parent="Lava" unique_id=1435841600]
 position = Vector2(1088, 2641)
@@ -553,3 +543,70 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_pn8mn")
+
+[node name="HotFluid" type="CanvasGroup" parent="." unique_id=1944121035]
+material = SubResource("ShaderMaterial_kcu1q")
+
+[node name="MediumFluid" type="CanvasGroup" parent="." unique_id=1548573316]
+material = SubResource("ShaderMaterial_rsg4q")
+
+[node name="ColdFluid" type="CanvasGroup" parent="." unique_id=671312822]
+material = SubResource("ShaderMaterial_cmf4p")
+
+[node name="Spawner2" type="Area2D" parent="." unique_id=684196974]
+position = Vector2(294, 131)
+script = ExtResource("17_tyqkn")
+is_active = true
+despawn_rule = 2
+spawn_angle = 270.0
+angle_variance = 0.0
+spawn_speed = 1890.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=919462408]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_aejf8")
+
+[node name="Spawner3" type="Area2D" parent="." unique_id=1267487005]
+position = Vector2(-239, 131)
+script = ExtResource("17_tyqkn")
+is_active = true
+despawn_rule = 2
+spawn_angle = 270.0
+angle_variance = 0.0
+spawn_speed = 1890.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner3" unique_id=978029621]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_aejf8")
+
+[node name="Spawner4" type="Area2D" parent="." unique_id=134415026]
+position = Vector2(784, 131)
+script = ExtResource("17_tyqkn")
+is_active = true
+despawn_rule = 2
+spawn_angle = 270.0
+angle_variance = 0.0
+spawn_speed = 1890.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner4" unique_id=1930742640]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_aejf8")
+
+[node name="Spawner5" type="Area2D" parent="." unique_id=1119508212]
+position = Vector2(-744, 1058)
+script = ExtResource("17_tyqkn")
+is_active = true
+fluid_type = 1
+despawn_rule = 2
+spawn_rate = 0.02
+spawn_angle = 270.0
+angle_variance = 0.0
+spawn_speed = 2590.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner5" unique_id=142259923]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_aejf8")

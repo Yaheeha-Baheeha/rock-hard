@@ -2,13 +2,10 @@ extends Area2D
 
 @export var water_drop_scene: PackedScene = preload("res://lava_drop.tscn")
 
-# --- NEW: SPAWNER BEHAVIOR ---
-enum SpawnMode { ALWAYS, TOGGLED }
-
 @export_category("Spawner Settings")
-@export var spawn_mode: SpawnMode = SpawnMode.ALWAYS ## Choose if it's always on or needs a lever!
+@export var spawn_when_lever_on: bool = true ## If true, lava spawns when the lever is on; if false, it spawns when the lever is off.
 @export var target_lever: Node2D ## Easily drag and drop your Lever node here!
-@export var is_active: bool = false ## If set to TOGGLED, is it currently spraying?
+@export var is_active: bool = false ## Current spawn state when a lever is connected.
 @export var fluid_type: LavaDroplet.FluidType = LavaDroplet.FluidType.HOT ## Choose the fluid type!
 @export var despawn_rule: LavaDroplet.DespawnRule = LavaDroplet.DespawnRule.NEVER ## Choose how it despawns!
 @export var spawn_rate: float = 0.05 ## Time in seconds between spawns
@@ -29,14 +26,10 @@ var spawn_timer: float = 0.0
 func _ready() -> void:
 	if target_lever != null and target_lever.has_signal("toggled"):
 		target_lever.toggled.connect(set_spawner_active)
+		is_active = _is_spawn_enabled_for_lever(target_lever.is_active)
 
 func _process(delta: float) -> void:
-	var can_spawn: bool = false
-	
-	if spawn_mode == SpawnMode.ALWAYS:
-		can_spawn = true
-	elif spawn_mode == SpawnMode.TOGGLED and is_active:
-		can_spawn = true
+	var can_spawn: bool = target_lever == null or is_active
 		
 	if can_spawn:
 		spawn_timer += delta
@@ -80,4 +73,7 @@ func toggle_spawner() -> void:
 	is_active = !is_active
 
 func set_spawner_active(state: bool) -> void:
-	is_active = state
+	is_active = _is_spawn_enabled_for_lever(state)
+
+func _is_spawn_enabled_for_lever(lever_is_active: bool) -> bool:
+	return lever_is_active == spawn_when_lever_on

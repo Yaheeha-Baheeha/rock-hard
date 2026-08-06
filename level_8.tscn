@@ -245,7 +245,7 @@ shader_parameter/core_start = 0.8
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_thifg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2u0tw"]
-size = Vector2(38, 953)
+size = Vector2(165, 953)
 
 [node name="Game" type="Node2D" unique_id=984303330]
 
@@ -256,9 +256,8 @@ position = Vector2(1125.75, 183)
 position = Vector2(133, -94)
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("2_thifg")]
+z_index = 2
 position = Vector2(133, -94)
-corpse_texture = ExtResource("9_a5kc6")
-corpse_texture_region = Rect2(100, 10, 0, 0)
 
 [node name="background" parent="." unique_id=1396150072 instance=ExtResource("3_xbesp")]
 z_index = -100
@@ -735,9 +734,9 @@ shape = SubResource("WorldBoundaryShape2D_thifg")
 debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D" unique_id=1240198482]
-position = Vector2(1345, -77.5)
+position = Vector2(1281.5, -77.5)
 shape = SubResource("RectangleShape2D_2u0tw")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="RigidBody2D" unique_id=2054955383]
-position = Vector2(1508, -77.5)
+position = Vector2(1572, -77.5)
 shape = SubResource("RectangleShape2D_2u0tw")

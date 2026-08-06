@@ -46,15 +46,15 @@ func _ready() -> void:
 			repulsion_strength = 2000.0
 			viscosity = 0.5
 			cohesion_strength = 50.0
-			max_speed = 900.0
+			max_speed = 900000.0
 			
 		FluidType.COLD:
 			modulate = Color(0.4, 0.4, 0.4) # Dark Grey Crust
-			damage_rate = 1000.0 # Kills slowly
+			damage_rate = 300.0 # Kills slowly
 			repulsion_strength = 1000.0
 			viscosity = 0.15 
 			cohesion_strength = 50.0
-			max_speed = 300.0
+			max_speed = 300000.0
 
 func _physics_process(delta: float) -> void:
 	# 1. Only check for despawn rules if we aren't already shrinking

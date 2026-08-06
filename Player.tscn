@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ddd4cmyu4jc4l" path="res://Textures/ClayBallmini_normal.png" id="3_5imbr"]
 [ext_resource type="Texture2D" uid="uid://bqtj82x21yemp" path="res://Textures/ClayBallmini_specular.png" id="4_8j43t"]
 [ext_resource type="Script" uid="uid://bwshlci7b4bor" path="res://camera_2d.gd" id="5_cxr5p"]
+[ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="5_dtqjt"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8v41o"]
 diffuse_texture = ExtResource("2_mgb7i")
@@ -17,12 +18,16 @@ specular_shininess = 0.33
 radius = 53.037724
 
 [node name="Player" type="Node2D" unique_id=438420809]
+z_index = 2
 script = ExtResource("1_root")
 shape_match_stiffness = 0.0
 sub_steps = 22
 texture = SubResource("CanvasTexture_8v41o")
 max_speed = 1800.0
 jump_strength = 420.0
+damage_color = Color(0.9137255, 0.6392157, 0.39607844, 1)
+corpse_texture = ExtResource("5_dtqjt")
+corpse_texture_region = Rect2(0, 0, 100, 100)
 
 [node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437]
 script = ExtResource("1_3xkec")
