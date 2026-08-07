@@ -253,7 +253,7 @@ position = Vector2(286, 72)
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("5_gbhdq")]
 position = Vector2(-782, -315)
 enable_pressure_system = false
-sub_steps = 32
+shape_match_stiffness = 1000.0
 
 [node name="Spawner" type="Area2D" parent="." unique_id=595634446 node_paths=PackedStringArray("target_lever")]
 position = Vector2(713, -1121)
