@@ -33,6 +33,7 @@ enabled=PackedStringArray("res://addons/softbody2d/plugin.cfg")
 
 can_interact_with_static_water=""
 ground=""
+corpse=""
 
 [input]
 

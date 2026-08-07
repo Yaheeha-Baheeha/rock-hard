@@ -248,8 +248,7 @@ position = Vector2(286, 72)
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("5_gbhdq")]
 position = Vector2(-782, -315)
-enable_pressure_system = false
-shape_match_stiffness = 1000.0
+shape_match_stiffness = 500.0
 sub_steps = 32
 
 [node name="Spawner" type="Area2D" parent="." unique_id=595634446 node_paths=PackedStringArray("target_lever")]
@@ -298,7 +297,6 @@ script = ExtResource("6_y646j")
 spawn_mode = 1
 target_lever = NodePath("../Lever")
 is_active = true
-fluid_type = 1
 despawn_rule = 3
 spawn_rate = 0.0
 spawn_angle = 180.0

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d3f8w2f3f4joc"]
+
+[ext_resource type="Texture2D" uid="uid://xpn7dp4wmrn3" path="res://Textures/yeast.png" id="1_4td2i"]
+
+[node name="Yeast" type="Sprite2D" unique_id=492623225]
+scale = Vector2(6.75, 6.75)
+texture = ExtResource("1_4td2i")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=981920329]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D" unique_id=1896775159]
+polygon = PackedVector2Array(6.0740743, -10.962963, 6.0740743, -5.037037, 6.962963, -5.037037, 8, -2.962963, 8.148149, 6.962963, 6.0740743, 10.074074, -5.037037, 10.074074, -6.962963, 6.962963, -6.962963, -3.2592592, -6.0740743, -5.037037, -5.037037, -5.037037, -5.037037, -10.962963)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=422848993]

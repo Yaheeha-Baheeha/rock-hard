@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://6evhe83ut2x"]
+
+[ext_resource type="Script" uid="uid://7r1qw28nkwvy" path="res://corpse.gd" id="1_rst2x"]
+
+[node name="Corpse" type="RigidBody2D" unique_id=1220033999 groups=["corpse"]]
+script = ExtResource("1_rst2x")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1405695577]
+z_index = 5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=179202264]

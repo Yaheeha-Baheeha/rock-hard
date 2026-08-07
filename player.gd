@@ -32,6 +32,7 @@ extends Node2D
 @export var obstacle_markers: Array[Node2D]
 
 @export_category("Damage System")
+@export var corpse_scene: PackedScene ## Drag Corpse.tscn here in the Inspector
 @export var max_health: float = 100.0
 @export var lava_damage_rate: float = 40.0 
 @export var cooling_rate: float = 20.0 
@@ -151,6 +152,10 @@ func _spawn_corpse() -> void:
 	if not soft_body or soft_body.points.size() < 3:
 		return
 		
+	if not corpse_scene:
+		push_error("Corpse Scene is not assigned in the Player Inspector!")
+		return
+		
 	var raw_global_poly = soft_body.get_current_polygon_global()
 	var global_poly = _smooth_polygon(raw_global_poly, 2)
 	
@@ -163,22 +168,9 @@ func _spawn_corpse() -> void:
 	for pt in global_poly:
 		local_poly.append(pt - centroid)
 		
-	var corpse = RigidBody2D.new()
-	corpse.add_to_group("corpse")
-	corpse.top_level = true 
-	corpse.global_position = centroid
-	corpse.mass = 5.0
-	
-	var coll_shape = CollisionPolygon2D.new()
-	coll_shape.polygon = local_poly
-	corpse.add_child(coll_shape)
-	
-	var visual = Polygon2D.new()
-	visual.polygon = local_poly
-	visual.color = damage_color
-	corpse.add_child(visual)
-	
-	get_tree().current_scene.call_deferred("add_child", corpse)
+	var corpse_instance = corpse_scene.instantiate()
+	corpse_instance.setup_corpse(local_poly, damage_color, centroid)
+	get_tree().current_scene.call_deferred("add_child", corpse_instance)
 
 func respawn(target_position: Vector2) -> void:
 	global_position = target_position
