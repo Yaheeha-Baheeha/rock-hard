@@ -7,28 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="6_dyw3t"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="6_u1jey"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="7_51w4t"]
-[ext_resource type="Texture2D" uid="uid://c3xbw3br0vgbx" path="res://Textures/Lava/fall/lavafall_01.png" id="9_qh630"]
-[ext_resource type="Texture2D" uid="uid://ck17f1nsxh1ky" path="res://Textures/Lava/fall/lavafall_02.png" id="10_uv8er"]
-[ext_resource type="Texture2D" uid="uid://behvj1hoqfltx" path="res://Textures/Lava/fall/lavafall_03.png" id="11_653n8"]
-[ext_resource type="Texture2D" uid="uid://bdkcjseguhm4f" path="res://Textures/Lava/fall/lavafall_04.png" id="12_eqpf5"]
-[ext_resource type="Texture2D" uid="uid://cmlca78ed0cx3" path="res://Textures/Lava/fall/lavafall_05.png" id="13_qm6bn"]
-[ext_resource type="Texture2D" uid="uid://dk675tosd0t7d" path="res://Textures/Lava/fall/lavafall_06.png" id="14_cugil"]
-[ext_resource type="Texture2D" uid="uid://bpcbwmkkojyf6" path="res://Textures/Lava/fall/lavafall_07.png" id="15_gx3pu"]
-[ext_resource type="Texture2D" uid="uid://cr6f7xvl0b6th" path="res://Textures/Lava/fall/lavafall_08.png" id="16_wleuh"]
-[ext_resource type="Texture2D" uid="uid://m6ctbhw6gk7v" path="res://Textures/Lava/fall/lavafall_09.png" id="17_2lakv"]
-[ext_resource type="Texture2D" uid="uid://bfhuixtcdd5ll" path="res://Textures/Lava/fall/lavafall_10.png" id="18_46val"]
-[ext_resource type="Texture2D" uid="uid://dfgn1mf3unsbe" path="res://Textures/Lava/fall/lavafall_11.png" id="19_prm7a"]
-[ext_resource type="Texture2D" uid="uid://bbsl3farhvqxt" path="res://Textures/Lava/fall/lavafall_12.png" id="20_0uosw"]
-[ext_resource type="Texture2D" uid="uid://bpy7ahsxwffao" path="res://Textures/Lava/fall/lavafall_13.png" id="21_cgfqg"]
-[ext_resource type="Texture2D" uid="uid://delashgxe7oj1" path="res://Textures/Lava/fall/lavafall_14.png" id="22_516sn"]
-[ext_resource type="Texture2D" uid="uid://dqw1cxp2aqfn8" path="res://Textures/Lava/fall/lavafall_15.png" id="23_fkd0g"]
-[ext_resource type="Texture2D" uid="uid://bfcryp0k75yth" path="res://Textures/Lava/fall/lavafall_16.png" id="24_uos5d"]
-[ext_resource type="Texture2D" uid="uid://dhavihj8ttwxx" path="res://Textures/Lava/fall/lavafall_17.png" id="25_vuowq"]
-[ext_resource type="Texture2D" uid="uid://d15gl3itxl3r6" path="res://Textures/Lava/fall/lavafall_18.png" id="26_un45x"]
-[ext_resource type="Texture2D" uid="uid://nciwufhi7qm4" path="res://Textures/Lava/fall/lavafall_19.png" id="27_6qsqx"]
-[ext_resource type="Texture2D" uid="uid://bohkefj5xpqkj" path="res://Textures/Lava/fall/lavafall_20.png" id="28_uqf8q"]
-[ext_resource type="Texture2D" uid="uid://doawjefj2ha2p" path="res://Textures/Lava/fall/lavafall_21.png" id="29_puam4"]
-[ext_resource type="Texture2D" uid="uid://ckjbx66vas5mv" path="res://Textures/Lava/fall/lavafall_22.png" id="30_eay7t"]
 [ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="31_bwt5l"]
 [ext_resource type="Texture2D" uid="uid://j4qxeg26fom0" path="res://resources/empty_gradient_collectible.tres" id="31_omxaf"]
 [ext_resource type="Texture2D" uid="uid://cmcivhovxwbnq" path="res://Textures/Tutorial/Level_2/ezgif-frame-001.png" id="32_puam4"]
@@ -48,8 +26,10 @@
 [ext_resource type="Texture2D" uid="uid://twechlepm6iu" path="res://Textures/Tutorial/Level_2/ezgif-frame-013.png" id="44_gonvl"]
 [ext_resource type="Texture2D" uid="uid://dejd8uhqaognk" path="res://Textures/Tutorial/Level_2/ezgif-frame-014.png" id="45_b6wsc"]
 [ext_resource type="Texture2D" uid="uid://wljs0kf82bs4" path="res://Textures/Tutorial/Level_2/ezgif-frame-015.png" id="46_g0aem"]
+[ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="47_gx3pu"]
 [ext_resource type="Texture2D" uid="uid://bdwija3pfod2f" path="res://Textures/Tutorial/Level_2/ezgif-frame-016.png" id="47_ksw61"]
 [ext_resource type="Texture2D" uid="uid://c31xmy8lbau2n" path="res://Textures/Tutorial/Level_2/ezgif-frame-017.png" id="48_j8tgw"]
+[ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="48_wleuh"]
 [ext_resource type="Texture2D" uid="uid://br6jmaxqs550p" path="res://Textures/Tutorial/Level_2/ezgif-frame-018.png" id="49_ts03v"]
 [ext_resource type="Texture2D" uid="uid://donln83tyawxw" path="res://Textures/Tutorial/Level_2/ezgif-frame-019.png" id="50_a27b4"]
 [ext_resource type="Texture2D" uid="uid://nx0nig5gqnsn" path="res://Textures/Tutorial/Level_2/ezgif-frame-020.png" id="51_cvgfi"]
@@ -69,162 +49,8 @@
 [ext_resource type="Texture2D" uid="uid://chpf22sm0cbuo" path="res://Textures/Lava/CreviceSpecular.png" id="65_omxaf"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="68_bwt5l"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_41lt0"]
-size = Vector2(80.64807, 20.950928)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6ygx"]
-size = Vector2(34.5, 474.78906)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xlxjt"]
 size = Vector2(217324, 1572)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_41lt0"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("9_qh630")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_uv8er")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_653n8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_eqpf5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_qm6bn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_cugil")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_gx3pu")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_wleuh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_2lakv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_46val")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_prm7a")
-}, {
-"duration": 1.0,
-"texture": ExtResource("20_0uosw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_cgfqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_516sn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("23_fkd0g")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_uos5d")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_vuowq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_un45x")
-}, {
-"duration": 1.0,
-"texture": ExtResource("27_6qsqx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("28_uqf8q")
-}, {
-"duration": 1.0,
-"texture": ExtResource("29_puam4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("30_eay7t")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 60.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_t8cg7"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("30_eay7t")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_qh630")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_uv8er")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_653n8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_eqpf5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_qm6bn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_cugil")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_gx3pu")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_wleuh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_2lakv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_46val")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_prm7a")
-}, {
-"duration": 1.0,
-"texture": ExtResource("20_0uosw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_cgfqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_516sn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("23_fkd0g")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_uos5d")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_vuowq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_un45x")
-}, {
-"duration": 1.0,
-"texture": ExtResource("27_6qsqx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("28_uqf8q")
-}, {
-"duration": 1.0,
-"texture": ExtResource("29_puam4")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 60.0
-}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t25cq"]
 animations = [{
@@ -442,6 +268,35 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddgyg"]
 size = Vector2(128, 128)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2lakv"]
+shader = ExtResource("47_gx3pu")
+shader_parameter/core_color = Color(1, 0, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_46val"]
+shader = ExtResource("47_gx3pu")
+shader_parameter/core_color = Color(1, 0.6166667, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_prm7a"]
+shader = ExtResource("47_gx3pu")
+shader_parameter/core_color = Color(1, 0.9, 0.2, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0uosw"]
+
 [node name="Game" type="Node2D" unique_id=1118129422]
 
 [node name="Hammer" parent="." unique_id=1722124445 instance=ExtResource("1_e6ygx")]
@@ -464,49 +319,6 @@ tile_set = ExtResource("4_bwt5l")
 
 [node name="Lava" type="Node2D" parent="." unique_id=1880621221]
 
-[node name="DeathConditionStatic" type="Area2D" parent="Lava" unique_id=1782401527]
-script = ExtResource("7_51w4t")
-player_root_path = NodePath("../../Player")
-softbody_path = NodePath("../../Player/SoftBodySphere")
-player_controller_path = NodePath("../../Player")
-respawn_point_path = NodePath("../../RespawnPoint")
-spawn_parent_path = NodePath("../..")
-ceramic_type = 1
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("6_dyw3t")
-shape_texture_region = Rect2(0, 0, 100, 100)
-shape_texture_repeat = true
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="Lava/DeathConditionStatic" unique_id=1051528578]
-top_level = true
-position = Vector2(1250.0001, -517.00006)
-rotation = 1.0471976
-shape = SubResource("RectangleShape2D_41lt0")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeathConditionStatic" unique_id=2015337579]
-top_level = true
-position = Vector2(1280, -247.84375)
-shape = SubResource("RectangleShape2D_e6ygx")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Lava/DeathConditionStatic" unique_id=1205715341]
-top_level = true
-position = Vector2(1209.5, -528.5)
-rotation = -0.5235988
-shape = SubResource("RectangleShape2D_41lt0")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Lava/DeathConditionStatic" unique_id=692608672]
-top_level = true
-position = Vector2(1350, -527)
-rotation = 0.5235988
-shape = SubResource("RectangleShape2D_41lt0")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Lava/DeathConditionStatic" unique_id=874564963]
-top_level = true
-position = Vector2(1308.0001, -516)
-rotation = 2.0943952
-shape = SubResource("RectangleShape2D_41lt0")
-
 [node name="WorldBoundary" type="Area2D" parent="Lava" unique_id=437902437]
 collision_layer = 129
 script = ExtResource("7_51w4t")
@@ -525,111 +337,6 @@ circle_approximation_segments = 40
 position = Vector2(-106, 1169)
 shape = SubResource("RectangleShape2D_xlxjt")
 debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
-
-[node name="LavaFallSprite" type="Node2D" parent="Lava" unique_id=362444789]
-rotation = 3.1415925
-
-[node name="Lavafall1" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1516741565]
-position = Vector2(-1272, 46.999878)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_41lt0")
-autoplay = "default"
-
-[node name="Lavafall2" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1950998925]
-position = Vector2(-1272, 126.99994)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall3" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=754899753]
-position = Vector2(-1272, 206.99991)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall4" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=335935559]
-position = Vector2(-1272, 286.99994)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall5" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1249119666]
-position = Vector2(-1272, 366.99994)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall6" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=672091380]
-position = Vector2(-1272, 446.99994)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall7" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1702696857]
-position = Vector2(-1250.0002, 516.9999)
-rotation = -0.5235988
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall8" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1514907533]
-position = Vector2(-1288, 46.99991)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall9" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=845274405]
-position = Vector2(-1288, 126.99991)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall10" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=2015115740]
-position = Vector2(-1288, 206.99991)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall11" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1915809248]
-position = Vector2(-1288, 286.9999)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall12" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=2007427678]
-position = Vector2(-1288, 366.9999)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall13" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=2749441]
-position = Vector2(-1288, 446.9999)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall14" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=295968550]
-position = Vector2(-1308.6602, 517.33966)
-rotation = 0.5235988
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-
-[node name="Lavafall15" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1093514828]
-position = Vector2(-1349.6603, 528.33966)
-rotation = 2.0943952
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
-frame = 9
-frame_progress = 0.44417995
-
-[node name="Lavafall16" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=411707823]
-position = Vector2(-1210, 527.99994)
-rotation = 4.1887903
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_t8cg7")
-autoplay = "default"
 
 [node name="Tutorial" type="AnimatedSprite2D" parent="." unique_id=296329056]
 light_mask = 2
@@ -673,12 +380,8 @@ rotation = -3.1415927
 scale = Vector2(3.5625, 3.5625)
 
 [node name="Crevice" type="Sprite2D" parent="Tutorial/Crevice" unique_id=1854922722]
+scale = Vector2(2.1673684, 2.1673684)
 texture = SubResource("CanvasTexture_bwt5l")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Tutorial/Crevice" unique_id=434908946]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tutorial/Crevice/StaticBody2D" unique_id=1554315225]
-polygon = PackedVector2Array(-2.5, -15.5, -2.5, -14.5, -10.5, -14.5, -10.5, -13.5, -12.5, -13.5, -12.5, -12.5, -13.5, -12.5, -13.5, -9.5, -14.5, -9.5, -14.5, -7.5, -15.5, -7.5, -15.5, -1.5, -14.5, -1.5, -14.5, 7.5, -12.5, 7.5, -12.5, 8.5, -7.5, 8.5, -7.5, 7.5, -4.5, 7.5, -4.5, 6.5, -3.5, 6.5, -3.5, 3.5, -2.5, 3.5, -2.5, 2.5, -0.5, 2.5, -0.5, 1.5, 1.5, 1.5, 1.5, 2.5, 3.5, 2.5, 3.5, 4.5, 4.5, 4.5, 4.5, 7.5, 6.5, 7.5, 6.5, 9.5, 12.5, 9.5, 12.5, 8.5, 13.5, 8.5, 13.5, 6.5, 14.5, 6.5, 14.5, 1.5, 13.5, 1.5, 13.5, -7.5, 12.5, -7.5, 12.5, -9.5, 11.5, -9.5, 11.5, -10.3, 9.5, -11.3, 9.5, -12.5, 7.5, -12.5, 7.5, -13.5, 5.5, -13.5, 5.5, -14.5, 4.5, -14.5, 4.5, -15.5)
 
 [node name="killall" type="Area2D" parent="." unique_id=149050621]
 script = ExtResource("68_bwt5l")
@@ -776,3 +479,27 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("33_bwt5l")
+
+[node name="HotFluid" type="CanvasGroup" parent="." unique_id=1026336262]
+material = SubResource("ShaderMaterial_2lakv")
+
+[node name="MediumFluid" type="CanvasGroup" parent="." unique_id=2057474656]
+material = SubResource("ShaderMaterial_46val")
+
+[node name="ColdFluid" type="CanvasGroup" parent="." unique_id=1023121802]
+material = SubResource("ShaderMaterial_prm7a")
+
+[node name="Spawner2" type="Area2D" parent="." unique_id=1523201089]
+position = Vector2(1281, -18)
+script = ExtResource("48_wleuh")
+is_active = true
+despawn_rule = 2
+spawn_rate = 0.04
+spawn_angle = 270.0
+angle_variance = 0.0
+spawn_speed = 1200.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=546972980]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_0uosw")

@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="10_pfhdb"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="11_pfhdb"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="13_pfhdb"]
+[ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="15_gjgpw"]
+[ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="16_anmol"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n5k06"]
 texture = ExtResource("1_axb3o")
@@ -291,26 +293,40 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hvfyj"]
 size = Vector2(128, 128)
 
-[sub_resource type="LabelSettings" id="LabelSettings_12rt6"]
-font_size = 75
-
-[sub_resource type="LabelSettings" id="LabelSettings_w0fgk"]
-font_size = 95
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8t08o"]
 size = Vector2(217324, 1572)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0fgk"]
-size = Vector2(297, 1717)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wqyy"]
-size = Vector2(252, 1124)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_axb3o"]
-size = Vector2(206.5, 710.5)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5k06"]
 size = Vector2(28652, 176)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hvfyj"]
+shader = ExtResource("15_gjgpw")
+shader_parameter/core_color = Color(1, 0, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_21kf8"]
+shader = ExtResource("15_gjgpw")
+shader_parameter/core_color = Color(1, 0.6166667, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v82rf"]
+shader = ExtResource("15_gjgpw")
+shader_parameter/core_color = Color(1, 0.9, 0.2, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_57xvv"]
 
 [node name="Game" type="Node2D" unique_id=722697156]
 
@@ -336,6 +352,7 @@ position = Vector2(1125.75, 183)
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("4_0wqyy")]
 num_points = 40
+shape_match_stiffness = 0.0
 crouch_strength = 3500.0
 
 [node name="background" parent="." unique_id=979663656 instance=ExtResource("5_axb3o")]
@@ -432,79 +449,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_pfhdb")
 
-[node name="templabelsforraymond" type="Node2D" parent="." unique_id=16629947]
-
-[node name="Label" type="Label" parent="templabelsforraymond" unique_id=1683983093]
-offset_left = 23.0
-offset_top = -1160.0
-offset_right = 293.0
-offset_bottom = -1057.0
-text = "REAL: A"
-label_settings = SubResource("LabelSettings_12rt6")
-
-[node name="Label2" type="Label" parent="templabelsforraymond" unique_id=2083239049]
-offset_left = 611.0
-offset_top = -1724.0
-offset_right = 1138.0
-offset_bottom = -1461.0
-text = "FAKE: DOES
-NOTHING"
-label_settings = SubResource("LabelSettings_w0fgk")
-
-[node name="Label3" type="Label" parent="templabelsforraymond" unique_id=1459735868]
-offset_left = 1386.0
-offset_top = -1318.0
-offset_right = 1727.0
-offset_bottom = -1081.0
-text = "REAL: B"
-label_settings = SubResource("LabelSettings_w0fgk")
-
-[node name="Label4" type="Label" parent="templabelsforraymond" unique_id=1527831538]
-offset_left = -993.0
-offset_top = 141.0
-offset_right = -654.0
-offset_bottom = 378.0
-text = "REAL: C"
-label_settings = SubResource("LabelSettings_w0fgk")
-
-[node name="Label5" type="Label" parent="templabelsforraymond" unique_id=1780938043]
-offset_left = 2560.0
-offset_top = -204.0
-offset_right = 2702.0
-offset_bottom = 33.0
-text = "A"
-label_settings = SubResource("LabelSettings_w0fgk")
-
-[node name="Label6" type="Label" parent="templabelsforraymond" unique_id=277296203]
-offset_left = 3433.0
-offset_top = -1222.0
-offset_right = 3575.0
-offset_bottom = -985.0
-text = "B"
-label_settings = SubResource("LabelSettings_w0fgk")
-
-[node name="Label7" type="Label" parent="templabelsforraymond" unique_id=56271349]
-offset_left = 2960.0
-offset_top = -677.0
-offset_right = 3102.0
-offset_bottom = -440.0
-text = "C"
-label_settings = SubResource("LabelSettings_w0fgk")
-
-[node name="Label8" type="Label" parent="templabelsforraymond" unique_id=641969400]
-offset_left = 2066.0
-offset_top = -2121.0
-offset_right = 3697.0
-offset_bottom = -1193.0
-text = "Raymond, in this level, levers
-trigger shooting lava corresponding
-to the letter above them. the top 
-lever is a distraction. i want the 
-currently translucent cave to be 
-solid until the player goes in where
-it disappears or smth."
-label_settings = SubResource("LabelSettings_w0fgk")
-
 [node name="killall" type="Area2D" parent="." unique_id=2126093805]
 script = ExtResource("13_pfhdb")
 
@@ -514,32 +458,6 @@ shape = SubResource("RectangleShape2D_8t08o")
 
 [node name="Lava" type="Node2D" parent="." unique_id=474986992]
 
-[node name="LavaGeyser" type="Area2D" parent="Lava" unique_id=2082521981]
-script = ExtResource("6_12rt6")
-player_root_path = NodePath("../../Player")
-softbody_path = NodePath("../../Player/SoftBodySphere")
-player_controller_path = NodePath("../../Player")
-respawn_point_path = NodePath("../../RespawnPoint")
-spawn_parent_path = NodePath("../..")
-ceramic_type = 1
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("7_axb3o")
-shape_texture_region = Rect2(0, 0, 100, 100)
-shape_texture_repeat = true
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/LavaGeyser" unique_id=1676236719]
-position = Vector2(3488.5, -226.5)
-shape = SubResource("RectangleShape2D_w0fgk")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Lava/LavaGeyser" unique_id=311536260]
-position = Vector2(2998, 74)
-shape = SubResource("RectangleShape2D_0wqyy")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Lava/LavaGeyser" unique_id=1175998531]
-position = Vector2(2606.75, 280.75)
-shape = SubResource("RectangleShape2D_axb3o")
-
 [node name="worldboudary" type="Area2D" parent="Lava" unique_id=723492218]
 position = Vector2(2960, -211)
 script = ExtResource("6_12rt6")
@@ -547,7 +465,7 @@ player_root_path = NodePath("../../Player")
 softbody_path = NodePath("../../Player/SoftBodySphere")
 player_controller_path = NodePath("../../Player")
 respawn_point_path = NodePath("../../RespawnPoint")
-spawn_parent_path = NodePath("../../templabelsforraymond/Label7")
+spawn_parent_path = NodePath("")
 shape_polygon_color = Color(1, 1, 1, 1)
 shape_texture = ExtResource("7_axb3o")
 shape_texture_region = Rect2(0, 0, 100, 100)
@@ -569,3 +487,63 @@ position = Vector2(870, -1427)
 
 [node name="Lever4" parent="Levers" unique_id=1269916276 instance=ExtResource("5_4ryn0")]
 position = Vector2(1508, -1123)
+
+[node name="HotFluid" type="CanvasGroup" parent="." unique_id=793912356]
+material = SubResource("ShaderMaterial_hvfyj")
+
+[node name="MediumFluid" type="CanvasGroup" parent="." unique_id=48449864]
+material = SubResource("ShaderMaterial_21kf8")
+
+[node name="ColdFluid" type="CanvasGroup" parent="." unique_id=484594820]
+material = SubResource("ShaderMaterial_v82rf")
+
+[node name="Spawner2" type="Area2D" parent="." unique_id=471752564 node_paths=PackedStringArray("target_lever")]
+position = Vector2(2607, 612)
+script = ExtResource("16_anmol")
+spawn_when_lever_on = false
+target_lever = NodePath("../Levers/Lever2")
+is_active = true
+despawn_rule = 2
+spawn_angle = 270.0
+angle_variance = 0.0
+spawn_speed = 1250.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=206552232]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_57xvv")
+
+[node name="Spawner3" type="Area2D" parent="." unique_id=1770857144 node_paths=PackedStringArray("target_lever")]
+position = Vector2(3006, 612)
+script = ExtResource("16_anmol")
+spawn_when_lever_on = false
+target_lever = NodePath("../Levers/Lever")
+is_active = true
+despawn_rule = 2
+spawn_rate = 0.035
+spawn_angle = 270.0
+angle_variance = 0.0
+spawn_speed = 1600.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner3" unique_id=2060890641]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_57xvv")
+
+[node name="Spawner4" type="Area2D" parent="." unique_id=1858786951 node_paths=PackedStringArray("target_lever")]
+position = Vector2(3483, 612)
+script = ExtResource("16_anmol")
+spawn_when_lever_on = false
+target_lever = NodePath("../Levers/Lever4")
+is_active = true
+fluid_type = 1
+despawn_rule = 2
+spawn_rate = 0.01
+spawn_angle = 270.0
+angle_variance = 0.0
+spawn_speed = 1950.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner4" unique_id=1296808069]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_57xvv")

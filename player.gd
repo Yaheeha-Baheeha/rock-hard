@@ -32,21 +32,30 @@ extends Node2D
 @export var obstacle_markers: Array[Node2D]
 
 @export_category("Damage System")
-@export var corpse_scene: PackedScene ## Drag Corpse.tscn here in the Inspector
 @export var max_health: float = 100.0
 @export var lava_damage_rate: float = 40.0 
 @export var cooling_rate: float = 20.0 
 @export var damage_color: Color = Color(0.0, 1.0, 0.0, 1.0) 
+@export var max_lava_stiffness: float = 1500.0
+
+@export_category("Corpse Settings")
+@export var corpse_texture: Texture2D ## Optional texture for the corpse!
+@export var corpse_texture_region: Rect2 = Rect2(0, 0, 0, 0) ## Set W and H > 0 to use a specific region of the texture
+@export var corpse_texture_repeat: bool = false
+@export var corpse_polygon_color: Color = Color.WHITE
 
 @onready var soft_body = $SoftBodySphere
 @onready var center_tracker = $CenterTracker
 @onready var lava_detector = $CenterTracker/LavaDetector 
 
 var current_health: float
+var current_stiffness_percent: float = 0.0
+var current_stiffness_value: float = 0.0
 var base_color: Color
 var start_position: Vector2
 
 func _ready() -> void:
+	add_to_group("player")
 	current_health = max_health
 	base_color = texture_tint
 	start_position = global_position
@@ -67,7 +76,7 @@ func _ready() -> void:
 		soft_body.crouch_strength = crouch_strength
 		soft_body.obstacle_markers = obstacle_markers
 		
-		soft_body.enable_pressure_system = enable_pressure_system
+		soft_body.enable_pressure_system = soft_body.should_enable_pressure_system()
 		soft_body.enable_shape_matching = enable_shape_matching
 		soft_body.shape_match_stiffness = shape_match_stiffness
 		soft_body.shape_match_damping = shape_match_damping
@@ -76,7 +85,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if soft_body:
-		soft_body.enable_pressure_system = enable_pressure_system
+		soft_body.enable_pressure_system = soft_body.should_enable_pressure_system()
 		soft_body.enable_shape_matching = enable_shape_matching
 		soft_body.shape_match_stiffness = shape_match_stiffness
 		soft_body.shape_match_damping = shape_match_damping
@@ -117,6 +126,9 @@ func _process_lava_damage(delta: float) -> void:
 		current_health += cooling_rate * delta
 		
 	current_health = clamp(current_health, 0.0, max_health)
+	current_stiffness_percent = 1.0 - (current_health / max_health)
+	current_stiffness_value = lerp(shape_match_stiffness, max_lava_stiffness, current_stiffness_percent)
+	soft_body.shape_match_stiffness = current_stiffness_value
 	
 	var damage_percent = 1.0 - (current_health / max_health)
 	soft_body.texture_tint = base_color.lerp(damage_color, damage_percent)
@@ -125,8 +137,14 @@ func _process_lava_damage(delta: float) -> void:
 		_die()
 
 func _die() -> void:
-	_spawn_corpse()
+	var is_holding_static = Input.is_action_pressed("static")
+	_spawn_corpse(is_holding_static)
+	
 	current_health = max_health
+	current_stiffness_percent = 0.0
+	current_stiffness_value = shape_match_stiffness
+	if soft_body:
+		soft_body.shape_match_stiffness = shape_match_stiffness
 	soft_body.texture_tint = base_color
 	
 	var respawn_node = get_node_or_null("../RespawnPoint")
@@ -148,12 +166,8 @@ func _smooth_polygon(poly: PackedVector2Array, iterations: int = 1) -> PackedVec
 		current_poly = smoothed
 	return current_poly
 
-func _spawn_corpse() -> void:
+func _spawn_corpse(is_static: bool = false) -> void:
 	if not soft_body or soft_body.points.size() < 3:
-		return
-		
-	if not corpse_scene:
-		push_error("Corpse Scene is not assigned in the Player Inspector!")
 		return
 		
 	var raw_global_poly = soft_body.get_current_polygon_global()
@@ -168,9 +182,53 @@ func _spawn_corpse() -> void:
 	for pt in global_poly:
 		local_poly.append(pt - centroid)
 		
-	var corpse_instance = corpse_scene.instantiate()
-	corpse_instance.setup_corpse(local_poly, damage_color, centroid)
-	get_tree().current_scene.call_deferred("add_child", corpse_instance)
+	var corpse: PhysicsBody2D
+	if is_static:
+		corpse = StaticBody2D.new()
+	else:
+		corpse = RigidBody2D.new()
+		corpse.mass = 5.0
+		
+	corpse.add_to_group("corpse")
+	corpse.add_to_group("hammer_smashable")
+	corpse.top_level = true 
+	corpse.global_position = centroid
+	
+	var coll_shape = CollisionPolygon2D.new()
+	coll_shape.polygon = local_poly
+	corpse.add_child(coll_shape)
+	
+	var visual = Polygon2D.new()
+	visual.polygon = local_poly
+	visual.color = corpse_polygon_color
+	
+	if corpse_texture:
+		var tex_to_use := corpse_texture
+		var region_center := Vector2.ZERO
+		# If a region was provided (non-zero size) create an AtlasTexture to use only that portion
+		if corpse_texture_region.size != Vector2.ZERO:
+			var atlas := AtlasTexture.new()
+			atlas.atlas = corpse_texture
+			atlas.region = corpse_texture_region
+			tex_to_use = atlas
+			region_center = corpse_texture_region.position + (corpse_texture_region.size / 2.0)
+		else:
+			region_center = corpse_texture.get_size() / 2.0
+		visual.texture = tex_to_use
+		visual.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED if corpse_texture_repeat else CanvasItem.TEXTURE_REPEAT_DISABLED
+		# Keep color as a modulate so user can tint the texture if desired
+		visual.color = corpse_polygon_color
+		# Center the texture on the polygon by offsetting UVs by the texture/region center
+		var uvs := PackedVector2Array()
+		for pt in local_poly:
+			uvs.append(pt + region_center)
+		visual.uv = uvs
+	else:
+		visual.color = damage_color
+		
+	corpse.add_child(visual)
+	
+	get_tree().current_scene.call_deferred("add_child", corpse)
 
 func respawn(target_position: Vector2) -> void:
 	global_position = target_position

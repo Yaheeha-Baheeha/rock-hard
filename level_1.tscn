@@ -217,6 +217,7 @@ position = Vector2(133, -262)
 
 [node name="Player" parent="." unique_id=438420809 node_paths=PackedStringArray("obstacle_markers") instance=ExtResource("10_gyffv")]
 position = Vector2(133, -262)
+shape_match_stiffness = 1000.0
 obstacle_markers = [NodePath("../Tilemap/TileMapLayer")]
 
 [node name="background" parent="." unique_id=979663656 instance=ExtResource("11_13y8f")]

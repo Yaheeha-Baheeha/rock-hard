@@ -347,6 +347,9 @@ func _extract_tilemap_polygons(tilemap: TileMapLayer) -> Array[PackedVector2Arra
 			polys.append(p)
 	return polys
 
+func should_enable_pressure_system() -> bool:
+	return current_shape == ShapeType.CIRCLE
+
 func _build_shape(shape_type: ShapeType, spawn_center: Vector2 = position, initial_vel: Vector2 = Vector2.ZERO) -> void:
 	var rest_offsets: Array[Vector2] = []
 	
@@ -375,6 +378,8 @@ func _build_shape(shape_type: ShapeType, spawn_center: Vector2 = position, initi
 				var angle = i * (PI * 2.0 / 6.0)
 				corners.append(Vector2(cos(angle), sin(angle)) * radius)
 			rest_offsets = _sample_polygon_perimeter(corners, num_points)
+
+	enable_pressure_system = should_enable_pressure_system()
 
 	for offset in rest_offsets:
 		var pos = spawn_center + offset

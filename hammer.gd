@@ -4,6 +4,11 @@ extends Node2D
 @export var smash_duration: float = 0.35
 @export var spin_rotations: float = 2.5
 @export var shrink_scale: float = 0.2
+@export var corpse_fragment_count: int = 14
+@export var corpse_fragment_lifetime: float = 0.65
+@export var corpse_fragment_min_size: Vector2 = Vector2(4, 4)
+@export var corpse_fragment_max_size: Vector2 = Vector2(12, 12)
+@export var corpse_fragment_speed: float = 220.0
 
 @onready var swing_animation_player: AnimationPlayer = $SwingAnimationPlayer
 
@@ -74,6 +79,9 @@ func _start_smash_animation(target: Node2D) -> void:
 
 	_destroying_targets[target] = true
 	_disable_collision(target)
+	if _should_spawn_texture_fragments(target):
+		_spawn_corpse_break_fragments(target)
+		return
 	_play_smash_animation(target)
 
 func _play_smash_animation(target: Node2D) -> void:
@@ -123,3 +131,107 @@ func _disable_collision(root: Node) -> void:
 
 	for child in root.find_children("*", "CollisionPolygon2D", true, false):
 		(child as CollisionPolygon2D).set_deferred("disabled", true)
+
+
+func _should_spawn_texture_fragments(target: Node2D) -> bool:
+	if target.is_in_group("corpse"):
+		return true
+	return target.name == "DeathShapeBody"
+
+
+func _spawn_corpse_break_fragments(target: Node2D) -> void:
+	var source_texture := _get_corpse_texture(target)
+	if not source_texture:
+		if is_instance_valid(target):
+			target.queue_free()
+		_destroying_targets.erase(target)
+		return
+
+	var source_size := _get_corpse_texture_size(target, source_texture)
+	if source_size.x <= 0.0 or source_size.y <= 0.0:
+		if is_instance_valid(target):
+			target.queue_free()
+		_destroying_targets.erase(target)
+		return
+
+	var fragment_parent := target.get_parent()
+	if not fragment_parent:
+		fragment_parent = get_tree().current_scene
+
+	var fragment_origin := target.global_position
+	var fragment_root := Node2D.new()
+	fragment_root.global_position = fragment_origin
+	fragment_parent.add_child(fragment_root)
+
+	for i in range(corpse_fragment_count):
+		var fragment := Sprite2D.new()
+		fragment.texture = source_texture
+		fragment.centered = true
+		fragment.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST if source_size.length() <= 64.0 else CanvasItem.TEXTURE_FILTER_LINEAR
+
+		var fragment_size := Vector2(
+			randf_range(corpse_fragment_min_size.x, corpse_fragment_max_size.x),
+			randf_range(corpse_fragment_min_size.y, corpse_fragment_max_size.y)
+		)
+		fragment.region_enabled = true
+
+		var max_x := maxf(0.0, source_size.x - fragment_size.x)
+		var max_y := maxf(0.0, source_size.y - fragment_size.y)
+		var region_origin := Vector2(randf_range(0.0, max_x), randf_range(0.0, max_y))
+		fragment.region_rect = Rect2(region_origin, fragment_size)
+		fragment.position = Vector2(
+			randf_range(-source_size.x * 0.2, source_size.x * 0.2),
+			randf_range(-source_size.y * 0.2, source_size.y * 0.2)
+		)
+		fragment.rotation = randf_range(0.0, TAU)
+		fragment.scale = Vector2.ONE * randf_range(0.75, 1.25)
+		fragment.modulate = Color(1, 1, 1, randf_range(0.75, 1.0))
+
+		fragment_root.add_child(fragment)
+
+		var tween := create_tween()
+		tween.set_parallel(true)
+		var fling_dir := Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
+		if fling_dir == Vector2.ZERO:
+			fling_dir = Vector2.UP
+		var fling_velocity := fling_dir * randf_range(corpse_fragment_speed * 0.45, corpse_fragment_speed)
+		fling_velocity.y -= corpse_fragment_speed * 0.35
+		tween.tween_property(fragment, "position", fragment.position + fling_velocity * corpse_fragment_lifetime, corpse_fragment_lifetime)
+		tween.tween_property(fragment, "rotation", fragment.rotation + randf_range(-TAU, TAU), corpse_fragment_lifetime)
+		tween.tween_property(fragment, "scale", Vector2.ONE * randf_range(0.2, 0.55), corpse_fragment_lifetime)
+		tween.tween_property(fragment, "modulate:a", 0.0, corpse_fragment_lifetime)
+		tween.finished.connect(Callable(fragment, "queue_free"), CONNECT_ONE_SHOT)
+
+	var cleanup_timer := Timer.new()
+	cleanup_timer.one_shot = true
+	cleanup_timer.wait_time = corpse_fragment_lifetime
+	cleanup_timer.timeout.connect(Callable(fragment_root, "queue_free"), CONNECT_ONE_SHOT)
+	fragment_root.add_child(cleanup_timer)
+	cleanup_timer.start()
+
+	if is_instance_valid(target):
+		target.queue_free()
+	_destroying_targets.erase(target)
+
+
+func _get_corpse_texture(target: Node2D) -> Texture2D:
+	for child in target.get_children():
+		if child is Polygon2D:
+			var polygon := child as Polygon2D
+			if polygon.texture:
+				if polygon.texture is AtlasTexture:
+					return (polygon.texture as AtlasTexture).atlas
+				return polygon.texture
+	return null
+
+
+func _get_corpse_texture_size(target: Node2D, texture: Texture2D) -> Vector2:
+	for child in target.get_children():
+		if child is Polygon2D:
+			var polygon := child as Polygon2D
+			if polygon.texture:
+				if polygon.texture is AtlasTexture:
+					var atlas := polygon.texture as AtlasTexture
+					return atlas.region.size
+				return texture.get_size()
+	return texture.get_size()

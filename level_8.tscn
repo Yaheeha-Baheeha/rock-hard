@@ -33,162 +33,13 @@
 [ext_resource type="Texture2D" uid="uid://doawjefj2ha2p" path="res://Textures/Lava/fall/lavafall_21.png" id="30_2uf4a"]
 [ext_resource type="Texture2D" uid="uid://ckjbx66vas5mv" path="res://Textures/Lava/fall/lavafall_22.png" id="31_u3yhf"]
 [ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="36_iq1si"]
+[ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="36_thifg"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="36_vhepx"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="37_thifg"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bjebc"]
-size = Vector2(20, 1359.5)
+[ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="37_xbesp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5hph3"]
 size = Vector2(432.5, 140.5)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_fgv3a"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("10_b1wdy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_jrcil")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_bjg5l")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_ibm1a")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_yxntu")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_ijosd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_r6euk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_2q1qm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_iheug")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_vew4v")
-}, {
-"duration": 1.0,
-"texture": ExtResource("20_ivfvh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_05whr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_g7f3v")
-}, {
-"duration": 1.0,
-"texture": ExtResource("23_ypc0v")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_h85o1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_p564p")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_obq6u")
-}, {
-"duration": 1.0,
-"texture": ExtResource("27_ek7p1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("28_ln5ef")
-}, {
-"duration": 1.0,
-"texture": ExtResource("29_4tyll")
-}, {
-"duration": 1.0,
-"texture": ExtResource("30_2uf4a")
-}, {
-"duration": 1.0,
-"texture": ExtResource("31_u3yhf")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 60.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_swvua"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("31_u3yhf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_b1wdy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_jrcil")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_bjg5l")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_ibm1a")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_yxntu")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_ijosd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_r6euk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_2q1qm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_iheug")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_vew4v")
-}, {
-"duration": 1.0,
-"texture": ExtResource("20_ivfvh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_05whr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_g7f3v")
-}, {
-"duration": 1.0,
-"texture": ExtResource("23_ypc0v")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_h85o1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_p564p")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_obq6u")
-}, {
-"duration": 1.0,
-"texture": ExtResource("27_ek7p1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("28_ln5ef")
-}, {
-"duration": 1.0,
-"texture": ExtResource("29_4tyll")
-}, {
-"duration": 1.0,
-"texture": ExtResource("30_2uf4a")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 60.0
-}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ett8d"]
 animations = [{
@@ -362,6 +213,40 @@ metadata/_snap_enabled = true
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_xbesp"]
 gradient = SubResource("Gradient_thifg")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3odb"]
+shader = ExtResource("36_thifg")
+shader_parameter/core_color = Color(1, 0, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_caiox"]
+shader = ExtResource("36_thifg")
+shader_parameter/core_color = Color(1, 0.6166667, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e3etx"]
+shader = ExtResource("36_thifg")
+shader_parameter/core_color = Color(1, 0.9, 0.2, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/crust_edge = 0.45
+shader_parameter/core_start = 0.8
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oxvag"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_thifg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2u0tw"]
+size = Vector2(165, 953)
+
 [node name="Game" type="Node2D" unique_id=984303330]
 
 [node name="Hammer" parent="." unique_id=681332400 instance=ExtResource("1_iq1si")]
@@ -384,26 +269,6 @@ tile_set = ExtResource("4_u8pr6")
 
 [node name="Lava" type="Node2D" parent="." unique_id=939058580]
 
-[node name="DeahConditionStatic" type="Area2D" parent="Lava" unique_id=593906030]
-position = Vector2(839.75, 111)
-script = ExtResource("8_i2ukg")
-player_root_path = NodePath("../../Player")
-softbody_path = NodePath("../../Player/SoftBodySphere")
-player_controller_path = NodePath("../../Player")
-respawn_point_path = NodePath("../../RespawnPoint")
-spawn_parent_path = NodePath("../..")
-ceramic_type = 1
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("9_a5kc6")
-shape_texture_region = Rect2(0, 0, 100, 100)
-shape_texture_repeat = true
-circle_approximation_segments = 35
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeahConditionStatic" unique_id=1209302585]
-position = Vector2(588.25, -12.75)
-shape = SubResource("RectangleShape2D_bjebc")
-debug_color = Color(0.72944677, 0.4236925, 0.56939113, 0.41960785)
-
 [node name="DeahConditionRigid" type="Area2D" parent="Lava" unique_id=1863957217]
 script = ExtResource("8_i2ukg")
 player_root_path = NodePath("../../Player")
@@ -420,94 +285,9 @@ circle_approximation_segments = 40
 position = Vector2(839.75, 122.25)
 shape = SubResource("RectangleShape2D_5hph3")
 
-[node name="LavaFallSprite" type="Node2D" parent="Lava" unique_id=1912215405]
-
-[node name="Lavafall1" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=409314448]
-position = Vector2(1428, -542.00006)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_fgv3a")
-autoplay = "default"
-
-[node name="Lavafall2" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=174975116]
-position = Vector2(1428, -462)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall3" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=2038879727]
-position = Vector2(1428, -382.00003)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall4" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=922925832]
-position = Vector2(1428, -302)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall5" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=426397336]
-position = Vector2(1428, -222)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall6" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1469848389]
-position = Vector2(1428, -142)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall7" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=547845305]
-position = Vector2(1428, -62.000004)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall8" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1619197668]
-position = Vector2(1428, 17.999996)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall9" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1981826237]
-position = Vector2(1428, 98)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall10" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1493937799]
-position = Vector2(1428, 178)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall11" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1288263161]
-position = Vector2(1428, 258)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall12" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=590746704]
-position = Vector2(1428, 338)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall13" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=1510564735]
-position = Vector2(1428, 418)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
-[node name="Lavafall14" type="AnimatedSprite2D" parent="Lava/LavaFallSprite" unique_id=31698636]
-position = Vector2(1428, 498.00003)
-scale = Vector2(3.3333263, 3.3333263)
-sprite_frames = SubResource("SpriteFrames_swvua")
-autoplay = "default"
-
 [node name="Crevice" parent="Lava" unique_id=1955571131 instance=ExtResource("29_u8pr6")]
 position = Vector2(1429, -580)
+scale = Vector2(4.8176227, 4.8176227)
 
 [node name="Valley" type="Node2D" parent="Lava" unique_id=1593311819]
 z_index = -1
@@ -920,3 +700,42 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("36_iq1si")
+
+[node name="HotFluid" type="CanvasGroup" parent="." unique_id=542611890]
+material = SubResource("ShaderMaterial_v3odb")
+
+[node name="MediumFluid" type="CanvasGroup" parent="." unique_id=1840314602]
+material = SubResource("ShaderMaterial_caiox")
+
+[node name="ColdFluid" type="CanvasGroup" parent="." unique_id=1470630961]
+material = SubResource("ShaderMaterial_e3etx")
+
+[node name="Spawner2" type="Area2D" parent="." unique_id=1649024416]
+position = Vector2(1429, -551)
+script = ExtResource("37_xbesp")
+is_active = true
+despawn_rule = 1
+angle_variance = 0.0
+spawn_speed = 1200.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=1743463438]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_oxvag")
+
+[node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=685939278 groups=["ground"]]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=793454137]
+position = Vector2(-188, 616)
+shape = SubResource("WorldBoundaryShape2D_thifg")
+debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D" unique_id=1240198482]
+position = Vector2(1281.5, -77.5)
+shape = SubResource("RectangleShape2D_2u0tw")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="RigidBody2D" unique_id=2054955383]
+position = Vector2(1572, -77.5)
+shape = SubResource("RectangleShape2D_2u0tw")
