@@ -10,30 +10,124 @@ extends Node2D
 @export var corpse_fragment_max_size: Vector2 = Vector2(12, 12)
 @export var corpse_fragment_speed: float = 220.0
 
+# --- Hold-to-Break Variables ---
+@export var break_hold_time: float = 0.5
+@export var hits_during_hold: int = 3 
+
+var _is_holding: bool = false
+var _swing_timer: float = 0.0
+
+# Dictionary to track individual body states.
+# Format: { Node2D_target: {"progress": float, "next_threshold": float, "cracks_node": Node2D} }
+var _body_data: Dictionary = {}
+
 @onready var swing_animation_player: AnimationPlayer = $SwingAnimationPlayer
+@onready var progress_bar: AnimatedSprite2D = $AnimatedSprite2D
 
 var _destroying_targets: Dictionary = {}
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	z_index = 200
+	progress_bar.visible = false
+	progress_bar.frame = 0
 
 func _exit_tree() -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_HIDDEN:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	global_position = get_global_mouse_position()
+	
+	var current_target: Node2D = _get_target_under_cursor()
+	
+	# 1. Handle Hover & Progress Bar Display
+	if is_instance_valid(current_target) and not _destroying_targets.has(current_target):
+		progress_bar.visible = true
+		var data: Dictionary = _get_or_create_body_data(current_target)
+		var p_ratio: float = clamp(data.progress / break_hold_time, 0.0, 1.0)
+		
+		if progress_bar.sprite_frames:
+			var total_frames: int = progress_bar.sprite_frames.get_frame_count("default")
+			progress_bar.frame = int(p_ratio * (total_frames - 1))
+	else:
+		progress_bar.visible = false
+		
+	# 2. Handle Global Swinging & Target Damaging
+	if _is_holding:
+		_swing_timer += delta
+		var swing_interval: float = break_hold_time / float(hits_during_hold + 1.0)
+		
+		# Loop the swing animation globally while holding
+		if _swing_timer >= swing_interval:
+			_play_swing_animation()
+			_swing_timer = 0.0
+			
+		# Apply damage ONLY if hovering over a valid target
+		if is_instance_valid(current_target) and not _destroying_targets.has(current_target):
+			var data: Dictionary = _get_or_create_body_data(current_target)
+			data.progress += delta
+			
+			var p_ratio: float = clamp(data.progress / break_hold_time, 0.0, 1.0)
+			
+			# Trigger cracks based on thresholds
+			if p_ratio >= data.next_threshold and p_ratio < 1.0:
+				_spawn_procedural_crack(data.cracks_node)
+				data.next_threshold += 1.0 / (hits_during_hold + 1.0)
+			
+			# Final Break
+			if data.progress >= break_hold_time:
+				_play_swing_animation()
+				_start_smash_animation(current_target)
+				_body_data.erase(current_target)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		_play_swing_animation()
-		_smash_under_cursor()
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			_is_holding = true
+			_swing_timer = break_hold_time # Force an immediate swing on click
+		else:
+			_is_holding = false
+			_swing_timer = 0.0
 
-func _play_swing_animation() -> void:
-	swing_animation_player.play("swing")
+func _get_or_create_body_data(target: Node2D) -> Dictionary:
+	if not _body_data.has(target):
+		var cracks = Node2D.new()
+		target.add_child(cracks)
+		
+		_body_data[target] = {
+			"progress": 0.0,
+			"next_threshold": 1.0 / (hits_during_hold + 1.0),
+			"cracks_node": cracks
+		}
+	return _body_data[target]
 
-func _smash_under_cursor() -> void:
+func _spawn_procedural_crack(crack_parent: Node2D) -> void:
+	if not is_instance_valid(crack_parent):
+		return
+		
+	var crack := Line2D.new()
+	crack.width = randf_range(1.5, 3.5)
+	crack.default_color = Color(0.05, 0.05, 0.05, 0.95)
+	crack.joint_mode = Line2D.LINE_JOINT_SHARP
+	crack.begin_cap_mode = Line2D.LINE_CAP_ROUND
+	crack.end_cap_mode = Line2D.LINE_CAP_ROUND
+	
+	var current_pos := Vector2(randf_range(-10.0, 10.0), randf_range(-10.0, 10.0))
+	crack.add_point(current_pos)
+	
+	var main_dir := Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
+	var segments := randi_range(2, 4)
+	
+	for i in range(segments):
+		var angle_offset: float = randf_range(-0.6, 0.6)
+		var segment_dir := main_dir.rotated(angle_offset)
+		current_pos += segment_dir * randf_range(6.0, 14.0)
+		crack.add_point(current_pos)
+		
+	crack_parent.add_child(crack)
+
+func _get_target_under_cursor() -> Node2D:
 	var space_state := get_world_2d().direct_space_state
 	var query := PhysicsPointQueryParameters2D.new()
 	query.position = get_global_mouse_position()
@@ -41,20 +135,19 @@ func _smash_under_cursor() -> void:
 	query.collide_with_areas = false
 
 	var hits := space_state.intersect_point(query, 32)
-	if hits.is_empty():
-		return
-
-	var smash_count := 0
 	for hit in hits:
-		if smash_count >= max_hits_per_click:
-			break
-
 		var collider: Node = hit.get("collider")
 		var smashable_target := _find_smashable_target(collider)
 		if smashable_target:
-			_start_smash_animation(smashable_target)
-			smash_count += 1
+			return smashable_target
+			
+	return null
 
+func _play_swing_animation() -> void:
+	swing_animation_player.stop()
+	swing_animation_player.play("swing")
+
+# --- Original Smashing/Fragment logic below remains unchanged ---
 
 func _find_smashable_target(start_node: Node) -> Node2D:
 	var current: Node = start_node
@@ -93,7 +186,6 @@ func _play_smash_animation(target: Node2D) -> void:
 	animation_player.animation_finished.connect(_on_smash_animation_finished.bind(target), CONNECT_ONE_SHOT)
 	animation_player.play("smash")
 
-
 func _play_tween_smash_animation(target: Node2D) -> void:
 	if not is_instance_valid(target):
 		_destroying_targets.erase(target)
@@ -106,7 +198,6 @@ func _play_tween_smash_animation(target: Node2D) -> void:
 	if target is CanvasItem:
 		tween.tween_property(target, "modulate:a", 0.0, smash_duration)
 	tween.finished.connect(_on_tween_smash_finished.bind(target), CONNECT_ONE_SHOT)
-
 
 func _on_tween_smash_finished(target: Node2D) -> void:
 	if is_instance_valid(target):
@@ -132,12 +223,10 @@ func _disable_collision(root: Node) -> void:
 	for child in root.find_children("*", "CollisionPolygon2D", true, false):
 		(child as CollisionPolygon2D).set_deferred("disabled", true)
 
-
 func _should_spawn_texture_fragments(target: Node2D) -> bool:
 	if target.is_in_group("corpse"):
 		return true
 	return target.name == "DeathShapeBody"
-
 
 func _spawn_corpse_break_fragments(target: Node2D) -> void:
 	var source_texture := _get_corpse_texture(target)
@@ -213,7 +302,6 @@ func _spawn_corpse_break_fragments(target: Node2D) -> void:
 		target.queue_free()
 	_destroying_targets.erase(target)
 
-
 func _get_corpse_texture(target: Node2D) -> Texture2D:
 	for child in target.get_children():
 		if child is Polygon2D:
@@ -223,7 +311,6 @@ func _get_corpse_texture(target: Node2D) -> Texture2D:
 					return (polygon.texture as AtlasTexture).atlas
 				return polygon.texture
 	return null
-
 
 func _get_corpse_texture_size(target: Node2D, texture: Texture2D) -> Vector2:
 	for child in target.get_children():

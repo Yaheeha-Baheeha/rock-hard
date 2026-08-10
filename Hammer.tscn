@@ -4,6 +4,20 @@
 [ext_resource type="Texture2D" uid="uid://dpvd6xykb1xxe" path="res://Textures/Hammer.png" id="2_texture"]
 [ext_resource type="Texture2D" uid="uid://b87byvun4ijdl" path="res://Textures/Hammer_normal.png" id="3_nif7i"]
 [ext_resource type="Texture2D" uid="uid://dmh0u8xxe51ts" path="res://Textures/Hammer_specular.png" id="4_xqgrq"]
+[ext_resource type="Texture2D" uid="uid://bt27h5f8njhoj" path="res://Textures/LoadingForBreak/loading-00.png" id="5_xpacs"]
+[ext_resource type="Texture2D" uid="uid://dt4ey8r15540u" path="res://Textures/LoadingForBreak/loading-01.png" id="6_dtenk"]
+[ext_resource type="Texture2D" uid="uid://cuke55566rfy8" path="res://Textures/LoadingForBreak/loading-02.png" id="7_g4tq5"]
+[ext_resource type="Texture2D" uid="uid://b3u16b131k4pq" path="res://Textures/LoadingForBreak/loading-03.png" id="8_i2rmv"]
+[ext_resource type="Texture2D" uid="uid://dlla83nxmraxy" path="res://Textures/LoadingForBreak/loading-04.png" id="9_nb0fp"]
+[ext_resource type="Texture2D" uid="uid://0eqki122ex1d" path="res://Textures/LoadingForBreak/loading-05.png" id="10_55407"]
+[ext_resource type="Texture2D" uid="uid://dghr2exdyoxg8" path="res://Textures/LoadingForBreak/loading-06.png" id="11_rj7qv"]
+[ext_resource type="Texture2D" uid="uid://blmfe6gh7h5tf" path="res://Textures/LoadingForBreak/loading-07.png" id="12_tq7f5"]
+[ext_resource type="Texture2D" uid="uid://bvkkvc1lodrkx" path="res://Textures/LoadingForBreak/loading-08.png" id="13_ax6wx"]
+[ext_resource type="Texture2D" uid="uid://dgs32b76qs6iq" path="res://Textures/LoadingForBreak/loading-09.png" id="14_2lonw"]
+[ext_resource type="Texture2D" uid="uid://dsjifotru3vvx" path="res://Textures/LoadingForBreak/loading-10.png" id="15_bvfqf"]
+[ext_resource type="Texture2D" uid="uid://3qb3jn0q55v5" path="res://Textures/LoadingForBreak/loading-11.png" id="16_6sege"]
+[ext_resource type="Texture2D" uid="uid://o6tmociyw7og" path="res://Textures/LoadingForBreak/loading-12.png" id="17_vnn5d"]
+[ext_resource type="Texture2D" uid="uid://bkkg7mo6t3mel" path="res://Textures/LoadingForBreak/loading-13.png" id="18_ldo7y"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_663uh"]
 diffuse_texture = ExtResource("2_texture")
@@ -31,6 +45,59 @@ _data = {
 &"swing": SubResource("Animation_swing")
 }
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_2u0tw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_xpacs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dtenk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_g4tq5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_i2rmv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_nb0fp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_55407")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_rj7qv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_tq7f5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ax6wx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_2lonw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_bvfqf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_6sege")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_vnn5d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_ldo7y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xpacs")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 28.0
+}]
+
 [node name="Hammer" type="Node2D" unique_id=1722124445]
 script = ExtResource("1_script")
 
@@ -39,3 +106,10 @@ texture = SubResource("CanvasTexture_663uh")
 
 [node name="SwingAnimationPlayer" type="AnimationPlayer" parent="." unique_id=141494857]
 libraries/ = SubResource("AnimationLibrary_hammer")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=809950270]
+visible = false
+scale = Vector2(1.625, 1.625)
+sprite_frames = SubResource("SpriteFrames_2u0tw")
+frame = 11
+frame_progress = 0.09398264

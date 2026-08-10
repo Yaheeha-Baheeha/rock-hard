@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="9_pn8mn"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="11_lv1pg"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="12_1wgld"]
-[ext_resource type="Texture2D" uid="uid://bk0rqjt5mlyqn" path="res://Textures/Tutorial/Screenshot 2026-06-17 203749.png" id="13_1wgld"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="14_pn8mn"]
 [ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="16_t0qt0"]
 [ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="17_tyqkn"]
@@ -202,12 +201,6 @@ sources/0 = SubResource("TileSetAtlasSource_7amt0")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_25nx4"]
 size = Vector2(217324, 1572)
 
-[sub_resource type="LabelSettings" id="LabelSettings_pn8mn"]
-font_size = 108
-
-[sub_resource type="LabelSettings" id="LabelSettings_1wgld"]
-font_size = 169
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pn8mn"]
 size = Vector2(217324, 1572)
 
@@ -389,32 +382,6 @@ script = ExtResource("14_pn8mn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=951252359]
 position = Vector2(0, 3236)
 shape = SubResource("RectangleShape2D_25nx4")
-
-[node name="TempLabelsForRaymond" type="Node2D" parent="." unique_id=1910308315]
-
-[node name="Screenshot20260617203749" type="Sprite2D" parent="TempLabelsForRaymond" unique_id=1281291707]
-z_index = -1
-position = Vector2(-1088, -1317)
-texture = ExtResource("13_1wgld")
-
-[node name="Label" type="Label" parent="TempLabelsForRaymond" unique_id=678745384]
-offset_left = -308.0
-offset_top = -1716.0
-offset_right = 1311.0
-offset_bottom = -1266.0
-text = "Hi raymond, i think the arrows 
-explain when the lava flows 
-gracias senior"
-label_settings = SubResource("LabelSettings_pn8mn")
-
-[node name="Label2" type="Label" parent="TempLabelsForRaymond" unique_id=1337791256]
-offset_left = -662.0
-offset_top = 875.0
-offset_right = 1240.0
-offset_bottom = 1340.0
-text = "also ts can be activated
-by a dead body"
-label_settings = SubResource("LabelSettings_1wgld")
 
 [node name="Lava" type="Node2D" parent="." unique_id=744338625]
 position = Vector2(-1088, -1317)
