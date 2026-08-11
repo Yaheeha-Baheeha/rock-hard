@@ -99,6 +99,7 @@ animations = [{
 }]
 
 [node name="Hammer" type="Node2D" unique_id=1722124445]
+z_index = 900
 script = ExtResource("1_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1645393508]

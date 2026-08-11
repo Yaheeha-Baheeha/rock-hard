@@ -6,9 +6,9 @@
 [ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="6_y646j"]
 [ext_resource type="PackedScene" uid="uid://dp2yvv1x5o1jn" path="res://lever.tscn" id="7_lnbra"]
 [ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="7_y646j"]
-[ext_resource type="PackedScene" path="res://rectangle.tscn" id="8_lowby"]
+[ext_resource type="PackedScene" uid="uid://2vbm7n5uvx3l" path="res://rectangle.tscn" id="8_lowby"]
 [ext_resource type="PackedScene" uid="uid://y45uos01wsg5" path="res://hexagon.tscn" id="9_58smv"]
-[ext_resource type="PackedScene" path="res://pentagon.tscn" id="10_a25ih"]
+[ext_resource type="PackedScene" uid="uid://dc664luiftqk2" path="res://triangle.tscn" id="10_a25ih"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="11_13y8f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gbhdq"]
@@ -245,7 +245,7 @@ shape = SubResource("WorldBoundaryShape2D_5rr72")
 debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="RespawnPoint" type="Marker2D" parent="." unique_id=83837171]
-position = Vector2(-787, -306)
+position = Vector2(-782, -315)
 
 [node name="Hammer" parent="." unique_id=1137941089 instance=ExtResource("4_4ptq8")]
 position = Vector2(286, 72)
@@ -253,7 +253,6 @@ position = Vector2(286, 72)
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("5_gbhdq")]
 position = Vector2(-782, -315)
 enable_pressure_system = false
-shape_match_stiffness = 1000.0
 
 [node name="Spawner" type="Area2D" parent="." unique_id=595634446 node_paths=PackedStringArray("target_lever")]
 position = Vector2(713, -1121)

@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 @onready var progress_bar: AnimatedSprite2D = $TextureProgressBar/Progress
-@onready var pentagon_slot: TextureButton = $PentagonSlot
+@onready var triangle_slot: TextureButton = $TriangleSlot
 @onready var hexagon_slot: TextureButton = $HexagonSlot
 @onready var rectangle_slot: TextureButton = $RectangleSlot
 @onready var circle_slot: TextureButton = $CircleSlot
@@ -20,10 +20,10 @@ func _ready() -> void:
 	if game_manager and game_manager.has_signal("collectable_added"):
 		game_manager.collectable_added.connect(_on_collectable_added)
 	
-	pentagon_slot.pressed.connect(_on_slot_pressed.bind(0))
-	hexagon_slot.pressed.connect(_on_slot_pressed.bind(1))
+	triangle_slot.pressed.connect(_on_slot_pressed.bind(0))
+	circle_slot.pressed.connect(_on_slot_pressed.bind(1))
 	rectangle_slot.pressed.connect(_on_slot_pressed.bind(2))
-	circle_slot.pressed.connect(_on_slot_pressed.bind(3))
+	hexagon_slot.pressed.connect(_on_slot_pressed.bind(3))
 	
 	_refresh_collectible_slots()
 	_update_selected_slot(0)
@@ -62,12 +62,13 @@ func _refresh_collectible_slots() -> void:
 		return
 
 	var game_manager := get_node("/root/GameManager")
-	pentagon_slot.visible = game_manager.has_collectable("pentagon")
-	hexagon_slot.visible = game_manager.has_collectable("hexagon")
+	triangle_slot.visible = game_manager.has_collectable("triangle")
+	circle_slot.visible = triangle_slot.visible or hexagon_slot.visible or rectangle_slot.visible
 	rectangle_slot.visible = game_manager.has_collectable("rectangle")
-	circle_slot.visible = pentagon_slot.visible or hexagon_slot.visible or rectangle_slot.visible
+	hexagon_slot.visible = game_manager.has_collectable("hexagon")
 
-	if pentagon_slot.visible or hexagon_slot.visible or rectangle_slot.visible or circle_slot.visible:
+
+	if triangle_slot.visible or hexagon_slot.visible or rectangle_slot.visible or circle_slot.visible:
 		if not _is_slot_visible(selected_slot_index):
 			_update_selected_slot(_first_visible_slot_index())
 
@@ -97,39 +98,39 @@ func _update_selected_slot(index: int) -> void:
 	if not _is_slot_visible(index):
 		index = _first_visible_slot_index()
 	selected_slot_index = index
-	pentagon_slot.modulate = Color(1, 1, 1, 0.65)
-	hexagon_slot.modulate = Color(1, 1, 1, 0.65)
-	rectangle_slot.modulate = Color(1, 1, 1, 0.65)
+	triangle_slot.modulate = Color(1, 1, 1, 0.65)
 	circle_slot.modulate = Color(1, 1, 1, 0.65)
+	rectangle_slot.modulate = Color(1, 1, 1, 0.65)
+	hexagon_slot.modulate = Color(1, 1, 1, 0.65)
 	if selected_slot_index == 0:
-		pentagon_slot.modulate = Color(1.0, 1.0, 0.75, 1.0)
+		triangle_slot.modulate = Color(1.0, 1.0, 0.75, 1.0)
 	elif selected_slot_index == 1:
-		hexagon_slot.modulate = Color(1.0, 1.0, 0.75, 1.0)
+		circle_slot.modulate = Color(1.0, 1.0, 0.75, 1.0)
 	elif selected_slot_index == 2:
 		rectangle_slot.modulate = Color(1.0, 1.0, 0.75, 1.0)
 	elif selected_slot_index == 3:
-		circle_slot.modulate = Color(1.0, 1.0, 0.75, 1.0)
+		hexagon_slot.modulate = Color(1.0, 1.0, 0.75, 1.0)
 
 func _is_slot_visible(index: int) -> bool:
 	match index:
 		0:
-			return pentagon_slot.visible
+			return triangle_slot.visible
 		1:
-			return hexagon_slot.visible
+			return circle_slot.visible
 		2:
 			return rectangle_slot.visible
 		3:
-			return circle_slot.visible
+			return hexagon_slot.visible
 		_:
 			return false
 
 func _first_visible_slot_index() -> int:
-	if pentagon_slot.visible:
+	if triangle_slot.visible:
 		return 0
-	if hexagon_slot.visible:
+	if circle_slot.visible:
 		return 1
 	if rectangle_slot.visible:
 		return 2
-	if circle_slot.visible:
+	if hexagon_slot.visible:
 		return 3
 	return 0

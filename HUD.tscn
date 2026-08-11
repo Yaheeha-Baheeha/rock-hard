@@ -16,10 +16,9 @@
 [ext_resource type="Script" uid="uid://bfww25oi7unxd" path="res://HardnessBar.gd" id="14_d5xqv"]
 [ext_resource type="Texture2D" uid="uid://b7a81ae4gt5ha" path="res://Textures/Bar/bar_overlay.png" id="15_cb8im"]
 [ext_resource type="Texture2D" uid="uid://bulna16gyu2pl" path="res://Textures/Bar/bottom.png" id="16_ptsyy"]
-[ext_resource type="Texture2D" uid="uid://bgjpo7u3hrd82" path="res://resources/pentagon_placeholder.tres" id="17_pentx"]
-[ext_resource type="Texture2D" uid="uid://o57bhbmxho1j" path="res://resources/hexagon_placeholder.tres" id="18_hexgx"]
-[ext_resource type="Texture2D" uid="uid://cp2k22q8g11e4" path="res://resources/rectangle_placeholder.tres" id="19_rectx"]
-[ext_resource type="Texture2D" uid="uid://c4pnlqeaeew8k" path="res://resources/circle_placeholder.tres" id="20_circx"]
+[ext_resource type="Texture2D" uid="uid://blj2mv386krjn" path="res://Textures/Moulds/MouldTri.png" id="17_kxho0"]
+[ext_resource type="Texture2D" uid="uid://xyi5ovklxhe3" path="res://Textures/Moulds/MouldCir.png" id="18_fsk4d"]
+[ext_resource type="Texture2D" uid="uid://bo0152qcutdn1" path="res://Textures/Moulds/MouldRec.png" id="19_shyf5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2u0tw"]
 animations = [{
@@ -65,6 +64,9 @@ animations = [{
 "speed": 13.0
 }]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_etkvc"]
+size = Vector2(60, 60)
+
 [node name="Node2D" type="CanvasLayer" unique_id=753683486]
 script = ExtResource("14_d5xqv")
 
@@ -99,46 +101,34 @@ rotation = 1.5707964
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("16_ptsyy")
 
-[node name="PentagonSlot" type="TextureButton" parent="." unique_id=2147483601]
+[node name="TriangleSlot" type="TextureButton" parent="." unique_id=2147483601]
 offset_left = 20.0
 offset_top = 562.0
 offset_right = 116.0
 offset_bottom = 658.0
-texture_normal = ExtResource("17_pentx")
-texture_pressed = ExtResource("17_pentx")
-texture_hover = ExtResource("17_pentx")
-texture_disabled = ExtResource("17_pentx")
-texture_focused = ExtResource("17_pentx")
+texture_normal = ExtResource("17_kxho0")
+stretch_mode = 0
 
-[node name="HexagonSlot" type="TextureButton" parent="." unique_id=2147483602]
+[node name="CircleSlot" type="TextureButton" parent="." unique_id=2147483604]
 offset_left = 126.0
 offset_top = 562.0
 offset_right = 222.0
 offset_bottom = 658.0
-texture_normal = ExtResource("18_hexgx")
-texture_pressed = ExtResource("18_hexgx")
-texture_hover = ExtResource("18_hexgx")
-texture_disabled = ExtResource("18_hexgx")
-texture_focused = ExtResource("18_hexgx")
+texture_normal = ExtResource("18_fsk4d")
+stretch_mode = 0
 
 [node name="RectangleSlot" type="TextureButton" parent="." unique_id=2147483603]
 offset_left = 231.0
 offset_top = 562.0
 offset_right = 327.0
 offset_bottom = 658.0
-texture_normal = ExtResource("19_rectx")
-texture_pressed = ExtResource("19_rectx")
-texture_hover = ExtResource("19_rectx")
-texture_disabled = ExtResource("19_rectx")
-texture_focused = ExtResource("19_rectx")
+texture_normal = ExtResource("19_shyf5")
+stretch_mode = 0
 
-[node name="CircleSlot" type="TextureButton" parent="." unique_id=2147483604]
-offset_left = 335.0
+[node name="HexagonSlot" type="TextureButton" parent="." unique_id=2147483602]
+offset_left = 336.0
 offset_top = 562.0
-offset_right = 431.0
+offset_right = 432.0
 offset_bottom = 658.0
-texture_normal = ExtResource("20_circx")
-texture_pressed = ExtResource("20_circx")
-texture_hover = ExtResource("20_circx")
-texture_disabled = ExtResource("20_circx")
-texture_focused = ExtResource("20_circx")
+texture_normal = SubResource("PlaceholderTexture2D_etkvc")
+stretch_mode = 3

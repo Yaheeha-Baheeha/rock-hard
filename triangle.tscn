@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dc664luiftqk2"]
+
+[ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://blj2mv386krjn" path="res://Textures/Moulds/MouldTri.png" id="2_4lwxm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(70, 70)
+
+[node name="Triangle" type="Node2D" unique_id=1829089341]
+script = ExtResource("1")
+collectible_key = "triangle"
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1103222018]
+modulate = Color(1, 1, 1, 0.55)
+position = Vector2(0, 4)
+scale = Vector2(3.5000002, 3.5000002)
+texture = ExtResource("2_4lwxm")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=523421346]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=86708621]
+shape = SubResource("RectangleShape2D_1")

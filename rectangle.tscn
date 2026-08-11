@@ -1,29 +1,23 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://2vbm7n5uvx3l"]
 
-[ext_resource type="Script" path="res://collectable.gd" id="1"]
-[ext_resource type="Texture2D" path="res://resources/rectangle_placeholder.tres" id="2"]
-
-[sub_resource type="Gradient" id="Gradient_1"]
-colors = PackedColorArray(0.9098039, 0.47058824, 0.69803923, 1, 0.39607844, 0.1882353, 0.5686275, 1)
+[ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bo0152qcutdn1" path="res://Textures/Moulds/MouldRec.png" id="2_6kynl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(76, 52)
+size = Vector2(76, 76)
 
-[node name="Rectangle" type="Node2D"]
+[node name="Rectangle" type="Node2D" unique_id=1138608427]
 script = ExtResource("1")
 collectible_key = "rectangle"
 
-[node name="Shape" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-32, -24, 32, -24, 32, 24, -32, 24)
-color = Color(0.7372549, 0.29803923, 0.7607843, 0.9)
-
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("2")
+[node name="Icon" type="Sprite2D" parent="." unique_id=2062456282]
 modulate = Color(1, 1, 1, 0.55)
-scale = Vector2(0.82, 0.82)
+position = Vector2(0, 4)
+scale = Vector2(3.8125, 3.8125)
+texture = ExtResource("2_6kynl")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1081371205]
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2091048475]
 shape = SubResource("RectangleShape2D_1")
