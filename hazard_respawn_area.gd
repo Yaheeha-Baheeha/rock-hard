@@ -1,5 +1,8 @@
 extends Area2D
 
+# MAKE SURE THIS PATH MATCHES WHERE YOUR SCRIPT IS SAVED!
+const CORPSE_SCRIPT = preload("res://corpse.gd") 
+
 enum CeramicType {
 	RIGID,
 	STATIC,
@@ -76,49 +79,30 @@ func _spawn_shape_polygon(parent: Node) -> void:
 		polygon_points[i] -= centroid
 		polygon_points[i] += spawn_offset
 
-	var body_node: PhysicsBody2D
-	if ceramic_type == CeramicType.STATIC:
-		body_node = StaticBody2D.new()
-	else:
-		var rigid_body := RigidBody2D.new()
-		rigid_body.lock_rotation = true
-		rigid_body.mass = 1.0
-		body_node = rigid_body
-
-	body_node.name = "DeathShapeBody"
-	body_node.position = centroid
-	body_node.physics_material_override = shape_physics_material
-	body_node.add_to_group("hammer_smashable")
-
-	var collision_polygon := CollisionPolygon2D.new()
-	collision_polygon.polygon = polygon_points
-	body_node.add_child(collision_polygon)
-
-	var polygon_node := Polygon2D.new()
-	polygon_node.name = "DeathShapePolygon"
+	# --- NEW CORPSE SPAWNING LOGIC ---
+	var corpse := RigidBody2D.new()
+	corpse.set_script(CORPSE_SCRIPT)
 	
-	if shape_texture:
-		var tex_to_use := shape_texture
-		if shape_texture_region.size != Vector2.ZERO:
-			var atlas := AtlasTexture.new()
-			atlas.atlas = shape_texture
-			atlas.region = shape_texture_region
-			tex_to_use = atlas
-		
-		polygon_node.texture = tex_to_use
-		polygon_node.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED if shape_texture_repeat else CanvasItem.TEXTURE_REPEAT_DISABLED
-		
-		# --- ANCHOR AND POSITIONING CODE HERE ---
-		# Center the texture asset onto the dynamic centroid
-		polygon_node.texture_offset = tex_to_use.get_size() / 2.0
-		
-		polygon_node.color = shape_polygon_color
-	else:
-		polygon_node.color = shape_polygon_color
-		
-	polygon_node.polygon = polygon_points
-	body_node.add_child(polygon_node)
-	(parent as Node2D).add_child(body_node)
+	corpse.name = "PlayerCorpse"
+	corpse.lock_rotation = true
+	corpse.mass = 1.0
+	corpse.physics_material_override = shape_physics_material
+	
+	var is_static = (ceramic_type == CeramicType.STATIC)
+	
+	# Pass all the visual data over to the corpse so it handles building the nodes
+	corpse.setup_corpse(
+		polygon_points, 
+		shape_polygon_color, 
+		centroid, 
+		is_static, 
+		shape_texture, 
+		shape_texture_region, 
+		shape_texture_repeat
+	)
+	
+	parent.add_child(corpse)
+
 
 func _build_polygon_points_from_body(target_parent: Node2D) -> PackedVector2Array:
 	var points := PackedVector2Array()

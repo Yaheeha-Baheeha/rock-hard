@@ -1,5 +1,8 @@
 extends Node2D
 
+# MAKE SURE THIS PATH MATCHES YOUR PROJECT!
+const CORPSE_SCRIPT = preload("res://corpse.gd")
+
 @export_category("Softbody Configuration")
 @export var radius: float = 48.0
 @export var num_points: int = 32
@@ -182,51 +185,24 @@ func _spawn_corpse(is_static: bool = false) -> void:
 	for pt in global_poly:
 		local_poly.append(pt - centroid)
 		
-	var corpse: PhysicsBody2D
-	if is_static:
-		corpse = StaticBody2D.new()
-	else:
-		corpse = RigidBody2D.new()
-		corpse.mass = 5.0
-		
-	corpse.add_to_group("corpse")
-	corpse.add_to_group("hammer_smashable")
+	# --- USE THE CENTRALIZED CORPSE SCRIPT ---
+	var corpse := RigidBody2D.new()
+	corpse.set_script(CORPSE_SCRIPT)
+	
+	corpse.name = "PlayerCorpse"
+	corpse.mass = 5.0
 	corpse.top_level = true 
-	corpse.global_position = centroid
 	
-	var coll_shape = CollisionPolygon2D.new()
-	coll_shape.polygon = local_poly
-	corpse.add_child(coll_shape)
-	
-	var visual = Polygon2D.new()
-	visual.polygon = local_poly
-	visual.color = corpse_polygon_color
-	
-	if corpse_texture:
-		var tex_to_use := corpse_texture
-		var region_center := Vector2.ZERO
-		# If a region was provided (non-zero size) create an AtlasTexture to use only that portion
-		if corpse_texture_region.size != Vector2.ZERO:
-			var atlas := AtlasTexture.new()
-			atlas.atlas = corpse_texture
-			atlas.region = corpse_texture_region
-			tex_to_use = atlas
-			region_center = corpse_texture_region.position + (corpse_texture_region.size / 2.0)
-		else:
-			region_center = corpse_texture.get_size() / 2.0
-		visual.texture = tex_to_use
-		visual.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED if corpse_texture_repeat else CanvasItem.TEXTURE_REPEAT_DISABLED
-		# Keep color as a modulate so user can tint the texture if desired
-		visual.color = corpse_polygon_color
-		# Center the texture on the polygon by offsetting UVs by the texture/region center
-		var uvs := PackedVector2Array()
-		for pt in local_poly:
-			uvs.append(pt + region_center)
-		visual.uv = uvs
-	else:
-		visual.color = damage_color
-		
-	corpse.add_child(visual)
+	# Pass all data over to the corpse script so it handles the visual node building
+	corpse.setup_corpse(
+		local_poly,
+		corpse_polygon_color,
+		centroid,
+		is_static,
+		corpse_texture,
+		corpse_texture_region,
+		corpse_texture_repeat
+	)
 	
 	get_tree().current_scene.call_deferred("add_child", corpse)
 
