@@ -3,6 +3,15 @@ extends RigidBody2D
 @export_category("Corpse Settings")
 @export var is_static: bool = false
 @export var max_durability: float = 100.0
+@export var flame_texture: Texture2D ## DRAG "flame_particle.png" HERE IN THE INSPECTOR!
+
+@export_category("Flame Particles")
+@export var flame_amount: int = 10
+@export var flame_emission_radius: float = 35.0
+@export var flame_lifetime: float = 0.8
+@export var flame_scale_min: float = 1.0 ## Doubled from 0.5
+@export var flame_scale_max: float = 2.0 ## Doubled from 1.0
+@export var flame_gravity: Vector2 = Vector2(0, -150)
 
 @export_category("Break Settings")
 @export var corpse_fragment_count: int = 14
@@ -11,7 +20,6 @@ extends RigidBody2D
 @export var corpse_fragment_max_size: Vector2 = Vector2(12, 12)
 @export var corpse_fragment_speed: float = 220.0
 
-var current_durability: float
 var base_color: Color
 
 # Data stored from setup_corpse to be applied once nodes are ready
@@ -21,16 +29,27 @@ var _spawn_texture: Texture
 var _spawn_texture_region: Rect2
 var _spawn_texture_repeat: bool
 
-# --- Hammer Interaction State ---
+# --- Interaction State ---
 var _hammer_progress: float = 0.0
 var _next_threshold: float = 0.0
+
+var _melt_progress: float = 0.0
+var _current_melt_time: float = 1.0 # Avoid divide by zero
+var _next_melt_crack_threshold: float = 0.2
+var _flame_particles: GPUParticles2D
+var _lava_detector: Area2D
+
 var _cracks_node: Node2D = null
 var _is_destroying: bool = false
 
+
 func _ready() -> void:
-	current_durability = max_durability
 	add_to_group("corpse")
-	add_to_group("hammer_smashable") # Ensure the hammer fallback picks it up if needed
+	add_to_group("hammer_smashable") 
+	
+	# Fallback: re-enable rigid body contacts just in case
+	contact_monitor = true
+	max_contacts_reported = 10
 	
 	if is_static:
 		freeze_mode = RigidBody2D.FREEZE_MODE_STATIC
@@ -64,46 +83,136 @@ func _ready() -> void:
 		visual_poly.color = _spawn_color
 		
 	add_child(visual_poly)
+	
+	_setup_flame_particles()
+	_setup_lava_detector()
 
-func setup_corpse(poly: PackedVector2Array, color: Color, spawn_global_pos: Vector2, make_static: bool, tex: Texture = null, tex_reg: Rect2 = Rect2(), tex_rep: bool = false) -> void:
+
+func setup_corpse(poly: PackedVector2Array, color: Color, spawn_global_pos: Vector2, make_static: bool, tex: Texture = null, tex_reg: Rect2 = Rect2(), tex_rep: bool = false, custom_flame: Texture2D = null) -> void:
 	global_position = spawn_global_pos
 	base_color = color
 	is_static = make_static
 	
-	# Store these for _ready() to use when building the nodes
 	_spawn_poly = poly
 	_spawn_color = color
 	_spawn_texture = tex
 	_spawn_texture_region = tex_reg
 	_spawn_texture_repeat = tex_rep
-
-func take_lava_damage(amount: float, delta: float) -> void:
-	if _is_destroying: return
-	current_durability -= amount * delta
 	
-	var burn_percent = 1.0 - (current_durability / max_durability)
+	# If spawned by code (like the player), apply the passed texture!
+	if custom_flame:
+		flame_texture = custom_flame
+
+
+func _setup_lava_detector() -> void:
+	_lava_detector = Area2D.new()
+	_lava_detector.name = "LavaDetector"
+	
+	# FIX: Make the Area2D scan ALL 32 physics layers so it doesn't miss the lava!
+	_lava_detector.collision_layer = 0
+	_lava_detector.collision_mask = 4294967295
+	
+	var det_shape = CollisionPolygon2D.new()
+	det_shape.polygon = _spawn_poly
+	_lava_detector.add_child(det_shape)
+	
+	add_child(_lava_detector)
+
+
+func _setup_flame_particles() -> void:
+	_flame_particles = GPUParticles2D.new()
+	_flame_particles.name = "FlameParticles"
+	_flame_particles.emitting = false
+	_flame_particles.amount = flame_amount 
+	_flame_particles.lifetime = flame_lifetime
+	
+	if flame_texture:
+		_flame_particles.texture = flame_texture
+		
+	var mat = ParticleProcessMaterial.new()
+	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
+	mat.emission_sphere_radius = flame_emission_radius # <-- Now uses your Inspector variable!
+	mat.gravity = Vector3(flame_gravity.x, flame_gravity.y, 0) 
+	mat.scale_min = flame_scale_min
+	mat.scale_max = flame_scale_max
+	
+	var grad = Gradient.new()
+	grad.add_point(0.0, Color(1, 1, 1, 1))
+	grad.add_point(1.0, Color(1, 1, 1, 0))
+	var grad_tex = GradientTexture1D.new()
+	grad_tex.gradient = grad
+	mat.color_ramp = grad_tex
+	
+	_flame_particles.process_material = mat
+	add_child(_flame_particles)
+
+func _physics_process(delta: float) -> void:
+	if _is_destroying: return
+	
+	var is_in_lava = false
+	var fastest_melt_time = INF
+	
+	# Combine both the Area2D overlap AND the physical contacts to be 100% sure
+	var overlapping_bodies = _lava_detector.get_overlapping_bodies()
+	var colliding_bodies = get_colliding_bodies()
+	var all_bodies = overlapping_bodies + colliding_bodies
+	
+	for body in all_bodies:
+		if body.is_in_group("lava") and body.get("can_melt_corpses") == true:
+			is_in_lava = true
+			if body.get("corpse_melt_time") < fastest_melt_time:
+				fastest_melt_time = body.get("corpse_melt_time")
+				
+	if is_in_lava:
+		_current_melt_time = fastest_melt_time
+		_process_lava_melting(delta, fastest_melt_time)
+	else:
+		_flame_particles.emitting = false
+
+
+func _process_lava_melting(delta: float, melt_time: float) -> void:
+	_melt_progress += delta
+	var melt_ratio = clamp(_melt_progress / melt_time, 0.0, 1.0)
+	
+	# Darken visually
 	var poly_node = get_node_or_null("DeathShapePolygon")
 	if poly_node:
-		poly_node.color = base_color.lerp(Color(0.1, 0.1, 0.1, 1.0), burn_percent)
+		poly_node.color = base_color.lerp(Color(0.08, 0.08, 0.08, 1.0), melt_ratio)
 		
-	if current_durability <= 0.0:
-		queue_free()
+	# Ignite!
+	if not _flame_particles.emitting:
+		_flame_particles.emitting = true
+		
+	# Trigger procedural cracks at intervals
+	if melt_ratio >= _next_melt_crack_threshold and melt_ratio < 1.0:
+		_spawn_procedural_crack()
+		_next_melt_crack_threshold += 0.2
+		
+	if _melt_progress >= melt_time:
+		_is_destroying = true
+		_break_apart()
+
+
+# ==========================================
+# UI PROGRESS HELPERS
+# ==========================================
+
+func get_melt_progress_ratio() -> float:
+	# Call this from your hammer script to get a value from 0.0 to 1.0
+	if _is_destroying: return 1.0
+	return clamp(_melt_progress / _current_melt_time, 0.0, 1.0)
+
+func get_hammer_progress(max_time: float) -> float:
+	return clamp(_hammer_progress / max_time, 0.0, 1.0)
+
 
 # ==========================================
 # HAMMER INTERACTION LOGIC
 # ==========================================
 
-func get_hammer_progress(max_time: float) -> float:
-	return clamp(_hammer_progress / max_time, 0.0, 1.0)
-
 func take_hammer_damage(delta: float, break_hold_time: float, hits_during_hold: int) -> void:
 	if _is_destroying:
 		return
-		
-	if not is_instance_valid(_cracks_node):
-		_cracks_node = Node2D.new()
-		add_child(_cracks_node)
-		_next_threshold = 1.0 / (hits_during_hold + 1.0)
 		
 	_hammer_progress += delta
 	var p_ratio: float = clamp(_hammer_progress / break_hold_time, 0.0, 1.0)
@@ -116,8 +225,15 @@ func take_hammer_damage(delta: float, break_hold_time: float, hits_during_hold: 
 		_is_destroying = true
 		_break_apart()
 
+
+# ==========================================
+# UNIVERSAL BREAK LOGIC
+# ==========================================
+
 func _spawn_procedural_crack() -> void:
-	if not is_instance_valid(_cracks_node): return
+	if not is_instance_valid(_cracks_node):
+		_cracks_node = Node2D.new()
+		add_child(_cracks_node)
 		
 	var crack := Line2D.new()
 	crack.width = randf_range(1.5, 3.5)

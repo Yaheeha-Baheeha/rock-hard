@@ -42,10 +42,11 @@ const CORPSE_SCRIPT = preload("res://corpse.gd")
 @export var max_lava_stiffness: float = 1500.0
 
 @export_category("Corpse Settings")
-@export var corpse_texture: Texture2D ## Optional texture for the corpse!
-@export var corpse_texture_region: Rect2 = Rect2(0, 0, 0, 0) ## Set W and H > 0 to use a specific region of the texture
+@export var corpse_texture: Texture2D 
+@export var corpse_texture_region: Rect2 = Rect2(0, 0, 0, 0) 
 @export var corpse_texture_repeat: bool = false
 @export var corpse_polygon_color: Color = Color.WHITE
+@export var corpse_flame_texture: Texture2D ## <-- DRAG FLAME TEXTURE HERE ON THE PLAYER!
 
 @onready var soft_body = $SoftBodySphere
 @onready var center_tracker = $CenterTracker
@@ -201,8 +202,11 @@ func _spawn_corpse(is_static: bool = false) -> void:
 		is_static,
 		corpse_texture,
 		corpse_texture_region,
-		corpse_texture_repeat
+		corpse_texture_repeat,
+		corpse_flame_texture 
 	)
+	
+	get_tree().current_scene.call_deferred("add_child", corpse)
 	
 	get_tree().current_scene.call_deferred("add_child", corpse)
 

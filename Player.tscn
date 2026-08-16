@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bqtj82x21yemp" path="res://Textures/ClayBallmini_specular.png" id="4_8j43t"]
 [ext_resource type="Script" uid="uid://bwshlci7b4bor" path="res://camera_2d.gd" id="5_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="5_dtqjt"]
+[ext_resource type="Texture2D" uid="uid://cco852rubu64d" path="res://Textures/flame_particle.png" id="6_5ncpa"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8v41o"]
 diffuse_texture = ExtResource("2_mgb7i")
@@ -28,6 +29,7 @@ jump_strength = 420.0
 damage_color = Color(0.9137255, 0.6392157, 0.39607844, 1)
 corpse_texture = ExtResource("5_dtqjt")
 corpse_texture_region = Rect2(0, 0, 100, 100)
+corpse_flame_texture = ExtResource("6_5ncpa")
 
 [node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437]
 script = ExtResource("1_3xkec")

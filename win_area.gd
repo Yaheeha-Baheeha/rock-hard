@@ -1,14 +1,25 @@
 extends Sprite2D
 
 @export var next_level_number: int = 2
+@export var win_radius: float = 120.0 ## Adjust this in the Inspector!
+
 var has_won: bool = false
+var _player_node: Node2D
 
 func _ready():
 	add_to_group("win_zones")
+	_player_node = get_tree().get_first_node_in_group("player")
+
+func _process(_delta):
+	if has_won or not is_instance_valid(_player_node): 
+		return
+		
+	var distance_to_player = global_position.distance_to(_player_node.center_tracker.global_position)
+	
+	if distance_to_player <= win_radius:
+		trigger_win()
 
 func trigger_win():
-	if has_won:
-		return
 	has_won = true
 	print("Player detected!")
 	GameManager.unlock_level(next_level_number)

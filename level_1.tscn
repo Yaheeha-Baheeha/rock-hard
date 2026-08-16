@@ -1446,6 +1446,7 @@ texture = ExtResource("31_ett8d")
 position = Vector2(2705, -562)
 texture = ExtResource("31_notaq")
 script = ExtResource("6_5rr72")
+pickup_radius = 120.0
 
 [node name="Label" type="Label" parent="Floatives/Collectable" unique_id=533754881]
 offset_left = -43.0

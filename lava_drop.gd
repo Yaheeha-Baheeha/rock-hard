@@ -8,6 +8,11 @@ enum FluidType { HOT, MEDIUM, COLD }
 enum DespawnRule { NEVER, ON_GROUND, ON_FALL, ON_CORPSE_OR_GROUND }
 @export var despawn_rule: DespawnRule = DespawnRule.NEVER
 
+# --- CORPSE MELTING TOGGLE ---
+@export_category("Corpse Interactions")
+@export var can_melt_corpses: bool = true
+var corpse_melt_time: float = 15.0
+
 # The variable the player will read to take damage
 var damage_rate: float = 0.0
 var is_despawning: bool = false # Tracks if it's currently melting
@@ -27,6 +32,8 @@ var max_speed: float = 6000000.0
 @onready var radius_squared: float = smoothing_radius * smoothing_radius
 
 func _ready() -> void:
+	add_to_group("lava") # Allows the corpse to identify it easily
+	
 	# Force the engine to report what this body is touching
 	contact_monitor = true
 	max_contacts_reported = 5
@@ -39,6 +46,7 @@ func _ready() -> void:
 			viscosity = 0.05 
 			cohesion_strength = 5.0
 			max_speed = 8000000000000000.0
+			corpse_melt_time = 15.0
 			
 		FluidType.MEDIUM:
 			modulate = Color(1.0, 0.6, 0.0) # Orange
@@ -47,6 +55,7 @@ func _ready() -> void:
 			viscosity = 0.5
 			cohesion_strength = 50.0
 			max_speed = 900000.0
+			corpse_melt_time = 18.0
 			
 		FluidType.COLD:
 			modulate = Color(0.4, 0.4, 0.4) # Dark Grey Crust
@@ -55,6 +64,7 @@ func _ready() -> void:
 			viscosity = 0.15 
 			cohesion_strength = 50.0
 			max_speed = 300000.0
+			corpse_melt_time = 20.0
 
 func _physics_process(delta: float) -> void:
 	# 1. Only check for despawn rules if we aren't already shrinking
@@ -144,9 +154,6 @@ func _handle_despawning() -> bool:
 
 func _start_despawn_animation() -> void:
 	is_despawning = true
-	
-	# Smoothly shrink the VISUAL SPRITE ONLY! 
-	# Leaving the RigidBody2D untouched lets the physics keep flowing perfectly.
 	var tween = create_tween()
 	tween.tween_property(sprite, "scale", Vector2.ZERO, 0.3).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_callback(queue_free) 
+	tween.tween_callback(queue_free)

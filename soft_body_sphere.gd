@@ -1,6 +1,6 @@
 extends Node2D
 
-enum ShapeType { CIRCLE, RECTANGLE, PENTAGON, HEXAGON }
+enum ShapeType { TRIANGLE, CIRCLE, RECTANGLE, HEXAGON }
 var current_shape: ShapeType = ShapeType.CIRCLE
 
 class PointMass:
@@ -49,6 +49,7 @@ var shape_match_damping: float = 3.0
 var sub_steps: int = 4 
 
 var texture: Texture2D 
+var _bg_texture: CanvasTexture
 var texture_tint: Color = Color.WHITE
 
 var move_force: float = 1200.0
@@ -201,18 +202,6 @@ func _physics_process(delta: float) -> void:
 				if poly.size() > 0 and _is_point_in_polygon(p.position, poly):
 					_resolve_collision(p, poly)
 					
-			for win in win_polygons:
-				if win.poly.size() > 0 and _is_point_in_polygon(p.position, win.poly):
-					if is_instance_valid(win.node):
-						win.node.trigger_win()
-			
-			for i in range(collectible_polygons.size() - 1, -1, -1):
-				var coll = collectible_polygons[i]
-				if coll.poly.size() > 0 and _is_point_in_polygon(p.position, coll.poly):
-					if is_instance_valid(coll.node):
-						coll.node.trigger_collection()
-					collectible_polygons.remove_at(i)
-					
 			var is_dead = false
 			for hazard in hazard_polygons:
 				if hazard.poly.size() > 0 and _is_point_in_polygon(p.position, hazard.poly):
@@ -354,6 +343,14 @@ func _build_shape(shape_type: ShapeType, spawn_center: Vector2 = position, initi
 	var rest_offsets: Array[Vector2] = []
 	
 	match shape_type:
+		ShapeType.TRIANGLE:
+			var corners = PackedVector2Array()
+			var triangle_radius = radius * (4.0 / 3.3) 
+			for i in range(3):
+				var angle = i * (PI * 2.0 / 3.0) - (PI / 2.0)
+				corners.append(Vector2(cos(angle), sin(angle)) * triangle_radius)
+			rest_offsets = _sample_polygon_perimeter(corners, num_points)
+			
 		ShapeType.CIRCLE:
 			for i in range(num_points):
 				var angle = i * PI * 2.0 / num_points
@@ -365,12 +362,6 @@ func _build_shape(shape_type: ShapeType, spawn_center: Vector2 = position, initi
 			var corners = PackedVector2Array([Vector2(-w, -h), Vector2(w, -h), Vector2(w, h), Vector2(-w, h)])
 			rest_offsets = _sample_polygon_perimeter(corners, num_points)
 			
-		ShapeType.PENTAGON:
-			var corners = PackedVector2Array()
-			for i in range(5):
-				var angle = i * (PI * 2.0 / 5.0) - (PI / 2.0)
-				corners.append(Vector2(cos(angle), sin(angle)) * radius)
-			rest_offsets = _sample_polygon_perimeter(corners, num_points)
 			
 		ShapeType.HEXAGON:
 			var corners = PackedVector2Array()
@@ -381,9 +372,25 @@ func _build_shape(shape_type: ShapeType, spawn_center: Vector2 = position, initi
 
 	enable_pressure_system = should_enable_pressure_system()
 
+	# 1. Find the single absolute largest dimension to scale uniformly
+	var max_offset := 0.0
+	for offset in rest_offsets:
+		max_offset = maxf(max_offset, abs(offset.x))
+		max_offset = maxf(max_offset, abs(offset.y))
+		
+	var uv_scale := max_offset * 2.0
+	if uv_scale == 0: 
+		uv_scale = 0.001
+
+	# 2. Map the UVs uniformly so the face stays perfectly round but covers the bounds!
 	for offset in rest_offsets:
 		var pos = spawn_center + offset
-		var uv = Vector2(offset.x / (radius * 2.0) + 0.5, offset.y / (radius * 2.0) + 0.5)
+		
+		var uv = Vector2(
+			(offset.x / uv_scale) + 0.5,
+			(offset.y / uv_scale) + 0.5
+		)
+		
 		var point = PointMass.new(pos, uv, offset)
 		point.velocity = initial_vel
 		points.append(point)
@@ -558,12 +565,34 @@ func _draw() -> void:
 	var center_uv = Vector2(0.5, 0.5)
 	
 	if texture != null and not show_debug:
+		var clay_color = Color(0.937, 0.894, 0.690) * texture_tint
+		
+		# If the main texture has normal/specular maps (is a CanvasTexture), 
+		# we create a blank texture that copies those maps for the background!
+		var current_bg_tex = null
+		if texture is CanvasTexture:
+			if _bg_texture == null:
+				_bg_texture = CanvasTexture.new()
+			_bg_texture.normal_texture = texture.normal_texture
+			_bg_texture.specular_texture = texture.specular_texture
+			current_bg_tex = _bg_texture
+
+		# Draw the shape using triangle fans
 		for i in range(num_points):
 			var next_i = (i + 1) % num_points
 			var tri_points = PackedVector2Array([center_pos, render_positions[i], render_positions[next_i]])
 			var tri_uvs = PackedVector2Array([center_uv, points[i].uv, points[next_i].uv])
-			var tri_colors = PackedColorArray([texture_tint, texture_tint, texture_tint])
-			draw_polygon(tri_points, tri_colors, tri_uvs, texture)
+			
+			# 1. Draw the background clay color FIRST, using the same UVs so the normal maps perfectly align!
+			var bg_colors = PackedColorArray([clay_color, clay_color, clay_color])
+			if current_bg_tex:
+				draw_polygon(tri_points, bg_colors, tri_uvs, current_bg_tex)
+			else:
+				draw_polygon(tri_points, bg_colors, tri_uvs) # Fallback if no normal maps exist
+				
+			# 2. Draw the actual cute face texture ON TOP
+			var face_colors = PackedColorArray([texture_tint, texture_tint, texture_tint])
+			draw_polygon(tri_points, face_colors, tri_uvs, texture)
 	else:
 		var fill_color = Color(0.2, 0.6, 1.0, 0.3) if show_debug else Color(0.2, 0.6, 1.0, 0.8)
 		draw_colored_polygon(render_positions, fill_color)

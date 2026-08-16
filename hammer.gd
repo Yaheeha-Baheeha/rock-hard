@@ -40,8 +40,15 @@ func _process(delta: float) -> void:
 		# Duck Typing: Check if the target is handling its own hammer logic (like our new corpse)
 		if current_target.has_method("get_hammer_progress"):
 			p_ratio = current_target.get_hammer_progress(break_hold_time)
-		else:
-			# Fallback for old objects
+			
+		# --- NEW: Check if it's melting in lava! ---
+		if current_target.has_method("get_melt_progress_ratio"):
+			var melt_ratio: float = current_target.get_melt_progress_ratio()
+			# If the lava is melting it faster than we are hammering it, show the lava's progress!
+			p_ratio = max(p_ratio, melt_ratio)
+			
+		# Fallback for old objects
+		if not current_target.has_method("get_hammer_progress") and not current_target.has_method("get_melt_progress_ratio"):
 			var data: Dictionary = _get_or_create_fallback_data(current_target)
 			p_ratio = clamp(data.progress / break_hold_time, 0.0, 1.0)
 		
@@ -107,13 +114,13 @@ func _get_target_under_cursor() -> Node2D:
 		var collider: Node = hit.get("collider")
 		
 		# --- ADD THIS PRINT ---
-		print("HAMMER HIT: ", collider.name, " | Script: ", collider.get_script())
+		# print("HAMMER HIT: ", collider.name, " | Script: ", collider.get_script())
 		
 		var smashable_target := _find_smashable_target(collider)
 		if smashable_target:
 			
 			# --- ADD THIS PRINT ---
-			print("TARGET CHOSEN: ", smashable_target.name, " | Script: ", smashable_target.get_script())
+			# print("TARGET CHOSEN: ", smashable_target.name, " | Script: ", smashable_target.get_script())
 			
 			return smashable_target
 			
