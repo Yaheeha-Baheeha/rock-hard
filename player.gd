@@ -6,29 +6,29 @@ const CORPSE_SCRIPT = preload("res://corpse.gd")
 @export_category("Softbody Configuration")
 @export var radius: float = 48.0
 @export var num_points: int = 32
-@export var target_pressure: float = 16000.0 
+@export var target_pressure: float = 16000.0
 @export var spring_stiffness: float = 40000.0
-@export var spring_damping: float = 1000.0 
-@export var global_drag: float = 0.99 
+@export var spring_damping: float = 1000.0
+@export var global_drag: float = 0.99
 
 @export_category("Feature Toggles")
-@export var enable_pressure_system: bool = true 
-@export var enable_shape_matching: bool = true 
-@export var shape_match_stiffness: float = 10.0 
-@export var shape_match_damping: float = 3.0 
+@export var enable_pressure_system: bool = true
+@export var enable_shape_matching: bool = true
+@export var shape_match_stiffness: float = 10.0
+@export var shape_match_damping: float = 3.0
 
 @export_category("Engine Stability")
-@export var sub_steps: int = 32 
+@export var sub_steps: int = 32
 
 @export_category("Texture")
-@export var texture: Texture2D 
+@export var texture: Texture2D
 @export var texture_tint: Color = Color.WHITE
 
 @export_category("Controls Configuration")
 @export var move_force: float = 1200.0
-@export var max_speed: float = 600.0 
-@export var jump_strength: float = 550.0 
-@export var crouch_strength: float = 1500.0 
+@export var max_speed: float = 600.0
+@export var jump_strength: float = 550.0
+@export var crouch_strength: float = 1500.0
 @export var allow_respawn: bool = true
 
 @export_category("Obstacles")
@@ -36,21 +36,20 @@ const CORPSE_SCRIPT = preload("res://corpse.gd")
 
 @export_category("Damage System")
 @export var max_health: float = 100.0
-@export var lava_damage_rate: float = 40.0 
-@export var cooling_rate: float = 20.0 
-@export var damage_color: Color = Color(0.0, 1.0, 0.0, 1.0) 
+@export var lava_damage_rate: float = 40.0
+@export var cooling_rate: float = 20.0
+@export var damage_color: Color = Color(0.0, 1.0, 0.0, 1.0)
 @export var max_lava_stiffness: float = 1500.0
 
 @export_category("Corpse Settings")
-@export var corpse_texture: Texture2D 
-@export var corpse_texture_region: Rect2 = Rect2(0, 0, 0, 0) 
+@export var corpse_texture: Texture2D
+@export var corpse_texture_region: Rect2 = Rect2(0, 0, 0, 0)
 @export var corpse_texture_repeat: bool = false
 @export var corpse_polygon_color: Color = Color.WHITE
-@export var corpse_flame_texture: Texture2D ## <-- DRAG FLAME TEXTURE HERE ON THE PLAYER!
 
 @onready var soft_body = $SoftBodySphere
 @onready var center_tracker = $CenterTracker
-@onready var lava_detector = $CenterTracker/LavaDetector 
+@onready var lava_detector = $CenterTracker/LavaDetector
 
 var current_health: float
 var current_stiffness_percent: float = 0.0
@@ -108,7 +107,7 @@ func _physics_process(delta: float) -> void:
 		_process_lava_damage(delta)
 
 func _process_lava_damage(delta: float) -> void:
-	if not lava_detector: 
+	if not lava_detector:
 		return
 		
 	var is_touching_lava = false
@@ -162,7 +161,7 @@ func _smooth_polygon(poly: PackedVector2Array, iterations: int = 1) -> PackedVec
 		var count = current_poly.size()
 		for j in range(count):
 			var p1 = current_poly[j]
-			var p2 = current_poly[(j + 1) % count] 
+			var p2 = current_poly[(j + 1) % count]
 			var q = p1.lerp(p2, 0.25)
 			var r = p1.lerp(p2, 0.75)
 			smoothed.append(q)
@@ -192,7 +191,7 @@ func _spawn_corpse(is_static: bool = false) -> void:
 	
 	corpse.name = "PlayerCorpse"
 	corpse.mass = 5.0
-	corpse.top_level = true 
+	corpse.top_level = true
 	
 	# Pass all data over to the corpse script so it handles the visual node building
 	corpse.setup_corpse(
@@ -203,13 +202,10 @@ func _spawn_corpse(is_static: bool = false) -> void:
 		corpse_texture,
 		corpse_texture_region,
 		corpse_texture_repeat,
-		corpse_flame_texture 
 	)
 	
 	get_tree().current_scene.call_deferred("add_child", corpse)
 	
-	get_tree().current_scene.call_deferred("add_child", corpse)
-
 func respawn(target_position: Vector2) -> void:
 	global_position = target_position
 	if soft_body:

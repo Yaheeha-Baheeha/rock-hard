@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="7_y646j"]
 [ext_resource type="PackedScene" uid="uid://2vbm7n5uvx3l" path="res://rectangle.tscn" id="8_lowby"]
 [ext_resource type="PackedScene" uid="uid://dc664luiftqk2" path="res://triangle.tscn" id="10_a25ih"]
+[ext_resource type="PackedScene" uid="uid://di3if6j4ylhkr" path="res://fire_particles.tscn" id="10_lowby"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="11_13y8f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gbhdq"]
@@ -317,3 +318,6 @@ position = Vector2(-357, -510)
 
 [node name="Pentagon" parent="." unique_id=1202018710 instance=ExtResource("10_a25ih")]
 position = Vector2(-497, -552)
+
+[node name="fire_particles" parent="." unique_id=1620446562 instance=ExtResource("10_lowby")]
+position = Vector2(-23296, 200192)

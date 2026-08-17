@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cvl1iuwmgblla" path="res://tile_map_layer_2.gd" id="2_mix47"]
 [ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="2_yxwl1"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="3_mix47"]
+[ext_resource type="PackedScene" uid="uid://di3if6j4ylhkr" path="res://fire_particles.tscn" id="4_dxhc4"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="4_ixf42"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="7_soim0"]
 [ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="8_ejlf8"]
@@ -240,6 +241,9 @@ tile_set = SubResource("TileSet_soim0")
 occlusion_enabled = false
 collision_enabled = false
 script = ExtResource("2_mix47")
+
+[node name="fire_particles" parent="Tilemap" unique_id=1620446562 instance=ExtResource("4_dxhc4")]
+position = Vector2(10752, 232832)
 
 [node name="Hammer" parent="." unique_id=1722124445 instance=ExtResource("2_yxwl1")]
 position = Vector2(1125.75, 183)

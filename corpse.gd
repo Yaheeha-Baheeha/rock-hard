@@ -1,17 +1,10 @@
 extends RigidBody2D
 
+const FIRE_SCENE = preload("res://fire_particles.tscn")
 @export_category("Corpse Settings")
 @export var is_static: bool = false
 @export var max_durability: float = 100.0
 @export var flame_texture: Texture2D ## DRAG "flame_particle.png" HERE IN THE INSPECTOR!
-
-@export_category("Flame Particles")
-@export var flame_amount: int = 10
-@export var flame_emission_radius: float = 35.0
-@export var flame_lifetime: float = 0.8
-@export var flame_scale_min: float = 1.0 ## Doubled from 0.5
-@export var flame_scale_max: float = 2.0 ## Doubled from 1.0
-@export var flame_gravity: Vector2 = Vector2(0, -150)
 
 @export_category("Break Settings")
 @export var corpse_fragment_count: int = 14
@@ -36,7 +29,7 @@ var _next_threshold: float = 0.0
 var _melt_progress: float = 0.0
 var _current_melt_time: float = 1.0 # Avoid divide by zero
 var _next_melt_crack_threshold: float = 0.2
-var _flame_particles: GPUParticles2D
+var _fire_instances: Array[Node] = []
 var _lava_detector: Area2D
 
 var _cracks_node: Node2D = null
@@ -120,31 +113,48 @@ func _setup_lava_detector() -> void:
 
 
 func _setup_flame_particles() -> void:
-	_flame_particles = GPUParticles2D.new()
-	_flame_particles.name = "FlameParticles"
-	_flame_particles.emitting = false
-	_flame_particles.amount = flame_amount 
-	_flame_particles.lifetime = flame_lifetime
+	if not FIRE_SCENE or _spawn_poly.size() < 3: # <-- Changed this line to use FIRE_SCENE
+		return
+
+	# 1. Find the highest and lowest Y points to determine where the "middle" is
+	var min_y = INF
+	var max_y = -INF
+	for pt in _spawn_poly:
+		if pt.y < min_y: min_y = pt.y
+		if pt.y > max_y: max_y = pt.y
+
+	var mid_y = (min_y + max_y) / 2.0
 	
-	if flame_texture:
-		_flame_particles.texture = flame_texture
+	# 2. Gather only the points that exist in the top half of the body
+	var top_points: Array[Vector2] = []
+	for pt in _spawn_poly:
+		if pt.y <= mid_y:
+			top_points.append(pt)
+
+	# Fallback just in case it's a super flat shape
+	if top_points.size() < 3:
+		top_points = Array(_spawn_poly)
+
+	# 3. Sort the top points from left to right (based on X axis)
+	top_points.sort_custom(func(a, b): return a.x < b.x)
+
+	# 4. Pick the far left, exact middle, and far right points
+	var spawn_positions = [
+		top_points[0], 
+		top_points[top_points.size() / 2], 
+		top_points[top_points.size() - 1]
+	]
+
+	# 5. Spawn the 3 fire scenes and attach them to those points
+	for pos in spawn_positions:
+		var fire = FIRE_SCENE.instantiate() # <-- Changed this line
+		fire.position = pos
+		add_child(fire)
+		_fire_instances.append(fire)
 		
-	var mat = ParticleProcessMaterial.new()
-	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
-	mat.emission_sphere_radius = flame_emission_radius # <-- Now uses your Inspector variable!
-	mat.gravity = Vector3(flame_gravity.x, flame_gravity.y, 0) 
-	mat.scale_min = flame_scale_min
-	mat.scale_max = flame_scale_max
-	
-	var grad = Gradient.new()
-	grad.add_point(0.0, Color(1, 1, 1, 1))
-	grad.add_point(1.0, Color(1, 1, 1, 0))
-	var grad_tex = GradientTexture1D.new()
-	grad_tex.gradient = grad
-	mat.color_ramp = grad_tex
-	
-	_flame_particles.process_material = mat
-	add_child(_flame_particles)
+		# Force them to start completely OFF!
+		if "emitting" in fire:
+			fire.emitting = false # <-- Changed to false
 
 func _physics_process(delta: float) -> void:
 	if _is_destroying: return
@@ -167,7 +177,9 @@ func _physics_process(delta: float) -> void:
 		_current_melt_time = fastest_melt_time
 		_process_lava_melting(delta, fastest_melt_time)
 	else:
-		_flame_particles.emitting = false
+		for fire in _fire_instances:
+			if "emitting" in fire:
+				fire.emitting = false
 
 
 func _process_lava_melting(delta: float, melt_time: float) -> void:
@@ -180,8 +192,10 @@ func _process_lava_melting(delta: float, melt_time: float) -> void:
 		poly_node.color = base_color.lerp(Color(0.08, 0.08, 0.08, 1.0), melt_ratio)
 		
 	# Ignite!
-	if not _flame_particles.emitting:
-		_flame_particles.emitting = true
+	for fire in _fire_instances:
+		# Check if the root of your scene is a GPUParticles2D, or find the node that is
+		if "emitting" in fire:
+			fire.emitting = true # (or false, depending on what the code here is doing!)
 		
 	# Trigger procedural cracks at intervals
 	if melt_ratio >= _next_melt_crack_threshold and melt_ratio < 1.0:

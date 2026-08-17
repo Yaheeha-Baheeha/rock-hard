@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cvl1iuwmgblla" path="res://tile_map_layer_2.gd" id="5_bx6au"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="5_it1pm"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="6_o1gv2"]
+[ext_resource type="PackedScene" uid="uid://di3if6j4ylhkr" path="res://fire_particles.tscn" id="6_ruqkr"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="7_ruqkr"]
 [ext_resource type="Texture2D" uid="uid://j4qxeg26fom0" path="res://resources/empty_gradient_collectible.tres" id="8_dr5ep"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="9_elkj6"]
@@ -553,6 +554,9 @@ tile_set = SubResource("TileSet_1jiv0")
 occlusion_enabled = false
 collision_enabled = false
 script = ExtResource("5_bx6au")
+
+[node name="fire_particles" parent="Tilemap" unique_id=1620446562 instance=ExtResource("6_ruqkr")]
+position = Vector2(10752, 232832)
 
 [node name="killall" type="Area2D" parent="." unique_id=109185023]
 script = ExtResource("7_ruqkr")
