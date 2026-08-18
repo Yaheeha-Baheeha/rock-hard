@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bqtj82x21yemp" path="res://Textures/ClayBallmini_specular.png" id="4_8j43t"]
 [ext_resource type="Script" uid="uid://bwshlci7b4bor" path="res://camera_2d.gd" id="5_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="5_dtqjt"]
-[ext_resource type="Texture2D" uid="uid://cco852rubu64d" path="res://Textures/flame_particle.png" id="6_5ncpa"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8v41o"]
 diffuse_texture = ExtResource("2_mgb7i")
@@ -21,15 +20,33 @@ radius = 53.037724
 [node name="Player" type="Node2D" unique_id=438420809]
 z_index = 2
 script = ExtResource("1_root")
+radius = null
+num_points = null
+target_pressure = null
+spring_stiffness = null
+spring_damping = null
+global_drag = null
+enable_pressure_system = null
+enable_shape_matching = null
 shape_match_stiffness = 1000.0
+shape_match_damping = null
 sub_steps = 22
 texture = SubResource("CanvasTexture_8v41o")
+texture_tint = null
+move_force = null
 max_speed = 1800.0
 jump_strength = 420.0
+crouch_strength = null
+allow_respawn = null
+max_health = null
+lava_damage_rate = null
+cooling_rate = null
 damage_color = Color(0.9137255, 0.6392157, 0.39607844, 1)
+max_lava_stiffness = null
 corpse_texture = ExtResource("5_dtqjt")
 corpse_texture_region = Rect2(0, 0, 100, 100)
-corpse_flame_texture = ExtResource("6_5ncpa")
+corpse_texture_repeat = null
+corpse_polygon_color = null
 
 [node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437]
 script = ExtResource("1_3xkec")

@@ -206,6 +206,12 @@ func _spawn_corpse(is_static: bool = false) -> void:
 	
 	get_tree().current_scene.call_deferred("add_child", corpse)
 	
+	
+func set_player_shape(shape_index: int) -> void:
+	if soft_body:
+		soft_body.set_shape(shape_index)
+		
+
 func respawn(target_position: Vector2) -> void:
 	global_position = target_position
 	if soft_body:

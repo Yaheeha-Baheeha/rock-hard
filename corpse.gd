@@ -113,74 +113,62 @@ func _setup_lava_detector() -> void:
 
 
 func _setup_flame_particles() -> void:
-	if not FIRE_SCENE or _spawn_poly.size() < 3: # <-- Changed this line to use FIRE_SCENE
+	if not FIRE_SCENE or _spawn_poly.size() < 3: 
 		return
 
-	# 1. Find the highest and lowest Y points to determine where the "middle" is
-	var min_y = INF
-	var max_y = -INF
-	for pt in _spawn_poly:
-		if pt.y < min_y: min_y = pt.y
-		if pt.y > max_y: max_y = pt.y
-
-	var mid_y = (min_y + max_y) / 2.0
-	
-	# 2. Gather only the points that exist in the top half of the body
-	var top_points: Array[Vector2] = []
-	for pt in _spawn_poly:
-		if pt.y <= mid_y:
-			top_points.append(pt)
-
-	# Fallback just in case it's a super flat shape
-	if top_points.size() < 3:
-		top_points = Array(_spawn_poly)
-
-	# 3. Sort the top points from left to right (based on X axis)
-	top_points.sort_custom(func(a, b): return a.x < b.x)
-
-	# 4. Pick the far left, exact middle, and far right points
-	var spawn_positions = [
-		top_points[0], 
-		top_points[top_points.size() / 2], 
-		top_points[top_points.size() - 1]
-	]
-
-	# 5. Spawn the 3 fire scenes and attach them to those points
-	for pos in spawn_positions:
-		var fire = FIRE_SCENE.instantiate() # <-- Changed this line
-		fire.position = pos
+	# Just spawn 3 fires at the center, we will dynamically move them to the lava contacts later!
+	for i in range(3):
+		var fire = FIRE_SCENE.instantiate()
+		fire.position = Vector2.ZERO
 		add_child(fire)
 		_fire_instances.append(fire)
 		
-		# Force them to start completely OFF!
+		# Force them to start completely OFF
 		if "emitting" in fire:
-			fire.emitting = false # <-- Changed to false
+			fire.emitting = false
 
 func _physics_process(delta: float) -> void:
 	if _is_destroying: return
 	
 	var is_in_lava = false
 	var fastest_melt_time = INF
+	var lava_contact_points: Array[Vector2] = []
 	
-	# Combine both the Area2D overlap AND the physical contacts to be 100% sure
 	var overlapping_bodies = _lava_detector.get_overlapping_bodies()
 	var colliding_bodies = get_colliding_bodies()
-	var all_bodies = overlapping_bodies + colliding_bodies
+	
+	# Combine arrays but ensure we don't count the exact same lava droplet twice
+	var all_bodies = []
+	for b in overlapping_bodies: all_bodies.append(b)
+	for b in colliding_bodies:
+		if not all_bodies.has(b): all_bodies.append(b)
 	
 	for body in all_bodies:
 		if body.is_in_group("lava") and body.get("can_melt_corpses") == true:
 			is_in_lava = true
 			if body.get("corpse_melt_time") < fastest_melt_time:
 				fastest_melt_time = body.get("corpse_melt_time")
+			
+			# DYNAMIC CONTACT POINT LOGIC:
+			# Grab the exact local position of the LavaDroplet touching us!
+			if body is RigidBody2D:
+				lava_contact_points.append(to_local(body.global_position))
 				
 	if is_in_lava:
+		# Move the 3 fire instances to the physical contact points
+		if lava_contact_points.size() > 0:
+			for i in range(_fire_instances.size()):
+				# Distribute the 3 fires among however many lava droplets are touching us
+				var target_pos = lava_contact_points[i % lava_contact_points.size()]
+				# Smoothly slide the fire to the new contact point
+				_fire_instances[i].position = _fire_instances[i].position.lerp(target_pos, 15.0 * delta)
+				
 		_current_melt_time = fastest_melt_time
 		_process_lava_melting(delta, fastest_melt_time)
 	else:
 		for fire in _fire_instances:
 			if "emitting" in fire:
 				fire.emitting = false
-
 
 func _process_lava_melting(delta: float, melt_time: float) -> void:
 	_melt_progress += delta

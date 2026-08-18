@@ -6,7 +6,7 @@ extends CanvasLayer
 @onready var rectangle_slot: TextureButton = $RectangleSlot
 @onready var circle_slot: TextureButton = $CircleSlot
 
-var selected_slot_index: int = 0
+var selected_slot_index: int = 1 
 
 var player_node: Node = null
 var progress_start_x: float = 0.0
@@ -26,7 +26,7 @@ func _ready() -> void:
 	hexagon_slot.pressed.connect(_on_slot_pressed.bind(3))
 	
 	_refresh_collectible_slots()
-	_update_selected_slot(0)
+	_update_selected_slot(1)
 	_sync_scene_visibility()
 
 func _process(_delta: float) -> void:
@@ -98,10 +98,12 @@ func _update_selected_slot(index: int) -> void:
 	if not _is_slot_visible(index):
 		index = _first_visible_slot_index()
 	selected_slot_index = index
+	
 	triangle_slot.modulate = Color(1, 1, 1, 0.65)
 	circle_slot.modulate = Color(1, 1, 1, 0.65)
 	rectangle_slot.modulate = Color(1, 1, 1, 0.65)
 	hexagon_slot.modulate = Color(1, 1, 1, 0.65)
+	
 	if selected_slot_index == 0:
 		triangle_slot.modulate = Color(1.0, 1.0, 0.75, 1.0)
 	elif selected_slot_index == 1:
@@ -110,6 +112,13 @@ func _update_selected_slot(index: int) -> void:
 		rectangle_slot.modulate = Color(1.0, 1.0, 0.75, 1.0)
 	elif selected_slot_index == 3:
 		hexagon_slot.modulate = Color(1.0, 1.0, 0.75, 1.0)
+
+	# --- NEW CODE: Tell the player to change shape ---
+	if player_node == null or not is_instance_valid(player_node):
+		player_node = get_tree().get_first_node_in_group("player")
+		
+	if player_node and player_node.has_method("set_player_shape"):
+		player_node.set_player_shape(selected_slot_index)
 
 func _is_slot_visible(index: int) -> bool:
 	match index:
@@ -133,4 +142,5 @@ func _first_visible_slot_index() -> int:
 		return 2
 	if hexagon_slot.visible:
 		return 3
-	return 0
+	return 1
+	

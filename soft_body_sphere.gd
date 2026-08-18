@@ -299,6 +299,51 @@ func cycle_shape() -> void:
 	springs.clear()
 	_build_shape(current_shape, center, avg_vel)
 
+func set_shape(new_shape_index: int) -> void:
+	var new_shape = new_shape_index as ShapeType
+	
+	if current_shape == new_shape:
+		return # Do nothing if we are already this shape
+		
+	var center = Vector2.ZERO
+	var avg_vel = Vector2.ZERO
+	var lowest_y_old = -INF
+	
+	if points.size() > 0:
+		lowest_y_old = points[0].position.y
+		for p in points:
+			center += p.position
+			avg_vel += p.velocity
+			# Track the lowest physical point (highest Y value in Godot)
+			if p.position.y > lowest_y_old:
+				lowest_y_old = p.position.y
+				
+		center /= float(points.size())
+		avg_vel /= float(points.size())
+	else:
+		center = position
+		lowest_y_old = position.y + radius
+		
+	current_shape = new_shape
+	
+	points.clear()
+	springs.clear()
+	_build_shape(current_shape, center, avg_vel)
+	
+	# --- NEW FLOOR COLLISION PREVENTION ---
+	if points.size() > 0:
+		var lowest_y_new = points[0].position.y
+		for p in points:
+			if p.position.y > lowest_y_new:
+				lowest_y_new = p.position.y
+				
+		# If the new shape digs deeper than the old one, shift the whole body up
+		if lowest_y_new > lowest_y_old:
+			var y_shift = lowest_y_old - lowest_y_new
+			for p in points:
+				p.position.y += y_shift
+				p.prev_position.y += y_shift # Update prev_position to prevent physics spikes
+
 func _reset_softbody() -> void:
 	points.clear()
 	springs.clear()
