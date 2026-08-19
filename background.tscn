@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://c7h14j6k8sd2f"]
 
 [ext_resource type="Texture2D" uid="uid://dxrixfpf5bfse" path="res://Textures/parallax_background/volcano behindest_bg_1.png" id="1_fc0e3"]
-[ext_resource type="Texture2D" uid="uid://dp657gl4mvewy" path="res://Textures/parallax_background/volcano behindest_bg_1_normal.png" id="2_5hph3"]
 [ext_resource type="Texture2D" uid="uid://0nxmkcnswimp" path="res://Textures/parallax_background/light_bg_1.png" id="2_7jktm"]
 [ext_resource type="Texture2D" uid="uid://byxjekmyuppou" path="res://Textures/parallax_background/mountains behind_bg_1.png" id="3_ryrav"]
 [ext_resource type="Texture2D" uid="uid://cmpc6lnnhm0r4" path="res://pointlight.png" id="4_5rr72"]
@@ -11,7 +10,6 @@
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_j7kpp"]
 diffuse_texture = ExtResource("1_fc0e3")
-normal_texture = ExtResource("2_5hph3")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_gyffv"]
 diffuse_texture = ExtResource("3_ryrav")

@@ -77,7 +77,7 @@ collision_mask = 32
 position = Vector2(94, 62)
 enabled = false
 color = Color(0, 1, 0, 1)
-energy = 10.0
+energy = 5.0
 texture = SubResource("GradientTexture2D_1kj1s")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="GreenLight" unique_id=1975521468]
@@ -104,7 +104,7 @@ position = Vector2(-89, 61)
 scale = Vector2(1.375, 1.375)
 enabled = false
 color = Color(1, 0, 0, 1)
-energy = 10.0
+energy = 5.0
 texture = SubResource("GradientTexture2D_1kj1s")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RedLight" unique_id=1230470207]

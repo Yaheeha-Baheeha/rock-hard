@@ -8,6 +8,7 @@ extends Area2D
 @export var is_active: bool = false ## Current spawn state when a lever is connected.
 @export var fluid_type: LavaDroplet.FluidType = LavaDroplet.FluidType.HOT ## Choose the fluid type!
 @export var despawn_rule: LavaDroplet.DespawnRule = LavaDroplet.DespawnRule.NEVER ## Choose how it despawns!
+@export var lava_melts_corpses: bool = true ## Toggle whether this spawner's lava melts corpses!
 @export var spawn_rate: float = 0.05 ## Time in seconds between spawns
 
 @export_category("Direction & Speed")
@@ -45,6 +46,7 @@ func spawn_drop() -> void:
 	if drop != null:
 		drop.type = fluid_type
 		drop.despawn_rule = despawn_rule
+		drop.can_melt_corpses = lava_melts_corpses
 		
 		match drop.type:
 			LavaDroplet.FluidType.HOT:
@@ -68,6 +70,7 @@ func spawn_drop() -> void:
 		
 		var velocity_dir = Vector2.RIGHT.rotated(deg_to_rad(final_angle))
 		drop.linear_velocity = velocity_dir * final_speed
+		
 
 func toggle_spawner() -> void:
 	is_active = !is_active

@@ -144,13 +144,15 @@ func _physics_process(delta: float) -> void:
 		if not all_bodies.has(b): all_bodies.append(b)
 	
 	for body in all_bodies:
-		if body.is_in_group("lava") and body.get("can_melt_corpses") == true:
-			is_in_lava = true
-			if body.get("corpse_melt_time") < fastest_melt_time:
-				fastest_melt_time = body.get("corpse_melt_time")
+		# Stricter check: Make sure the property exists, AND that it is strictly true
+		if body.is_in_group("lava") and "can_melt_corpses" in body and body.can_melt_corpses == true:
 			
+			
+			is_in_lava = true
+			if "corpse_melt_time" in body and body.corpse_melt_time < fastest_melt_time:
+				fastest_melt_time = body.corpse_melt_time
+				
 			# DYNAMIC CONTACT POINT LOGIC:
-			# Grab the exact local position of the LavaDroplet touching us!
 			if body is RigidBody2D:
 				lava_contact_points.append(to_local(body.global_position))
 				
