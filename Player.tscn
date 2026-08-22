@@ -7,6 +7,22 @@
 [ext_resource type="Texture2D" uid="uid://bqtj82x21yemp" path="res://Textures/ClayBallmini_specular.png" id="4_8j43t"]
 [ext_resource type="Script" uid="uid://bwshlci7b4bor" path="res://camera_2d.gd" id="5_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="5_dtqjt"]
+[ext_resource type="Texture2D" uid="uid://dsanasbocuxry" path="res://Textures/circle win/circle00.png" id="7_h84ma"]
+[ext_resource type="Texture2D" uid="uid://cg1lg453uhnks" path="res://Textures/circle win/circle01.png" id="8_47wu6"]
+[ext_resource type="Texture2D" uid="uid://w5mwbovo480d" path="res://Textures/circle win/circle02.png" id="9_2n1s8"]
+[ext_resource type="Texture2D" uid="uid://cq4bkd6ht7pft" path="res://Textures/circle win/circle03.png" id="10_3vjad"]
+[ext_resource type="Texture2D" uid="uid://di2ypak10rhcp" path="res://Textures/circle win/circle04.png" id="11_yt0h1"]
+[ext_resource type="Texture2D" uid="uid://6nllyppjkb41" path="res://Textures/circle win/circle05.png" id="12_vd78s"]
+[ext_resource type="Texture2D" uid="uid://cwo8cajs4x4k" path="res://Textures/circle win/circle06.png" id="13_ictha"]
+[ext_resource type="Texture2D" uid="uid://b3o7jxqbja7sg" path="res://Textures/circle win/circle07.png" id="14_1jgrc"]
+[ext_resource type="Texture2D" uid="uid://bhpd4eo41yueh" path="res://Textures/circle win/circle08.png" id="15_7wy67"]
+[ext_resource type="Texture2D" uid="uid://cbab5m30b83ig" path="res://Textures/circle win/circle09.png" id="16_q26ax"]
+[ext_resource type="Texture2D" uid="uid://bp4pewx4u164o" path="res://Textures/circle win/circle10.png" id="17_p01ps"]
+[ext_resource type="Texture2D" uid="uid://nne25f7wllx0" path="res://Textures/circle win/circle11.png" id="18_m7dl7"]
+[ext_resource type="Texture2D" uid="uid://bn5x7x3jo38av" path="res://Textures/circle win/circle12.png" id="19_48og4"]
+[ext_resource type="Texture2D" uid="uid://bth1cpqxfaxjo" path="res://Textures/circle win/circle13.png" id="20_xmpta"]
+[ext_resource type="Texture2D" uid="uid://bpxnmkebd0dns" path="res://Textures/circle win/circle14.png" id="21_mrbh7"]
+[ext_resource type="Texture2D" uid="uid://psg7s7memyw2" path="res://Textures/circle win/circle15.png" id="22_lrhq4"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8v41o"]
 diffuse_texture = ExtResource("2_mgb7i")
@@ -16,6 +32,62 @@ specular_shininess = 0.33
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tdg3f"]
 radius = 53.037724
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_scbl1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_h84ma")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_47wu6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_2n1s8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_3vjad")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_yt0h1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_vd78s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ictha")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_1jgrc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_7wy67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_q26ax")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_p01ps")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_m7dl7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_48og4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_xmpta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_mrbh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_lrhq4")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 24.0
+}]
 
 [node name="Player" type="Node2D" unique_id=438420809]
 z_index = 2
@@ -60,6 +132,17 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CenterTracker/LavaDetector" unique_id=1537673698]
 shape = SubResource("CircleShape2D_tdg3f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CenterTracker/LavaDetector/CollisionShape2D" unique_id=1056446854]
+visible = false
+modulate = Color(0.87223774, 0.39980888, 3.85046e-07, 1)
+visibility_layer = 524288
+z_index = 4096
+position = Vector2(-100, 101)
+scale = Vector2(67.125, 67.125)
+sprite_frames = SubResource("SpriteFrames_scbl1")
+frame = 15
+frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=202288614]
 position = Vector2(200, 16)

@@ -23,4 +23,12 @@ func trigger_win():
 	has_won = true
 	print("Player detected!")
 	GameManager.unlock_level(next_level_number)
+	var anim = _player_node.get_node("CenterTracker/LavaDetector/CollisionShape2D/AnimatedSprite2D")
+	
+	if anim:
+		anim.show()
+		anim.play("default")
+		await anim.animation_finished
+		anim.hide()
+		
 	get_tree().call_deferred("change_scene_to_file", "res://menu.tscn")

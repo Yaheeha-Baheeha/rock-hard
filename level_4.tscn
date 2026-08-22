@@ -166,7 +166,7 @@ script = ExtResource("3_66w8i")
 next_level_number = 5
 
 [node name="Label" type="Label" parent="Floatives/Win" unique_id=1427131471]
-z_index = 4096
+z_index = 40
 anchors_preset = -1
 anchor_left = -0.1640625
 anchor_top = -0.0859375
