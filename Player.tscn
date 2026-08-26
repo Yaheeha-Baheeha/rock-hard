@@ -34,6 +34,9 @@ specular_shininess = 0.33
 [sub_resource type="CircleShape2D" id="CircleShape2D_tdg3f"]
 radius = 53.037724
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nkhvq"]
+blend_mode = 1
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_scbl1"]
 animations = [{
 "frames": [{
@@ -122,9 +125,9 @@ bus = &"Player"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CenterTracker/LavaDetector/CollisionShape2D" unique_id=1056446854]
 process_mode = 3
 visible = false
-modulate = Color(0.87223774, 0.39980888, 3.85046e-07, 1)
 visibility_layer = 524288
 z_index = 4096
+material = SubResource("CanvasItemMaterial_nkhvq")
 position = Vector2(-100, 101)
 scale = Vector2(67.125, 67.125)
 sprite_frames = SubResource("SpriteFrames_scbl1")
