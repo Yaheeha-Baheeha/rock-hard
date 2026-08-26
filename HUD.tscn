@@ -19,6 +19,15 @@
 [ext_resource type="Texture2D" uid="uid://blj2mv386krjn" path="res://Textures/Moulds/MouldTri.png" id="17_kxho0"]
 [ext_resource type="Texture2D" uid="uid://xyi5ovklxhe3" path="res://Textures/Moulds/MouldCir.png" id="18_fsk4d"]
 [ext_resource type="Texture2D" uid="uid://bo0152qcutdn1" path="res://Textures/Moulds/MouldRec.png" id="19_shyf5"]
+[ext_resource type="Script" uid="uid://5o16v5cbojty" path="res://pause_menu.gd" id="20_6y84o"]
+[ext_resource type="Texture2D" uid="uid://71hvgh1m81ut" path="res://Textures/back_buttons/wideback_button.png" id="20_vhxqh"]
+[ext_resource type="Texture2D" uid="uid://b18dankvvp1ov" path="res://Textures/back_buttons/wideback_button_pressed.png" id="21_6y84o"]
+[ext_resource type="Texture2D" uid="uid://6pxurjpmuitx" path="res://Textures/back_buttons/wideback_button_hover.png" id="22_4fcd7"]
+[ext_resource type="Texture2D" uid="uid://byqsvlkjbi4gd" path="res://Textures/back_buttons/wideback_button_focused.png" id="23_h7k1n"]
+[ext_resource type="Texture2D" uid="uid://bjdicnmmrnxoe" path="res://Textures/settings/settings_button.png" id="24_b01dl"]
+[ext_resource type="Texture2D" uid="uid://4flo74xu3471" path="res://Textures/settings/settings_pressed.png" id="25_gfxu3"]
+[ext_resource type="Texture2D" uid="uid://der6tittxe6rl" path="res://Textures/settings/settings_hovered.png" id="26_yr2lo"]
+[ext_resource type="Texture2D" uid="uid://c81b4py5ig88" path="res://Textures/settings/settings_focused.png" id="27_d76js"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2u0tw"]
 animations = [{
@@ -68,6 +77,7 @@ animations = [{
 size = Vector2(60, 60)
 
 [node name="Node2D" type="CanvasLayer" unique_id=753683486]
+process_mode = 3
 script = ExtResource("14_d5xqv")
 
 [node name="TextureProgressBar" type="Control" parent="." unique_id=633521974]
@@ -132,3 +142,41 @@ offset_right = 432.0
 offset_bottom = 658.0
 texture_normal = SubResource("PlaceholderTexture2D_etkvc")
 stretch_mode = 3
+
+[node name="PauseMenu" type="ColorRect" parent="." unique_id=1958309223]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.3647059, 0, 0, 0.4862745)
+script = ExtResource("20_6y84o")
+
+[node name="Settings" type="TextureButton" parent="PauseMenu" unique_id=282339979]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.048
+anchor_bottom = 0.018000001
+offset_left = 385.0
+offset_top = 359.0
+offset_right = 385.512
+offset_bottom = 358.904
+scale = Vector2(7, 7)
+texture_normal = ExtResource("24_b01dl")
+texture_pressed = ExtResource("25_gfxu3")
+texture_hover = ExtResource("26_yr2lo")
+texture_focused = ExtResource("27_d76js")
+
+[node name="Back" type="TextureButton" parent="PauseMenu" unique_id=1285080481]
+layout_mode = 0
+offset_left = 385.00003
+offset_top = 463.0001
+offset_right = 441.00003
+offset_bottom = 475.0001
+scale = Vector2(7, 7)
+texture_normal = ExtResource("20_vhxqh")
+texture_pressed = ExtResource("21_6y84o")
+texture_hover = ExtResource("22_4fcd7")
+texture_focused = ExtResource("23_h7k1n")
+
+[connection signal="pressed" from="PauseMenu/Back" to="PauseMenu" method="_on_back_pressed"]
