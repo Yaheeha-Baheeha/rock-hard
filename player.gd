@@ -34,6 +34,9 @@ const CORPSE_SCRIPT = preload("res://corpse.gd")
 @export_category("Obstacles")
 @export var obstacle_markers: Array[Node2D]
 
+@export_category("Sound")
+@export var snippet_duration: float = 0.4
+
 @export_category("Damage System")
 @export var max_health: float = 100.0
 @export var lava_damage_rate: float = 40.0
@@ -50,6 +53,7 @@ const CORPSE_SCRIPT = preload("res://corpse.gd")
 @onready var soft_body = $SoftBodySphere
 @onready var center_tracker = $CenterTracker
 @onready var lava_detector = $CenterTracker/LavaDetector
+@onready var squish_sound = $CenterTracker/LavaDetector/CollisionShape2D/SquishSound
 
 var current_health: float
 var current_stiffness_percent: float = 0.0
@@ -62,6 +66,9 @@ func _ready() -> void:
 	current_health = max_health
 	base_color = texture_tint
 	start_position = global_position
+	
+	# Listen for our custom collision signal
+	$SoftBodySphere.point_collided.connect(_on_point_collided)
 	
 	if soft_body:
 		soft_body.radius = radius
@@ -86,6 +93,34 @@ func _ready() -> void:
 		
 		soft_body.initialize()
 
+
+func _on_point_collided(impact_speed: float) -> void:
+	# Only squish if the impact was hard enough!
+	if impact_speed > 50.0:
+		play_squish_sound()
+
+func play_squish_sound() -> void:
+	# Don't interrupt a sound that is currently playing
+	if squish_sound.playing:
+		return
+		
+	# 1. Figure out how long the audio file actually is
+	var total_length = squish_sound.stream.get_length()
+	
+	# 2. Pick a random start time (ensuring we don't start too close to the very end)
+	var start_time = randf_range(0.0, total_length - snippet_duration)
+	
+	# 3. Add our pitch and volume randomization for extra flavor
+	squish_sound.pitch_scale = randf_range(0.85, 1.15)
+	squish_sound.volume_db = randf_range(25.0, 30.0)
+	
+	# 4. Play the sound starting EXACTLY at our random timestamp
+	squish_sound.play(start_time)
+	
+	# 5. Wait for the duration of our clip, then forcefully stop the audio!
+	await get_tree().create_timer(snippet_duration).timeout
+	squish_sound.stop()
+	
 func _physics_process(delta: float) -> void:
 	if soft_body:
 		soft_body.enable_pressure_system = soft_body.should_enable_pressure_system()

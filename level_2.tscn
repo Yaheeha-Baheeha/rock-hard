@@ -145,6 +145,7 @@
 [ext_resource type="Texture2D" uid="uid://sjhkpxjfh4ym" path="res://Textures/Tutorial/Level_2/frame_127_delay-0.04s.png" id="134_f1ttc"]
 [ext_resource type="Texture2D" uid="uid://clvfpnu6b4jo1" path="res://Textures/Tutorial/Level_2/frame_128_delay-0.04s.png" id="135_iefyb"]
 [ext_resource type="Texture2D" uid="uid://dtkvpyq6o0aw5" path="res://Textures/Tutorial/Level_2/frame_129_delay-0.04s.png" id="136_kwgmc"]
+[ext_resource type="AudioStream" uid="uid://de3kfx2tas68i" path="res://sounds/chime.mp3" id="142_vtwhy"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_bwt5l"]
 diffuse_texture = ExtResource("63_dyw3t")
@@ -832,6 +833,11 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("31_bwt5l")
+
+[node name="Chime" type="AudioStreamPlayer2D" parent="Floatives/Win" unique_id=1546646710]
+stream = ExtResource("142_vtwhy")
+volume_db = 24.0
+bus = &"SFX"
 
 [node name="Collectable" type="Sprite2D" parent="Floatives" unique_id=488867800]
 position = Vector2(2042, -153)

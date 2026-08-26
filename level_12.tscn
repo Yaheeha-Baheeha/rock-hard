@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="7_4wtfn"]
 [ext_resource type="Texture2D" uid="uid://b5mipxe14c025" path="res://Textures/Map Fragment.png" id="8_yg8oi"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="9_p4vr0"]
+[ext_resource type="AudioStream" uid="uid://de3kfx2tas68i" path="res://sounds/chime.mp3" id="10_e5oej"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="10_esoy5"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="11_kg3h7"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="12_jjgao"]
@@ -406,6 +407,11 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_yg8oi")
+
+[node name="Chime" type="AudioStreamPlayer2D" parent="Floatives/Win" unique_id=186839866]
+stream = ExtResource("10_e5oej")
+volume_db = 24.0
+bus = &"SFX"
 
 [node name="Collectable" type="Sprite2D" parent="Floatives" unique_id=67122490]
 position = Vector2(2216, -610)

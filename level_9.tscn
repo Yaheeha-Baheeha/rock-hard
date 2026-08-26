@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="12_1wgld"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="14_pn8mn"]
 [ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="16_t0qt0"]
+[ext_resource type="AudioStream" uid="uid://de3kfx2tas68i" path="res://sounds/chime.mp3" id="16_tyqkn"]
 [ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="17_tyqkn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7amt0"]
@@ -514,6 +515,11 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_pn8mn")
+
+[node name="Chime" type="AudioStreamPlayer2D" parent="Floatives/Win" unique_id=1576633869]
+stream = ExtResource("16_tyqkn")
+volume_db = 24.0
+bus = &"SFX"
 
 [node name="HotFluid" type="CanvasGroup" parent="." unique_id=1944121035]
 material = SubResource("ShaderMaterial_kcu1q")

@@ -1,5 +1,6 @@
 extends Node2D
 
+signal point_collided(impact_speed: float)
 enum ShapeType { TRIANGLE, CIRCLE, RECTANGLE, HEXAGON }
 var current_shape: ShapeType = ShapeType.CIRCLE
 
@@ -228,6 +229,7 @@ func _physics_process(delta: float) -> void:
 							
 					var vel_dot = p.velocity.dot(normal_local)
 					if vel_dot < 0:
+						point_collided.emit(abs(vel_dot))
 						p.velocity -= normal_local * vel_dot * 1.2
 					p.velocity *= 0.85
 					if normal_local.y < -0.2:
@@ -589,6 +591,7 @@ func _resolve_collision(point: PointMass, poly: PackedVector2Array) -> void:
 	point.position = closest_pt
 	var vel_dot = point.velocity.dot(push_dir)
 	if vel_dot < 0:
+		point_collided.emit(abs(vel_dot))
 		point.velocity -= push_dir * vel_dot * 1.2
 	point.velocity *= 0.85
 

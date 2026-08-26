@@ -23,3 +23,9 @@ func _input(event: InputEvent) -> void:
 func _on_back_pressed() -> void:
 	get_tree().paused = false
 	visible = false
+
+
+func _on_menu_pressed() -> void:
+	get_tree().paused = false
+	visible = false
+	get_tree().change_scene_to_file("res://menu.tscn")

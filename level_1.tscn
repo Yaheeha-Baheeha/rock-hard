@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="31_ka01f"]
 [ext_resource type="Texture2D" uid="uid://j4qxeg26fom0" path="res://resources/empty_gradient_collectible.tres" id="31_notaq"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="34_ett8d"]
+[ext_resource type="AudioStream" uid="uid://de3kfx2tas68i" path="res://sounds/chime.mp3" id="34_td8cy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b6mmh"]
 animations = [{
@@ -1396,6 +1397,7 @@ shape = SubResource("RectangleShape2D_swvua")
 [node name="Floatives" type="Node2D" parent="." unique_id=1042151224]
 
 [node name="Win" type="Sprite2D" parent="Floatives" unique_id=131160660]
+process_mode = 3
 position = Vector2(2570, -85)
 texture = ExtResource("31_notaq")
 script = ExtResource("8_bjebc")
@@ -1445,6 +1447,11 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("31_ett8d")
+
+[node name="Chime" type="AudioStreamPlayer2D" parent="Floatives/Win" unique_id=2099881744]
+stream = ExtResource("34_td8cy")
+volume_db = 24.0
+bus = &"SFX"
 
 [node name="Collectable" type="Sprite2D" parent="Floatives" unique_id=1139007922]
 position = Vector2(2705, -562)

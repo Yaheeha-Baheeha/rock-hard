@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bqtj82x21yemp" path="res://Textures/ClayBallmini_specular.png" id="4_8j43t"]
 [ext_resource type="Script" uid="uid://bwshlci7b4bor" path="res://camera_2d.gd" id="5_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="5_dtqjt"]
+[ext_resource type="AudioStream" uid="uid://ddeatgo14hdpc" path="res://sounds/dough.wav" id="7_47wu6"]
 [ext_resource type="Texture2D" uid="uid://dsanasbocuxry" path="res://Textures/circle win/circle00.png" id="7_h84ma"]
 [ext_resource type="Texture2D" uid="uid://cg1lg453uhnks" path="res://Textures/circle win/circle01.png" id="8_47wu6"]
 [ext_resource type="Texture2D" uid="uid://w5mwbovo480d" path="res://Textures/circle win/circle02.png" id="9_2n1s8"]
@@ -86,39 +87,20 @@ animations = [{
 }],
 "loop": 0,
 "name": &"default",
-"speed": 24.0
+"speed": 12.0
 }]
 
 [node name="Player" type="Node2D" unique_id=438420809]
 z_index = 2
 script = ExtResource("1_root")
-radius = null
-num_points = null
-target_pressure = null
-spring_stiffness = null
-spring_damping = null
-global_drag = null
-enable_pressure_system = null
-enable_shape_matching = null
 shape_match_stiffness = 1000.0
-shape_match_damping = null
 sub_steps = 22
 texture = SubResource("CanvasTexture_8v41o")
-texture_tint = null
-move_force = null
 max_speed = 1800.0
 jump_strength = 420.0
-crouch_strength = null
-allow_respawn = null
-max_health = null
-lava_damage_rate = null
-cooling_rate = null
 damage_color = Color(0.9137255, 0.6392157, 0.39607844, 1)
-max_lava_stiffness = null
 corpse_texture = ExtResource("5_dtqjt")
 corpse_texture_region = Rect2(0, 0, 100, 100)
-corpse_texture_repeat = null
-corpse_polygon_color = null
 
 [node name="SoftBodySphere" type="Node2D" parent="." unique_id=1601510437]
 script = ExtResource("1_3xkec")
@@ -133,7 +115,12 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CenterTracker/LavaDetector" unique_id=1537673698]
 shape = SubResource("CircleShape2D_tdg3f")
 
+[node name="SquishSound" type="AudioStreamPlayer2D" parent="CenterTracker/LavaDetector/CollisionShape2D" unique_id=1119388435]
+stream = ExtResource("7_47wu6")
+bus = &"Player"
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CenterTracker/LavaDetector/CollisionShape2D" unique_id=1056446854]
+process_mode = 3
 visible = false
 modulate = Color(0.87223774, 0.39980888, 3.85046e-07, 1)
 visibility_layer = 524288

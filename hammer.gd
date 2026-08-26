@@ -15,8 +15,12 @@ var _swing_timer: float = 0.0
 var _fallback_body_data: Dictionary = {}
 var _destroying_targets: Dictionary = {}
 
+
+
 @onready var swing_animation_player: AnimationPlayer = $SwingAnimationPlayer
 @onready var progress_bar: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hammer = $Sprite2D
+
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
@@ -31,7 +35,11 @@ func _exit_tree() -> void:
 func _process(delta: float) -> void:
 	global_position = get_global_mouse_position()
 	var current_target: Node2D = _get_target_under_cursor()
-	
+	if hammer:
+		if get_tree().paused == true:
+			hammer.visible = false
+		else:
+			hammer.visible = true
 	# 1. Handle Hover & Progress Bar Display
 	if is_instance_valid(current_target) and not _destroying_targets.has(current_target):
 		progress_bar.visible = true

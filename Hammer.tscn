@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dpvd6xykb1xxe" path="res://Textures/Hammer.png" id="2_texture"]
 [ext_resource type="Texture2D" uid="uid://b87byvun4ijdl" path="res://Textures/Hammer_normal.png" id="3_nif7i"]
 [ext_resource type="Texture2D" uid="uid://dmh0u8xxe51ts" path="res://Textures/Hammer_specular.png" id="4_xqgrq"]
+[ext_resource type="Script" uid="uid://dj54p0bj3v0x8" path="res://smol_himmer.gd" id="5_dtenk"]
 [ext_resource type="Texture2D" uid="uid://bt27h5f8njhoj" path="res://Textures/LoadingForBreak/loading-00.png" id="5_xpacs"]
 [ext_resource type="Texture2D" uid="uid://dt4ey8r15540u" path="res://Textures/LoadingForBreak/loading-01.png" id="6_dtenk"]
 [ext_resource type="Texture2D" uid="uid://cuke55566rfy8" path="res://Textures/LoadingForBreak/loading-02.png" id="7_g4tq5"]
@@ -24,6 +25,9 @@ diffuse_texture = ExtResource("2_texture")
 normal_texture = ExtResource("3_nif7i")
 specular_texture = ExtResource("4_xqgrq")
 
+[sub_resource type="Animation" id="Animation_xpacs"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_swing"]
 resource_name = "swing"
 length = 0.14
@@ -42,6 +46,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hammer"]
 _data = {
+&"RESET": SubResource("Animation_xpacs"),
 &"swing": SubResource("Animation_swing")
 }
 
@@ -104,7 +109,20 @@ z_index = 4096
 script = ExtResource("1_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1645393508]
+visibility_layer = 524289
+z_index = 4092
+y_sort_enabled = true
 texture = SubResource("CanvasTexture_663uh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Sprite2D" unique_id=891164996]
+layer = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D/CanvasLayer" unique_id=309016105]
+process_mode = 3
+modulate = Color(1, 1, 1, 0.70980394)
+z_index = 4096
+texture = SubResource("CanvasTexture_663uh")
+script = ExtResource("5_dtenk")
 
 [node name="SwingAnimationPlayer" type="AnimationPlayer" parent="." unique_id=141494857]
 libraries/ = SubResource("AnimationLibrary_hammer")

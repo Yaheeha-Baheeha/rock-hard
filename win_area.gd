@@ -5,10 +5,13 @@ extends Sprite2D
 
 var has_won: bool = false
 var _player_node: Node2D
+@onready var chime = $Chime
 
 func _ready():
 	add_to_group("win_zones")
 	_player_node = get_tree().get_first_node_in_group("player")
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 
 func _process(_delta):
 	if has_won or not is_instance_valid(_player_node): 
@@ -27,8 +30,12 @@ func trigger_win():
 	
 	if anim:
 		anim.show()
+		get_tree().paused = true
+		if chime:
+			chime.play()
 		anim.play("default")
 		await anim.animation_finished
 		anim.hide()
+		get_tree().paused = false
 		
 	get_tree().call_deferred("change_scene_to_file", "res://menu.tscn")

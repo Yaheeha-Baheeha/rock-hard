@@ -37,6 +37,7 @@
 [ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="36_thifg"]
 [ext_resource type="Script" uid="uid://0qav6eeuf12j" path="res://win_area.gd" id="36_vhepx"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="37_thifg"]
+[ext_resource type="AudioStream" uid="uid://de3kfx2tas68i" path="res://sounds/chime.mp3" id="37_v3odb"]
 [ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="37_xbesp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5hph3"]
@@ -704,6 +705,11 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("36_iq1si")
+
+[node name="Chime" type="AudioStreamPlayer2D" parent="Floatives/Win" unique_id=419487229]
+stream = ExtResource("37_v3odb")
+volume_db = 24.0
+bus = &"SFX"
 
 [node name="HotFluid" type="CanvasGroup" parent="." unique_id=542611890]
 material = SubResource("ShaderMaterial_v3odb")
