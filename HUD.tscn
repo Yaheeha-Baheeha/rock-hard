@@ -34,6 +34,8 @@
 [ext_resource type="Texture2D" uid="uid://c81b4py5ig88" path="res://Textures/settings/settings_focused.png" id="27_d76js"]
 [ext_resource type="Shader" uid="uid://da22m11jfmmi8" path="res://ColorBlindlters.gdshader" id="33_yr2lo"]
 [ext_resource type="FontFile" uid="uid://cv01xgeioj5q4" path="res://Textures/font/RasterForgeRegular-JpBgm.ttf" id="34_d76js"]
+[ext_resource type="AudioStream" uid="uid://b1i216jjru8e5" path="res://sounds/hover.wav" id="35_m1fae"]
+[ext_resource type="AudioStream" uid="uid://d0mpkctmjaa0k" path="res://sounds/click.wav" id="36_vppda"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2u0tw"]
 animations = [{
@@ -380,6 +382,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="HoverSound" type="AudioStreamPlayer2D" parent="." unique_id=772424962]
+stream = ExtResource("35_m1fae")
+bus = &"SFX"
+
+[node name="Click" type="AudioStreamPlayer2D" parent="." unique_id=1646704333]
+stream = ExtResource("36_vppda")
+bus = &"SFX"
 
 [connection signal="pressed" from="PauseMenu/Back" to="PauseMenu" method="_on_back_pressed"]
 [connection signal="pressed" from="PauseMenu/Settings" to="PauseMenu" method="_on_settings_pressed"]

@@ -27,10 +27,9 @@ var progress_travel_x: float = 128.0
 func _ready() -> void:
 	progress_bar.play("default")
 	progress_start_x = progress_bar.position.x
-	
-	var game_manager := get_node_or_null("/root/GameManager")
-	if game_manager and game_manager.has_signal("collectable_added"):
-		game_manager.collectable_added.connect(_on_collectable_added)
+	GameManager.reset_temporary_collectibles()
+	if GameManager and GameManager.has_signal("collectable_added"):
+		GameManager.collectable_added.connect(_on_collectable_added)
 	
 	triangle_slot.pressed.connect(_on_slot_pressed.bind(0))
 	circle_slot.pressed.connect(_on_slot_pressed.bind(1))

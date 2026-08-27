@@ -13,9 +13,9 @@ var unlocked_levels = {
 	26: false, 27: false, 28: false,
 }
 
-var collected_items = []
+var collected_items = []    # Permanent star items (saved to file)
+var temporary_items = []    # Key items like shapes (reset every level)
 
-# Default settings values (0.0 to 1.0 for volume & intensity, 0 to 2 for mode)
 var settings_data = {
 	"colorblind_mode": 0,
 	"colorblind_intensity": 1.0,
@@ -35,6 +35,7 @@ func save_game() -> void:
 		print("Failed to save game. Error code: ", FileAccess.get_open_error())
 		return
 
+	# Only permanent collected_items get written to disk
 	var data = {
 		"unlocked_levels": unlocked_levels,
 		"collected_items": collected_items,
@@ -68,7 +69,6 @@ func load_game() -> void:
 		if data.has("collected_items"):
 			collected_items = data["collected_items"]
 		if data.has("settings"):
-			# Merge saved settings with defaults in case new settings were added later
 			for key in data["settings"].keys():
 				settings_data[key] = data["settings"][key]
 		
@@ -96,23 +96,35 @@ func unlock_level(level_number):
 		print("Unlocked level " + str(level_number))
 		save_game()
 
-func is_level_unlocked(level_number):
+func is_level_unlocked(level_number: int) -> bool:
 	if unlocked_levels.has(level_number):
 		return unlocked_levels[level_number]
 	return false
 
-func add_collectable(item_name):
-	if not item_name in collected_items:
-		collected_items.append(item_name)
-		print("Collected: " + item_name)
-		collectable_added.emit(item_name)
-		save_game()
+func add_collectable(item_name: String) -> void:
+	# Level stars use "collectable in level_X" format and get saved
+	if item_name.begins_with("collectable in level_"):
+		if not item_name in collected_items:
+			collected_items.append(item_name)
+			print("Permanent Collected: " + item_name)
+			collectable_added.emit(item_name)
+			save_game()
+	else:
+		# Shape keys (triangle, rectangle, etc.) are kept in temporary_items
+		if not item_name in temporary_items:
+			temporary_items.append(item_name)
+			print("Temporary Key Collected: " + item_name)
+			collectable_added.emit(item_name)
+
+func reset_temporary_collectibles() -> void:
+	temporary_items.clear()
+	print("Temporary collectibles reset.")
 
 func has_collectable(item_name: String) -> bool:
-	return item_name in collected_items
+	return (item_name in collected_items) or (item_name in temporary_items)
 
 func has_any_collectable() -> bool:
-	return collected_items.size() > 0
+	return (collected_items.size() > 0) or (temporary_items.size() > 0)
 
 func has_level_collectable(level_number: int) -> bool:
 	return has_collectable("collectable in level_%d" % level_number)

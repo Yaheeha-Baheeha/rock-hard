@@ -151,8 +151,6 @@
 [ext_resource type="Shader" uid="uid://da22m11jfmmi8" path="res://ColorBlindlters.gdshader" id="149_u8qdg"]
 [ext_resource type="AudioStream" uid="uid://b1i216jjru8e5" path="res://sounds/hover.wav" id="150_11ero"]
 [ext_resource type="AudioStream" uid="uid://dm0r835wwcmu7" path="res://sounds/no_hover.wav" id="151_ahb2e"]
-[ext_resource type="AudioStream" uid="uid://chp7kg0js1jpl" path="res://sounds/no_click.wav" id="152_ttpj3"]
-[ext_resource type="AudioStream" uid="uid://d0mpkctmjaa0k" path="res://sounds/click.wav" id="153_ixobu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_11ero"]
 shader = ExtResource("149_u8qdg")
@@ -541,9 +539,9 @@ stream = ExtResource("151_ahb2e")
 bus = &"SFX"
 
 [node name="NoClick" type="AudioStreamPlayer2D" parent="." unique_id=873722741]
-stream = ExtResource("152_ttpj3")
+stream = ExtResource("151_ahb2e")
 bus = &"SFX"
 
 [node name="Click" type="AudioStreamPlayer2D" parent="." unique_id=1471228402]
-stream = ExtResource("153_ixobu")
+stream = ExtResource("151_ahb2e")
 bus = &"SFX"

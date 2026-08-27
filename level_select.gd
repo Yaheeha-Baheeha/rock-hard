@@ -4,10 +4,13 @@ extends Control
 @onready var back_button: TextureButton = %BackButton
 @onready var filters: ColorRect = $Filters
 
+@onready var hover_sound: AudioStreamPlayer2D = $HoverSound
+@onready var no_hover_sound: AudioStreamPlayer2D = $NoHoverSound
+@onready var click_sound: AudioStreamPlayer2D = $Click
+@onready var no_click_sound: AudioStreamPlayer2D = $NoClick
+
 const STAR_TEXTURE: Texture2D = preload("res://Textures/star.png")
-
 var star_badges: Dictionary = {}
-
 
 func _ready() -> void:
 	_configure_level_buttons()
@@ -15,8 +18,39 @@ func _ready() -> void:
 	_apply_filter_settings()
 	
 	back_button.pressed.connect(_on_back_pressed)
+	back_button.mouse_entered.connect(_play_hover_sound)
+	
 	if GameManager.has_signal("collectable_added"):
 		GameManager.collectable_added.connect(_on_collectable_added)
+
+
+func _on_level_pressed(level: int) -> void:
+	if GameManager.is_level_unlocked(level):
+		await _play_click_sound() # Wait for audio before switching scene
+		var scene_path := "res://level_%d.tscn" % level
+		if ResourceLoader.exists(scene_path):
+			get_tree().change_scene_to_file(scene_path)
+		else:
+			push_warning("Level scene not found: %s" % scene_path)
+	else:
+		_play_no_click_sound()
+
+func _on_back_pressed() -> void:
+	await _play_click_sound() # Wait for audio before switching scene
+	if GameManager:
+		GameManager.reset_temporary_collectibles()
+	get_tree().change_scene_to_file("res://menu.tscn")
+
+func _play_click_sound() -> void:
+	if click_sound and click_sound.stream:
+		click_sound.stop()
+		click_sound.play()
+		await click_sound.finished
+
+func _play_no_click_sound() -> void:
+	if no_click_sound and no_click_sound.stream:
+		no_click_sound.stop()
+		no_click_sound.play()
 
 
 func _apply_filter_settings() -> void:
@@ -38,15 +72,35 @@ func _configure_level_buttons() -> void:
 			continue
 
 		var level := i + 1
+		var is_unlocked := GameManager.is_level_unlocked(level)
+		
 		btn.ignore_texture_size = true
 		btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 		btn.custom_minimum_size = Vector2(64, 64)
 		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		btn.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		btn.disabled = not GameManager.is_level_unlocked(level)
-		if not btn.disabled:
+		btn.disabled = not is_unlocked
+		
+		# Connect the appropriate hover sound based on unlock state
+		if is_unlocked:
 			btn.pressed.connect(_on_level_pressed.bind(level))
+			btn.mouse_entered.connect(_play_hover_sound)
+		else:
+			btn.mouse_entered.connect(_play_no_hover_sound)
+
 		_ensure_star_badge(btn, level)
+
+
+func _play_hover_sound() -> void:
+	if hover_sound and hover_sound.stream:
+		hover_sound.stop()
+		hover_sound.play()
+
+
+func _play_no_hover_sound() -> void:
+	if no_hover_sound and no_hover_sound.stream:
+		no_hover_sound.stop()
+		no_hover_sound.play()
 
 
 func _ensure_star_badge(btn: TextureButton, level: int) -> void:
@@ -74,15 +128,3 @@ func _refresh_star_badges() -> void:
 
 func _on_collectable_added(_item_name: String) -> void:
 	_refresh_star_badges()
-
-
-func _on_level_pressed(level: int) -> void:
-	var scene_path := "res://level_%d.tscn" % level
-	if ResourceLoader.exists(scene_path):
-		get_tree().change_scene_to_file(scene_path)
-	else:
-		push_warning("Level scene not found: %s" % scene_path)
-
-
-func _on_back_pressed() -> void:
-	get_tree().change_scene_to_file("res://menu.tscn")

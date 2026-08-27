@@ -23,6 +23,7 @@ var _destroying_targets: Dictionary = {}
 
 
 func _ready() -> void:
+	GameManager.reset_temporary_collectibles()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	z_index = 200
 	progress_bar.visible = false

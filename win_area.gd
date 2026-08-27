@@ -25,7 +25,8 @@ func _process(_delta):
 
 func trigger_win():
 	has_won = true
-	animationplayer.stop()
+	if animationplayer:
+		animationplayer.stop()
 	print("Player detected!")
 	GameManager.unlock_level(next_level_number)
 	var anim = _player_node.get_node("CenterTracker/LavaDetector/CollisionShape2D/AnimatedSprite2D")

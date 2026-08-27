@@ -22,6 +22,8 @@
 [ext_resource type="Texture2D" uid="uid://6pxurjpmuitx" path="res://Textures/back_buttons/wideback_button_hover.png" id="19_guify"]
 [ext_resource type="Texture2D" uid="uid://byqsvlkjbi4gd" path="res://Textures/back_buttons/wideback_button_focused.png" id="20_oil5j"]
 [ext_resource type="Shader" uid="uid://da22m11jfmmi8" path="res://ColorBlindlters.gdshader" id="21_td6mg"]
+[ext_resource type="AudioStream" uid="uid://b1i216jjru8e5" path="res://sounds/hover.wav" id="23_oil5j"]
+[ext_resource type="AudioStream" uid="uid://d0mpkctmjaa0k" path="res://sounds/click.wav" id="24_8uog0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oil5j"]
 font = ExtResource("17_guify")
@@ -288,6 +290,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="HoverSound" type="AudioStreamPlayer2D" parent="." unique_id=379648]
+stream = ExtResource("23_oil5j")
+bus = &"SFX"
+
+[node name="Click" type="AudioStreamPlayer2D" parent="." unique_id=2027107848]
+stream = ExtResource("24_8uog0")
+bus = &"SFX"
 
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
