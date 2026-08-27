@@ -60,6 +60,7 @@ var current_stiffness_percent: float = 0.0
 var current_stiffness_value: float = 0.0
 var base_color: Color
 var start_position: Vector2
+var sound_cooldown: float = 0.0
 
 func _ready() -> void:
 	add_to_group("player")
@@ -95,9 +96,12 @@ func _ready() -> void:
 
 
 func _on_point_collided(impact_speed: float) -> void:
-	# Only squish if the impact was hard enough!
-	if impact_speed > 50.0:
+	# Only play if we hit hard enough AND the cooldown is finished
+	if impact_speed > 300.0 and sound_cooldown <= 0.0:
 		play_squish_sound()
+		
+		# Set the cooldown so it can't play again for 1/4 of a second
+		sound_cooldown = 0.25
 
 func play_squish_sound() -> void:
 	# Don't interrupt a sound that is currently playing
@@ -122,6 +126,9 @@ func play_squish_sound() -> void:
 	squish_sound.stop()
 	
 func _physics_process(delta: float) -> void:
+	if sound_cooldown > 0.0:
+		sound_cooldown -= delta
+		
 	if soft_body:
 		soft_body.enable_pressure_system = soft_body.should_enable_pressure_system()
 		soft_body.enable_shape_matching = enable_shape_matching

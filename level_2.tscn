@@ -146,6 +146,7 @@
 [ext_resource type="Texture2D" uid="uid://clvfpnu6b4jo1" path="res://Textures/Tutorial/Level_2/frame_128_delay-0.04s.png" id="135_iefyb"]
 [ext_resource type="Texture2D" uid="uid://dtkvpyq6o0aw5" path="res://Textures/Tutorial/Level_2/frame_129_delay-0.04s.png" id="136_kwgmc"]
 [ext_resource type="AudioStream" uid="uid://de3kfx2tas68i" path="res://sounds/chime.mp3" id="142_vtwhy"]
+[ext_resource type="AudioStream" uid="uid://ceioq03akj7w5" path="res://sounds/cookie.wav" id="145_i43l0"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_bwt5l"]
 diffuse_texture = ExtResource("63_dyw3t")
@@ -654,36 +655,48 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddgyg"]
 size = Vector2(128, 128)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2lakv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtwhy"]
 shader = ExtResource("47_gx3pu")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
 shader_parameter/core_color = Color(1, 0, 0, 1)
 shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.7, 0.1, 0, 1)
 shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
 shader_parameter/outer_edge = 0.4
-shader_parameter/crust_edge = 0.45
 shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 0.8
+shader_parameter/noise_scale = 12.0
+shader_parameter/distortion_strength = 0.025
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_46val"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i43l0"]
 shader = ExtResource("47_gx3pu")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
 shader_parameter/core_color = Color(1, 0.6166667, 0, 1)
 shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.7, 0.1, 0, 1)
 shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
 shader_parameter/outer_edge = 0.4
-shader_parameter/crust_edge = 0.45
 shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 0.8
+shader_parameter/noise_scale = 12.0
+shader_parameter/distortion_strength = 0.025
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_prm7a"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oht4h"]
 shader = ExtResource("47_gx3pu")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
 shader_parameter/core_color = Color(1, 0.9, 0.2, 1)
 shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.7, 0.1, 0, 1)
 shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
 shader_parameter/outer_edge = 0.4
-shader_parameter/crust_edge = 0.45
 shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 0.8
+shader_parameter/noise_scale = 12.0
+shader_parameter/distortion_strength = 0.025
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0uosw"]
 
-[node name="Game" type="Node2D" unique_id=1118129422]
+[node name="Game3" type="Node2D" unique_id=1118129422]
 
 [node name="Crevice" type="Node2D" parent="." unique_id=228194651]
 z_index = 2
@@ -875,14 +888,23 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("33_bwt5l")
 
-[node name="HotFluid" type="CanvasGroup" parent="." unique_id=1026336262]
-material = SubResource("ShaderMaterial_2lakv")
+[node name="crunch" type="AudioStreamPlayer2D" parent="Floatives/Collectable" unique_id=1924807357]
+stream = ExtResource("145_i43l0")
+volume_db = 4.067
+pitch_scale = 0.7
+bus = &"SFX"
 
-[node name="MediumFluid" type="CanvasGroup" parent="." unique_id=2057474656]
-material = SubResource("ShaderMaterial_46val")
+[node name="HotFluid" type="CanvasGroup" parent="." unique_id=123297142]
+material = SubResource("ShaderMaterial_vtwhy")
+position = Vector2(1281, -18)
 
-[node name="ColdFluid" type="CanvasGroup" parent="." unique_id=1023121802]
-material = SubResource("ShaderMaterial_prm7a")
+[node name="MediumFluid" type="CanvasGroup" parent="." unique_id=1325817447]
+material = SubResource("ShaderMaterial_i43l0")
+position = Vector2(1281, -18)
+
+[node name="ColdFluid" type="CanvasGroup" parent="." unique_id=1831894621]
+material = SubResource("ShaderMaterial_oht4h")
+position = Vector2(1281, -18)
 
 [node name="Spawner2" type="Area2D" parent="." unique_id=1523201089]
 position = Vector2(1281, -18)

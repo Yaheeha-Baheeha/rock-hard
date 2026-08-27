@@ -36,6 +36,16 @@
 [ext_resource type="Texture2D" uid="uid://j4qxeg26fom0" path="res://resources/empty_gradient_collectible.tres" id="31_notaq"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="34_ett8d"]
 [ext_resource type="AudioStream" uid="uid://de3kfx2tas68i" path="res://sounds/chime.mp3" id="34_td8cy"]
+[ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="37_i5xja"]
+[ext_resource type="AudioStream" uid="uid://ceioq03akj7w5" path="res://sounds/cookie.wav" id="37_w0qac"]
+[ext_resource type="PackedScene" uid="uid://ckyrgykq87qiw" path="res://prespawned_lava.tscn" id="38_i5xja"]
+[ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="39_mdra8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_scbl1"]
+size = Vector2(113, 283)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mdra8"]
+size = Vector2(2318, 165)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b6mmh"]
 animations = [{
@@ -110,9 +120,6 @@ animations = [{
 "name": &"default",
 "speed": 12.0
 }]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ia5ws"]
-size = Vector2(2072, 111.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swvua"]
 size = Vector2(217324, 1572)
@@ -209,6 +216,50 @@ _data = {
 &"oscillate": SubResource("Animation_4p6gt")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w0qac"]
+shader = ExtResource("37_i5xja")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
+shader_parameter/core_color = Color(1, 0, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qa26o"]
+shader = ExtResource("37_i5xja")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
+shader_parameter/core_color = Color(1, 0.6166667, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hu5wk"]
+shader = ExtResource("37_i5xja")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
+shader_parameter/core_color = Color(1, 0.9, 0.2, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ia5ws"]
+size = Vector2(2072, 111.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0qac"]
+
 [node name="Game" type="Node2D" unique_id=1231079063]
 
 [node name="Hammer" parent="." unique_id=1722124445 instance=ExtResource("5_5hph3")]
@@ -223,6 +274,19 @@ obstacle_markers = [NodePath("../Tilemap/TileMapLayer")]
 
 [node name="background" parent="." unique_id=979663656 instance=ExtResource("11_13y8f")]
 z_index = -100
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=851868533 groups=["ground"]]
+position = Vector2(465, 71)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2063815647]
+position = Vector2(-8.5, -75.5)
+shape = SubResource("RectangleShape2D_scbl1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=2130517555]
+position = Vector2(1094, -134.5)
+shape = SubResource("RectangleShape2D_mdra8")
 
 [node name="Tilemap" type="Node2D" parent="." unique_id=782960275]
 
@@ -1352,22 +1416,6 @@ scale = Vector2(3.3333263, 3.3333263)
 sprite_frames = SubResource("SpriteFrames_b6mmh")
 autoplay = "default"
 
-[node name="DeahConditionRigid" type="Area2D" parent="Lava" unique_id=1576449023]
-script = ExtResource("4_5hph3")
-player_root_path = NodePath("../../Player")
-softbody_path = NodePath("../../Player/SoftBodySphere")
-player_controller_path = NodePath("../../Player")
-respawn_point_path = NodePath("../../RespawnPoint")
-spawn_parent_path = NodePath("../..")
-shape_polygon_color = Color(1, 1, 1, 1)
-shape_texture = ExtResource("28_swvua")
-shape_texture_region = Rect2(0, 0, 100, 100)
-circle_approximation_segments = 40
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/DeahConditionRigid" unique_id=577410491]
-position = Vector2(1431, 73.375)
-shape = SubResource("RectangleShape2D_ia5ws")
-
 [node name="WorldBoundary" type="Area2D" parent="Lava" unique_id=1815430080]
 collision_layer = 129
 script = ExtResource("4_5hph3")
@@ -1483,3 +1531,58 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("31_ka01f")
+
+[node name="crunch" type="AudioStreamPlayer2D" parent="Floatives/Collectable" unique_id=350342980]
+stream = ExtResource("37_w0qac")
+volume_db = 4.067
+bus = &"SFX"
+
+[node name="HotFluid" type="CanvasGroup" parent="." unique_id=1243058899]
+material = SubResource("ShaderMaterial_w0qac")
+
+[node name="MediumFluid" type="CanvasGroup" parent="." unique_id=734659127]
+material = SubResource("ShaderMaterial_qa26o")
+
+[node name="ColdFluid" type="CanvasGroup" parent="." unique_id=117149273]
+material = SubResource("ShaderMaterial_hu5wk")
+
+[node name="Prespawned Lava" parent="." unique_id=2110358411 instance=ExtResource("38_i5xja")]
+particle_count = 200
+fluid_type = 1
+despawn_rule = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Prespawned Lava" unique_id=1784126178]
+position = Vector2(1435, 71)
+shape = SubResource("RectangleShape2D_ia5ws")
+
+[node name="Spawner2" type="Area2D" parent="." unique_id=1308055745]
+position = Vector2(1500, 71)
+script = ExtResource("39_mdra8")
+is_active = true
+fluid_type = 1
+despawn_rule = 1
+spawn_rate = 0.0
+spawn_angle = 180.0
+angle_variance = 0.0
+spawn_speed = 2500.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=2108996917]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_w0qac")
+
+[node name="Spawner3" type="Area2D" parent="." unique_id=1268770853]
+position = Vector2(1585, 71)
+script = ExtResource("39_mdra8")
+is_active = true
+fluid_type = 1
+despawn_rule = 1
+spawn_rate = 0.0
+spawn_angle = 0.0
+angle_variance = 0.0
+spawn_speed = 2500.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner3" unique_id=476675678]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_w0qac")

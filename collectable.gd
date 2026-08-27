@@ -4,6 +4,7 @@ extends Node2D
 @export var collectible_key: String = ""
 @export var pickup_radius: float = 100.0 ## Adjust this in the Inspector for a tighter hitbox!
 
+@onready var crunch = $crunch
 var _player_node: Node2D
 
 func _ready():
@@ -22,6 +23,15 @@ func _process(_delta):
 		trigger_collection()
 
 func trigger_collection():
+	# Stop checking distance so it doesn't trigger twice
+	set_process(false)
+	hide()
+	
 	var collectable_id = collectible_key if collectible_key != "" else "collectable in level_%d" % level_number
 	GameManager.add_collectable(collectable_id)
+	
+	if crunch and crunch.stream:
+		crunch.play()
+		await crunch.finished
+		
 	queue_free()
