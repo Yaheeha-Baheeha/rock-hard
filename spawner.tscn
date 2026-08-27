@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dcax1h8x4b47u"]
+
+[ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="1_yp5lu"]
+[ext_resource type="Material" uid="uid://beohj12ngimtb" path="res://outline_material.tres" id="2_mcln3"]
+[ext_resource type="Texture2D" uid="uid://br8nfbb3u0hk6" path="res://Textures/Lava/Crevice.png" id="2_ttk4a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_asmw2"]
+size = Vector2(168, 114)
+
+[node name="Spawner" type="Area2D" unique_id=223119425]
+script = ExtResource("1_yp5lu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=972953715]
+material = ExtResource("2_mcln3")
+position = Vector2(2.3841858e-07, 2.3841858e-07)
+scale = Vector2(3.4, 3.4)
+texture = ExtResource("2_ttk4a")
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1674586839]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1891803694]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_asmw2")

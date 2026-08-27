@@ -1,9 +1,7 @@
-extends Node2D
-
-## Emitted whenever the lever fully clicks to a new state.
-signal toggled(is_active: bool)
+extends SignalEmitter
 
 @export_category("Lever Settings")
+@export var start_active: bool = false ## Check this to make the lever start in the ON position!
 @export var activation_angle: float = 30.0 ## How many degrees the lever must be pushed to switch states
 @export var lever_friction: float = 15.0 ## Higher number = heavier lever that stops moving quickly
 
@@ -14,34 +12,37 @@ signal toggled(is_active: bool)
 @onready var green_light = $GreenLight/PointLight2D
 @onready var red_light = $RedLight/PointLight2D
 
-var is_active: bool = false
-
 func _ready() -> void:
-	# 1. Apply heavy friction/air resistance to the handle so it doesn't flop around
+	super._ready()
+	
+	# Apply heavy friction/air resistance to the handle so it doesn't flop around
 	if switch_body is RigidBody2D:
 		switch_body.angular_damp = lever_friction
+		
+	# --- NEW: AUTO-ADJUST STARTING ANGLE ---
+	# We add 5 extra degrees so it sits safely past the threshold line
+	var angle_offset = activation_angle + 5.0 
 	
-	# 2. Set the initial light states
+	if start_active:
+		switch_body.global_rotation = base_body.global_rotation + deg_to_rad(angle_offset)
+	else:
+		switch_body.global_rotation = base_body.global_rotation - deg_to_rad(angle_offset)
+	
+	# Tell the parent script (and all connected receivers) what state we are starting in
+	set_state(start_active)
 	_update_visuals()
+	# ---------------------------------------
 
 func _physics_process(_delta: float) -> void:
-	# 1. Calculate the exact angle difference between the base and the handle
-	# Using wrapf keeps the angle strictly between -180 and 180 degrees
 	@warning_ignore("shadowed_global_identifier")
 	var angle_difference = wrapf(rad_to_deg(switch_body.global_rotation - base_body.global_rotation), -180.0, 180.0)
 	
-	var previous_state = is_active
-	
-	# 2. Check if the lever has been pushed past the activation threshold
-	if angle_difference > activation_angle:
-		is_active = true
-	elif angle_difference < -activation_angle:
-		is_active = false
-		
-	# 3. If the state just changed this exact frame, trigger our logic!
-	if is_active != previous_state:
+	if angle_difference > activation_angle and not is_active:
+		set_state(true)
 		_update_visuals()
-		toggled.emit(is_active)
+	elif angle_difference < -activation_angle and is_active:
+		set_state(false)
+		_update_visuals()
 
 func _update_visuals() -> void:
 	if is_active:

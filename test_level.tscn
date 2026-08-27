@@ -3,7 +3,6 @@
 [ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="1_gbhdq"]
 [ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="4_4ptq8"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="5_gbhdq"]
-[ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="6_y646j"]
 [ext_resource type="PackedScene" uid="uid://dp2yvv1x5o1jn" path="res://lever.tscn" id="7_lnbra"]
 [ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="7_y646j"]
 [ext_resource type="PackedScene" uid="uid://2vbm7n5uvx3l" path="res://rectangle.tscn" id="8_lowby"]
@@ -11,6 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://di3if6j4ylhkr" path="res://fire_particles.tscn" id="10_lowby"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="11_13y8f"]
 [ext_resource type="PackedScene" uid="uid://b3ychu10vjacp" path="res://logic_button.tscn" id="11_58smv"]
+[ext_resource type="PackedScene" uid="uid://dcax1h8x4b47u" path="res://spawner.tscn" id="11_a25ih"]
+[ext_resource type="PackedScene" uid="uid://xac4ri50wcc5" path="res://pressure_plate.tscn" id="12_a25ih"]
+[ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="13_38et7"]
+[ext_resource type="PackedScene" uid="uid://dhtwpif4owtth" path="res://moving_platform.tscn" id="14_b7ax5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gbhdq"]
 shader = ExtResource("1_gbhdq")
@@ -40,8 +43,6 @@ shader_parameter/crust_edge = 0.45
 shader_parameter/core_start = 0.8
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5rr72"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbhdq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnbra"]
 texture = ExtResource("7_y646j")
@@ -224,6 +225,21 @@ terrain_set_0/terrain_4/name = "to left steep slope"
 terrain_set_0/terrain_4/color = Color(0.5999843, 0.80228055, 0.8778071, 1)
 sources/0 = SubResource("TileSetAtlasSource_lnbra")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_asmw2"]
+size = Vector2(50, 50.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6pjo6"]
+size = Vector2(59, 44)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_asmw2"]
+radius = 84.38009
+
+[sub_resource type="Curve2D" id="Curve2D_b7ax5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -322.76233, -323.2727, 0, 0, 0, 0, -250.08469, 237.85645, 0, 0, 0, 0, 76.2659, 373.30142)
+}
+point_count = 3
+
 [node name="Game2" type="Node2D" unique_id=984303330]
 
 [node name="HotFluid" type="CanvasGroup" parent="." unique_id=507034607]
@@ -258,23 +274,6 @@ enable_pressure_system = false
 shape_match_stiffness = 2000.0
 shape_match_damping = 5.0
 
-[node name="Spawner" type="Area2D" parent="." unique_id=595634446 node_paths=PackedStringArray("target_switch")]
-position = Vector2(713, -1121)
-script = ExtResource("6_y646j")
-fluid_type = 1
-despawn_rule = 3
-lava_melts_corpses = false
-spawn_rate = 0.0
-spawn_angle = 180.0
-angle_variance = 0.0
-spawn_speed = 0.0
-speed_variance = 0.0
-target_switch = NodePath("../LogicButton")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner" unique_id=1853591851]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_gbhdq")
-
 [node name="Tilemap2" type="Node2D" parent="." unique_id=16745025]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Tilemap2" unique_id=2003282362]
@@ -298,25 +297,9 @@ offset_right = 196.0
 offset_bottom = 87.65
 color = Color(1, 0, 0, 1)
 
-[node name="Spawner2" type="Area2D" parent="." unique_id=1577070858 node_paths=PackedStringArray("target_switch")]
-position = Vector2(713, -1121)
-script = ExtResource("6_y646j")
-fluid_type = 1
-despawn_rule = 3
-lava_melts_corpses = false
-spawn_rate = 0.01
-spawn_angle = 180.0
-angle_variance = 0.0
-spawn_speed = 0.0
-speed_variance = 0.0
-target_switch = NodePath("../LogicButton")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=1057319635]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_gbhdq")
-
-[node name="Lever" parent="." unique_id=603365385 instance=ExtResource("7_lnbra")]
-position = Vector2(-737, -127)
+[node name="Lever" parent="." unique_id=603365385 node_paths=PackedStringArray("targets") instance=ExtResource("7_lnbra")]
+position = Vector2(-737, -128)
+targets = [NodePath("../Spawner"), NodePath("../Spawner2"), NodePath("../MovingPlatform")]
 
 [node name="Rectangle" parent="." unique_id=1176716040 instance=ExtResource("8_lowby")]
 position = Vector2(-357, -510)
@@ -327,6 +310,43 @@ position = Vector2(-497, -552)
 [node name="fire_particles" parent="." unique_id=1620446562 instance=ExtResource("10_lowby")]
 position = Vector2(-23296, 200192)
 
-[node name="LogicButton" parent="." unique_id=1606933612 instance=ExtResource("11_58smv")]
-position = Vector2(1328, -260)
-pulse_duration = null
+[node name="LogicButton" parent="." unique_id=1606933612 node_paths=PackedStringArray("targets") instance=ExtResource("11_58smv")]
+position = Vector2(1353, -288)
+targets = [NodePath("../Spawner"), NodePath("../Spawner2")]
+
+[node name="Spawner" parent="." unique_id=223119425 instance=ExtResource("11_a25ih")]
+position = Vector2(731, -155)
+despawn_rule = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner" unique_id=1624296000]
+shape = SubResource("RectangleShape2D_asmw2")
+
+[node name="Spawner2" parent="." unique_id=709080694 instance=ExtResource("11_a25ih")]
+position = Vector2(789, -155)
+despawn_rule = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=1999778376]
+shape = SubResource("RectangleShape2D_6pjo6")
+
+[node name="PressurePlate" parent="." unique_id=1591117776 node_paths=PackedStringArray("targets") instance=ExtResource("12_a25ih")]
+position = Vector2(980, -4)
+targets = [NodePath("../Spawner"), NodePath("../Spawner2")]
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="." unique_id=286382677]
+position = Vector2(1246, -196)
+mass = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2" unique_id=1025578493]
+shape = SubResource("CircleShape2D_asmw2")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2" unique_id=847982833]
+texture = ExtResource("13_38et7")
+
+[node name="MovingPlatform" parent="." unique_id=1093273529 instance=ExtResource("14_b7ax5")]
+position = Vector2(291, -276)
+auto_move = true
+
+[node name="PathFollow2D" type="Path2D" parent="MovingPlatform" unique_id=163305281]
+position = Vector2(103.865326, 28.486649)
+scale = Vector2(1.4309764, 0.62017804)
+curve = SubResource("Curve2D_b7ax5")

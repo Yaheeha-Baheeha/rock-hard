@@ -10,10 +10,6 @@ var player_in_range: bool = false
 
 @onready var timer = $ActiveTimer
 
-func _ready() -> void:
-	# This forces the timer to talk to your function so it doesn't get stuck!
-	if not timer.timeout.is_connected(_on_active_timer_timeout):
-		timer.timeout.connect(_on_active_timer_timeout)
 
 func _on_interaction_range_body_entered(body: Node2D) -> void:
 	# Make sure your player character is in the "player" group!

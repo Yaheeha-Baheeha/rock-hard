@@ -111,7 +111,7 @@ func _extract_node_polygons(node: Node) -> Array[PackedVector2Array]:
 func initialize() -> void:
 	dynamic_body = AnimatableBody2D.new()
 	dynamic_body.collision_mask = 0 # On no layers itself
-	dynamic_body.collision_layer = 0xFFFFFFFF # Masked on all 32 layers
+	dynamic_body.collision_layer = 1 << 15
 	dynamic_body.add_to_group("player_ignore")
 	dynamic_body.add_to_group("player")
 	

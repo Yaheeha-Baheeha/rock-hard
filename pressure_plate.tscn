@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://xac4ri50wcc5"]
+
+[ext_resource type="Script" uid="uid://c5qamy168nok7" path="res://pressure_plate.gd" id="1_uot4y"]
+[ext_resource type="Texture2D" uid="uid://ryd3tr320mju" path="res://PressurePlateBase.png" id="2_8bqyo"]
+[ext_resource type="Material" uid="uid://beohj12ngimtb" path="res://outline_material.tres" id="2_djmga"]
+[ext_resource type="Texture2D" uid="uid://bpmt412ixeqkt" path="res://PressurePlateTop.png" id="4_ec6ob"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6pjo6"]
+size = Vector2(153, 53)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_asmw2"]
+size = Vector2(125, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2704"]
+size = Vector2(75, 20)
+
+[node name="PressurePlate" type="Node2D" unique_id=1591117776]
+script = ExtResource("1_uot4y")
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=2076066785]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1206759962]
+position = Vector2(3.5, -3.5)
+shape = SubResource("RectangleShape2D_6pjo6")
+
+[node name="BaseBody" type="StaticBody2D" parent="." unique_id=2014749829]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseBody" unique_id=1533092450]
+position = Vector2(2.5, 0.5)
+shape = SubResource("RectangleShape2D_asmw2")
+
+[node name="Sprite2D" type="Sprite2D" parent="BaseBody" unique_id=1367149796]
+material = ExtResource("2_djmga")
+position = Vector2(0, -46.999996)
+scale = Vector2(5, 5)
+texture = ExtResource("2_8bqyo")
+
+[node name="TopPlateBody" type="RigidBody2D" parent="." unique_id=1981578760]
+position = Vector2(0, -5)
+mass = 0.1
+can_sleep = false
+lock_rotation = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopPlateBody" unique_id=1603405179]
+position = Vector2(0.5, -12)
+shape = SubResource("RectangleShape2D_f2704")
+
+[node name="Sprite2D" type="Sprite2D" parent="TopPlateBody" unique_id=1456194954]
+z_index = -1
+material = ExtResource("2_djmga")
+position = Vector2(-2, -52)
+scale = Vector2(5, 5)
+texture = ExtResource("4_ec6ob")
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="." unique_id=1516082419]
+position = Vector2(0, -20)
+node_a = NodePath("../BaseBody")
+node_b = NodePath("../TopPlateBody")
+length = 40.0
+rest_length = 40.0
+stiffness = 30.0

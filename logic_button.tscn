@@ -1,32 +1,46 @@
 [gd_scene format=3 uid="uid://b3ychu10vjacp"]
 
 [ext_resource type="Script" uid="uid://du85atmsuea1q" path="res://logic_button.gd" id="1_4kkf7"]
+[ext_resource type="Material" uid="uid://beohj12ngimtb" path="res://outline_material.tres" id="1_20mqh"]
 [ext_resource type="Texture2D" uid="uid://beifvdf7vvff2" path="res://Textures/Button.png.png" id="2_4kkf7"]
 [ext_resource type="Texture2D" uid="uid://bay65k1s8lo3a" path="res://Textures/ButtonPressed.png.png" id="3_20mqh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0m23"]
 size = Vector2(262, 615)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_asmw2"]
+size = Vector2(46, 87)
+
 [node name="LogicButton" type="Area2D" unique_id=1606933612]
+material = ExtResource("1_20mqh")
 script = ExtResource("1_4kkf7")
-pulse_duration = null
-texture_on = ExtResource("2_4kkf7")
-texture_off = ExtResource("3_20mqh")
+texture_on = ExtResource("3_20mqh")
+texture_off = ExtResource("2_4kkf7")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1264661857]
-scale = Vector2(7.15625, 7.15625)
+material = ExtResource("1_20mqh")
+position = Vector2(14.999996, -0.9999924)
+scale = Vector2(3.8593752, 4.671875)
 texture = ExtResource("2_4kkf7")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=1517351021]
-polygon = PackedVector2Array(50, -57, 14, -57, 14, -43, -29, -43, -29, 57, 14, 57, 14, 72, 50, 72)
+polygon = PackedVector2Array(42, -38, 23, -38, 23, -29, 0, -29, 0, 36, 23, 36, 23, 46, 42, 46)
 
 [node name="InteractionRange" type="Area2D" parent="." unique_id=355228135]
+collision_layer = 32769
+collision_mask = 32769
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRange" unique_id=1577829511]
-position = Vector2(-113, -2)
+position = Vector2(-108, -2)
 shape = SubResource("RectangleShape2D_c0m23")
 
 [node name="ActiveTimer" type="Timer" parent="." unique_id=1413885536]
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1638549727]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1168095799]
+position = Vector2(20, 2.5)
+shape = SubResource("RectangleShape2D_asmw2")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="body_entered" from="InteractionRange" to="." method="_on_interaction_range_body_entered"]

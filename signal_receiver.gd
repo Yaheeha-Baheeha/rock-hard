@@ -1,28 +1,40 @@
 class_name SignalReceiver
 extends Node2D 
 
-@export var target_switch: SignalEmitter ## Drag your Button or Lever here!
-@export var invert_signal: bool = false ## If true, an ON button turns this OFF.
-
 var is_active: bool = false
+var active_emitters: Dictionary = {}
+var sprites: Array[Sprite2D] = []
 
 func _ready() -> void:
-	if target_switch:
-		# Tell Godot to listen to the switch's 'toggled' signal
-		target_switch.toggled.connect(_process_signal)
-		
-		# Grab the exact initial state right as the level loads
-		_process_signal(target_switch.is_active)
+	_collect_sprites(self)
+	for sprite in sprites:
+		if sprite.material:
+			sprite.material = sprite.material.duplicate()
 
-func _process_signal(switch_state: bool) -> void:
-	if invert_signal:
-		is_active = !switch_state
+func _collect_sprites(parent_node: Node) -> void:
+	for child in parent_node.get_children():
+		if child is Sprite2D:
+			sprites.append(child)
+		_collect_sprites(child)
+
+func set_outline(active: bool) -> void:
+	for sprite in sprites:
+		if sprite and sprite.material:
+			sprite.material.set_shader_parameter("is_active", active)
+
+func process_signal(emitter: SignalEmitter, switch_state: bool) -> void:
+	if switch_state:
+		active_emitters[emitter] = true
 	else:
-		is_active = switch_state
+		active_emitters.erase(emitter)
 		
-	# Trigger the specific logic for whatever child class this is
-	_on_state_changed()
+	# Odd count of active signals = ON (1 active input)
+	# Even count of active signals = OFF (0 or 2 active inputs)
+	var should_be_active = (active_emitters.size() % 2 == 1)
+	
+	if is_active != should_be_active:
+		is_active = should_be_active
+		_on_state_changed()
 
-# Virtual function meant to be overridden by your Spawners/Trapdoors
 func _on_state_changed() -> void:
 	pass

@@ -3,6 +3,7 @@ extends SignalReceiver
 @export var water_drop_scene: PackedScene = preload("res://lava_drop.tscn")
 
 @export_category("Spawner Settings")
+@export var auto_spawn: bool = false ## Check this if you want lava to pour without needing a button!
 @export var fluid_type: LavaDroplet.FluidType = LavaDroplet.FluidType.HOT 
 @export var despawn_rule: LavaDroplet.DespawnRule = LavaDroplet.DespawnRule.NEVER 
 @export var lava_melts_corpses: bool = true 
@@ -21,16 +22,23 @@ extends SignalReceiver
 
 var spawn_timer: float = 0.0
 
+func _ready() -> void:
+	# Call the parent class so it sets up the shader outline material!
+	super._ready()
+	
+	# If this spawner doesn't need a button, turn it on immediately
+	if auto_spawn:
+		is_active = true
+
 func _process(delta: float) -> void:
-	# is_active is automatically handled by the SignalReceiver base class!
-	var can_spawn: bool = (target_switch == null) or is_active
-		
-	if can_spawn:
+	# is_active is now perfectly synced with your buttons (or auto_spawn)
+	if is_active:
 		spawn_timer += delta
 		if spawn_timer >= spawn_rate:
 			spawn_timer = 0.0 
 			spawn_drop()
 	else:
+		# Keep the timer primed so it instantly fires when a button is pressed
 		spawn_timer = spawn_rate 
 
 func spawn_drop() -> void:
