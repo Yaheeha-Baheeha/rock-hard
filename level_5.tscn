@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="9_jiqp1"]
 [ext_resource type="AudioStream" uid="uid://de3kfx2tas68i" path="res://sounds/chime.mp3" id="9_vcgqq"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="12_jiqp1"]
+[ext_resource type="AudioStream" uid="uid://ceioq03akj7w5" path="res://sounds/cookie.wav" id="12_o1mlc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_br4so"]
 size = Vector2(769, 130)
@@ -257,6 +258,11 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_jiqp1")
+
+[node name="crunch" type="AudioStreamPlayer2D" parent="Floatives/Collectable" unique_id=1881727876]
+stream = ExtResource("12_o1mlc")
+volume_db = 4.067
+bus = &"SFX"
 
 [node name="worldboudary" type="Area2D" parent="." unique_id=1821224670]
 position = Vector2(0, -390)

@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="10_vp58d"]
 [ext_resource type="AudioStream" uid="uid://de3kfx2tas68i" path="res://sounds/chime.mp3" id="11_notfv"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="13_ejlf8"]
+[ext_resource type="AudioStream" uid="uid://ceioq03akj7w5" path="res://sounds/cookie.wav" id="14_hg2ow"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_brkdw"]
 texture = ExtResource("1_vp58d")
@@ -355,6 +356,11 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_ejlf8")
+
+[node name="crunch" type="AudioStreamPlayer2D" parent="Floatives/Collectable" unique_id=1496882549]
+stream = ExtResource("14_hg2ow")
+volume_db = 4.067
+bus = &"SFX"
 
 [node name="worldboudary" type="Area2D" parent="." unique_id=856787237]
 script = ExtResource("9_vp58d")

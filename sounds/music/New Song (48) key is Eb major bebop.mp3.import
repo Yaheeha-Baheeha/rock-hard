@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b2bfvrjl4iqis"
+path="res://.godot/imported/New Song (48) key is Eb major bebop.mp3-6b244f647542e7240787aedd195f8d70.mp3str"
+
+[deps]
+
+source_file="res://sounds/music/New Song (48) key is Eb major bebop.mp3"
+dest_files=["res://.godot/imported/New Song (48) key is Eb major bebop.mp3-6b244f647542e7240787aedd195f8d70.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

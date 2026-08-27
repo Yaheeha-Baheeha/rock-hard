@@ -153,34 +153,58 @@ func _first_visible_slot_index() -> int:
 # ==========================================
 
 func _init_settings() -> void:
-	# Connect Colorblindness Sliders
-	mode_slider.value_changed.connect(_on_mode_changed)
-	intensity_slider.value_changed.connect(_on_intensity_changed)
+	var gm = get_node_or_null("/root/GameManager")
 	filters.material.set_shader_parameter("intensity", 0)
 	filters.material.set_shader_parameter("mode", 2)
-
+	if not gm:
+		return
+		
+	# 1. Set slider values from GameManager data without triggering signals yet
+	mode_slider.value = gm.settings_data["colorblind_mode"]
+	intensity_slider.value = gm.settings_data["colorblind_intensity"]
 	
-	# Connect Audio Sliders
-	master_slider.value_changed.connect(func(value): _change_audio_volume("master", value))
-	sfx_slider.value_changed.connect(func(value): _change_audio_volume("SFX", value))
-	env_slider.value_changed.connect(func(value): _change_audio_volume("Enviroment", value))
-	player_slider.value_changed.connect(func(value): _change_audio_volume("Player", value))
-	music_slider.value_changed.connect(func(value): _change_audio_volume("Music", value))
+	master_slider.value = gm.settings_data["volume_master"]
+	sfx_slider.value = gm.settings_data["volume_SFX"]
+	env_slider.value = gm.settings_data["volume_Enviroment"]
+	player_slider.value = gm.settings_data["volume_Player"]
+	music_slider.value = gm.settings_data["volume_Music"]
+
+	# Apply shader settings immediately on launch
+	_on_mode_changed(mode_slider.value)
+	_on_intensity_changed(intensity_slider.value)
+
+	# 2. Connect signals for runtime changes
+	mode_slider.value_changed.connect(_on_mode_changed)
+	intensity_slider.value_changed.connect(_on_intensity_changed)
+	
+	master_slider.value_changed.connect(func(val): _update_audio_setting("master", "volume_master", val))
+	sfx_slider.value_changed.connect(func(val): _update_audio_setting("SFX", "volume_SFX", val))
+	env_slider.value_changed.connect(func(val): _update_audio_setting("Enviroment", "volume_Enviroment", val))
+	player_slider.value_changed.connect(func(val): _update_audio_setting("Player", "volume_Player", val))
+	music_slider.value_changed.connect(func(val): _update_audio_setting("Music", "volume_Music", val))
 
 func _on_mode_changed(value: float) -> void:
+	var mode_int = int(value)
 	if filters and filters.material:
-		filters.material.set_shader_parameter("mode", int(value))
+		filters.material.set_shader_parameter("mode", mode_int)
+	
+	var gm = get_node_or_null("/root/GameManager")
+	if gm and gm.settings_data["colorblind_mode"] != mode_int:
+		gm.settings_data["colorblind_mode"] = mode_int
+		gm.save_game()
 
 func _on_intensity_changed(value: float) -> void:
 	if filters and filters.material:
 		filters.material.set_shader_parameter("intensity", value)
+		
+	var gm = get_node_or_null("/root/GameManager")
+	if gm and gm.settings_data["colorblind_intensity"] != value:
+		gm.settings_data["colorblind_intensity"] = value
+		gm.save_game()
 
-func _change_audio_volume(bus_name: String, linear_value: float) -> void:
-	var bus_index = AudioServer.get_bus_index(bus_name)
-	
-	if bus_index != -1:
-		var db_value = linear_to_db(linear_value)
-		AudioServer.set_bus_volume_db(bus_index, db_value)
-		AudioServer.set_bus_mute(bus_index, linear_value <= 0.001)
-	else:
-		push_error("Audio bus not found: " + bus_name)
+func _update_audio_setting(bus_name: String, setting_key: String, linear_value: float) -> void:
+	var gm = get_node_or_null("/root/GameManager")
+	if gm:
+		gm._apply_bus_volume(bus_name, linear_value)
+		gm.settings_data[setting_key] = linear_value
+		gm.save_game()

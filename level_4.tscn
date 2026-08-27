@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="9_80qnk"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="10_80qnk"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="10_rrs1j"]
+[ext_resource type="AudioStream" uid="uid://ceioq03akj7w5" path="res://sounds/cookie.wav" id="12_45t7y"]
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="13_rrs1j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_l45re"]
@@ -252,6 +253,11 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_rrs1j")
+
+[node name="crunch" type="AudioStreamPlayer2D" parent="Floatives/Collectable" unique_id=1558441287]
+stream = ExtResource("12_45t7y")
+volume_db = 4.067
+bus = &"SFX"
 
 [node name="killall" type="Area2D" parent="." unique_id=1261945411]
 script = ExtResource("13_rrs1j")

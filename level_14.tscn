@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://de3kfx2tas68i" path="res://sounds/chime.mp3" id="10_oswnc"]
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="11_4kxg1"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="12_g3fi3"]
+[ext_resource type="AudioStream" uid="uid://ceioq03akj7w5" path="res://sounds/cookie.wav" id="13_bfy3g"]
 [ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="13_ndjrf"]
 [ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="14_fp44a"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="15_jpqkt"]
@@ -457,6 +458,11 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_g3fi3")
+
+[node name="crunch" type="AudioStreamPlayer2D" parent="Floatives/Collectable" unique_id=655557322]
+stream = ExtResource("13_bfy3g")
+volume_db = 4.067
+bus = &"SFX"
 
 [node name="HotFluid" type="CanvasGroup" parent="." unique_id=1406800895]
 material = SubResource("ShaderMaterial_w7jmm")

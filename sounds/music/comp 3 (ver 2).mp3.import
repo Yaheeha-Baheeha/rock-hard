@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dm1x0440usf3j"
+path="res://.godot/imported/comp 3 (ver 2).mp3-d0b65f74871b4beb6db869c80b585440.mp3str"
+
+[deps]
+
+source_file="res://sounds/music/comp 3 (ver 2).mp3"
+dest_files=["res://.godot/imported/comp 3 (ver 2).mp3-d0b65f74871b4beb6db869c80b585440.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

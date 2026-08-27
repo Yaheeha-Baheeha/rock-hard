@@ -24,6 +24,10 @@
 [ext_resource type="Texture2D" uid="uid://bth1cpqxfaxjo" path="res://Textures/circle win/circle13.png" id="20_xmpta"]
 [ext_resource type="Texture2D" uid="uid://bpxnmkebd0dns" path="res://Textures/circle win/circle14.png" id="21_mrbh7"]
 [ext_resource type="Texture2D" uid="uid://psg7s7memyw2" path="res://Textures/circle win/circle15.png" id="22_lrhq4"]
+[ext_resource type="AudioStream" uid="uid://c4av7q0spsenc" path="res://sounds/ambience.wav" id="25_vd78s"]
+[ext_resource type="Script" uid="uid://dmqavih6vc0dh" path="res://music_manager.gd" id="26_ictha"]
+[ext_resource type="AudioStream" uid="uid://dm1x0440usf3j" path="res://sounds/music/comp 3 (ver 2).mp3" id="27_1jgrc"]
+[ext_resource type="AudioStream" uid="uid://b2bfvrjl4iqis" path="res://sounds/music/New Song (48) key is Eb major bebop.mp3" id="28_7wy67"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8v41o"]
 diffuse_texture = ExtResource("2_mgb7i")
@@ -133,6 +137,25 @@ scale = Vector2(67.125, 67.125)
 sprite_frames = SubResource("SpriteFrames_scbl1")
 frame = 15
 frame_progress = 1.0
+
+[node name="ambience" type="AudioStreamPlayer2D" parent="CenterTracker/LavaDetector/CollisionShape2D" unique_id=1200487722]
+stream = ExtResource("25_vd78s")
+volume_db = 2.111
+autoplay = true
+bus = &"Enviroment"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="CenterTracker/LavaDetector/CollisionShape2D" unique_id=1397601778]
+max_distance = 999999.0
+attenuation = 1e-05
+bus = &"Music"
+
+[node name="MusicManager" type="Node" parent="CenterTracker/LavaDetector/CollisionShape2D" unique_id=438532338]
+script = ExtResource("26_ictha")
+playlist = Array[AudioStream]([ExtResource("27_1jgrc"), ExtResource("28_7wy67")])
+
+[node name="DelayTimer" type="Timer" parent="CenterTracker/LavaDetector/CollisionShape2D/MusicManager" unique_id=674062462]
+wait_time = 40.0
+one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=202288614]
 position = Vector2(200, 16)

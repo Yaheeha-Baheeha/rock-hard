@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="11_81m5q"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="12_gjqyh"]
 [ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="13_msrib"]
+[ext_resource type="AudioStream" uid="uid://ceioq03akj7w5" path="res://sounds/cookie.wav" id="13_rqe21"]
 [ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="14_k42b6"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="15_uwbmh"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="16_rqe21"]
@@ -374,7 +375,7 @@ shape = SubResource("RectangleShape2D_twh4v")
 position = Vector2(-362, -953)
 texture = ExtResource("7_mflpv")
 script = ExtResource("8_8xjk2")
-next_level_number = 14
+next_level_number = 16
 
 [node name="Label" type="Label" parent="Floatives/Win" unique_id=952116991]
 z_index = 40
@@ -431,7 +432,7 @@ bus = &"SFX"
 position = Vector2(2216, -610)
 texture = ExtResource("7_mflpv")
 script = ExtResource("11_81m5q")
-level_number = 13
+level_number = 15
 
 [node name="Label" type="Label" parent="Floatives/Collectable" unique_id=536252390]
 offset_left = -43.0
@@ -457,6 +458,11 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_gjqyh")
+
+[node name="crunch" type="AudioStreamPlayer2D" parent="Floatives/Collectable" unique_id=1559676552]
+stream = ExtResource("13_rqe21")
+volume_db = 4.067
+bus = &"SFX"
 
 [node name="HotFluid" type="CanvasGroup" parent="." unique_id=623875951]
 material = SubResource("ShaderMaterial_w7jmm")

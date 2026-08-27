@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://68cnxhyjunjk" path="res://collectable.gd" id="11_huh58"]
 [ext_resource type="AudioStream" uid="uid://de3kfx2tas68i" path="res://sounds/chime.mp3" id="11_ruqkr"]
 [ext_resource type="Texture2D" uid="uid://dxqds6dwx5o6g" path="res://Textures/coooookie.png" id="12_x3x8n"]
+[ext_resource type="AudioStream" uid="uid://ceioq03akj7w5" path="res://sounds/cookie.wav" id="14_dr5ep"]
 [ext_resource type="PackedScene" uid="uid://dorgw30vrvmok" path="res://crevice.tscn" id="15_1jiv0"]
 [ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="16_o1gv2"]
 [ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="17_ruqkr"]
@@ -121,30 +122,42 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dr5ep"]
 shader = ExtResource("16_o1gv2")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
 shader_parameter/core_color = Color(1, 0, 0, 1)
 shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
 shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
 shader_parameter/outer_edge = 0.4
-shader_parameter/crust_edge = 0.45
 shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_elkj6"]
 shader = ExtResource("16_o1gv2")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
 shader_parameter/core_color = Color(1, 0.6166667, 0, 1)
 shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
 shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
 shader_parameter/outer_edge = 0.4
-shader_parameter/crust_edge = 0.45
 shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2x6s0"]
 shader = ExtResource("16_o1gv2")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
 shader_parameter/core_color = Color(1, 0.9, 0.2, 1)
 shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
 shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
 shader_parameter/outer_edge = 0.4
-shader_parameter/crust_edge = 0.45
 shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_huh58"]
 
@@ -293,6 +306,11 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_x3x8n")
+
+[node name="crunch" type="AudioStreamPlayer2D" parent="Floatives/Collectable" unique_id=348352158]
+stream = ExtResource("14_dr5ep")
+volume_db = 4.067
+bus = &"SFX"
 
 [node name="Lave" type="Node2D" parent="." unique_id=1714553925]
 
