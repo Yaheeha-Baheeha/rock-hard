@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dc664luiftqk2" path="res://triangle.tscn" id="10_a25ih"]
 [ext_resource type="PackedScene" uid="uid://di3if6j4ylhkr" path="res://fire_particles.tscn" id="10_lowby"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="11_13y8f"]
+[ext_resource type="PackedScene" uid="uid://b3ychu10vjacp" path="res://logic_button.tscn" id="11_58smv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gbhdq"]
 shader = ExtResource("1_gbhdq")
@@ -252,30 +253,14 @@ position = Vector2(286, 72)
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("5_gbhdq")]
 position = Vector2(-782, -315)
-radius = 48.0
-num_points = 32
-target_pressure = 16000.0
-spring_stiffness = 40000.0
-spring_damping = 1000.0
-global_drag = 0.99
+spring_stiffness = 20000.0
 enable_pressure_system = false
-enable_shape_matching = true
-shape_match_damping = 3.0
-texture_tint = Color(1, 1, 1, 1)
-move_force = 1200.0
-crouch_strength = 1500.0
-allow_respawn = true
-max_health = 100.0
-lava_damage_rate = 40.0
-cooling_rate = 20.0
-max_lava_stiffness = 1500.0
-corpse_texture_repeat = false
-corpse_polygon_color = Color(1, 1, 1, 1)
+shape_match_stiffness = 2000.0
+shape_match_damping = 5.0
 
-[node name="Spawner" type="Area2D" parent="." unique_id=595634446 node_paths=PackedStringArray("target_lever")]
+[node name="Spawner" type="Area2D" parent="." unique_id=595634446 node_paths=PackedStringArray("target_switch")]
 position = Vector2(713, -1121)
 script = ExtResource("6_y646j")
-target_lever = NodePath("../Lever")
 fluid_type = 1
 despawn_rule = 3
 lava_melts_corpses = false
@@ -284,6 +269,7 @@ spawn_angle = 180.0
 angle_variance = 0.0
 spawn_speed = 0.0
 speed_variance = 0.0
+target_switch = NodePath("../LogicButton")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner" unique_id=1853591851]
 position = Vector2(-1, 0)
@@ -312,11 +298,9 @@ offset_right = 196.0
 offset_bottom = 87.65
 color = Color(1, 0, 0, 1)
 
-[node name="Spawner2" type="Area2D" parent="." unique_id=1577070858 node_paths=PackedStringArray("target_lever")]
+[node name="Spawner2" type="Area2D" parent="." unique_id=1577070858 node_paths=PackedStringArray("target_switch")]
 position = Vector2(713, -1121)
 script = ExtResource("6_y646j")
-target_lever = NodePath("../Lever")
-is_active = true
 fluid_type = 1
 despawn_rule = 3
 lava_melts_corpses = false
@@ -325,6 +309,7 @@ spawn_angle = 180.0
 angle_variance = 0.0
 spawn_speed = 0.0
 speed_variance = 0.0
+target_switch = NodePath("../LogicButton")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=1057319635]
 position = Vector2(-1, 0)
@@ -341,3 +326,7 @@ position = Vector2(-497, -552)
 
 [node name="fire_particles" parent="." unique_id=1620446562 instance=ExtResource("10_lowby")]
 position = Vector2(-23296, 200192)
+
+[node name="LogicButton" parent="." unique_id=1606933612 instance=ExtResource("11_58smv")]
+position = Vector2(1328, -260)
+pulse_duration = null
