@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://3qb3jn0q55v5" path="res://Textures/LoadingForBreak/loading-11.png" id="16_6sege"]
 [ext_resource type="Texture2D" uid="uid://o6tmociyw7og" path="res://Textures/LoadingForBreak/loading-12.png" id="17_vnn5d"]
 [ext_resource type="Texture2D" uid="uid://bkkg7mo6t3mel" path="res://Textures/LoadingForBreak/loading-13.png" id="18_ldo7y"]
+[ext_resource type="AudioStream" uid="uid://bog8f07ykd8kh" path="res://sounds/swing.wav" id="20_g4tq5"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_663uh"]
 diffuse_texture = ExtResource("2_texture")
@@ -27,6 +28,18 @@ specular_texture = ExtResource("4_xqgrq")
 
 [sub_resource type="Animation" id="Animation_xpacs"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Swing:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_swing"]
 resource_name = "swing"
@@ -42,6 +55,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [-35.0, 20.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Swing:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0220478),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hammer"]
@@ -133,3 +158,6 @@ scale = Vector2(1.625, 1.625)
 sprite_frames = SubResource("SpriteFrames_2u0tw")
 frame = 11
 frame_progress = 0.09398264
+
+[node name="Swing" type="AudioStreamPlayer2D" parent="." unique_id=135369102]
+stream = ExtResource("20_g4tq5")

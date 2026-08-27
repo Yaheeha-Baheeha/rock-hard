@@ -134,9 +134,9 @@ color = Color(0.3647059, 0, 0, 0.4862745)
 [node name="BoxContainer" type="BoxContainer" parent="Settings" unique_id=1021127547]
 layout_mode = 0
 offset_left = 297.0
-offset_top = 108.0
+offset_top = 34.0
 offset_right = 832.0
-offset_bottom = 516.0
+offset_bottom = 442.0
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Settings/BoxContainer" unique_id=405092452]
 layout_mode = 2
@@ -192,7 +192,7 @@ label_settings = SubResource("LabelSettings_8uog0")
 [node name="VSeparator" type="VSeparator" parent="Settings/BoxContainer" unique_id=367877293]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.0
+size_flags_stretch_ratio = 0.25
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="Settings/BoxContainer" unique_id=1848778725]
 layout_mode = 2
@@ -271,9 +271,9 @@ value = 1.0
 [node name="Back2" type="TextureButton" parent="Settings" unique_id=162858564]
 layout_mode = 0
 offset_left = 389.0
-offset_top = 522.99994
+offset_top = 537.0
 offset_right = 445.0
-offset_bottom = 535.0
+offset_bottom = 549.00006
 scale = Vector2(7, 7)
 texture_normal = ExtResource("17_w25hu")
 texture_pressed = ExtResource("18_td6mg")
