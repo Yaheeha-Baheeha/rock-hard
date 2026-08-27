@@ -19,16 +19,13 @@ config/icon="res://icon.svg"
 
 GameManager="*res://GameManager.gd"
 HUD="*res://HUD.tscn"
+global_accesibility_signal="res://addons/accesibilitytools/global_accesibility_signal.gd"
 
 [display]
 
 window/size/viewport_width=1156
 window/size/viewport_height=672
 window/stretch/mode="canvas_items"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/softbody2d/plugin.cfg")
 
 [global_group]
 

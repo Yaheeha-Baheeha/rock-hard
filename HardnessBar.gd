@@ -1,13 +1,25 @@
 extends CanvasLayer
 
+# --- HUD VARIABLES ---
 @onready var progress_bar: AnimatedSprite2D = $TextureProgressBar/Progress
 @onready var triangle_slot: TextureButton = $TriangleSlot
 @onready var hexagon_slot: TextureButton = $HexagonSlot
 @onready var rectangle_slot: TextureButton = $RectangleSlot
 @onready var circle_slot: TextureButton = $CircleSlot
 
-var selected_slot_index: int = 1 
+# --- SETTINGS & FILTER VARIABLES ---
+@onready var filters: ColorRect = $Filters
 
+@onready var mode_slider: VSlider = $Settings/BoxContainer/VBoxContainer3/ColorBlindness/VSlider
+@onready var intensity_slider: VSlider = $Settings/BoxContainer/VBoxContainer3/ColorBlindness/VSlider2
+
+@onready var master_slider: HSlider = $Settings/BoxContainer/Audio/HSlider
+@onready var sfx_slider: HSlider = $Settings/BoxContainer/Audio/HSlider2
+@onready var env_slider: HSlider = $Settings/BoxContainer/Audio/HSlider3
+@onready var player_slider: HSlider = $Settings/BoxContainer/Audio/HSlider4
+@onready var music_slider: HSlider = $Settings/BoxContainer/Audio/HSlider5
+
+var selected_slot_index: int = 1 
 var player_node: Node = null
 var progress_start_x: float = 0.0
 var progress_travel_x: float = 128.0
@@ -28,6 +40,9 @@ func _ready() -> void:
 	_refresh_collectible_slots()
 	_update_selected_slot(1)
 	_sync_scene_visibility()
+	
+	# Wire up the settings sliders
+	_init_settings()
 
 func _process(_delta: float) -> void:
 	_sync_scene_visibility()
@@ -66,7 +81,6 @@ func _refresh_collectible_slots() -> void:
 	circle_slot.visible = triangle_slot.visible or hexagon_slot.visible or rectangle_slot.visible
 	rectangle_slot.visible = game_manager.has_collectable("rectangle")
 	hexagon_slot.visible = game_manager.has_collectable("hexagon")
-
 
 	if triangle_slot.visible or hexagon_slot.visible or rectangle_slot.visible or circle_slot.visible:
 		if not _is_slot_visible(selected_slot_index):
@@ -113,7 +127,6 @@ func _update_selected_slot(index: int) -> void:
 	elif selected_slot_index == 3:
 		hexagon_slot.modulate = Color(1.0, 1.0, 0.75, 1.0)
 
-	# --- NEW CODE: Tell the player to change shape ---
 	if player_node == null or not is_instance_valid(player_node):
 		player_node = get_tree().get_first_node_in_group("player")
 		
@@ -122,25 +135,52 @@ func _update_selected_slot(index: int) -> void:
 
 func _is_slot_visible(index: int) -> bool:
 	match index:
-		0:
-			return triangle_slot.visible
-		1:
-			return circle_slot.visible
-		2:
-			return rectangle_slot.visible
-		3:
-			return hexagon_slot.visible
-		_:
-			return false
+		0: return triangle_slot.visible
+		1: return circle_slot.visible
+		2: return rectangle_slot.visible
+		3: return hexagon_slot.visible
+		_: return false
 
 func _first_visible_slot_index() -> int:
-	if triangle_slot.visible:
-		return 0
-	if circle_slot.visible:
-		return 1
-	if rectangle_slot.visible:
-		return 2
-	if hexagon_slot.visible:
-		return 3
+	if triangle_slot.visible: return 0
+	if circle_slot.visible: return 1
+	if rectangle_slot.visible: return 2
+	if hexagon_slot.visible: return 3
 	return 1
+
+# ==========================================
+# --- SETTINGS, AUDIO, AND FILTERS LOGIC ---
+# ==========================================
+
+func _init_settings() -> void:
+	# Connect Colorblindness Sliders
+	mode_slider.value_changed.connect(_on_mode_changed)
+	intensity_slider.value_changed.connect(_on_intensity_changed)
+	filters.material.set_shader_parameter("intensity", 0)
+	filters.material.set_shader_parameter("mode", 2)
+
 	
+	# Connect Audio Sliders
+	master_slider.value_changed.connect(func(value): _change_audio_volume("master", value))
+	sfx_slider.value_changed.connect(func(value): _change_audio_volume("SFX", value))
+	env_slider.value_changed.connect(func(value): _change_audio_volume("Enviroment", value))
+	player_slider.value_changed.connect(func(value): _change_audio_volume("Player", value))
+	music_slider.value_changed.connect(func(value): _change_audio_volume("Music", value))
+
+func _on_mode_changed(value: float) -> void:
+	if filters and filters.material:
+		filters.material.set_shader_parameter("mode", int(value))
+
+func _on_intensity_changed(value: float) -> void:
+	if filters and filters.material:
+		filters.material.set_shader_parameter("intensity", value)
+
+func _change_audio_volume(bus_name: String, linear_value: float) -> void:
+	var bus_index = AudioServer.get_bus_index(bus_name)
+	
+	if bus_index != -1:
+		var db_value = linear_to_db(linear_value)
+		AudioServer.set_bus_volume_db(bus_index, db_value)
+		AudioServer.set_bus_mute(bus_index, linear_value <= 0.001)
+	else:
+		push_error("Audio bus not found: " + bus_name)
