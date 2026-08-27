@@ -26,19 +26,21 @@ func _ready() -> void:
 	# Call the parent class so it sets up the shader outline material!
 	super._ready()
 	
-	# If this spawner doesn't need a button, turn it on immediately
+	# If auto_spawn is enabled, add itself as a permanent active emitter
 	if auto_spawn:
-		is_active = true
+		active_emitters[self] = true
+	
+	# Evaluate the initial active state based on the emitters dictionary
+	is_active = (active_emitters.size() % 2 == 1)
 
 func _process(delta: float) -> void:
-	# is_active is now perfectly synced with your buttons (or auto_spawn)
 	if is_active:
 		spawn_timer += delta
 		if spawn_timer >= spawn_rate:
 			spawn_timer = 0.0 
 			spawn_drop()
 	else:
-		# Keep the timer primed so it instantly fires when a button is pressed
+		# Keep the timer primed so it instantly fires when activated
 		spawn_timer = spawn_rate 
 
 func spawn_drop() -> void:

@@ -487,7 +487,6 @@ material = SubResource("ShaderMaterial_j234b")
 [node name="Spawner2" type="Area2D" parent="." unique_id=186761016]
 position = Vector2(-471, 124)
 script = ExtResource("16_r5aa2")
-is_active = true
 despawn_rule = 3
 spawn_rate = 0.0
 spawn_angle = 270.0

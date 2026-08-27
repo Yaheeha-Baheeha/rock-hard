@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="16_letwx"]
 [ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="17_s3ij4"]
 [ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="18_yj21t"]
+[ext_resource type="PackedScene" uid="uid://b3ychu10vjacp" path="res://logic_button.tscn" id="19_1p4pd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iydcw"]
 texture = ExtResource("4_4sj71")
@@ -339,9 +340,6 @@ shader_parameter/distortion_strength = 0.012
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2g0n8"]
 size = Vector2(217324, 1572)
 
-[sub_resource type="LabelSettings" id="LabelSettings_t0s6n"]
-font_size = 57
-
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t0s6n"]
 
 [node name="Game" type="Node2D" unique_id=970491068]
@@ -487,7 +485,7 @@ material = SubResource("ShaderMaterial_4x0oe")
 [node name="Spawner2" type="Area2D" parent="." unique_id=2027651022]
 position = Vector2(1186, -1264)
 script = ExtResource("16_letwx")
-is_active = true
+auto_spawn = true
 despawn_rule = 3
 spawn_rate = 0.0
 spawn_angle = 140.0
@@ -521,15 +519,6 @@ position = Vector2(-106, 1169)
 shape = SubResource("RectangleShape2D_2g0n8")
 debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
-[node name="Label" type="Label" parent="." unique_id=360125147]
-offset_left = -1782.0
-offset_top = -52.0
-offset_right = -1592.0
-offset_bottom = 107.0
-text = "Button
-"
-label_settings = SubResource("LabelSettings_t0s6n")
-
 [node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=2073511654 groups=["ground"]]
 collision_mask = 7
 
@@ -537,3 +526,7 @@ collision_mask = 7
 position = Vector2(-188, 2543)
 shape = SubResource("WorldBoundaryShape2D_t0s6n")
 debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
+
+[node name="LogicButton" parent="." unique_id=1606933612 node_paths=PackedStringArray("targets") instance=ExtResource("19_1p4pd")]
+position = Vector2(-1657, -19)
+targets = [NodePath("../Spawner2")]

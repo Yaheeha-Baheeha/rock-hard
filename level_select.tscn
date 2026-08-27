@@ -107,46 +107,6 @@
 [ext_resource type="Texture2D" uid="uid://s224nl67ce7s" path="res://Textures/level_icons/overlayed/overlayed19.png" id="105"]
 [ext_resource type="Texture2D" uid="uid://frwxp5ygu0qc" path="res://Textures/level_icons/focused/focused_19.png" id="106"]
 [ext_resource type="Texture2D" uid="uid://cw45wlgd8xwkw" path="res://Textures/level_icons/disabled/disabled_19.png" id="107"]
-[ext_resource type="Texture2D" uid="uid://latbbm3m8u2f" path="res://Textures/level_icons/normal/level_20.png" id="108"]
-[ext_resource type="Texture2D" uid="uid://byrymfxx8xrck" path="res://Textures/level_icons/pressed/pressed_20.png" id="109"]
-[ext_resource type="Texture2D" uid="uid://dp6yxf1p1kpjn" path="res://Textures/level_icons/overlayed/overlayed20.png" id="110"]
-[ext_resource type="Texture2D" uid="uid://b7vxn16a58cb6" path="res://Textures/level_icons/focused/focused_20.png" id="111"]
-[ext_resource type="Texture2D" uid="uid://cvdsd8qoajjcl" path="res://Textures/level_icons/disabled/disabled_20.png" id="112"]
-[ext_resource type="Texture2D" uid="uid://cvnmlxbboyjnp" path="res://Textures/level_icons/normal/level_21.png" id="113"]
-[ext_resource type="Texture2D" uid="uid://1y61nqeiqhwi" path="res://Textures/level_icons/pressed/pressed_21.png" id="114"]
-[ext_resource type="Texture2D" uid="uid://ck5lx3omd7nir" path="res://Textures/level_icons/overlayed/overlayed21.png" id="115"]
-[ext_resource type="Texture2D" uid="uid://cdlgp0s4ul0kl" path="res://Textures/level_icons/focused/focused_21.png" id="116"]
-[ext_resource type="Texture2D" uid="uid://dihghq5lmrudr" path="res://Textures/level_icons/disabled/disabled_21.png" id="117"]
-[ext_resource type="Texture2D" uid="uid://bd55sqi48d4si" path="res://Textures/level_icons/normal/level_22.png" id="118"]
-[ext_resource type="Texture2D" uid="uid://dlofltbh8ucmx" path="res://Textures/level_icons/pressed/pressed_22.png" id="119"]
-[ext_resource type="Texture2D" uid="uid://blwdclxi87jh1" path="res://Textures/level_icons/overlayed/overlayed22.png" id="120"]
-[ext_resource type="Texture2D" uid="uid://dcpowke8kp30h" path="res://Textures/level_icons/focused/focused_22.png" id="121"]
-[ext_resource type="Texture2D" uid="uid://p223dga0anpp" path="res://Textures/level_icons/disabled/disabled_22.png" id="122"]
-[ext_resource type="Texture2D" uid="uid://gs2pwcogarrg" path="res://Textures/level_icons/normal/level_23.png" id="123"]
-[ext_resource type="Texture2D" uid="uid://buyv0qw17xqxj" path="res://Textures/level_icons/pressed/pressed_23.png" id="124"]
-[ext_resource type="Texture2D" uid="uid://cnrly7wwi05rd" path="res://Textures/level_icons/overlayed/overlayed23.png" id="125"]
-[ext_resource type="Texture2D" uid="uid://d1npgcdvdduv7" path="res://Textures/level_icons/focused/focused_23.png" id="126"]
-[ext_resource type="Texture2D" uid="uid://p8fe1f6gi6ee" path="res://Textures/level_icons/disabled/disabled_23.png" id="127"]
-[ext_resource type="Texture2D" uid="uid://d2pbp86trqqu4" path="res://Textures/level_icons/normal/level_24.png" id="128"]
-[ext_resource type="Texture2D" uid="uid://k628o8f7l7id" path="res://Textures/level_icons/pressed/pressed_24.png" id="129"]
-[ext_resource type="Texture2D" uid="uid://bwmda8cx2v08i" path="res://Textures/level_icons/overlayed/overlayed24.png" id="130"]
-[ext_resource type="Texture2D" uid="uid://dr0ah0rbd1qr0" path="res://Textures/level_icons/focused/focused_24.png" id="131"]
-[ext_resource type="Texture2D" uid="uid://dt050t6mr3fgk" path="res://Textures/level_icons/disabled/disabled_24.png" id="132"]
-[ext_resource type="Texture2D" uid="uid://68jhq24806sl" path="res://Textures/level_icons/normal/level_25.png" id="133"]
-[ext_resource type="Texture2D" uid="uid://vunisb2ah1kj" path="res://Textures/level_icons/pressed/pressed_25.png" id="134"]
-[ext_resource type="Texture2D" uid="uid://divmv0ktimmi2" path="res://Textures/level_icons/overlayed/overlayed25.png" id="135"]
-[ext_resource type="Texture2D" uid="uid://6no2s56480sb" path="res://Textures/level_icons/focused/focused_25.png" id="136"]
-[ext_resource type="Texture2D" uid="uid://da0dobwq68vgu" path="res://Textures/level_icons/disabled/disabled_25.png" id="137"]
-[ext_resource type="Texture2D" uid="uid://rjul0klt26uo" path="res://Textures/level_icons/normal/level_26.png" id="138"]
-[ext_resource type="Texture2D" uid="uid://dgr6pylpl6bhm" path="res://Textures/level_icons/pressed/pressed_26.png" id="139"]
-[ext_resource type="Texture2D" uid="uid://drup5m0qngbog" path="res://Textures/level_icons/overlayed/overlayed26.png" id="140"]
-[ext_resource type="Texture2D" uid="uid://bn0t3mkxbjbn3" path="res://Textures/level_icons/focused/focused_26.png" id="141"]
-[ext_resource type="Texture2D" uid="uid://bi3bb5ssi23er" path="res://Textures/level_icons/disabled/disabled_26.png" id="142"]
-[ext_resource type="Texture2D" uid="uid://egqny62u1d2" path="res://Textures/level_icons/normal/level_27.png" id="143"]
-[ext_resource type="Texture2D" uid="uid://cbotyirqhxn7p" path="res://Textures/level_icons/pressed/pressed_27.png" id="144"]
-[ext_resource type="Texture2D" uid="uid://w1r77u80m55b" path="res://Textures/level_icons/overlayed/overlayed27.png" id="145"]
-[ext_resource type="Texture2D" uid="uid://tscr32epaybs" path="res://Textures/level_icons/focused/focused_27.png" id="146"]
-[ext_resource type="Texture2D" uid="uid://ca44fgwg1ev47" path="res://Textures/level_icons/disabled/disabled_27.png" id="147"]
 [ext_resource type="Texture2D" uid="uid://dxrixfpf5bfse" path="res://Textures/parallax_background/volcano behindest_bg_1.png" id="148_dgltc"]
 [ext_resource type="Shader" uid="uid://da22m11jfmmi8" path="res://ColorBlindlters.gdshader" id="149_u8qdg"]
 [ext_resource type="AudioStream" uid="uid://b1i216jjru8e5" path="res://sounds/hover.wav" id="150_11ero"]
@@ -199,7 +159,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
-columns = 7
+columns = 5
 
 [node name="LevelButton1" type="TextureButton" parent="MarginContainer/VBoxContainer/LevelGrid" unique_id=100000001]
 layout_mode = 2
@@ -400,86 +360,6 @@ texture_pressed = ExtResource("104")
 texture_hover = ExtResource("105")
 texture_disabled = ExtResource("107")
 texture_focused = ExtResource("106")
-
-[node name="LevelButton21" type="TextureButton" parent="MarginContainer/VBoxContainer/LevelGrid" unique_id=100000021]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource("108")
-texture_pressed = ExtResource("109")
-texture_hover = ExtResource("110")
-texture_disabled = ExtResource("112")
-texture_focused = ExtResource("111")
-
-[node name="LevelButton22" type="TextureButton" parent="MarginContainer/VBoxContainer/LevelGrid" unique_id=100000022]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource("113")
-texture_pressed = ExtResource("114")
-texture_hover = ExtResource("115")
-texture_disabled = ExtResource("117")
-texture_focused = ExtResource("116")
-
-[node name="LevelButton23" type="TextureButton" parent="MarginContainer/VBoxContainer/LevelGrid" unique_id=100000023]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource("118")
-texture_pressed = ExtResource("119")
-texture_hover = ExtResource("120")
-texture_disabled = ExtResource("122")
-texture_focused = ExtResource("121")
-
-[node name="LevelButton24" type="TextureButton" parent="MarginContainer/VBoxContainer/LevelGrid" unique_id=100000024]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource("123")
-texture_pressed = ExtResource("124")
-texture_hover = ExtResource("125")
-texture_disabled = ExtResource("127")
-texture_focused = ExtResource("126")
-
-[node name="LevelButton25" type="TextureButton" parent="MarginContainer/VBoxContainer/LevelGrid" unique_id=100000025]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource("128")
-texture_pressed = ExtResource("129")
-texture_hover = ExtResource("130")
-texture_disabled = ExtResource("132")
-texture_focused = ExtResource("131")
-
-[node name="LevelButton26" type="TextureButton" parent="MarginContainer/VBoxContainer/LevelGrid" unique_id=100000026]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource("133")
-texture_pressed = ExtResource("134")
-texture_hover = ExtResource("135")
-texture_disabled = ExtResource("137")
-texture_focused = ExtResource("136")
-
-[node name="LevelButton27" type="TextureButton" parent="MarginContainer/VBoxContainer/LevelGrid" unique_id=100000027]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource("138")
-texture_pressed = ExtResource("139")
-texture_hover = ExtResource("140")
-texture_disabled = ExtResource("142")
-texture_focused = ExtResource("141")
-
-[node name="LevelButton28" type="TextureButton" parent="MarginContainer/VBoxContainer/LevelGrid" unique_id=100000028]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource("143")
-texture_pressed = ExtResource("144")
-texture_hover = ExtResource("145")
-texture_disabled = ExtResource("147")
-texture_focused = ExtResource("146")
 
 [node name="BackButton" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=2092204384]
 unique_name_in_owner = true
