@@ -2,6 +2,7 @@ extends Control
 
 @onready var grid: GridContainer = %LevelGrid
 @onready var back_button: TextureButton = %BackButton
+@onready var filters: ColorRect = $Filters
 
 const STAR_TEXTURE: Texture2D = preload("res://Textures/star.png")
 
@@ -11,9 +12,23 @@ var star_badges: Dictionary = {}
 func _ready() -> void:
 	_configure_level_buttons()
 	_refresh_star_badges()
+	_apply_filter_settings()
+	
 	back_button.pressed.connect(_on_back_pressed)
 	if GameManager.has_signal("collectable_added"):
 		GameManager.collectable_added.connect(_on_collectable_added)
+
+
+func _apply_filter_settings() -> void:
+	var gm = get_node_or_null("/root/GameManager")
+	if not gm or not filters or not filters.material:
+		return
+		
+	var mode_int: int = gm.settings_data.get("colorblind_mode", 0)
+	var intensity_val: float = gm.settings_data.get("colorblind_intensity", 1.0)
+	
+	filters.material.set_shader_parameter("mode", mode_int)
+	filters.material.set_shader_parameter("intensity", intensity_val)
 
 
 func _configure_level_buttons() -> void:

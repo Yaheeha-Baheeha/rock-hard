@@ -148,6 +148,12 @@
 [ext_resource type="Texture2D" uid="uid://tscr32epaybs" path="res://Textures/level_icons/focused/focused_27.png" id="146"]
 [ext_resource type="Texture2D" uid="uid://ca44fgwg1ev47" path="res://Textures/level_icons/disabled/disabled_27.png" id="147"]
 [ext_resource type="Texture2D" uid="uid://dxrixfpf5bfse" path="res://Textures/parallax_background/volcano behindest_bg_1.png" id="148_dgltc"]
+[ext_resource type="Shader" uid="uid://da22m11jfmmi8" path="res://ColorBlindlters.gdshader" id="149_u8qdg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_11ero"]
+shader = ExtResource("149_u8qdg")
+shader_parameter/mode = 0
+shader_parameter/intensity = 1.0
 
 [node name="LevelSelect" type="Control" unique_id=305416736]
 layout_mode = 3
@@ -510,3 +516,14 @@ z_index = -3
 position = Vector2(578.00006, 333)
 scale = Vector2(4.25, 4.25)
 texture = ExtResource("148_dgltc")
+
+[node name="Filters" type="ColorRect" parent="." unique_id=557029174]
+z_index = 4096
+material = SubResource("ShaderMaterial_11ero")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
