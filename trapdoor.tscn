@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://bouhfax2qa588"]
+
+[ext_resource type="Texture2D" uid="uid://bdwunxc2mgwwh" path="res://Textures/trapdoor.png" id="1_pf2pg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2u0tw"]
+size = Vector2(64, 8)
+
+[sub_resource type="Animation" id="Animation_pf2pg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RigidBody2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_my15l"]
+resource_name = "open"
+length = 0.33333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RigidBody2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.104806766, 0.20073156, 0.263323, 0.3255508),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.3413347, 1.5707964, 1.5571876, 1.5707964]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rb8u0"]
+_data = {
+&"RESET": SubResource("Animation_pf2pg"),
+&"open": SubResource("Animation_my15l")
+}
+
+[node name="Trapdoor" type="Node2D" unique_id=2074908220]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1921877532]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=1092725163]
+position = Vector2(32, -4)
+shape = SubResource("RectangleShape2D_2u0tw")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" unique_id=39645471]
+position = Vector2(32, -4)
+texture = ExtResource("1_pf2pg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1026548352]
+libraries/ = SubResource("AnimationLibrary_rb8u0")
