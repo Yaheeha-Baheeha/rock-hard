@@ -4,6 +4,11 @@ signal point_collided(impact_speed: float)
 enum ShapeType { TRIANGLE, CIRCLE, RECTANGLE, HEXAGON }
 var current_shape: ShapeType = ShapeType.CIRCLE
 
+# --- DYNAMIC COLLISION VARIABLES ---
+var dynamic_body: AnimatableBody2D
+var dynamic_poly: CollisionPolygon2D
+var ignore_rids: Array[RID] = [] # NEW: Stores RIDs to ignore in raycasts
+
 class PointMass:
 	var position: Vector2
 	var prev_position: Vector2 
@@ -73,6 +78,8 @@ var collectible_polygons: Array[Dictionary] = []
 var win_polygons: Array[Dictionary] = []
 
 func _extract_node_polygons(node: Node) -> Array[PackedVector2Array]:
+	if node.is_in_group("player_ignore"):
+		return []
 	var polys: Array[PackedVector2Array] = []
 	if node is TileMapLayer:
 		return _extract_tilemap_polygons(node)
@@ -102,6 +109,15 @@ func _extract_node_polygons(node: Node) -> Array[PackedVector2Array]:
 	return polys
 
 func initialize() -> void:
+	dynamic_body = AnimatableBody2D.new()
+	dynamic_body.collision_mask = 0 # On no layers itself
+	dynamic_body.collision_layer = 1 << 15
+	dynamic_body.add_to_group("player_ignore")
+	dynamic_body.add_to_group("player")
+	
+	dynamic_poly = CollisionPolygon2D.new()
+	dynamic_body.add_child(dynamic_poly)
+	add_child(dynamic_body)
 	start_position = position 
 	call_deferred("_initialize_trigger_zones")
 	
@@ -132,6 +148,10 @@ func initialize() -> void:
 				break
 				
 	_build_shape(current_shape)
+	ignore_rids.clear()
+	for node in get_tree().get_nodes_in_group("player_ignore"):
+		if node is CollisionObject2D:
+			ignore_rids.append(node.get_rid())
 
 func _initialize_trigger_zones() -> void:
 	hazard_polygons.clear()
@@ -189,6 +209,7 @@ func _physics_process(delta: float) -> void:
 				fluid_query.position = to_global(p.position)
 				fluid_query.collision_mask = fluid_layer
 				fluid_query.collide_with_bodies = true
+				fluid_query.exclude = ignore_rids
 				
 				var fluid_hits = space_state.intersect_point(fluid_query)
 				for hit in fluid_hits:
@@ -216,6 +237,7 @@ func _physics_process(delta: float) -> void:
 			if p.position != pre_pos:
 				var query = PhysicsRayQueryParameters2D.create(to_global(pre_pos), to_global(p.position))
 				query.collision_mask = collision_mask
+				query.exclude = ignore_rids
 				
 				var result = space_state.intersect_ray(query)
 				if result:
@@ -242,6 +264,13 @@ func _physics_process(delta: float) -> void:
 
 	_handle_input_controls(delta)
 	is_grounded = false
+	
+	if is_instance_valid(dynamic_poly) and points.size() > 2:
+		var poly_points = PackedVector2Array()
+		for p in points:
+			# Your points are already local to the player, which is perfect
+			poly_points.append(p.position) 
+		dynamic_poly.polygon = poly_points
 
 func _process(_delta: float) -> void:
 	queue_redraw()

@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://beohj12ngimtb"]
+
+[ext_resource type="Shader" uid="uid://plx2tlqb5e0k" path="res://hover_outline.gdshader" id="1_7rhdr"]
+
+[resource]
+shader = ExtResource("1_7rhdr")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 1.0
+shader_parameter/is_active = false
