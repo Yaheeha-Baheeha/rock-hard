@@ -61,7 +61,7 @@ shape = SubResource("RectangleShape2D_lengr")
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=1476510573]
 position = Vector2(-38, -29.5)
-scale = Vector2(0.524, 1.055)
+scale = Vector2(2.1249998, 4.2783866)
 texture = ExtResource("1_3vswo")
 
 [node name="SmashAnimationPlayer" type="AnimationPlayer" parent="." unique_id=982468144]
