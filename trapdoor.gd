@@ -1,6 +1,7 @@
 extends SignalReceiver
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
+@onready var open_sound: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 func _ready() -> void:
 	super._ready()
@@ -27,5 +28,7 @@ func _on_state_changed() -> void:
 		
 	if is_active:
 		anim_player.play("open")
+		if open_sound:
+			open_sound.play()
 	else:
 		anim_player.play_backwards("open")

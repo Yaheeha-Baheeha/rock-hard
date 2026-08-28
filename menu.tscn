@@ -167,7 +167,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.6
 max_value = 2.0
-value = 2.0
 tick_count = 1
 ticks_on_borders = true
 

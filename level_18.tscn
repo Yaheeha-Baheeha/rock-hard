@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://drfknsc7qshx7"]
 
+[ext_resource type="PackedScene" uid="uid://dc664luiftqk2" path="res://triangle.tscn" id="1_hrgja"]
 [ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="1_ujkep"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="2_lbuvq"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="3_hrgja"]
@@ -343,6 +344,9 @@ size = Vector2(217324, 1572)
 size = Vector2(25, 25)
 
 [node name="Game" type="Node2D" unique_id=608777425]
+
+[node name="Triangle" parent="." unique_id=1829089341 instance=ExtResource("1_hrgja")]
+position = Vector2(-2709, -439)
 
 [node name="Hammer" parent="." unique_id=1722124445 instance=ExtResource("1_ujkep")]
 position = Vector2(1125.75, 183)

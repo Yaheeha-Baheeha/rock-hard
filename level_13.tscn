@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dhfo8wtb8tvek"]
 
 [ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="1_6a6s5"]
+[ext_resource type="PackedScene" uid="uid://2vbm7n5uvx3l" path="res://rectangle.tscn" id="1_bftdo"]
 [ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="2_dlr18"]
 [ext_resource type="PackedScene" uid="uid://c7h14j6k8sd2f" path="res://background.tscn" id="3_lvnw4"]
 [ext_resource type="Texture2D" uid="uid://da88yw4bsbs5l" path="res://resources/tileset_canvas.tres" id="4_oocv6"]
@@ -341,6 +342,9 @@ shader_parameter/distortion_strength = 0.012
 size = Vector2(217324, 1572)
 
 [node name="Game" type="Node2D" unique_id=1811343828]
+
+[node name="Rectangle" parent="." unique_id=1138608427 instance=ExtResource("1_bftdo")]
+position = Vector2(549, -180)
 
 [node name="Hammer" parent="." unique_id=1722124445 instance=ExtResource("1_6a6s5")]
 position = Vector2(1125.75, 183)

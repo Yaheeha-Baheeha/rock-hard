@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://ceioq03akj7w5" path="res://sounds/cookie.wav" id="13_v82rf"]
 [ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="15_gjgpw"]
 [ext_resource type="PackedScene" uid="uid://dcax1h8x4b47u" path="res://spawner.tscn" id="21_57xvv"]
+[ext_resource type="PackedScene" uid="uid://dc664luiftqk2" path="res://triangle.tscn" id="21_clven"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n5k06"]
 texture = ExtResource("1_axb3o")
@@ -368,8 +369,10 @@ position = Vector2(10752, 232832)
 position = Vector2(1125.75, 183)
 
 [node name="RespawnPoint" type="Marker2D" parent="." unique_id=890992086]
+position = Vector2(0, -30)
 
 [node name="Player" parent="." unique_id=438420809 instance=ExtResource("4_0wqyy")]
+position = Vector2(0, -30)
 num_points = 40
 crouch_strength = 3500.0
 
@@ -572,3 +575,6 @@ speed_variance = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner6" unique_id=1746904574]
 position = Vector2(-1.0000027, 31)
 shape = SubResource("RectangleShape2D_57xvv")
+
+[node name="Triangle" parent="." unique_id=1829089341 instance=ExtResource("21_clven")]
+position = Vector2(-625, -76)

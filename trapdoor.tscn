@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://i8w0dxgnda5a" path="res://trapdoor.gd" id="1_my15l"]
 [ext_resource type="Texture2D" uid="uid://bdwunxc2mgwwh" path="res://Textures/trapdoor.png" id="1_pf2pg"]
 [ext_resource type="Material" uid="uid://beohj12ngimtb" path="res://outline_material.tres" id="2_rb8u0"]
+[ext_resource type="AudioStream" uid="uid://bkfybrpigw56k" path="res://sounds/trapdoor.wav" id="4_gpd4y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2u0tw"]
 size = Vector2(317, 39)
@@ -61,3 +62,9 @@ texture = ExtResource("1_pf2pg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1026548352]
 libraries/ = SubResource("AnimationLibrary_rb8u0")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=927123677]
+stream = ExtResource("4_gpd4y")
+max_distance = 4096.0
+attenuation = 0.0004555833
+bus = &"SFX"
