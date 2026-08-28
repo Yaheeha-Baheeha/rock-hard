@@ -495,7 +495,7 @@ material = SubResource("ShaderMaterial_4wtfn")
 [node name="Spawner2" type="Area2D" parent="." unique_id=574965654]
 position = Vector2(357, 358)
 script = ExtResource("14_dw0gb")
-is_active = true
+auto_spawn = true
 despawn_rule = 2
 spawn_rate = 0.0
 spawn_angle = 300.0
@@ -510,7 +510,7 @@ shape = SubResource("RectangleShape2D_yg8oi")
 [node name="Spawner3" type="Area2D" parent="." unique_id=743467420]
 position = Vector2(-362, 358)
 script = ExtResource("14_dw0gb")
-is_active = true
+auto_spawn = true
 despawn_rule = 2
 spawn_rate = 0.01
 spawn_angle = 243.0

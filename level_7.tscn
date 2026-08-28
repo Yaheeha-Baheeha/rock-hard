@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="13_pfhdb"]
 [ext_resource type="AudioStream" uid="uid://ceioq03akj7w5" path="res://sounds/cookie.wav" id="13_v82rf"]
 [ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="15_gjgpw"]
-[ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="16_anmol"]
+[ext_resource type="PackedScene" uid="uid://dcax1h8x4b47u" path="res://spawner.tscn" id="21_57xvv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n5k06"]
 texture = ExtResource("1_axb3o")
@@ -507,17 +507,20 @@ shape = SubResource("RectangleShape2D_n5k06")
 
 [node name="Levers" type="Node2D" parent="." unique_id=1924409659]
 
-[node name="Lever" parent="Levers" unique_id=603365385 instance=ExtResource("5_4ryn0")]
+[node name="Lever" parent="Levers" unique_id=603365385 node_paths=PackedStringArray("targets") instance=ExtResource("5_4ryn0")]
 position = Vector2(-913, 349)
+targets = [NodePath("../../Spawner")]
 
-[node name="Lever2" parent="Levers" unique_id=970204715 instance=ExtResource("5_4ryn0")]
+[node name="Lever2" parent="Levers" unique_id=970204715 node_paths=PackedStringArray("targets") instance=ExtResource("5_4ryn0")]
 position = Vector2(160, -1011)
+targets = [NodePath("../../Spawner5")]
 
 [node name="Lever3" parent="Levers" unique_id=768505939 instance=ExtResource("5_4ryn0")]
 position = Vector2(870, -1427)
 
-[node name="Lever4" parent="Levers" unique_id=1269916276 instance=ExtResource("5_4ryn0")]
+[node name="Lever4" parent="Levers" unique_id=1269916276 node_paths=PackedStringArray("targets") instance=ExtResource("5_4ryn0")]
 position = Vector2(1508, -1123)
+targets = [NodePath("../../Spawner6")]
 
 [node name="HotFluid" type="CanvasGroup" parent="." unique_id=793912356]
 material = SubResource("ShaderMaterial_hvfyj")
@@ -528,28 +531,22 @@ material = SubResource("ShaderMaterial_21kf8")
 [node name="ColdFluid" type="CanvasGroup" parent="." unique_id=484594820]
 material = SubResource("ShaderMaterial_v82rf")
 
-[node name="Spawner2" type="Area2D" parent="." unique_id=471752564 node_paths=PackedStringArray("target_lever")]
-position = Vector2(2607, 612)
-script = ExtResource("16_anmol")
-spawn_when_lever_on = false
-target_lever = NodePath("../Levers/Lever2")
-is_active = true
+[node name="Spawner" parent="." unique_id=223119425 instance=ExtResource("21_57xvv")]
+position = Vector2(2606, 604)
+rotation = -3.1415927
 despawn_rule = 2
 spawn_angle = 270.0
 angle_variance = 0.0
 spawn_speed = 1250.0
 speed_variance = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner2" unique_id=206552232]
-position = Vector2(-1, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner" unique_id=1799498344]
+position = Vector2(-1.0000025, 29)
 shape = SubResource("RectangleShape2D_57xvv")
 
-[node name="Spawner3" type="Area2D" parent="." unique_id=1770857144 node_paths=PackedStringArray("target_lever")]
-position = Vector2(3006, 612)
-script = ExtResource("16_anmol")
-spawn_when_lever_on = false
-target_lever = NodePath("../Levers/Lever")
-is_active = true
+[node name="Spawner5" parent="." unique_id=245683060 instance=ExtResource("21_57xvv")]
+position = Vector2(3004, 604)
+rotation = -3.1415927
 despawn_rule = 2
 spawn_rate = 0.035
 spawn_angle = 270.0
@@ -557,16 +554,13 @@ angle_variance = 0.0
 spawn_speed = 1600.0
 speed_variance = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner3" unique_id=2060890641]
-position = Vector2(-1, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner5" unique_id=994178050]
+position = Vector2(-1.000002, 23)
 shape = SubResource("RectangleShape2D_57xvv")
 
-[node name="Spawner4" type="Area2D" parent="." unique_id=1858786951 node_paths=PackedStringArray("target_lever")]
-position = Vector2(3483, 612)
-script = ExtResource("16_anmol")
-spawn_when_lever_on = false
-target_lever = NodePath("../Levers/Lever4")
-is_active = true
+[node name="Spawner6" parent="." unique_id=411002922 instance=ExtResource("21_57xvv")]
+position = Vector2(3480, 604)
+rotation = -3.1415927
 fluid_type = 1
 despawn_rule = 2
 spawn_rate = 0.01
@@ -575,6 +569,6 @@ angle_variance = 0.0
 spawn_speed = 1950.0
 speed_variance = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner4" unique_id=1296808069]
-position = Vector2(-1, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner6" unique_id=1746904574]
+position = Vector2(-1.0000027, 31)
 shape = SubResource("RectangleShape2D_57xvv")

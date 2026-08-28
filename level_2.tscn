@@ -909,7 +909,7 @@ position = Vector2(1281, -18)
 [node name="Spawner2" type="Area2D" parent="." unique_id=1523201089]
 position = Vector2(1281, -18)
 script = ExtResource("48_wleuh")
-is_active = true
+auto_spawn = true
 despawn_rule = 2
 spawn_rate = 0.04
 spawn_angle = 270.0

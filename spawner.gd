@@ -19,6 +19,7 @@ extends SignalReceiver
 @onready var hot_fluid_group = $"../HotFluid"
 @onready var medium_fluid_group = $"../MediumFluid"
 @onready var cold_fluid_group = $"../ColdFluid"
+@onready var lava_audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 var spawn_timer: float = 0.0
 
@@ -35,11 +36,21 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if is_active:
+		# Start playing continuous bubbling/pouring sound while spawner is active
+		if lava_audio:
+				if not lava_audio.playing:
+					lava_audio.play()
+
 		spawn_timer += delta
 		if spawn_timer >= spawn_rate:
 			spawn_timer = 0.0 
 			spawn_drop()
 	else:
+		# Stop sound when inactive
+		if lava_audio:
+			if lava_audio.playing:
+				lava_audio.stop()
+
 		# Keep the timer primed so it instantly fires when activated
 		spawn_timer = spawn_rate 
 

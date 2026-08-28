@@ -258,11 +258,6 @@ shape_match_stiffness = 500.0
 [node name="background" parent="." unique_id=979663656 instance=ExtResource("4_ixf42")]
 z_index = -100
 
-[node name="Label" type="Label" parent="." unique_id=1614286482]
-offset_right = 404.0
-offset_bottom = 84.0
-text = "hi raymond, add lava flowing once player goes down"
-
 [node name="DetectPlayer" type="Area2D" parent="." unique_id=1179329790]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectPlayer" unique_id=1991729858]

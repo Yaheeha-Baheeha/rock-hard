@@ -4,6 +4,9 @@
 [ext_resource type="Material" uid="uid://beohj12ngimtb" path="res://outline_material.tres" id="1_20mqh"]
 [ext_resource type="Texture2D" uid="uid://beifvdf7vvff2" path="res://Textures/Button.png.png" id="2_4kkf7"]
 [ext_resource type="Texture2D" uid="uid://bay65k1s8lo3a" path="res://Textures/ButtonPressed.png.png" id="3_20mqh"]
+[ext_resource type="AudioStream" uid="uid://chp7kg0js1jpl" path="res://sounds/no_click.wav" id="5_3lgb8"]
+[ext_resource type="AudioStream" uid="uid://d0mpkctmjaa0k" path="res://sounds/click.wav" id="6_xtcva"]
+[ext_resource type="AudioStream" uid="uid://dg61xhhmo730h" path="res://sounds/tick.mp3" id="7_o1iw8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0m23"]
 size = Vector2(282, 615)
@@ -35,12 +38,25 @@ position = Vector2(-98, -2)
 shape = SubResource("RectangleShape2D_c0m23")
 
 [node name="ActiveTimer" type="Timer" parent="." unique_id=1413885536]
+wait_time = 2.0
 
 [node name="InteractionArea" type="Area2D" parent="." unique_id=1638549727]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1168095799]
 position = Vector2(20, 2.5)
 shape = SubResource("RectangleShape2D_asmw2")
+
+[node name="Fail" type="AudioStreamPlayer2D" parent="." unique_id=569640027]
+stream = ExtResource("5_3lgb8")
+volume_db = 5.818
+
+[node name="Pressed" type="AudioStreamPlayer2D" parent="." unique_id=1710004605]
+stream = ExtResource("6_xtcva")
+volume_db = 9.518
+
+[node name="Tick" type="AudioStreamPlayer2D" parent="." unique_id=1125159834]
+stream = ExtResource("7_o1iw8")
+volume_db = 9.454
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="body_entered" from="InteractionRange" to="." method="_on_interaction_range_body_entered"]

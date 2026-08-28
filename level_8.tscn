@@ -741,7 +741,7 @@ material = SubResource("ShaderMaterial_e3etx")
 [node name="Spawner2" type="Area2D" parent="." unique_id=1649024416]
 position = Vector2(1429, -551)
 script = ExtResource("37_xbesp")
-is_active = true
+auto_spawn = true
 despawn_rule = 1
 angle_variance = 0.0
 spawn_speed = 1200.0

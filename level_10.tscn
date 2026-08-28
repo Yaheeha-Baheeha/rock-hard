@@ -351,7 +351,7 @@ material = SubResource("ShaderMaterial_2x6s0")
 [node name="Spawner2" type="Area2D" parent="." unique_id=569093437]
 position = Vector2(-1393, 262)
 script = ExtResource("17_ruqkr")
-is_active = true
+auto_spawn = true
 fluid_type = 1
 despawn_rule = 2
 spawn_rate = 0.03
@@ -367,7 +367,7 @@ shape = SubResource("RectangleShape2D_huh58")
 [node name="Spawner3" type="Area2D" parent="." unique_id=1619175401]
 position = Vector2(-1, -1536)
 script = ExtResource("17_ruqkr")
-is_active = true
+auto_spawn = true
 fluid_type = 1
 despawn_rule = 1
 spawn_rate = 0.02

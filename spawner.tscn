@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bcbcmqsv2kpbx" path="res://spawner.gd" id="1_yp5lu"]
 [ext_resource type="Material" uid="uid://beohj12ngimtb" path="res://outline_material.tres" id="2_mcln3"]
 [ext_resource type="Texture2D" uid="uid://br8nfbb3u0hk6" path="res://Textures/Lava/Crevice.png" id="2_ttk4a"]
+[ext_resource type="AudioStream" uid="uid://ct2ig5q11tfa3" path="res://sounds/lava.wav" id="4_bphdf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_asmw2"]
 size = Vector2(168, 114)
@@ -21,3 +22,6 @@ texture = ExtResource("2_ttk4a")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1891803694]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_asmw2")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1539177121]
+stream = ExtResource("4_bphdf")

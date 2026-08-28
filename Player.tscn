@@ -166,3 +166,4 @@ limit_bottom = 1344
 position_smoothing_enabled = true
 script = ExtResource("5_cxr5p")
 target_path = NodePath("../CenterTracker")
+min_zoom = 0.15

@@ -4,6 +4,7 @@ extends SignalEmitter
 @export var activation_distance: float = 5.0 ## How many pixels down the plate must be pushed to turn ON
 
 @onready var top_plate = $TopPlateBody
+@onready var active_sound: AudioStreamPlayer2D = $Active
 
 var resting_y_position: float = 0.0
 var locked_x_position: float = 0.0 # <-- To store the starting X position
@@ -35,3 +36,7 @@ func _physics_process(_delta: float) -> void:
 	
 	if is_active != should_be_active:
 		set_state(should_be_active)
+		
+		# Play audio when switching to the activated state
+		if is_active:
+			active_sound.play()

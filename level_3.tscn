@@ -328,11 +328,9 @@ offset_right = 196.0
 offset_bottom = 87.65
 color = Color(1, 0, 0, 1)
 
-[node name="Spawner2" type="Area2D" parent="." unique_id=1446754937 node_paths=PackedStringArray("target_lever")]
+[node name="Spawner2" type="Area2D" parent="." unique_id=1446754937]
 position = Vector2(713, -1121)
 script = ExtResource("14_keufu")
-target_lever = NodePath("../Lever")
-is_active = true
 fluid_type = 2
 despawn_rule = 3
 spawn_rate = 0.0
@@ -345,8 +343,24 @@ speed_variance = 0.0
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_ra6nl")
 
-[node name="Lever" parent="." unique_id=603365385 instance=ExtResource("5_1jdk1")]
+[node name="Spawner3" type="Area2D" parent="." unique_id=815668522]
+position = Vector2(601, -1121)
+script = ExtResource("14_keufu")
+fluid_type = 2
+despawn_rule = 3
+spawn_rate = 0.0
+angle_variance = 0.0
+spawn_speed = 0.0
+speed_variance = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner3" unique_id=1992930483]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_ra6nl")
+
+[node name="Lever" parent="." unique_id=603365385 node_paths=PackedStringArray("targets") instance=ExtResource("5_1jdk1")]
 position = Vector2(-737, -127)
+start_active = true
+targets = [NodePath("../Spawner2"), NodePath("../Spawner3")]
 
 [node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=507858108 groups=["ground"]]
 collision_layer = 4

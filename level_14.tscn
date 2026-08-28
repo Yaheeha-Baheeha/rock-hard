@@ -476,7 +476,7 @@ material = SubResource("ShaderMaterial_m7vya")
 [node name="Spawner2" type="Area2D" parent="." unique_id=1812488178]
 position = Vector2(893, 732)
 script = ExtResource("14_fp44a")
-is_active = true
+auto_spawn = true
 fluid_type = 1
 despawn_rule = 2
 spawn_rate = 0.0

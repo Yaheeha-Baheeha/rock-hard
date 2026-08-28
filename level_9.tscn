@@ -245,17 +245,25 @@ debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 
 [node name="Levers" type="Node2D" parent="." unique_id=78850719]
 
-[node name="Lever" parent="Levers" unique_id=603365385 instance=ExtResource("5_7i33c")]
+[node name="Lever" parent="Levers" unique_id=603365385 node_paths=PackedStringArray("targets") instance=ExtResource("5_7i33c")]
 position = Vector2(26, -105)
+start_active = true
+targets = [NodePath("../../Spawner3")]
 
-[node name="Lever2" parent="Levers" unique_id=1436659639 instance=ExtResource("5_7i33c")]
+[node name="Lever2" parent="Levers" unique_id=1436659639 node_paths=PackedStringArray("targets") instance=ExtResource("5_7i33c")]
 position = Vector2(-488, -105)
+start_active = true
+targets = [NodePath("../../Spawner2")]
 
-[node name="Lever3" parent="Levers" unique_id=1188186121 instance=ExtResource("5_7i33c")]
-position = Vector2(535, -105)
+[node name="Lever3" parent="Levers" unique_id=1188186121 node_paths=PackedStringArray("targets") instance=ExtResource("5_7i33c")]
+position = Vector2(-946, 803)
+start_active = true
+targets = [NodePath("../../Spawner4")]
 
-[node name="Lever4" parent="Levers" unique_id=1141294105 instance=ExtResource("5_7i33c")]
-position = Vector2(-955, 824)
+[node name="Lever4" parent="Levers" unique_id=1141294105 node_paths=PackedStringArray("targets") instance=ExtResource("5_7i33c")]
+position = Vector2(535, -104)
+start_active = true
+targets = [NodePath("../../Spawner5")]
 
 [node name="Floatives" type="Node2D" parent="." unique_id=1540170380]
 position = Vector2(26, -105)
@@ -367,11 +375,9 @@ material = SubResource("ShaderMaterial_rsg4q")
 [node name="ColdFluid" type="CanvasGroup" parent="." unique_id=671312822]
 material = SubResource("ShaderMaterial_cmf4p")
 
-[node name="Spawner2" type="Area2D" parent="." unique_id=684196974 node_paths=PackedStringArray("target_lever")]
+[node name="Spawner2" type="Area2D" parent="." unique_id=684196974]
 position = Vector2(294, 131)
 script = ExtResource("17_tyqkn")
-target_lever = NodePath("../Levers/Lever2")
-is_active = true
 despawn_rule = 2
 spawn_angle = 270.0
 angle_variance = 0.0
@@ -382,11 +388,9 @@ speed_variance = 0.0
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_aejf8")
 
-[node name="Spawner3" type="Area2D" parent="." unique_id=1267487005 node_paths=PackedStringArray("target_lever")]
+[node name="Spawner3" type="Area2D" parent="." unique_id=1267487005]
 position = Vector2(-239, 131)
 script = ExtResource("17_tyqkn")
-target_lever = NodePath("../Levers/Lever")
-is_active = true
 despawn_rule = 2
 spawn_angle = 270.0
 angle_variance = 0.0
@@ -397,11 +401,9 @@ speed_variance = 0.0
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_aejf8")
 
-[node name="Spawner4" type="Area2D" parent="." unique_id=134415026 node_paths=PackedStringArray("target_lever")]
+[node name="Spawner4" type="Area2D" parent="." unique_id=134415026]
 position = Vector2(784, 131)
 script = ExtResource("17_tyqkn")
-target_lever = NodePath("../Levers/Lever4")
-is_active = true
 despawn_rule = 2
 spawn_angle = 270.0
 angle_variance = 0.0
@@ -412,11 +414,9 @@ speed_variance = 0.0
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_aejf8")
 
-[node name="Spawner5" type="Area2D" parent="." unique_id=1119508212 node_paths=PackedStringArray("target_lever")]
+[node name="Spawner5" type="Area2D" parent="." unique_id=1119508212]
 position = Vector2(-744, 1058)
 script = ExtResource("17_tyqkn")
-target_lever = NodePath("../Levers/Lever3")
-is_active = true
 fluid_type = 1
 despawn_rule = 2
 spawn_rate = 0.02

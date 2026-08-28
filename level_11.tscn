@@ -305,7 +305,7 @@ debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
 [node name="Spawner" type="Area2D" parent="." unique_id=1732590299]
 position = Vector2(-552, 381)
 script = ExtResource("13_sbg0w")
-is_active = true
+auto_spawn = true
 despawn_rule = 2
 spawn_rate = 0.035
 spawn_angle = 264.4

@@ -342,7 +342,7 @@ size = Vector2(217324, 1572)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t0s6n"]
 
-[node name="Game" type="Node2D" unique_id=970491068]
+[node name="Game2" type="Node2D" unique_id=970491068]
 
 [node name="Crevice" parent="." unique_id=1955571131 instance=ExtResource("9_tj36s")]
 position = Vector2(1249, -1326)
@@ -487,6 +487,7 @@ position = Vector2(1186, -1264)
 script = ExtResource("16_letwx")
 auto_spawn = true
 despawn_rule = 3
+lava_melts_corpses = false
 spawn_rate = 0.0
 spawn_angle = 140.0
 angle_variance = 0.0
