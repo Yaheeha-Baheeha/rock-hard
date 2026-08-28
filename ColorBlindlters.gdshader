@@ -16,7 +16,7 @@ uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 // 1 - Deutranopia
 // 2 - Tritanopia
 uniform int mode : hint_range(0, 2) = 0;
-uniform float intensity : hint_range(0.0, 1.0) = 1.0;
+uniform float intensity : hint_range(0.0, 1.0) = 0;
 
 void fragment()
 {

@@ -16,7 +16,7 @@ var temporary_items = []    # Key items like shapes (reset every level)
 
 var settings_data = {
 	"colorblind_mode": 0,
-	"colorblind_intensity": 1.0,
+	"colorblind_intensity": 0,
 	"volume_master": 1.0,
 	"volume_SFX": 1.0,
 	"volume_Enviroment": 1.0,
