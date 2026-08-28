@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://bouhfax2qa588"]
 
+[ext_resource type="Script" uid="uid://i8w0dxgnda5a" path="res://trapdoor.gd" id="1_my15l"]
 [ext_resource type="Texture2D" uid="uid://bdwunxc2mgwwh" path="res://Textures/trapdoor.png" id="1_pf2pg"]
+[ext_resource type="Material" uid="uid://beohj12ngimtb" path="res://outline_material.tres" id="2_rb8u0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2u0tw"]
-size = Vector2(64, 8)
+size = Vector2(317, 39)
 
 [sub_resource type="Animation" id="Animation_pf2pg"]
 length = 0.001
@@ -43,15 +45,18 @@ _data = {
 }
 
 [node name="Trapdoor" type="Node2D" unique_id=2074908220]
+script = ExtResource("1_my15l")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1921877532]
+[node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=809441282]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=1092725163]
-position = Vector2(32, -4)
+position = Vector2(158.50002, -20.500017)
 shape = SubResource("RectangleShape2D_2u0tw")
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" unique_id=39645471]
-position = Vector2(32, -4)
+material = ExtResource("2_rb8u0")
+position = Vector2(160, -21.000015)
+scale = Vector2(5, 5)
 texture = ExtResource("1_pf2pg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1026548352]

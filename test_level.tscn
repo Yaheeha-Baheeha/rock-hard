@@ -14,33 +14,46 @@
 [ext_resource type="PackedScene" uid="uid://xac4ri50wcc5" path="res://pressure_plate.tscn" id="12_a25ih"]
 [ext_resource type="Texture2D" uid="uid://die1nc5pjay8p" path="res://icon.svg" id="13_38et7"]
 [ext_resource type="PackedScene" uid="uid://dhtwpif4owtth" path="res://moving_platform.tscn" id="14_b7ax5"]
+[ext_resource type="PackedScene" uid="uid://bouhfax2qa588" path="res://trapdoor.tscn" id="15_4bgwg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gbhdq"]
 shader = ExtResource("1_gbhdq")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
 shader_parameter/core_color = Color(1, 0, 0, 1)
 shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
 shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
 shader_parameter/outer_edge = 0.4
-shader_parameter/crust_edge = 0.45
 shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y646j"]
 shader = ExtResource("1_gbhdq")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
 shader_parameter/core_color = Color(1, 0.6166667, 0, 1)
 shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
 shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
 shader_parameter/outer_edge = 0.4
-shader_parameter/crust_edge = 0.45
 shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lnbra"]
 shader = ExtResource("1_gbhdq")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
 shader_parameter/core_color = Color(1, 0.9, 0.2, 1)
 shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
 shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
 shader_parameter/outer_edge = 0.4
-shader_parameter/crust_edge = 0.45
 shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5rr72"]
 
@@ -299,7 +312,7 @@ color = Color(1, 0, 0, 1)
 
 [node name="Lever" parent="." unique_id=603365385 node_paths=PackedStringArray("targets") instance=ExtResource("7_lnbra")]
 position = Vector2(-737, -128)
-targets = [NodePath("../Spawner"), NodePath("../Spawner2"), NodePath("../MovingPlatform")]
+targets = [NodePath("../Spawner"), NodePath("../Spawner2"), NodePath("../MovingPlatform"), NodePath("../Trapdoor")]
 
 [node name="Rectangle" parent="." unique_id=1176716040 instance=ExtResource("8_lowby")]
 position = Vector2(-357, -510)
@@ -350,3 +363,6 @@ auto_move = true
 position = Vector2(103.865326, 28.486649)
 scale = Vector2(1.4309764, 0.62017804)
 curve = SubResource("Curve2D_b7ax5")
+
+[node name="Trapdoor" parent="." unique_id=2074908220 instance=ExtResource("15_4bgwg")]
+position = Vector2(178, -81)
