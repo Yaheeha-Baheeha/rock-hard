@@ -69,7 +69,7 @@ func _sync_scene_visibility() -> void:
 		return
 
 	var scene_path := current_scene.scene_file_path
-	visible = not (scene_path.ends_with("menu.tscn") or scene_path.ends_with("level_select.tscn"))
+	visible = not (scene_path.ends_with("menu.tscn") or scene_path.ends_with("level_select.tscn") or scene_path.ends_with("win_place.tscn"))
 
 func _refresh_collectible_slots() -> void:
 	if not has_node("/root/GameManager"):

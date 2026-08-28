@@ -1,0 +1,179 @@
+[gd_scene format=3 uid="uid://c27rgkb2xoyra"]
+
+[ext_resource type="PackedScene" uid="uid://cp6jiswud21r8" path="res://Hammer.tscn" id="1_pgxw6"]
+[ext_resource type="PackedScene" uid="uid://6je4rmn0ov37" path="res://Player.tscn" id="2_duogj"]
+[ext_resource type="PackedScene" uid="uid://di3if6j4ylhkr" path="res://fire_particles.tscn" id="5_kes0y"]
+[ext_resource type="Script" uid="uid://d0vwxbe3fd0nr" path="res://kill_all.gd" id="6_5tpq1"]
+[ext_resource type="Texture2D" uid="uid://8aug5ve8dicg" path="res://Textures/sky/1.png" id="10_757wu"]
+[ext_resource type="Texture2D" uid="uid://bvuhweci5shq3" path="res://Textures/sky/2.png" id="11_7o3bb"]
+[ext_resource type="Texture2D" uid="uid://cjsydqglyoipf" path="res://Textures/sky/3.png" id="12_b74lp"]
+[ext_resource type="FontFile" uid="uid://cv01xgeioj5q4" path="res://Textures/font/RasterForgeRegular-JpBgm.ttf" id="12_tlddx"]
+[ext_resource type="Texture2D" uid="uid://tguxihhls36v" path="res://Textures/sky/4.png" id="13_srypf"]
+[ext_resource type="Shader" uid="uid://dw1odr4ehh6" path="res://lava.gdshader" id="14_othvr"]
+[ext_resource type="Script" uid="uid://bx403epsvcucj" path="res://hazard_respawn_area.gd" id="16_cl1oh"]
+[ext_resource type="Texture2D" uid="uid://bk0uckdjboiyh" path="res://resources/ceramic_texture.tres" id="17_5dmpt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eim5m"]
+size = Vector2(217324, 1572)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_diykx"]
+shader = ExtResource("14_othvr")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
+shader_parameter/core_color = Color(1, 0, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_45c86"]
+shader = ExtResource("14_othvr")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
+shader_parameter/core_color = Color(1, 0.6166667, 0, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ykbv"]
+shader = ExtResource("14_othvr")
+shader_parameter/white_hot_color = Color(1, 0.769, 0, 0.96)
+shader_parameter/core_color = Color(1, 0.9, 0.2, 1)
+shader_parameter/body_color = Color(1, 0.4, 0, 1)
+shader_parameter/deep_body_color = Color(0.45, 0.04, 0, 1)
+shader_parameter/crust_color = Color(0.4, 0.05, 0, 1)
+shader_parameter/outer_edge = 0.4
+shader_parameter/core_start = 0.8
+shader_parameter/flow_speed = 1.0
+shader_parameter/noise_scale = 14.0
+shader_parameter/distortion_strength = 0.012
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s55nu"]
+size = Vector2(217324, 1572)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2u0tw"]
+size = Vector2(190.5, 1106.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cj3fx"]
+size = Vector2(1755, 119)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlddx"]
+size = Vector2(201, 1062)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_757wu"]
+size = Vector2(1755, 119)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wjvgg"]
+font = ExtResource("12_tlddx")
+font_size = 314
+font_color = Color(1, 0.6745098, 0, 1)
+
+[node name="Game" type="Node2D" unique_id=734326660]
+
+[node name="Hammer" parent="." unique_id=1722124445 instance=ExtResource("1_pgxw6")]
+position = Vector2(1125.75, 183)
+
+[node name="RespawnPoint" type="Marker2D" parent="." unique_id=1529465164]
+position = Vector2(876, -978)
+
+[node name="Player" parent="." unique_id=438420809 node_paths=PackedStringArray("obstacle_markers") instance=ExtResource("2_duogj")]
+position = Vector2(876, -978)
+obstacle_markers = [null]
+
+[node name="Tilemap" type="Node2D" parent="." unique_id=1319923800]
+z_as_relative = false
+
+[node name="fire_particles" parent="Tilemap" unique_id=1620446562 instance=ExtResource("5_kes0y")]
+position = Vector2(10752, 232832)
+
+[node name="killall" type="Area2D" parent="." unique_id=945477705]
+script = ExtResource("6_5tpq1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killall" unique_id=1125506587]
+position = Vector2(0, 3236)
+shape = SubResource("RectangleShape2D_eim5m")
+
+[node name="HotFluid" type="CanvasGroup" parent="." unique_id=1094207602]
+material = SubResource("ShaderMaterial_diykx")
+
+[node name="MediumFluid" type="CanvasGroup" parent="." unique_id=139673742]
+material = SubResource("ShaderMaterial_45c86")
+
+[node name="ColdFluid" type="CanvasGroup" parent="." unique_id=230974665]
+material = SubResource("ShaderMaterial_7ykbv")
+
+[node name="Lave" type="Node2D" parent="." unique_id=498809741]
+
+[node name="WorldBoundary" type="Area2D" parent="Lave" unique_id=1820981926]
+collision_layer = 129
+script = ExtResource("16_cl1oh")
+player_root_path = NodePath("../../Player")
+softbody_path = NodePath("../../Player/SoftBodySphere")
+player_controller_path = NodePath("../../Player")
+respawn_point_path = NodePath("../../RespawnPoint")
+spawn_parent_path = NodePath("../..")
+shape_polygon_color = Color(1, 1, 1, 1)
+shape_texture = ExtResource("17_5dmpt")
+shape_texture_region = Rect2(0, 0, 100, 100)
+shape_texture_repeat = true
+circle_approximation_segments = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lave/WorldBoundary" unique_id=732068909]
+position = Vector2(-106, 1169)
+shape = SubResource("RectangleShape2D_s55nu")
+debug_color = Color(0.1882353, 0.53333336, 0.9411765, 0.9137255)
+
+[node name="1" type="Sprite2D" parent="." unique_id=1651194101]
+z_index = -4096
+position = Vector2(856.59106, -1023.605)
+scale = Vector2(19.58118, 19.58118)
+texture = ExtResource("10_757wu")
+
+[node name="2" type="Sprite2D" parent="." unique_id=662494642]
+position = Vector2(856.59106, -1023.605)
+scale = Vector2(-859.0749, -859.0749)
+texture = ExtResource("11_7o3bb")
+
+[node name="3" type="Sprite2D" parent="." unique_id=207108460]
+position = Vector2(856.59106, -1023.605)
+scale = Vector2(18.762735, 18.762735)
+texture = ExtResource("12_b74lp")
+
+[node name="4" type="Sprite2D" parent="." unique_id=1101678218]
+position = Vector2(856.59106, -1023.605)
+scale = Vector2(16.41487, 16.41487)
+texture = ExtResource("13_srypf")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1784642881]
+position = Vector2(-278, -9)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1346736603]
+position = Vector2(2014.75, -947.75)
+shape = SubResource("RectangleShape2D_2u0tw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=444718980]
+position = Vector2(1073, -1477)
+shape = SubResource("RectangleShape2D_cj3fx")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1727637587]
+position = Vector2(307.5, -887)
+shape = SubResource("RectangleShape2D_tlddx")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=215913077]
+position = Vector2(1084.5, -415.5)
+shape = SubResource("RectangleShape2D_757wu")
+
+[node name="Label" type="Label" parent="." unique_id=1527150422]
+offset_left = -199.0
+offset_top = -1101.0
+offset_right = 1960.0
+offset_bottom = -825.0
+text = "You Win!!!!!"
+label_settings = SubResource("LabelSettings_wjvgg")
