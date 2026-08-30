@@ -480,9 +480,6 @@ stream = ExtResource("13_v82rf")
 volume_db = 4.067
 bus = &"SFX"
 
-[node name="Rectangle" parent="Floatives" unique_id=1138608427 instance=ExtResource("11_anmol")]
-position = Vector2(-1828, -249)
-
 [node name="killall" type="Area2D" parent="." unique_id=2126093805]
 script = ExtResource("13_pfhdb")
 
@@ -578,3 +575,8 @@ shape = SubResource("RectangleShape2D_57xvv")
 
 [node name="Triangle" parent="." unique_id=1829089341 instance=ExtResource("21_clven")]
 position = Vector2(-625, -76)
+level_number = 7
+
+[node name="Rectangle" parent="." unique_id=1138608427 instance=ExtResource("11_anmol")]
+position = Vector2(-703, -76)
+level_number = 7

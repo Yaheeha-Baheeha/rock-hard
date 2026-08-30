@@ -432,3 +432,4 @@ shape = SubResource("RectangleShape2D_aejf8")
 
 [node name="Triangle" parent="." unique_id=1829089341 instance=ExtResource("20_rsg4q")]
 position = Vector2(170, -210)
+level_number = 9

@@ -345,9 +345,6 @@ size = Vector2(25, 25)
 
 [node name="Game" type="Node2D" unique_id=608777425]
 
-[node name="Triangle" parent="." unique_id=1829089341 instance=ExtResource("1_hrgja")]
-position = Vector2(-2709, -439)
-
 [node name="Hammer" parent="." unique_id=1722124445 instance=ExtResource("1_ujkep")]
 position = Vector2(1125.75, 183)
 
@@ -592,3 +589,6 @@ targets = [NodePath("../Spawner4"), NodePath("../Spawner5")]
 position = Vector2(-1170, -345)
 start_active = true
 targets = [NodePath("../Spawner")]
+
+[node name="Triangle" parent="." unique_id=1829089341 instance=ExtResource("1_hrgja")]
+position = Vector2(-2695, -502)
