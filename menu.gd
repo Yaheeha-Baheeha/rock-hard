@@ -13,6 +13,7 @@ extends Control
 @onready var env_slider: HSlider = $Settings/BoxContainer/Audio/HSlider3
 @onready var player_slider: HSlider = $Settings/BoxContainer/Audio/HSlider4
 @onready var music_slider: HSlider = $Settings/BoxContainer/Audio/HSlider5
+@onready var controls: ColorRect = $Controls
 
 func _ready() -> void:
 	_init_settings()
@@ -106,3 +107,10 @@ func _update_audio_setting(bus_name: String, setting_key: String, linear_value: 
 		gm._apply_bus_volume(bus_name, linear_value)
 		gm.settings_data[setting_key] = linear_value
 		gm.save_game()
+
+
+func _on_conrtols_button_pressed() -> void:
+	if controls.visible:
+		controls.visible = false
+	else: 
+		controls.visible = true

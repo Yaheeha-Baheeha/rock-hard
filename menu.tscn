@@ -24,6 +24,18 @@
 [ext_resource type="Shader" uid="uid://da22m11jfmmi8" path="res://ColorBlindlters.gdshader" id="21_td6mg"]
 [ext_resource type="AudioStream" uid="uid://b1i216jjru8e5" path="res://sounds/hover.wav" id="23_oil5j"]
 [ext_resource type="AudioStream" uid="uid://d0mpkctmjaa0k" path="res://sounds/click.wav" id="24_8uog0"]
+[ext_resource type="Texture2D" uid="uid://q6ig30ja0svu" path="res://Textures/controlicons/button_menu.png" id="25_k5x1w"]
+[ext_resource type="Texture2D" uid="uid://bc0rxwugxie2w" path="res://Textures/controlicons/1-Key.png" id="26_c8pol"]
+[ext_resource type="Texture2D" uid="uid://bw1xnkuqng78f" path="res://Textures/controlicons/2-Key.png" id="27_xisss"]
+[ext_resource type="Texture2D" uid="uid://dnkpccovacpf5" path="res://Textures/controlicons/3-Key.png" id="28_5e35a"]
+[ext_resource type="Texture2D" uid="uid://o55plu5x0t8j" path="res://Textures/controlicons/W-Key.png" id="29_snj3a"]
+[ext_resource type="Texture2D" uid="uid://cbaep1yrjxcos" path="res://Textures/controlicons/A-Key.png" id="30_c770m"]
+[ext_resource type="Texture2D" uid="uid://bv86u4sr146go" path="res://Textures/controlicons/S-Key.png" id="31_w0s3i"]
+[ext_resource type="Texture2D" uid="uid://jbwp2pcq7p72" path="res://Textures/controlicons/D-Key.png" id="32_3kqnc"]
+[ext_resource type="Texture2D" uid="uid://xnryvkk3uvd2" path="res://Textures/controlicons/Esc-Key.png" id="33_lo2je"]
+[ext_resource type="Texture2D" uid="uid://4sc60qyvwyus" path="res://Textures/controlicons/mouse_middle_click.png" id="34_28d1b"]
+[ext_resource type="Texture2D" uid="uid://d028tn0pygwv0" path="res://Textures/controlicons/R-Key.png" id="35_bhlom"]
+[ext_resource type="Texture2D" uid="uid://c6ejqmer8k2ch" path="res://Textures/controlicons/Shift-Key.png" id="36_x5sqb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oil5j"]
 font = ExtResource("17_guify")
@@ -298,7 +310,169 @@ bus = &"SFX"
 stream = ExtResource("24_8uog0")
 bus = &"SFX"
 
+[node name="ConrtolsButton" type="TextureButton" parent="." unique_id=646452321]
+modulate = Color(0.84705883, 0.49803922, 0.49411765, 1)
+z_index = 2
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 524.0
+offset_bottom = 524.0
+scale = Vector2(0.095, 0.095)
+texture_normal = ExtResource("25_k5x1w")
+
+[node name="Controls" type="ColorRect" parent="." unique_id=801413290]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -232.00002
+offset_top = -10.0
+offset_right = -232.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.305, 1.305)
+mouse_filter = 2
+color = Color(0.0627451, 0, 0, 0.64705884)
+
+[node name="1Key" type="Sprite2D" parent="Controls" unique_id=107450132]
+position = Vector2(207, 166)
+texture = ExtResource("26_c8pol")
+
+[node name="Label" type="Label" parent="Controls/1Key" unique_id=2125758483]
+offset_left = 29.015354
+offset_top = -11.0
+offset_right = 457.01535
+offset_bottom = 18.0
+text = "Triangle Shape-Match (When Available)"
+label_settings = SubResource("LabelSettings_oil5j")
+
+[node name="2Key" type="Sprite2D" parent="Controls" unique_id=546485592]
+position = Vector2(207, 195)
+texture = ExtResource("27_xisss")
+
+[node name="Label" type="Label" parent="Controls/2Key" unique_id=439021088]
+offset_left = 29.015354
+offset_top = -11.0
+offset_right = 475.01535
+offset_bottom = 18.0
+text = "Rectangle Shape-Match (When Available)"
+label_settings = SubResource("LabelSettings_oil5j")
+
+[node name="3Key" type="Sprite2D" parent="Controls" unique_id=843910850]
+position = Vector2(207, 224)
+texture = ExtResource("28_5e35a")
+
+[node name="Label" type="Label" parent="Controls/3Key" unique_id=530672401]
+offset_left = 29.015354
+offset_top = -11.0
+offset_right = 433.01535
+offset_bottom = 18.0
+text = "Circle Shape-Match (When Available)"
+label_settings = SubResource("LabelSettings_oil5j")
+
+[node name="WKey" type="Sprite2D" parent="Controls" unique_id=1123411811]
+position = Vector2(207, 254)
+texture = ExtResource("29_snj3a")
+
+[node name="Label" type="Label" parent="Controls/WKey" unique_id=913982830]
+offset_left = 29.015354
+offset_top = -11.0
+offset_right = 97.01535
+offset_bottom = 18.0
+text = "jump"
+label_settings = SubResource("LabelSettings_oil5j")
+
+[node name="AKey" type="Sprite2D" parent="Controls" unique_id=684401073]
+position = Vector2(207, 284)
+texture = ExtResource("30_c770m")
+
+[node name="Label" type="Label" parent="Controls/AKey" unique_id=1046541588]
+offset_left = 29.015354
+offset_top = -11.0
+offset_right = 151.01535
+offset_bottom = 18.0
+text = "Move Left"
+label_settings = SubResource("LabelSettings_oil5j")
+
+[node name="SKey" type="Sprite2D" parent="Controls" unique_id=1301625713]
+position = Vector2(207, 314)
+texture = ExtResource("31_w0s3i")
+
+[node name="Label" type="Label" parent="Controls/SKey" unique_id=1643663292]
+offset_left = 29.015354
+offset_top = -11.0
+offset_right = 223.01535
+offset_bottom = 18.0
+text = "Accelerate Down"
+label_settings = SubResource("LabelSettings_oil5j")
+
+[node name="DKey" type="Sprite2D" parent="Controls" unique_id=1076168044]
+position = Vector2(207, 344)
+texture = ExtResource("32_3kqnc")
+
+[node name="Label" type="Label" parent="Controls/DKey" unique_id=1656215968]
+offset_left = 29.015354
+offset_top = -11.0
+offset_right = 157.01535
+offset_bottom = 18.0
+text = "Move Right"
+label_settings = SubResource("LabelSettings_oil5j")
+
+[node name="EscKey" type="Sprite2D" parent="Controls" unique_id=2024040889]
+position = Vector2(703, 166)
+texture = ExtResource("33_lo2je")
+
+[node name="Label" type="Label" parent="Controls/EscKey" unique_id=1044878584]
+offset_left = 29.015354
+offset_top = -11.0
+offset_right = 105.01535
+offset_bottom = 18.0
+text = "PaUSE"
+label_settings = SubResource("LabelSettings_oil5j")
+
+[node name="MouseMiddleClick" type="Sprite2D" parent="Controls" unique_id=2045107435]
+position = Vector2(702.99994, 200.00002)
+scale = Vector2(0.058, 0.058)
+texture = ExtResource("34_28d1b")
+
+[node name="Label" type="Label" parent="Controls" unique_id=1143711222]
+layout_mode = 0
+offset_left = 732.0154
+offset_top = 189.00002
+offset_right = 906.0154
+offset_bottom = 218.00002
+text = "SCROLL TO zOOM"
+label_settings = SubResource("LabelSettings_oil5j")
+
+[node name="RKey" type="Sprite2D" parent="Controls" unique_id=240110181]
+position = Vector2(703, 229)
+texture = ExtResource("35_bhlom")
+
+[node name="Label" type="Label" parent="Controls/RKey" unique_id=183677589]
+offset_left = 29.015354
+offset_top = -11.0
+offset_right = 283.01535
+offset_bottom = 18.0
+text = "Reset Position to start"
+label_settings = SubResource("LabelSettings_oil5j")
+
+[node name="ShiftKey" type="Sprite2D" parent="Controls" unique_id=1058190912]
+position = Vector2(703, 259)
+texture = ExtResource("36_x5sqb")
+
+[node name="Label" type="Label" parent="Controls/ShiftKey" unique_id=490224754]
+offset_left = 29.015354
+offset_top = -11.0
+offset_right = 359.01535
+offset_bottom = 18.0
+text = "Static when Dead (liquid lava)"
+label_settings = SubResource("LabelSettings_oil5j")
+
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Settings/Back2" to="." method="_on_back_2_pressed"]
+[connection signal="pressed" from="ConrtolsButton" to="." method="_on_conrtols_button_pressed"]
