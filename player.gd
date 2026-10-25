@@ -257,8 +257,14 @@ func set_player_shape(shape_index: int) -> void:
 	if soft_body:
 		soft_body.set_shape(shape_index)
 
+func teleport_by(offset: Vector2) -> void:
+	global_position += offset
+	if soft_body:
+		soft_body.refresh_collision_context()
+
 
 func respawn(target_position: Vector2) -> void:
 	global_position = target_position
 	if soft_body:
 		soft_body.respawn(Vector2.ZERO)
+		soft_body.refresh_collision_context()

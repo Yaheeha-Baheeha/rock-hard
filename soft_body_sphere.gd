@@ -388,6 +388,39 @@ func respawn(target_position: Vector2) -> void:
 	springs.clear()
 	_build_shape(current_shape, target_position)
 
+func refresh_collision_context() -> void:
+	obstacle_polygons.clear()
+	var raw_polygon := PackedVector2Array()
+	for node in obstacle_markers:
+		if node == null:
+			continue
+		if node is Marker2D:
+			raw_polygon.append(to_local(node.global_position))
+		elif node is TileMapLayer:
+			obstacle_polygons.append_array(_extract_tilemap_polygons(node))
+	if raw_polygon.size() > 2:
+		obstacle_polygons.append(raw_polygon)
+
+	var merged := true
+	while merged:
+		merged = false
+		for i in range(obstacle_polygons.size()):
+			for j in range(i + 1, obstacle_polygons.size()):
+				var result = Geometry2D.merge_polygons(obstacle_polygons[i], obstacle_polygons[j])
+				if result.size() == 1:
+					obstacle_polygons[i] = result[0]
+					obstacle_polygons.remove_at(j)
+					merged = true
+					break
+			if merged:
+				break
+
+	_initialize_trigger_zones()
+	ignore_rids.clear()
+	for node in get_tree().get_nodes_in_group("player_ignore"):
+		if node is CollisionObject2D:
+			ignore_rids.append(node.get_rid())
+
 func get_current_polygon_global() -> PackedVector2Array:
 	var poly = PackedVector2Array()
 	for p in points:

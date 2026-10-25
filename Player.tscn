@@ -164,7 +164,6 @@ visible = false
 scale = Vector2(4.515, 4.515)
 texture = ExtResource("29_ictha")
 script = ExtResource("30_1jgrc")
-cooldown_time = 60.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=202288614]
 position = Vector2(200, 16)

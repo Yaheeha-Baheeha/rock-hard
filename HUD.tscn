@@ -459,17 +459,24 @@ bus = &"SFX"
 stream = ExtResource("36_vppda")
 bus = &"SFX"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=818805495]
-position = Vector2(1068.0001, 81)
-scale = Vector2(2.8400292, 2.8400292)
-texture = ExtResource("37_vppda")
-
 [node name="FlagAnimation" type="AnimatedSprite2D" parent="." unique_id=1210162645]
 position = Vector2(1067.7997, 82.79967)
 scale = Vector2(2.6749794, 2.6749794)
 sprite_frames = SubResource("SpriteFrames_yrq7p")
 frame = 14
 frame_progress = 1.0
+
+[node name="Container" type="AspectRatioContainer" parent="." unique_id=1416149333]
+clip_contents = true
+offset_left = 1048.16
+offset_top = 55.43
+offset_right = 1090.79
+offset_bottom = 106.604996
+
+[node name="FLAG" type="Sprite2D" parent="Container" unique_id=818805495]
+position = Vector2(3.8399658, 41.569992)
+scale = Vector2(4.5858293, 4.5858293)
+texture = ExtResource("37_vppda")
 
 [connection signal="pressed" from="PauseMenu/Back" to="PauseMenu" method="_on_back_pressed"]
 [connection signal="pressed" from="PauseMenu/Settings" to="PauseMenu" method="_on_settings_pressed"]
