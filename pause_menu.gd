@@ -31,7 +31,7 @@ func _play_click_sound() -> void:
 		click_sound.play()
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_pressed("pause"):
+	if Input.is_action_just_pressed("pause"):
 		if get_tree().paused == false:
 			get_tree().paused = true
 			visible = true

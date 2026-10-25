@@ -28,6 +28,8 @@
 [ext_resource type="Script" uid="uid://dmqavih6vc0dh" path="res://music_manager.gd" id="26_ictha"]
 [ext_resource type="AudioStream" uid="uid://dm1x0440usf3j" path="res://sounds/music/comp 3 (ver 2).mp3" id="27_1jgrc"]
 [ext_resource type="AudioStream" uid="uid://b2bfvrjl4iqis" path="res://sounds/music/New Song (48) key is Eb major bebop.mp3" id="28_7wy67"]
+[ext_resource type="Texture2D" uid="uid://dt7ibm7at0p12" path="res://Textures/flag.png" id="29_ictha"]
+[ext_resource type="Script" uid="uid://8r4fimm4cn53" path="res://flag.gd" id="30_1jgrc"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8v41o"]
 diffuse_texture = ExtResource("2_mgb7i")
@@ -156,6 +158,13 @@ playlist = Array[AudioStream]([ExtResource("27_1jgrc"), ExtResource("28_7wy67")]
 [node name="DelayTimer" type="Timer" parent="CenterTracker/LavaDetector/CollisionShape2D/MusicManager" unique_id=674062462]
 wait_time = 40.0
 one_shot = true
+
+[node name="Flag" type="Sprite2D" parent="CenterTracker" unique_id=1747054340]
+visible = false
+scale = Vector2(4.515, 4.515)
+texture = ExtResource("29_ictha")
+script = ExtResource("30_1jgrc")
+cooldown_time = 60.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=202288614]
 position = Vector2(200, 16)

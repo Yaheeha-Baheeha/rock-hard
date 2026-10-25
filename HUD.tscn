@@ -36,6 +36,21 @@
 [ext_resource type="FontFile" uid="uid://cv01xgeioj5q4" path="res://Textures/font/RasterForgeRegular-JpBgm.ttf" id="34_d76js"]
 [ext_resource type="AudioStream" uid="uid://b1i216jjru8e5" path="res://sounds/hover.wav" id="35_m1fae"]
 [ext_resource type="AudioStream" uid="uid://d0mpkctmjaa0k" path="res://sounds/click.wav" id="36_vppda"]
+[ext_resource type="Texture2D" uid="uid://dt7ibm7at0p12" path="res://Textures/flag.png" id="37_vppda"]
+[ext_resource type="Texture2D" uid="uid://bt27h5f8njhoj" path="res://Textures/LoadingForBreak/loading-00.png" id="38_mu7qq"]
+[ext_resource type="Texture2D" uid="uid://dt4ey8r15540u" path="res://Textures/LoadingForBreak/loading-01.png" id="39_i1gw4"]
+[ext_resource type="Texture2D" uid="uid://cuke55566rfy8" path="res://Textures/LoadingForBreak/loading-02.png" id="40_pxvem"]
+[ext_resource type="Texture2D" uid="uid://b3u16b131k4pq" path="res://Textures/LoadingForBreak/loading-03.png" id="41_xmf7v"]
+[ext_resource type="Texture2D" uid="uid://dlla83nxmraxy" path="res://Textures/LoadingForBreak/loading-04.png" id="42_gxiqq"]
+[ext_resource type="Texture2D" uid="uid://0eqki122ex1d" path="res://Textures/LoadingForBreak/loading-05.png" id="43_5v1g3"]
+[ext_resource type="Texture2D" uid="uid://dghr2exdyoxg8" path="res://Textures/LoadingForBreak/loading-06.png" id="44_8ck4t"]
+[ext_resource type="Texture2D" uid="uid://blmfe6gh7h5tf" path="res://Textures/LoadingForBreak/loading-07.png" id="45_4d30u"]
+[ext_resource type="Texture2D" uid="uid://bvkkvc1lodrkx" path="res://Textures/LoadingForBreak/loading-08.png" id="46_e6gbl"]
+[ext_resource type="Texture2D" uid="uid://dgs32b76qs6iq" path="res://Textures/LoadingForBreak/loading-09.png" id="47_w1ksd"]
+[ext_resource type="Texture2D" uid="uid://dsjifotru3vvx" path="res://Textures/LoadingForBreak/loading-10.png" id="48_ih013"]
+[ext_resource type="Texture2D" uid="uid://3qb3jn0q55v5" path="res://Textures/LoadingForBreak/loading-11.png" id="49_w4mkq"]
+[ext_resource type="Texture2D" uid="uid://o6tmociyw7og" path="res://Textures/LoadingForBreak/loading-12.png" id="50_vg430"]
+[ext_resource type="Texture2D" uid="uid://bkkg7mo6t3mel" path="res://Textures/LoadingForBreak/loading-13.png" id="51_rfv4p"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2u0tw"]
 animations = [{
@@ -98,6 +113,59 @@ font_size = 15
 shader = ExtResource("33_yr2lo")
 shader_parameter/mode = 0
 shader_parameter/intensity = 1.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yrq7p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("38_mu7qq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_i1gw4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_pxvem")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_xmf7v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_gxiqq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_5v1g3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_8ck4t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_4d30u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_e6gbl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_w1ksd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_ih013")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_w4mkq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_vg430")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_rfv4p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_mu7qq")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 2.0
+}]
 
 [node name="Node2D" type="CanvasLayer" unique_id=753683486]
 process_mode = 3
@@ -390,6 +458,18 @@ bus = &"SFX"
 [node name="Click" type="AudioStreamPlayer2D" parent="." unique_id=1646704333]
 stream = ExtResource("36_vppda")
 bus = &"SFX"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=818805495]
+position = Vector2(1068.0001, 81)
+scale = Vector2(2.8400292, 2.8400292)
+texture = ExtResource("37_vppda")
+
+[node name="FlagAnimation" type="AnimatedSprite2D" parent="." unique_id=1210162645]
+position = Vector2(1067.7997, 82.79967)
+scale = Vector2(2.6749794, 2.6749794)
+sprite_frames = SubResource("SpriteFrames_yrq7p")
+frame = 14
+frame_progress = 1.0
 
 [connection signal="pressed" from="PauseMenu/Back" to="PauseMenu" method="_on_back_pressed"]
 [connection signal="pressed" from="PauseMenu/Settings" to="PauseMenu" method="_on_settings_pressed"]
